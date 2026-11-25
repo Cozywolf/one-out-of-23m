@@ -2251,7 +2251,7 @@
             "money_ratio_delta": -0.1
           },
           {
-            "weight": 0.22,
+            "weight": 0.1,
             "severity": "fatal",
             "narrative": "清明連假返鄉途中搭乘太魯閣號 408 車次，於花蓮清水隧道口撞擊工程車出軌事故中不幸罹難。",
             "fatal": true,

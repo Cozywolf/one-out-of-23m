@@ -338,7 +338,7 @@
         prob *= 1.5;
       }
 
-      prob = isIncident ? clamp(prob, 0.0005, 0.03) : clamp(prob, 0.002, 0.2);
+      prob = isIncident ? clamp(prob, 0.0005, 0.02) : clamp(prob, 0.002, 0.2);
       if (Math.random() >= prob) return null;
 
       if (isIncident) {
@@ -1383,6 +1383,105 @@
     }
 
     // For minors (age < 18), adult household crises (pandemics, major disasters) are decided by parents automatically!
+    addHardship(life, level, years) {
+      life.flags.child_hardship = clamp((life.flags.child_hardship || 0) + level, 0, 3);
+      life.flags.hardship_until = Math.max(life.flags.hardship_until || 0, life.currentYear + years);
+    }
+
+    setQuintile(life, q) {
+      life.quintile = clamp(q, 1, 5);
+      const t = this.data.regions.income_quintiles.tiers.find((x) => x.quintile === life.quintile);
+      if (t) life.quintileLabel = t.label;
+    }
+
+    // Parents make the big household calls while the protagonist is a minor; the consequences follow the child for years
+    stepChildhoodFamily(life, era) {
+      if (life.age >= 18 || life.location !== "TAIWAN") return;
+      if (life.flags.child_hardship > 0 && life.currentYear >= (life.flags.hardship_until || 0)) {
+        life.flags.child_hardship -= 1;
+        life.flags.hardship_until = life.currentYear + 3;
+      }
+      if (life.flags.child_hardship >= 2) { life.stats.health -= 0.6; life.stats.happiness -= 1; }
+      if (life.age < 2 || life.age - (life.flags.lastParentEventAge != null ? life.flags.lastParentEventAge : -10) < 4) return;
+      const y = life.currentYear;
+      const push = (title, text, impactNote) => {
+        life.flags.lastParentEventAge = life.age;
+        life.feed.unshift({ type: "parent_decision", age: life.age, year: y, roc: era.roc, title: `👨‍👩‍👧 父母的決定：${title}`, text: `當時你 ${life.age} 歲。${text}`, impactNote: `由父母決定 ｜ ${impactNote}` });
+      };
+      const crisisYear = [1974, 1975, 1982, 1985, 1998, 2001, 2002, 2008, 2009, 2020].includes(y);
+      const r = Math.random();
+      // 1. A parent loses a job / the family shop closes
+      const pJob = era.unemployment_rate * (crisisYear ? 1.5 : 0.7) * (life.quintile <= 2 ? 1.4 : life.quintile >= 4 ? 0.6 : 1);
+      if (r < pJob) {
+        const who = Math.random() < 0.65 ? "父親" : "母親";
+        const choice = weightedPick([
+          { k: "work_more", w: 0.45 }, { k: "stall", w: y < 2005 ? 0.3 : 0.15 }, { k: "move_cheap", w: life.regionId === "north_taipei" ? 0.3 : 0.15 }
+        ], (x) => x.w).k;
+        const drop = life.quintile > 1 && Math.random() < 0.4;
+        if (drop) this.setQuintile(life, life.quintile - 1);
+        this.addHardship(life, choice === "stall" ? 1 : 2, 4);
+        life.flags.uni_admit_bonus = (life.flags.uni_admit_bonus || 0) - 0.04;
+        life.stats.happiness -= 5;
+        if (choice === "work_more") {
+          push(`${who}失業後，${who === "父親" ? "母親也出去工作" : "父親多兼一份差"}`, `${who}任職的${y < 1990 ? "工廠" : "公司"}裁員，家裡收入一下少了一大截。大人決定${who === "父親" ? "讓母親也出去上班" : "由父親晚上再兼一份差"}，你放學後常一個人在家，補習和才藝課都停了。`,
+            `家境${drop ? "下滑一級" : "吃緊"} ｜ 未來幾年升學資源減少、生活較清苦`);
+        } else if (choice === "stall") {
+          life.flags.family_business = true;
+          push(`${who}失業後，擺攤做小生意`, `${who}丟了工作，父母拿出積蓄${y < 2000 ? "在市場擺攤" : "開了間小吃店"}。你下課後要幫忙顧店、洗碗，寫功課常常在攤位旁邊。`,
+            `家境${drop ? "下滑一級" : "吃緊"} ｜ 課後時間被家務占用，升學資源減少`);
+          life.stats.social += 2;
+        } else {
+          const others = this.data.regions.regions.map((x) => x.id).filter((id) => id !== life.regionId && id !== "north_taipei");
+          const dest = life.birthRegionId !== life.regionId ? life.birthRegionId : pick(others);
+          life.regionId = dest; life.flags.family_region = dest; life.migrated = dest !== life.birthRegionId;
+          life.stats.social -= 5;
+          push(`${who}失業後，全家搬到${this.getRegion(dest).name_zh}`, `${who}丟了工作，付不起原本的房租。父母決定帶全家搬去${this.getRegion(dest).name_zh}投靠親戚、省下房租，你也跟著轉學，重新認識新同學。`,
+            `改住${this.getRegion(dest).name_zh}（日後住家裡、找工作都以這裡為起點） ｜ 生活清苦、升學資源減少`);
+        }
+        return;
+      }
+      // 2. Parents move the family north for work (the classic 1960s–1990s internal migration)
+      if (Math.random() < 0.012 && y >= 1960 && y <= 2005 && !["north_taipei", "north_hsinchu"].includes(life.regionId)) {
+        const dest = Math.random() < 0.7 ? "north_taipei" : "north_hsinchu";
+        life.regionId = dest; life.flags.family_region = dest; life.migrated = true;
+        this.addHardship(life, 1, 3);
+        life.flags.uni_admit_bonus = (life.flags.uni_admit_bonus || 0) + 0.03;
+        life.stats.social -= 4;
+        push(`全家搬到${this.getRegion(dest).name_zh}打拚`, `家鄉工作機會少，父母決定帶著全家北上${y < 1985 ? "到工廠和工地找頭路" : "找工作"}。剛開始擠在小小的租屋處，但學校和補習班選擇多了很多。`,
+          `改住${this.getRegion(dest).name_zh} ｜ 頭幾年生活較擠，但日後升學與就業機會較多`);
+        return;
+      }
+      // 3. Family business / promotion pays off
+      if (Math.random() < 0.02 && life.quintile < 5 && y >= 1965 && y <= 1997) {
+        this.setQuintile(life, life.quintile + 1);
+        life.flags.child_hardship = 0;
+        life.stats.happiness += 4;
+        push(y < 1985 ? "接外銷訂單，家裡做起家庭代工" : "把握景氣，家裡的小生意做起來了", `${y < 1985 ? "父母在客廳接外銷代工、日夜趕工" : "父母抓住景氣好的那幾年擴大生意"}，家裡的經濟明顯寬裕，買了新家電，也開始送你去補習。`,
+          "家境提升一級 ｜ 日後的補習、升學與成家時，家裡較有餘力支援");
+        return;
+      }
+      // 4. Parents divorce
+      const pDiv = y < 1985 ? 0.002 : y < 2000 ? 0.005 : 0.007;
+      if (Math.random() < pDiv && !life.flags.parents_divorced) {
+        life.flags.parents_divorced = true;
+        this.addHardship(life, 1, 5);
+        life.stats.happiness -= 10;
+        const withMom = Math.random() < 0.6;
+        push("離婚", `父母長期不合，最後決定離婚，你跟著${withMom ? "母親" : "父親"}生活。家裡少了一份收入，${withMom ? "母親" : "父親"}一個人撐起家計。`,
+          "幸福 -10 ｜ 單親家庭，往後幾年生活較吃緊");
+        return;
+      }
+      // 5. Parents with means pick a better school district
+      if (Math.random() < 0.06 * (life.quintile - 2) && life.quintile >= 3 && y >= 1975 && (life.age === 6 || life.age === 12) && !life.flags.school_district_move) {
+        life.flags.school_district_move = true;
+        life.flags.uni_admit_bonus = (life.flags.uni_admit_bonus || 0) + 0.04;
+        life.flags.hs_exam_bonus = (life.flags.hs_exam_bonus || 0) + 3;
+        life.stats.social -= 2;
+        push("越區就讀明星學校", `父母把你的戶籍遷到親戚家，讓你${life.age === 6 ? "越區念明星國小" : "越區念升學率高的國中"}。每天要早起搭車，班上競爭也更激烈。`,
+          "升學考試與大學錄取機會提高 ｜ 通勤辛苦、離開原本的朋友");
+      }
+    }
+
     resolveMinorHouseholdCrisis(life, era) {
       if (life.age >= 18 || life.location !== "TAIWAN") return;
 
@@ -1397,6 +1496,7 @@
         if (parentsStayHome) {
           life.flags.pandemic_exposure_mult = 0.45;
           life.stats.happiness -= 4;
+          if (life.quintile <= 3) this.addHardship(life, 1, 2);
           life.feed.unshift({
             type: "parent_decision",
             age: life.age, year: life.currentYear, roc: era.roc,
@@ -1433,7 +1533,9 @@
             const destId = pick(otherIds);
             const destReg = this.getRegion(destId);
             life.regionId = destId;
+            life.flags.family_region = destId;
             life.migrated = destId !== life.birthRegionId;
+            this.addHardship(life, 1, 3);
             life.stats.happiness -= 6;
             life.stats.social -= 7;
             life.feed.unshift({
@@ -1441,18 +1543,19 @@
               age: life.age, year: life.currentYear, roc: era.roc,
               title: `👨‍👩‍👧 父母的決定：災後舉家搬遷至${destReg.name_zh}`,
               text: `當時你才 ${life.age} 歲，遭遇${activeDisaster.disaster_name || activeDisaster.title}重創家園後，父母徹夜商量決定帶著全家搬離受災地，前往${destReg.name_zh}重新開始。你被迫告別熟悉的家鄉與玩伴，重新適應陌生環境。`,
-              impactNote: `由父母代為決定：遷居${destReg.name_zh} ｜ 幸福 -6 ｜ 人際 -7`
+              impactNote: `由父母代為決定：遷居${destReg.name_zh}（日後住家裡、找工作以這裡為起點） ｜ 幸福 -6 ｜ 人際 -7 ｜ 頭幾年生活清苦`
             });
           } else {
             life.stats.happiness -= 6;
             life.stats.health -= 2;
             life.stats.social += 4;
+            this.addHardship(life, life.quintile <= 3 ? 2 : 1, 3);
             life.feed.unshift({
               type: "parent_decision",
               age: life.age, year: life.currentYear, roc: era.roc,
               title: `👨‍👩‍👧 父母的決定：災後留在故鄉原地重建`,
               text: `當時你才 ${life.age} 歲，家裡在${activeDisaster.disaster_name || activeDisaster.title}中受損，父母決定咬牙申請補助、留在故鄉與街坊鄰居一起整理家園原地重建。雖然生活一度克難，但鄰里互助讓你留下深刻記憶。`,
-              impactNote: "由父母代為決定：留守原鄉重建 ｜ 幸福 -6 ｜ 健康 -2 ｜ 人際 +4"
+              impactNote: "由父母代為決定：留守原鄉重建 ｜ 幸福 -6 ｜ 健康 -2 ｜ 人際 +4 ｜ 重建期間家計吃緊、升學資源減少"
             });
           }
       }
@@ -1666,6 +1769,12 @@
       }
       if (opt.requires_edu_min && life.eduLevel < opt.requires_edu_min) {
         return { eligible: false, reason: "須具高中職以上學歷方可報考" };
+      }
+      if ((opt.key === "cram_study" || opt.key === "sports_arts") && (life.flags.child_hardship || 0) >= 2) {
+        return { eligible: false, reason: "家裡經濟吃緊，父母沒辦法負擔補習或才藝課" };
+      }
+      if (["enter_junior", "enter_top_hs", "enter_normal_hs"].includes(opt.key) && (life.flags.child_hardship || 0) >= 2 && life.quintile <= 2 && life.currentYear < 1985) {
+        return { eligible: false, reason: "家裡經濟吃緊，父母要你改念學費較低、能早點就業的學校，或先去工作貼補家用" };
       }
       if (opt.requires_knowledge_min && life.stats.knowledge < opt.requires_knowledge_min) {
         return { eligible: false, reason: `需知識屬性達 ${opt.requires_knowledge_min} 以上（目前 ${life.stats.knowledge}）` };
@@ -1886,7 +1995,8 @@
         },
         D19_have_children: () => {
           const want = life.children < life.desiredKids;
-          return { have_child: want ? 0.82 : 0.03, not_now: want ? 0.18 : 0.25, dink_pets: want ? 0.0 : 0.72 };
+          const tries = life.flags.infertile_tries || 0;
+          return { have_child: want ? (tries >= 2 ? 0.45 : 0.82) : 0.03, not_now: want ? 0.18 : 0.25, dink_pets: want ? (tries >= 3 ? 0.3 : 0) : 0.72, ivf: want ? 0.3 : 0, adopt: want ? 0.06 : 0 };
         },
         D14_financial_trap: () => ({
           reject: isCautious ? 0.95 : hasRisk ? 0.6 : 0.84,
@@ -2770,7 +2880,7 @@
       }
 
       life.flags.lives_with_parents = life.location === "TAIWAN" && !life.homeowner && life.family.parentsAlive &&
-        life.regionId === life.birthRegionId && !life.flags.moved_out;
+        life.regionId === (life.flags.family_region || life.birthRegionId) && !life.flags.moved_out;
 
       // 3. Education milestones (Taiwan or Overseas)
       if (life.location === "TAIWAN") {
@@ -2793,8 +2903,9 @@
           const takeRate = life.flags.hs_tier === "vocational"
             ? this.interpByYear([[1965, 0.06], [1985, 0.1], [1995, 0.24], [2005, 0.56], [2015, 0.62]], yr)
             : this.interpByYear([[1965, 0.55], [1985, 0.68], [1995, 0.85], [2005, 0.88]], yr);
-          if (Math.random() > takeRate) return false;
-          const chance = clamp(era.uni_admission_rate + (life.stats.knowledge - 50) * 0.006 + (life.quintile - 3) * 0.04 + tierBonus + stageBonus + bonus, 0.06, 0.99);
+          if (Math.random() > takeRate * (1 - (life.flags.child_hardship || 0) * 0.08)) return false;
+          const hardship = (life.flags.child_hardship || 0) * 0.05;
+          const chance = clamp(era.uni_admission_rate + (life.stats.knowledge - 50) * 0.006 + (life.quintile - 3) * 0.04 + tierBonus + stageBonus + bonus - hardship, 0.06, 0.99);
           return Math.random() < chance;
         };
         if (life.age === 18 && life.eduLevel === 3 && life.flags.max_edu_cap !== "junior_high" && !life.flags.uni_checked) {
@@ -3294,6 +3405,7 @@
 
       // 7A. Parental auto-decisions for minors (age < 18) facing adult household crises
       this.resolveMinorHouseholdCrisis(life, era);
+      this.stepChildhoodFamily(life, era);
 
       // 7B. Ambient Peer Vignettes (偶爾顯示符合時代的周圍人物切片)
       this.maybeTriggerAmbientPeer(life, era);
@@ -3393,7 +3505,7 @@
       ) || sys.eras[sys.eras.length - 1];
 
       const cramBonus = life.flags.hs_exam_bonus || 0;
-      const quintileBonus = (life.quintile - 3) * 3.5;
+      const quintileBonus = (life.quintile - 3) * 3.5 - (life.flags.child_hardship || 0) * 3;
       const personalityBonus = (life.personalities || []).some((p) => p.id === "cautious" || p.id === "workaholic") ? 3 : 0;
       const randomSwing = (Math.random() - 0.5) * 18;
       const score = clamp(Math.round(life.stats.knowledge + cramBonus + quintileBonus + personalityBonus + randomSwing), 15, 100);
@@ -3777,6 +3889,17 @@
           resolvedDesc = `你家在${life.flags.lastDisasterName}中受損。${life.homeowner ? "房子需要花一大筆錢修復。" : "租的房子暫時不能住人。"}要留下來重建，還是搬到別的地方？`;
         }
         if (d.id === "D19_have_children") {
+          const pNat = this.getConceptionProb(life, false);
+          const who = life.sex === "F" ? "你" : (life.spouse ? life.spouse.name : "太太");
+          resolvedDesc = `${life.married && life.spouse ? `你和${life.spouse.name}` : "你們"}討論要不要${life.children > 0 ? "再" : ""}生孩子。以${who}目前 ${this.getMotherAge(life)} 歲來看，努力一年懷孕成功的機率約 ${Math.round(pNat * 100)}%。`;
+          resolvedOptions = resolvedOptions.map((o) => o.key === "have_child" ? { ...o, era_labels: null, label: `${life.children > 0 ? "再生一個" : "決定生育下一代"}（今年成功機率約 ${Math.round(pNat * 100)}%${life.currentYear >= 2026 ? "，每胎補助 10 萬元" : ""}）` } : o);
+          if ((life.flags.infertile_tries || 0) >= 2) {
+            if (life.currentYear >= 1985) {
+              const cost = Math.round(220000 * this.wageScale(era) * era.cpi);
+              resolvedOptions = resolvedOptions.concat([{ key: "ivf", label: `求助生殖醫學（人工生殖療程約 NT$${Math.round(cost / 10000)} 萬，今年成功機率約 ${Math.round(this.getConceptionProb(life, true) * 100)}%）`, effects: { children_delta: 1, ivf: true } }]);
+            }
+            resolvedOptions = resolvedOptions.concat([{ key: "adopt", label: "考慮收養孩子", effects: { adopt_child: true } }]);
+          }
           if (life.children > 0) {
             resolvedTitle = `要再生一個嗎？（目前 ${life.children} 個孩子）`;
             resolvedOptions = resolvedOptions.map((o) => o.key === "dink_pets" ? { ...o, label: "這樣就好，不再生了", era_labels: null, effects: { no_more_kids: true, happiness: 2 } }
@@ -3914,6 +4037,19 @@
         return this.findEligibleDecision(life, era, false, false, true, ["D07_career_track"]);
       }
       return null;
+    }
+
+    getMotherAge(life) {
+      return life.sex === "F" ? life.age : (life.spouse ? life.currentYear - life.spouse.birthYear : life.age - 2);
+    }
+
+    // Chance a couple trying for one year has a baby (natural or with assisted reproduction)
+    getConceptionProb(life, ivf = false) {
+      const m = this.getMotherAge(life);
+      let p = m < 30 ? 0.9 : m < 33 ? 0.85 : m < 36 ? 0.74 : m < 38 ? 0.6 : m < 40 ? 0.46 : m < 42 ? 0.28 : m < 44 ? 0.12 : 0.03;
+      if (life.flags.infertile_tries >= 2) p *= 0.75;
+      if (ivf) p = clamp(Math.max(p, m < 35 ? 0.6 : m < 38 ? 0.5 : m < 40 ? 0.38 : m < 42 ? 0.22 : 0.08) * 1.1, 0.05, 0.7);
+      return p;
     }
 
     applyDecision(life, decision, optionKey, era) {
@@ -4451,15 +4587,35 @@
       let birthOk = true;
       if (decision.id === "D19_have_children") {
         delete life.triggeredDecisions["D19_have_children"];
+        if (ef.adopt_child) {
+          life.children += 1;
+          life.childrenBirthYears = life.childrenBirthYears || [];
+          life.childrenBirthYears.push(life.currentYear - 1);
+          life.flags.infertile_tries = 0;
+          life.stats.happiness += 8;
+          extraLog = "（經過訪視與法院認可，你們收養了一個孩子，家裡多了一份牽掛）";
+        }
+        if (ef.ivf) {
+          this.spendLiquid(life, Math.round(220000 * this.wageScale(era) * era.cpi));
+          life.stats.health -= 2;
+        }
         if (ef.postpone_child) { life.flags.next_child_ask_age = life.age + 2; birthOk = false; }
         if (ef.no_more_kids) { life.flags.no_more_kids = true; birthOk = false; }
         if (ef.children_delta) {
-          const motherAge = life.sex === "F" ? life.age : (life.spouse ? life.currentYear - life.spouse.birthYear : life.age - 2);
-          const okProb = motherAge < 33 ? 0.94 : motherAge < 37 ? 0.78 : motherAge < 40 ? 0.55 : motherAge < 43 ? 0.28 : 0.06;
+          const okProb = this.getConceptionProb(life, Boolean(ef.ivf));
           if (Math.random() > okProb) {
             birthOk = false;
             life.flags.next_child_ask_age = life.age + 1;
-            extraLog = "（努力了一年還沒有好消息，你們決定順其自然）";
+            life.flags.infertile_tries = (life.flags.infertile_tries || 0) + 1;
+            life.stats.happiness -= 3;
+            const tries = life.flags.infertile_tries;
+            extraLog = `（這一年${ef.ivf ? "做了人工生殖療程，" : "努力了一整年，"}還是沒有懷孕。以 ${this.getMotherAge(life)} 歲來說，一年內成功的機率約 ${Math.round(okProb * 100)}%${tries >= 2 ? (life.currentYear >= 1985 ? "；已連續落空，下次可以考慮求助生殖醫學或收養" : "；已連續落空，下次可以考慮收養") : ""}）`;
+            life.feed.unshift({
+              type: "normal", age: life.age, year: life.currentYear, roc: era.roc, highlight: true,
+              text: `🍼 想要孩子，但今年還沒有好消息（第 ${tries} 次落空）。${this.getMotherAge(life) >= 38 ? "年紀越大，懷孕的機率下降得越快。" : "不少夫妻都要試上一兩年才成功。"}`
+            });
+          } else {
+            life.flags.infertile_tries = 0;
           }
         }
       }
