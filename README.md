@@ -3,7 +3,6 @@
 > 參照 [1in8b.life](https://1in8b.life/) 模擬精神與 [rollroyces/born-somewhere](https://github.com/rollroyces/born-somewhere) 架構改編，專注於 **台灣六大區域 × 跨年代（1950–2110+）** 的微觀人生模擬器。
 
 線上試玩：[https://cozywolf.github.io/one-out-of-23m/](https://cozywolf.github.io/one-out-of-23m/)  
-教學防雷版（預設關閉重大惡性社會事件）：`https://cozywolf.github.io/one-out-of-23m/?edu=1`
 ---
 
 ## 一、簡單遊玩說明
