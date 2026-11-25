@@ -23,6 +23,7 @@
     autoMode: false,
     eduMode: new URLSearchParams(location.search).get("edu") === "1", // true = 重大惡性社會事件：關閉
     historicalMode: false, // 僅在 !eduMode（重大惡性社會事件：開啟）時可進一步開啟
+    showAllHistoricalEvents: false, // 預設關閉：每 2–3 年隨機顯示 1 則台灣歷史事件
     showEnNotes: false,
     themeIdx: 0,
     themes: ["", "theme-dark", "theme-sepia"],
@@ -30,7 +31,9 @@
     selectedRegionId: "north_taipei",
     selectedYear: "random",
     pendingDecision: null,
+    pendingPause: null,
     followUpDecision: null,
+    wasPausedBeforeInfoModal: null,
     inspectedRegionId: null,
     obituaryLife: null,
     memorialIdx: 0,
@@ -44,17 +47,19 @@
       return window.TW_DATA;
     }
     const map = {
-      regions: "data/tw_regions.json",
-      eras: "data/tw_eras.json",
-      lifetable: "data/tw_lifetable.json",
-      events: "data/tw_events_history.json",
-      decisions: "data/tw_decisions.json",
-      names: "data/tw_names.json",
-      educationCareers: "data/tw_education_careers.json",
-      cultureEras: "data/tw_culture_eras.json",
-      studyAbroad: "data/tw_study_abroad.json",
-      lifeStages: "data/tw_life_stages.json",
-      marketHistory: "data/tw_market_history.json"
+      regions: "./data/tw_regions.json",
+      eras: "./data/tw_eras.json",
+      lifetable: "./data/tw_lifetable.json",
+      events: "./data/tw_events_history.json",
+      decisions: "./data/tw_decisions.json",
+      names: "./data/tw_names.json",
+      educationCareers: "./data/tw_education_careers.json",
+      cultureEras: "./data/tw_culture_eras.json",
+      studyAbroad: "./data/tw_study_abroad.json",
+      lifeStages: "./data/tw_life_stages.json",
+      marketHistory: "./data/tw_market_history.json",
+      ambientPeers: "./data/tw_ambient_peers.json",
+      futureForecasts: "./data/tw_future_forecasts.json"
     };
     try {
       const entries = await Promise.all(
@@ -74,21 +79,64 @@
     }
   }
 
-  function closeAllModals(resumeIfRunning) {
+  function openInfoModal(id) {
+    const el = $(id);
+    if (!el) return;
+    if (state.life && state.life.alive && state.wasPausedBeforeInfoModal === null) {
+      state.wasPausedBeforeInfoModal = state.paused;
+      state.paused = true;
+      syncPlaybackControls();
+    }
+    el.hidden = false;
+  }
+
+  function closeInfoModal(id) {
+    const el = $(id);
+    if (el) el.hidden = true;
+    const anyStillOpen = ["decisionModal", "pauseModal", "hukouModal", "helplineModal", "historicalConfirmModal", "endEarlyModal"]
+      .some((mid) => { const m = $(mid); return m && !m.hidden; });
+    if (!anyStillOpen && state.wasPausedBeforeInfoModal !== null) {
+      const prev = state.wasPausedBeforeInfoModal;
+      state.wasPausedBeforeInfoModal = null;
+      if (state.life && state.life.alive) {
+        state.paused = prev;
+        if (!state.paused) state.lastFrameTs = performance.now();
+        syncPlaybackControls();
+      }
+    }
+  }
+
+  function closeAllModals(resumeIfRunning, preservePending = false) {
     ["decisionModal", "pauseModal", "hukouModal", "helplineModal", "historicalConfirmModal", "endEarlyModal"].forEach((id) => {
       const el = $(id);
       if (el) el.hidden = true;
     });
-    state.pendingDecision = null;
-    state.followUpDecision = null;
+    state.wasPausedBeforeInfoModal = null;
+    if (!preservePending) {
+      state.pendingDecision = null;
+      state.pendingPause = null;
+      state.followUpDecision = null;
+    }
     if (resumeIfRunning && state.life && state.life.alive) {
       state.paused = false;
+      state.lastFrameTs = performance.now();
       syncPlaybackControls();
     }
   }
 
   function switchView(name) {
-    closeAllModals(false);
+    // U03 Fix: Guard empty life / obituary views before starting or ending a life
+    if (name === "life" && !state.life) {
+      showToast("請先在首頁點「開始這一段台灣人生」！");
+      return;
+    }
+    if (name === "end" && !state.obituaryLife && (!state.life || state.life.alive)) {
+      showToast("尚無已結束的人生訃聞，請先走完一段人生或至書架查看");
+      return;
+    }
+
+    // U02 Fix: Preserve pendingDecision / pendingPause when leaving #view-life temporarily
+    closeAllModals(false, true);
     if (name !== "life") state.paused = true;
     document.querySelectorAll(".view").forEach((v) => v.classList.remove("active"));
     const el = $("view-" + name);
@@ -97,6 +145,17 @@
       b.classList.toggle("active", b.dataset.view === name);
     });
     if (name === "shelf") renderShelf();
+
+    // U02 Fix: Automatically restore pending pause or decision modal when returning to #view-life
+    if (name === "life" && state.life && state.life.alive) {
+      if (state.pendingPause) {
+        state.paused = true;
+        showPauseModal(state.pendingPause, state.followUpDecision);
+      } else if (state.pendingDecision) {
+        state.paused = true;
+        showDecisionModal(state.pendingDecision);
+      }
+    }
     syncPlaybackControls();
   }
 
@@ -139,6 +198,11 @@
 
     $("eduBadge").hidden = majorOn;
     $("eduBannerIntro").hidden = majorOn;
+    const allHistBtn = $("btnIntroAllHistToggle");
+    if (allHistBtn) {
+      allHistBtn.setAttribute("aria-pressed", String(state.showAllHistoricalEvents));
+      allHistBtn.textContent = state.showAllHistoricalEvents ? "📚 顯示所有歷史事件：開" : "📚 顯示所有歷史事件：關";
+    }
     $("histBadge").hidden = !state.historicalMode;
     $("histBannerIntro").hidden = !state.historicalMode;
 
@@ -164,7 +228,7 @@
       syncTopToggles();
     } else {
       // 開啟前顯示指定警語供最終確認
-      $("historicalConfirmModal").hidden = false;
+      openInfoModal("historicalConfirmModal");
     }
   }
 
@@ -323,7 +387,7 @@
 
   function advanceOneYear() {
     if (!state.life || !state.life.alive) return;
-    const res = state.engine.stepYear(state.life, { eduMode: state.eduMode, historicalMode: state.historicalMode, autoMode: state.autoMode });
+    const res = state.engine.stepYear(state.life, { eduMode: state.eduMode, historicalMode: state.historicalMode, autoMode: state.autoMode, showAllHistoricalEvents: state.showAllHistoricalEvents });
     renderLifeAll();
 
     if (res.ended) {
@@ -425,6 +489,43 @@
         ? `💰 ${totalNom < 0 ? "-" : ""}${absWan.toLocaleString()}萬`
         : `💰 ${fmtTWD(totalNom)}`;
     }
+    const annSal = l.annualSalaryNominal || 0;
+    const moSal = Math.round(annSal / 12);
+    const annSalReal = Math.round(annSal / Math.max(0.07, era.cpi));
+    if (annSal > 0) {
+      const salTag = l.flags.retired ? "月領年金 " : (l.flags.military_gap_years > 0 ? "月餉 " : "月薪 ");
+      $("valSalaryMonthly").textContent = `${salTag}${fmtTWD(moSal)}`;
+      $("valSalaryAnnualReal").textContent = `年收 ${fmtTWD(annSal)}（2025 購買力 ${fmtTWD(annSalReal)}）`;
+    } else {
+      const noSalText = l.age < 6 ? "學齡前（無收入）"
+        : l.age < 18 ? ((l.flags.part_time_job || l.flags.vocational_coop) ? "打工／建教零用金" : "在學中（僅小額零用錢）")
+        : l.education.includes("在學") ? ((l.flags.part_time_job || l.flags.uni_parttime) ? "大學打工（無全職薪）" : "在學中（無全職薪資）")
+        : l.flags.fulltime_caregiver ? "全職照護中（無薪）" : "待業／無全職薪資";
+      $("valSalaryMonthly").textContent = noSalText;
+      $("valSalaryAnnualReal").textContent = l.lastYearIncomeNominal > 0
+        ? `本年零用／打工收入 ${fmtTWD(l.lastYearIncomeNominal)}`
+        : "年薪 NT$0";
+    }
+    const netCf = l.lastYearNetCashflowNominal || 0;
+    $("cashflowBreakdown").textContent = `本年收支：收入 ${fmtTWD(l.lastYearIncomeNominal || 0)} － 支出 ${fmtTWD(l.lastYearExpenseNominal || 0)} ＝ ${netCf >= 0 ? "+" : ""}${fmtTWD(netCf)}` +
+      (l.lastYearForcedStockSell > 0 ? `（賣股補貼 ${fmtTWD(l.lastYearForcedStockSell)}）` : "");
+
+    const sh = l.salaryHistory || [];
+    const shDetails = $("salaryHistoryDetails");
+    if (sh.length > 0 && shDetails) {
+      shDetails.hidden = false;
+      $("salaryHistoryCount").textContent = sh.length;
+      $("salaryHistoryList").innerHTML = sh.slice(0, 8).map((r) => {
+        if (r.isFutureMult) {
+          return `<li><b>${r.age}歲 · ${r.choice.slice(0, 14)}</b><span>起薪倍率 ${r.pctStr}</span></li>`;
+        }
+        const cls = r.deltaMonthly >= 0 ? "is-up" : "is-down";
+        return `<li><b>${r.age}歲 · ${r.choice.slice(0, 14)}</b><span class="${cls}">${fmtTWD(r.beforeMonthly)}→${fmtTWD(r.afterMonthly)} (${r.pctStr})</span></li>`;
+      }).join("");
+    } else if (shDetails) {
+      shDetails.hidden = true;
+    }
+
     $("assetBreakdown").textContent = `現金 ${fmtTWD(l.moneyNominal)} ｜ 台股 ${fmtTWD(l.stockNominal)}` +
       (l.homeowner ? ` ｜ 房淨值 ${fmtTWD(homeEq)}（房貸 ${fmtTWD(l.mortgageBalanceNominal)}）` : " ｜ 無自住房產");
 
@@ -455,11 +556,11 @@
     }
 
     const img = $("lifeIllusImg");
-    img.src = l.location !== "TAIWAN" ? "assets/illus-world-people.jpg"
-      : l.age < 12 ? "assets/illus-baby-book.jpg"
-      : l.age < 35 ? "assets/illus-time-seed.jpg"
-      : l.age < 65 ? "assets/illus-home-cat.jpg"
-      : "assets/illus-elder-hill.jpg";
+    img.src = l.location !== "TAIWAN" ? "./assets/illus-world-people.jpg"
+      : l.age < 12 ? "./assets/illus-baby-book.jpg"
+      : l.age < 35 ? "./assets/illus-time-seed.jpg"
+      : l.age < 65 ? "./assets/illus-home-cat.jpg"
+      : "./assets/illus-elder-hill.jpg";
 
     const switches = state.engine.getActiveSwitches(l.currentYear);
     $("activeSwitches").innerHTML = switches.length
@@ -559,10 +660,12 @@
               </summary>
               <div class="edu-event-body">
                 <p class="eec-fact">${item.summary}</p>
-                <div class="eec-aftermath">
-                  <strong>📌 這件事改變了台灣什麼（制度與社會餘波）</strong>
-                  ${item.aftermath}
-                </div>
+                <details class="eec-aftermath-spoiler">
+                  <summary>📌 查看後世制度與社會餘波（可能含後續年份發展）</summary>
+                  <div class="eec-aftermath" style="margin-top:6px;">
+                    ${item.aftermath}
+                  </div>
+                </details>
                 ${state.showEnNotes && item.cultural_footnote_en ? `
                   <div class="eec-en-note"><strong>EN Cultural Footnote:</strong>${item.cultural_footnote_en}</div>` : ""}
                 <div class="eec-footer"><span>資料出處：${(item.sources || []).join("、")}</span></div>
@@ -611,6 +714,53 @@
           </article>
         `;
       }
+      if (item.type === "future_forecast") {
+        const ffKey = `ff_${item.id || item.title}_${item.year}`;
+        const isOpen = Boolean(state.expandedEvents[ffKey]);
+        const impactHtml = (item.impactNotes && item.impactNotes.length)
+          ? `<div class="ff-impacts"><strong>⚡ 對你的實際影響：</strong>${item.impactNotes.join(" ｜ ")}</div>`
+          : "";
+        return `
+          <article class="edu-event-card is-collapsible is-future-forecast">
+            <details class="edu-event-details" data-evkey="${ffKey}" ${isOpen ? "open" : ""}>
+              <summary class="edu-event-summary">
+                ${item.overseasWire ? `<div class="eec-wire-badge">📡 跨海未來快訊 · 透過「${item.commChannel}」傳來</div>` : ""}
+                <div class="eec-header" style="margin-bottom:2px;">
+                  <span class="eec-year-badge is-future-badge">${item.year}（${item.roc}）· 你 ${item.age} 歲</span>
+                  <span class="eec-cat-badge is-future-cat">🔮 台灣未來預測</span>
+                </div>
+                <div class="eec-summary-title-row">
+                  <h5 class="eec-title">${item.title}</h5>
+                  <span class="eec-toggle-hint" aria-hidden="true"></span>
+                </div>
+              </summary>
+              <div class="edu-event-body">
+                <p class="eec-fact">${item.summary}</p>
+                ${impactHtml}
+                <div class="eec-aftermath is-future-aftermath">
+                  <strong>🔭 可能的制度與社會影響（未來推演）</strong>
+                  ${item.aftermath}
+                </div>
+                ${state.showEnNotes && item.cultural_footnote_en ? `
+                  <div class="eec-en-note"><strong>EN Forecast Note:</strong>${item.cultural_footnote_en}</div>` : ""}
+                <div class="eec-footer"><span>${item.trend_basis}</span></div>
+              </div>
+            </details>
+          </article>
+        `;
+      }
+      if (item.type === "peer_vignette") {
+        return `
+          <article class="peer-vignette-card">
+            <div class="feed-item-head">
+              <span class="pv-tag">🕊 周圍人的身影 · ${item.relation}</span>
+              <span>${item.age} 歲 · ${item.year}（${item.roc}）</span>
+            </div>
+            <div class="pv-text">${item.text}</div>
+            ${item.historical_note ? `<div class="pv-hist-note">📎 時代數據參照：${item.historical_note}</div>` : ""}
+          </article>
+        `;
+      }
       if (item.type === "custom_card") {
         return `
           <div class="custom-event-card">
@@ -625,6 +775,7 @@
         <div class="feed-item ${item.highlight ? "is-highlight" : ""}">
           <div class="feed-item-head"><span>${item.age} 歲</span><span>${item.year}（${item.roc}）</span></div>
           <div>${item.text}</div>
+          ${item.salaryDeltaBadge ? `<div class="salary-delta-pill">${item.salaryDeltaBadge}</div>` : ""}
           ${!state.eduMode && item.showHelpline ? helplineHtml : ""}
         </div>
       `;
@@ -1099,7 +1250,8 @@
       const btn = document.createElement("button");
       btn.className = "tw-region-card";
       btn.disabled = !check.eligible;
-      btn.innerHTML = `<div class="tw-rc-name">${opt.label}</div>` +
+      const displayLabel = state.engine.resolveEraLabel(opt, state.life.currentYear);
+      btn.innerHTML = `<div class="tw-rc-name">${displayLabel}</div>` +
         (!check.eligible ? `<div class="tw-lock-reason">🔒 ${check.reason}</div>` : "");
       if (check.eligible) {
         btn.addEventListener("click", () => {
@@ -1107,6 +1259,7 @@
           $("decisionModal").hidden = true;
           state.pendingDecision = null;
           state.paused = false;
+          state.lastFrameTs = performance.now();
           renderLifeAll();
         });
       }
@@ -1116,6 +1269,7 @@
   }
 
   function showPauseModal(pq, followUpDecision) {
+    state.pendingPause = pq;
     state.followUpDecision = followUpDecision || null;
     $("pauseAgeTag").textContent = `${pq.age} 歲的暫停提問`;
     $("pauseQuestion").textContent = pq.question_zh;
@@ -1125,10 +1279,15 @@
       const txt = $("pauseInput").value.trim();
       if (txt && state.life) state.life.reflections.push({ age: pq.age, year: state.life.currentYear, question: pq.question_zh, text: txt });
       $("pauseModal").hidden = true;
+      state.pendingPause = null;
       const nextDec = state.followUpDecision;
       state.followUpDecision = null;
       if (nextDec) showDecisionModal(nextDec);
-      else { state.paused = false; renderLifeAll(); }
+      else {
+        state.paused = false;
+        state.lastFrameTs = performance.now();
+        renderLifeAll();
+      }
     };
   }
 
@@ -1153,7 +1312,7 @@
         <tr><th>時代與氛圍</th><td>${era.era_summary}${cult ? "｜" + cult.family_gender_norm : ""}</td></tr>
       </table>
     `;
-    $("hukouModal").hidden = false;
+    openInfoModal("hukouModal");
   }
 
   function renderObituary(l) {
@@ -1359,15 +1518,23 @@
     $("btnHistoricalToggle").addEventListener("click", handleToggleHistoricalMode);
     $("btnIntroHistToggle").addEventListener("click", handleToggleHistoricalMode);
     $("btnDisableHistBanner").addEventListener("click", () => { state.historicalMode = false; syncTopToggles(); });
-    $("btnHistCancel").addEventListener("click", () => { $("historicalConfirmModal").hidden = true; });
+    $("btnHistCancel").addEventListener("click", () => closeInfoModal("historicalConfirmModal"));
     $("btnHistConfirm").addEventListener("click", () => {
       if (!state.eduMode) {
         state.historicalMode = true;
       }
-      $("historicalConfirmModal").hidden = true;
+      closeInfoModal("historicalConfirmModal");
       syncTopToggles();
     });
     $("btnEnToggle").addEventListener("click", () => { state.showEnNotes = !state.showEnNotes; syncTopToggles(); });
+    const allHistBtnEl = $("btnIntroAllHistToggle");
+    if (allHistBtnEl) {
+      allHistBtnEl.addEventListener("click", () => {
+        state.showAllHistoricalEvents = !state.showAllHistoricalEvents;
+        syncTopToggles();
+        showToast(state.showAllHistoricalEvents ? "已開啟：將顯示所有台灣歷史事件" : "已關閉：每 2–3 年隨機顯示 1 則台灣歷史事件", 1800);
+      });
+    }
     $("btnThemeTop").addEventListener("click", () => {
       document.body.classList.remove("theme-dark", "theme-sepia");
       state.themeIdx = (state.themeIdx + 1) % state.themes.length;
@@ -1487,9 +1654,9 @@
     });
     $("focusSelect").addEventListener("change", (e) => { if (state.life) state.life.focus = e.target.value; });
     $("btnHukou").addEventListener("click", showHukouModal);
-    $("btnCloseHukou").addEventListener("click", () => ($("hukouModal").hidden = true));
-    $("btnOpenHelpline").addEventListener("click", () => ($("helplineModal").hidden = false));
-    $("btnCloseHelpline").addEventListener("click", () => ($("helplineModal").hidden = true));
+    $("btnCloseHukou").addEventListener("click", () => closeInfoModal("hukouModal"));
+    $("btnOpenHelpline").addEventListener("click", () => openInfoModal("helplineModal"));
+    $("btnCloseHelpline").addEventListener("click", () => closeInfoModal("helplineModal"));
     $("btnRunLab").addEventListener("click", renderLabComparison);
     $("btnClearShelf").addEventListener("click", () => {
       try { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(MEMORIAL_KEY); } catch (_) {}
@@ -1567,16 +1734,21 @@
       }
 
       if (e.key !== "Escape") return;
-      if (!$("hukouModal").hidden) { $("hukouModal").hidden = true; return; }
-      if (!$("helplineModal").hidden) { $("helplineModal").hidden = true; return; }
-      if (!$("historicalConfirmModal").hidden) { $("historicalConfirmModal").hidden = true; return; }
+      if (!$("hukouModal").hidden) { closeInfoModal("hukouModal"); return; }
+      if (!$("helplineModal").hidden) { closeInfoModal("helplineModal"); return; }
+      if (!$("historicalConfirmModal").hidden) { closeInfoModal("historicalConfirmModal"); return; }
       if (!$("endEarlyModal").hidden) { cancelEndEarlyModal(); return; }
       if (!$("pauseModal").hidden) {
         $("pauseModal").hidden = true;
+        state.pendingPause = null;
         const nextDec = state.followUpDecision;
         state.followUpDecision = null;
         if (nextDec) showDecisionModal(nextDec);
-        else if (state.life && state.life.alive) { state.paused = false; syncPlaybackControls(); }
+        else if (state.life && state.life.alive) {
+          state.paused = false;
+          state.lastFrameTs = performance.now();
+          syncPlaybackControls();
+        }
       }
     });
   }
@@ -1592,7 +1764,7 @@
     } catch (err) {
       document.body.innerHTML = `<div style="padding:32px;font-family:sans-serif;">
         <h2>本機載入資料失敗</h2><p>${err.message}</p>
-        <p>請確認 <code>data/tw_bundle.js</code> 與 11 份 <code>data/tw_*.json</code> 完整存在。</p>
+        <p>請確認 <code>./data/tw_bundle.js</code> 與 13 份 <code>./data/tw_*.json</code> 完整存在。</p>
       </div>`;
     }
   }

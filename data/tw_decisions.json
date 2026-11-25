@@ -37,8 +37,7 @@
       "stage": "education",
       "title": "國中畢業分流",
       "conditions": {
-        "age": 15,
-        "note": "1968年九年國教前改於12歲觸發"
+        "age": 15
       },
       "options": [
         {
@@ -177,13 +176,27 @@
         },
         {
           "key": "rd_substitute",
-          "label": "申請研發替代役或預官（2000年後高學歷解鎖）",
-          "requires_year_min": 2000,
+          "label": "申請研發替代役或預官",
           "requires_edu": "master_or_stem",
           "effects": {
             "career_gap_months": 0,
             "tech_entry_bonus": 0.3
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1999,
+              "label": "報考預官／預士（高學歷幹部路徑）"
+            },
+            {
+              "min_year": 2000,
+              "max_year": 2007,
+              "label": "申請國防役／替代役或報考預官"
+            },
+            {
+              "min_year": 2008,
+              "label": "申請研發替代役或預官（銜接科技研發）"
+            }
+          ]
         },
         {
           "key": "volunteer_soldier",
@@ -416,12 +429,22 @@
       "options": [
         {
           "key": "gig_side_job",
-          "label": "配合減班休息＋兼差（如跑外送或接案）",
+          "label": "配合減班休息，下班兼差補貼家用",
           "effects": {
             "income_retention": 0.75,
             "health": -8,
             "happiness": -5
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2018,
+              "label": "配合減班休息＋兼差打工、接案或擺攤補貼家用"
+            },
+            {
+              "min_year": 2019,
+              "label": "配合減班休息＋兼差（如跑外送或接案）"
+            }
+          ]
         },
         {
           "key": "resign_retrain",
@@ -495,11 +518,21 @@
         },
         {
           "key": "etf_dca",
-          "label": "定期定額台股大盤 ETF（2003年後為 0050）",
+          "label": "定期定額投資台股大盤",
           "effects": {
             "invest_style": "index_etf",
             "long_term_return_bonus": 0.07
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2002,
+              "label": "定期買進台股大型權值股或開放式共同基金"
+            },
+            {
+              "min_year": 2003,
+              "label": "定期定額台股大盤 ETF（如 0050）"
+            }
+          ]
         },
         {
           "key": "margin_speculation",
@@ -525,14 +558,29 @@
       "options": [
         {
           "key": "buy_core_40yr",
-          "label": "咬牙買蛋黃區（2023後可搭新青安扛40年房貸）",
+          "label": "咬牙買下蛋黃區自住房",
           "effects": {
             "homeowner": true,
             "mortgage_dti": 0.45,
             "inflation_hedge": true,
             "happiness": 6
           },
-          "requires_home_afford": "core"
+          "requires_home_afford": "core",
+          "era_labels": [
+            {
+              "max_year": 1999,
+              "label": "咬牙買蛋黃區（申辦 20 年期高利率銀行房貸）"
+            },
+            {
+              "min_year": 2000,
+              "max_year": 2022,
+              "label": "咬牙買蛋黃區（扛起 30 年期首購房貸）"
+            },
+            {
+              "min_year": 2023,
+              "label": "咬牙買蛋黃區（搭配新青安扛 40 年房貸）"
+            }
+          ]
         },
         {
           "key": "buy_suburb",
@@ -575,7 +623,7 @@
           ],
           "title": "親友力推「鴻源機構」月息 4 分",
           "crash_year": 1990,
-          "source_note": "1990年鴻源倒閉，負債約940億元、16萬人受害"
+          "source_note": "街頭巷尾瘋傳地下投資公司月息 4 分，許多鄰居同事爭相跟進（風險與後果尚不明朗）"
         },
         {
           "variant_id": "dual_card_2005",
@@ -585,7 +633,7 @@
           ],
           "title": "銀行瘋推「現金卡借錢真輕鬆」",
           "crash_year": 2006,
-          "source_note": "2005–2006雙卡風暴，約80萬人陷入卡債"
+          "source_note": "各家銀行力推現金卡『借錢真輕鬆』，循環利息最高逼近 20%"
         },
         {
           "variant_id": "lehman_2007",
@@ -595,7 +643,7 @@
           ],
           "title": "理專推薦「保本高息」雷曼連動債",
           "crash_year": 2008,
-          "source_note": "2008年台灣約10萬名投資人受害，多數僅拿回15%–30%"
+          "source_note": "銀行理專主打海外連動債『高配息、低波動』，吸引大批定存族解約轉買"
         },
         {
           "variant_id": "scam_2024",
@@ -605,7 +653,7 @@
           ],
           "title": "飆股群組／im.B「保本高息」平台邀約",
           "crash_year": "immediate_or_next_year",
-          "source_note": "2025年詐騙受理16.2萬件，財損近900億元"
+          "source_note": "通訊軟體飆股群組與高息債權平台盛行，主打穩賺不賠話術"
         }
       ],
       "options": [
@@ -754,12 +802,22 @@
         },
         {
           "key": "standard_nhi",
-          "label": "無力負擔自費，改採基礎保守治療（1995 前或存款拮据時有殘疾失能與病情惡化早逝風險）",
+          "label": "無力負擔自費，改採基礎保守治療（存款拮据時有殘疾失能與病情惡化早逝風險）",
           "effects": {
             "cost_ratio_pre_1995": 0.35,
             "cost_ratio_post_1995": 0.05,
             "inadequate_med_risk": true
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1994,
+              "label": "無力負擔昂貴全額療程，改採基礎保守治療（缺乏公辦全民醫療保險，失能與惡化風險極高）"
+            },
+            {
+              "min_year": 1995,
+              "label": "改採全民健保基礎給付治療（省下龐大自費，但仍有殘疾與復發風險）"
+            }
+          ]
         }
       ]
     },
@@ -772,8 +830,7 @@
           23,
           40
         ],
-        "has_partner": true,
-        "note": "2019年5月起同性伴侶解鎖合法結婚"
+        "has_partner": true
       },
       "options": [
         {
@@ -788,12 +845,22 @@
         },
         {
           "key": "simple_registration",
-          "label": "簡單登記不宴客（2010年後普及）",
+          "label": "簡單登記／公證不宴客",
           "effects": {
             "married": true,
             "money_delta_twd_2025": -50000,
             "happiness": 4
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2009,
+              "label": "從簡公證結婚不辦大宴客（省下可觀婚禮支出）"
+            },
+            {
+              "min_year": 2010,
+              "label": "簡單登記不宴客，把預算留作兩人生活基金"
+            }
+          ]
         },
         {
           "key": "stay_unmarried",
@@ -820,13 +887,23 @@
       "options": [
         {
           "key": "have_child",
-          "label": "生育下一代（2026年起領每胎10萬補助）",
+          "label": "生育下一代，迎接家庭新成員",
           "effects": {
             "children_delta": 1,
             "annual_child_cost_years": 22,
             "subsidy_post_2026_twd": 100000,
             "old_age_support": 10
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2025,
+              "label": "決定生育下一代，迎接家庭新成員"
+            },
+            {
+              "min_year": 2026,
+              "label": "決定生育下一代（可申領每胎 10 萬元生育補助）"
+            }
+          ]
         },
         {
           "key": "dink_pets",

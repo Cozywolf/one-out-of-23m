@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="生在台灣" />
-<title>生在台灣 v5.2 · 台灣人生模擬（GitHub Pages × 手機響應式優化版）</title>
+<title>生在台灣 v5.4.1 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,6 +63,7 @@
       <div class="tw-mode-strip-btns">
         <button id="btnIntroMajorToggle" class="pill-toggle edu-active" aria-pressed="true">📢 重大惡性社會事件：開啟</button>
         <button id="btnIntroHistToggle" class="pill-toggle hist-active" aria-pressed="false">⚡ 史實模式：關</button>
+        <button id="btnIntroAllHistToggle" class="pill-toggle" aria-pressed="false" title="關閉時每 2–3 年隨機顯示 1 則台灣歷史事件，避免資訊過載；開啟則顯示全部歷史事件">📚 顯示所有歷史事件：關</button>
       </div>
     </div>
 
@@ -198,6 +199,20 @@
           <div class="state-row"><span class="state-label">幸福</span><div class="state-bar"><i id="barHappy"></i></div><span class="state-val" id="valHappy">—</span></div>
           <div class="state-row"><span class="state-label">知識</span><div class="state-bar"><i id="barKnow"></i></div><span class="state-val" id="valKnow">—</span></div>
           <div class="state-row"><span class="state-label">人際</span><div class="state-bar"><i id="barSocial"></i></div><span class="state-val" id="valSocial">—</span></div>
+          <div class="state-salary-box">
+            <div class="state-assets" style="border-top:none;padding-top:0;margin-top:4px;">
+              <span>目前薪資（月／年）</span>
+              <div class="money-dual">
+                <b id="valSalaryMonthly">無全職薪資</b>
+                <span class="money-real" id="valSalaryAnnualReal">年薪 NT$0（2025 購買力 NT$0）</span>
+              </div>
+            </div>
+            <div id="cashflowBreakdown" class="asset-breakdown">本年收支：收入 NT$0 － 支出 NT$0 ＝ 結餘 NT$0</div>
+            <details id="salaryHistoryDetails" class="salary-history-details" hidden>
+              <summary>📊 關鍵抉擇薪資變化（<span id="salaryHistoryCount">0</span> 項）</summary>
+              <ul id="salaryHistoryList" class="salary-history-list"></ul>
+            </details>
+          </div>
           <div class="state-assets">
             <span>總淨資產（現＋股＋房）</span>
             <div class="money-dual">
@@ -237,7 +252,7 @@
           <img id="lifeIllusImg" src="assets/illus-baby-book.jpg" alt="" style="max-height:110px;border-radius:10px;">
         </div>
         <div class="life-events-feed">
-          <h4>📜 台灣人生與歷史紀錄 <span class="muted">（最新在前 · 歷史現場點擊標題展開 · 空白鍵暫停／繼續）</span></h4>
+          <h4>📜 台灣人生與歷史紀錄</h4>
           <div id="lifeFeedList"></div>
         </div>
       </div>

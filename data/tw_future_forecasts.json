@@ -1,0 +1,692 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "label": "台灣未來預測",
+    "description": "針對 2027 年以後之虛構推演事件庫，比照『台灣歷史現場』三段式格式呈現，透過世界線狀態旗標與互斥分支確保隨機觸發同時維持前後邏輯一致，並實際影響玩家薪資、資產、健康與生活支出。"
+  },
+  "events": [
+    {
+      "id": "FF_2027_ai_white_collar_4day",
+      "year_range": [
+        2027,
+        2030
+      ],
+      "probability": 0.42,
+      "category": "ai_economy",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "ai_automation_wave"
+      ],
+      "title": "AI 代理全面進駐辦公室：『週休三日試辦』與白領轉型潮",
+      "summary": "生成式與代理型 AI 迅速接管台灣企業的行政、翻譯、客服與初階程式作業。科技與外商大廠率先推行週休三日與混合辦公，但基層文書與傳統服務業出現結構性縮編，勞資展開技能重塑與工時分配激辯。",
+      "institutional_aftermath": "勞動部將『AI 協作技能訓練』納入常態就業保險補助，並開啟工時彈性化與遠距工作法制化討論。",
+      "trend_basis": "虛構推演 · 延伸自 2025–2026 年台灣 AI 出口占比衝上七成與全球生成式 AI 職場導入趨勢。",
+      "cultural_footnote_en": "Fictional forecast: Autonomous AI agents reshape Taiwanese white-collar jobs, triggering a split between flexible 4-day tech workweeks and clerical retraining pressure.",
+      "gameplay_impact": {
+        "tech_wage_mult": 1.09,
+        "non_tech_wage_mult": 0.96,
+        "unlock_remote_if_tech": true,
+        "happiness_delta": 2,
+        "knowledge_delta": 3
+      }
+    },
+    {
+      "id": "FF_2028_heatwave_law",
+      "year_range": [
+        2028,
+        2033
+      ],
+      "probability": 0.36,
+      "category": "climate_energy",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "extreme_heat_normal"
+      ],
+      "title": "百年級酷暑來襲：『高溫假』入法與夏季 40°C 新常態",
+      "summary": "聖嬰現象疊加全球暖化，台北盆地與花東縱谷連日突破 40°C，戶外營建、外送與農漁勞動者熱傷害病例激增。立法院三讀增訂『極端高溫勞動保護與彈性停班條款』，夏季尖峰用電與冷氣電費同步攀升。",
+      "institutional_aftermath": "新建案強制納入遮陽隔熱與節能標章，各縣市廣設免費社區避暑中心與高齡獨居關懷降溫巡訪。",
+      "trend_basis": "虛構推演 · 延伸自氣象署近年台灣夏季高溫日數持續創新高與全球暖化升溫路徑。",
+      "cultural_footnote_en": "Fictional forecast: Sustained 40°C summer heatwaves lead Taiwan to codify heat-leave labor protections and urban cooling shelters.",
+      "gameplay_impact": {
+        "living_cost_mult": 1.03,
+        "health_delta": -2,
+        "happiness_delta": -2
+      }
+    },
+    {
+      "id": "FF_2028_care4_robots",
+      "year_range": [
+        2027,
+        2032
+      ],
+      "probability": 0.4,
+      "category": "demographics_care",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "care_tech_adopted"
+      ],
+      "title": "長照 4.0 上路：AI 照護輔具與陪伴機器人納入部分給付",
+      "summary": "面對 65 歲以上人口快速逼近四分之一與移工看護荒，台灣結合 ICT 與醫材產業推出『長照 4.0』，將防跌感測、移位外骨骼與台語／客語 AI 陪伴終端納入長照補助，大幅減輕家庭夜間看顧負擔。",
+      "institutional_aftermath": "銀髮科技成為台灣繼半導體後的新興出口兆元產業，社區日照中心全面導入遠距生理監測。",
+      "trend_basis": "虛構推演 · 延伸自 2025 年台灣邁入超高齡社會與長照人力缺口趨勢。",
+      "cultural_footnote_en": "Fictional forecast: Leveraging its ICT supply chain, Taiwan launches Long-Term Care 4.0 subsidizing assistive robotics and Taiwanese-speaking care companions.",
+      "gameplay_impact": {
+        "care_cost_mult": 0.78,
+        "health_delta_elder": 4,
+        "happiness_delta": 3
+      }
+    },
+    {
+      "id": "FF_2029_social_housing_500k",
+      "year_range": [
+        2029,
+        2035
+      ],
+      "probability": 0.34,
+      "category": "housing_finance",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "housing_reform_passed"
+      ],
+      "title": "空屋稅改革與『社宅＋包租代管 50 萬戶』方案落地",
+      "summary": "在長年高房價與高齡租屋歧視壓力下，中央與六都推動全國歸戶空屋累進稅，並透過公私協力擴充社會住宅與『銀髮友善租屋認證』，讓無房青年與獨居長者的居住安全網明顯改善。",
+      "institutional_aftermath": "租屋市場透明度與定型化契約查核大幅提高，房東拒租 65 歲以上長者納入明確反歧視裁罰。",
+      "trend_basis": "虛構推演 · 延伸自台灣高房價所得比、空屋率與超高齡租屋保障倡議。",
+      "cultural_footnote_en": "Fictional forecast: Progressive vacancy taxes and 500,000 social/managed rental units ease rent burdens and curb discrimination against elderly tenants.",
+      "gameplay_impact": {
+        "rent_cost_mult": 0.88,
+        "clear_elderly_rent_risk": true,
+        "happiness_delta": 4
+      }
+    },
+    {
+      "id": "FF_2030_ring_rail_east",
+      "year_range": [
+        2029,
+        2036
+      ],
+      "probability": 0.32,
+      "category": "society_infra",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "ring_transit_upgraded"
+      ],
+      "title": "東部快鐵提速與自駕接駁串聯：台灣『一日生活圈 2.0』成形",
+      "summary": "歷經多年邊坡防災工程與電氣化雙軌提速，加上花東偏鄉導入無人自駕接駁公車與高鐵延伸線完工，西部都會與花東之間的通勤與醫療轉診時間大幅縮短，掀起一股『移居東部遠距工作』風潮。",
+      "institutional_aftermath": "花東與雲嘉南不再僅依賴假日觀光，遠距工作聚落與地區醫療可近性顯著提升。",
+      "trend_basis": "虛構推演 · 延伸自台鐵公司化後東部交通韌性投資與高鐵延伸規劃討論。",
+      "cultural_footnote_en": "Fictional forecast: Upgraded eastern express rail and autonomous shuttles shrink Taiwan's east-west divide, fueling remote-work migration to Hualien and Taitung.",
+      "gameplay_impact": {
+        "region_bonus_ids": [
+          "east_islands",
+          "south_tainan",
+          "south_kaohsiung"
+        ],
+        "region_wage_mult": 1.08,
+        "happiness_delta": 3,
+        "health_delta_east": 3
+      }
+    },
+    {
+      "id": "FF_2031_uni_community_hub",
+      "year_range": [
+        2030,
+        2036
+      ],
+      "probability": 0.35,
+      "category": "demographics_care",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "uni_consolidation_done"
+      ],
+      "title": "大學退場整併潮尾聲：閒置校區轉型『樂齡共居與社區學院』",
+      "summary": "少子化海嘯席捲高教十年後，全台大專校院整併至百所以下。政府與地方攜手將多所退場私校改建為結合技職微學程、長照日托與青年共創基地的『全齡學習園區』，老校舍重現生機。",
+      "institutional_aftermath": "高等教育從文憑導向轉為終身學習與跨域證照並行，40 歲以上重返校園進修成為常態。",
+      "trend_basis": "虛構推演 · 延伸自 2022–2026 年少子化大專招生缺額與私校退場條例趨勢。",
+      "cultural_footnote_en": "Fictional forecast: Following a wave of university closures from low birth rates, former campuses are repurposed into lifelong learning and intergenerational co-living hubs.",
+      "gameplay_impact": {
+        "knowledge_delta": 4,
+        "happiness_delta": 2
+      }
+    },
+    {
+      "id": "FF_2031_silicon_shield_2",
+      "year_range": [
+        2031,
+        2037
+      ],
+      "probability": 0.35,
+      "category": "ai_economy",
+      "regions": [
+        "ALL"
+      ],
+      "mutually_exclusive_group": "semi_trajectory_2030s",
+      "sets_world_flags": [
+        "silicon_boom_2"
+      ],
+      "title": "矽盾 2.0 突破：台灣率先量產次世代矽光子與低功耗量子運算晶片",
+      "summary": "新竹、台中與台南科學園區聯手突破次世代矽光子封裝瓶頸，全球資料中心與人形機器人供應鏈高度仰賴台灣生態系。出口順差與外資買盤再度推升台股，但也進一步拉大科技與非科技產業薪資落差。",
+      "institutional_aftermath": "政府成立主權科技人才基金並推動跨產業利潤分享稅制，試圖緩解『單一引擎』結構風險。",
+      "trend_basis": "虛構推演 · 延伸自台灣先進製程與矽光子封裝研發聚落優勢（與『供應鏈去中心化』為互斥平行世界線）。",
+      "cultural_footnote_en": "Fictional forecast (Branch A): Breakthrough mass production in silicon photonics extends Taiwan's semiconductor boom, lifting equities while widening sector wage gaps.",
+      "gameplay_impact": {
+        "stock_shock_pct": 0.16,
+        "tech_wage_mult": 1.12,
+        "happiness_delta": 2
+      }
+    },
+    {
+      "id": "FF_2031_semi_decentralize",
+      "year_range": [
+        2031,
+        2037
+      ],
+      "probability": 0.35,
+      "category": "ai_economy",
+      "regions": [
+        "ALL"
+      ],
+      "mutually_exclusive_group": "semi_trajectory_2030s",
+      "sets_world_flags": [
+        "post_semi_pivot"
+      ],
+      "title": "全球晶圓製造去中心化衝擊：台灣啟動『軟體、生醫與綠能二次轉型』",
+      "summary": "美、歐、日、印海外晶圓廠陸續量產加上全球關稅壁壘重塑，台灣純代工出口占比出現歷史性滑落，台股歷經劇烈估值修正。陣痛之餘，產官學加速將資金與工程師轉往 AI 軟體、精準生醫與海洋綠能。",
+      "institutional_aftermath": "台灣經濟逐步擺脫對單一硬體製造的過度依賴，中小企業與服務業薪資結構迎來重新定價。",
+      "trend_basis": "虛構推演 · 延伸自 2025 年對等關稅與全球半導體在地化建廠壓力（與『矽盾 2.0』為互斥平行世界線）。",
+      "cultural_footnote_en": "Fictional forecast (Branch B): Overseas fab expansion cools Taiwan's hardware export dominance, triggering a painful stock correction that accelerates a pivot to software and biotech.",
+      "gameplay_impact": {
+        "stock_shock_pct": -0.14,
+        "tech_wage_mult": 0.93,
+        "non_tech_wage_mult": 1.05,
+        "happiness_delta": -3
+      }
+    },
+    {
+      "id": "FF_2032_mrna_cancer_nhi",
+      "year_range": [
+        2031,
+        2038
+      ],
+      "probability": 0.36,
+      "category": "biotech_health",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "cancer_vaccine_nhi"
+      ],
+      "title": "個人化 mRNA 癌症疫苗納入健保：多數實體癌轉為可控制慢性病",
+      "summary": "隨著 AI 蛋白質折疊設計與國內生技代工成熟，針對肺癌、大腸癌與肝癌的個人化 mRNA 療法成本驟降九成，健保署正式納入給付。過去令家庭聞之色變的重大傷病天價自費壓力大幅緩解。",
+      "institutional_aftermath": "國人平均健康餘命顯著拉長，健保財務改以精準預防篩檢取代末期高昂醫療支出。",
+      "trend_basis": "虛構推演 · 延伸自 mRNA 癌症疫苗臨床進展與台灣健保新藥納保制度。",
+      "cultural_footnote_en": "Fictional forecast: Personalized mRNA cancer vaccines enter Taiwan's National Health Insurance, turning major cancers into manageable chronic conditions.",
+      "gameplay_impact": {
+        "health_delta": 6,
+        "happiness_delta": 4,
+        "mortality_mult": 0.88
+      }
+    },
+    {
+      "id": "FF_2033_energy_breakthrough",
+      "year_range": [
+        2032,
+        2039
+      ],
+      "probability": 0.34,
+      "category": "climate_energy",
+      "regions": [
+        "ALL"
+      ],
+      "mutually_exclusive_group": "energy_path_2030s",
+      "sets_world_flags": [
+        "clean_baseload_ready"
+      ],
+      "title": "深層地熱與次世代潔淨基載商轉：台灣穩住 AI 算力與淨零供電",
+      "summary": "宜蘭、花東深層增強型地熱電廠與高密度電網級儲能陸續併網，配合次世代潔淨基載電力通過嚴格耐震審查商轉，長年困擾產業與民生的缺電與碳費焦慮終於獲得緩解。",
+      "institutional_aftermath": "台灣順利銜接歐美碳邊境稅（CBAM）標準，工業與民生電價漲勢趨緩。",
+      "trend_basis": "虛構推演 · 延伸自台灣地熱資源探勘、儲能建設與淨零基載能源討論（與『電價陣痛期』互斥）。",
+      "cultural_footnote_en": "Fictional forecast (Branch A): Deep geothermal and next-generation clean baseload power stabilize Taiwan's grid for AI data centers and net-zero export compliance.",
+      "gameplay_impact": {
+        "living_cost_mult": 0.96,
+        "happiness_delta": 3,
+        "stock_shock_pct": 0.06
+      }
+    },
+    {
+      "id": "FF_2033_grid_strain",
+      "year_range": [
+        2032,
+        2039
+      ],
+      "probability": 0.34,
+      "category": "climate_energy",
+      "regions": [
+        "ALL"
+      ],
+      "mutually_exclusive_group": "energy_path_2030s",
+      "sets_world_flags": [
+        "energy_cost_surge"
+      ],
+      "title": "能源轉型與算力搶電陣痛：夏季尖峰階梯電價大調漲",
+      "summary": "AI 資料中心耗電飆升疊加極端酷暑與儲能建置延宕，台電面對龐大燃料與電網韌性投資缺口，正式啟用『分時高倍數尖峰電價』與工業需量競價，民生冷氣費與外食物價同步上揚。",
+      "institutional_aftermath": "家戶屋頂光電＋社區微電網成為新建案標配，節能家電汰換補貼全面擴大。",
+      "trend_basis": "虛構推演 · 延伸自 AI 用電成長與能源轉型投資成本壓力（與『潔淨基載商轉』互斥）。",
+      "cultural_footnote_en": "Fictional forecast (Branch B): Surging AI power demand and extreme heat strain Taiwan's grid, leading to steep peak-hour electricity tariffs and higher living costs.",
+      "gameplay_impact": {
+        "living_cost_mult": 1.07,
+        "happiness_delta": -3
+      }
+    },
+    {
+      "id": "FF_2034_housing_divergence",
+      "year_range": [
+        2033,
+        2041
+      ],
+      "probability": 0.32,
+      "category": "housing_finance",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "housing_k_shape"
+      ],
+      "title": "少子化反轉房市結構：『蛋黃抗跌、老舊無電梯公寓加速折價』",
+      "summary": "繼承移轉量首度超越新成屋交易，台灣房市告別『閉眼買都漲』的黃金世代。捷運與醫療資源集中的核心電梯社區依然保值，但缺乏電梯的五十年老舊公寓與偏遠蛋白區出現明顯滯銷與都更整合潮。",
+      "institutional_aftermath": "政府推行『公辦都更一條龍』與危險老屋強制健檢，置產觀念從囤房轉向重視現金流與長照機能。",
+      "trend_basis": "虛構推演 · 延伸自台灣屋齡老化（逾半住宅超過 30 年）與人口自然負成長趨勢。",
+      "cultural_footnote_en": "Fictional forecast: Inheritance transfers overtake new home sales, splitting Taiwan's property market between resilient transit-hub high-rises and discounting walk-up apartments.",
+      "gameplay_impact": {
+        "housing_divergence": true,
+        "happiness_delta": 1
+      }
+    },
+    {
+      "id": "FF_2035_new_immigrants_pr",
+      "year_range": [
+        2034,
+        2042
+      ],
+      "probability": 0.34,
+      "category": "demographics_care",
+      "regions": [
+        "ALL"
+      ],
+      "mutually_exclusive_group": "labor_shortage_path",
+      "sets_world_flags": [
+        "multicultural_taiwan"
+      ],
+      "title": "『新移民與資深移工永居法』上路：台灣邁向多元族群新社會",
+      "summary": "面對營建、製造、餐飲與長照全面缺工，台灣正式開放中階技術移工與東南亞白領在台滿一定年限可攜眷申請永居與歸化。街頭招牌、校園雙語與社區文化更加多元，服務業缺工危機獲得顯著緩解。",
+      "institutional_aftermath": "台灣成為東亞最開放的新移民友善社會之一，新二代與多元母語成為區域經貿橋樑。",
+      "trend_basis": "虛構推演 · 延伸自國發會留才久用方案與勞動力萎縮現實（與『延退 70 歲』為互斥路線）。",
+      "cultural_footnote_en": "Fictional forecast (Branch A): Taiwan enacts broad permanent residency pathways for skilled and long-term migrant workers, easing labor shortages and reshaping urban culture.",
+      "gameplay_impact": {
+        "care_cost_mult": 0.85,
+        "living_cost_mult": 0.97,
+        "social_delta": 5,
+        "happiness_delta": 3
+      }
+    },
+    {
+      "id": "FF_2035_retire_70_reform",
+      "year_range": [
+        2034,
+        2042
+      ],
+      "probability": 0.34,
+      "category": "demographics_care",
+      "regions": [
+        "ALL"
+      ],
+      "mutually_exclusive_group": "labor_shortage_path",
+      "sets_world_flags": [
+        "silver_workforce_70"
+      ],
+      "title": "勞動力斷層與勞保財務改革：『彈性延退至 70 歲』修法通過",
+      "summary": "在移民政策保守與青壯人口驟減下，勞保基金面臨提早見底危機。立法院通過年金漸進改革，鼓勵企業聘用 65–70 歲銀髮族擔任顧問與半日班，同時調整勞保費率與法定全額請領年齡。",
+      "institutional_aftermath": "『60 歲退休』走入歷史，台灣職場全面改裝無障礙與高齡友善工時，熟齡再就業成為常態。",
+      "trend_basis": "虛構推演 · 延伸自台灣勞保潛藏負債與高齡勞動參與率攀升趨勢（與『新移民永居法』互斥）。",
+      "cultural_footnote_en": "Fictional forecast (Branch B): Facing pension insolvency and acute worker shortages, Taiwan raises pension benchmarks and normalizes flexible employment up to age 70.",
+      "gameplay_impact": {
+        "wage_mult": 1.03,
+        "happiness_delta": -3,
+        "social_delta": 2
+      }
+    },
+    {
+      "id": "FF_2036_leo_satellite_resilience",
+      "year_range": [
+        2035,
+        2044
+      ],
+      "probability": 0.32,
+      "category": "society_infra",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "digital_resilience_net"
+      ],
+      "title": "低軌衛星直連手機普及：『全民數位與防災韌性網』全面上線",
+      "summary": "鑑於海底電纜易受地震與船錨事故干擾，台灣完成多軌衛星與自主微衛星通訊備援網，一般手機即使在高山、離島或強震斷網時也能直連求救與接收災防訊息，大幅提升全島通訊與緊急救援效率。",
+      "institutional_aftermath": "離島與山區遠距醫療、氣象監測不再出現訊號死角，成為全球海島國家韌性治理典範。",
+      "trend_basis": "虛構推演 · 延伸自近年台灣低軌衛星備援測試與全社會防災韌性政策。",
+      "cultural_footnote_en": "Fictional forecast: Direct-to-cell low-Earth-orbit satellite backups eliminate dead zones across Taiwan's mountains and outer islands during earthquakes and typhoons.",
+      "gameplay_impact": {
+        "happiness_delta": 3,
+        "mortality_mult": 0.96
+      }
+    },
+    {
+      "id": "FF_2037_coastal_sponge_city",
+      "year_range": [
+        2036,
+        2046
+      ],
+      "probability": 0.3,
+      "category": "climate_energy",
+      "regions": [
+        "ALL"
+      ],
+      "requires_world_flags": [
+        "extreme_heat_normal"
+      ],
+      "sets_world_flags": [
+        "sponge_city_built"
+      ],
+      "title": "極端暴雨與海平面上升：西南沿海與蘭陽啟動『海綿城市大改造』",
+      "summary": "強降雨屢破歷史時雨量紀錄，雲嘉南、高屏沿海低窪區與蘭陽平原啟動十年防洪重劃——將部分易淹農地轉為滯洪生態濕地與高腳防災社區，同時推動全島地下雨撲滿與透水鋪面。",
+      "institutional_aftermath": "保險業導入氣候風險分級保費，地勢與排水韌性成為台灣人看房與定居的新關鍵指標。",
+      "trend_basis": "虛構推演 · 延伸自極端強降雨與台灣西南沿海地層下陷防治課題。",
+      "cultural_footnote_en": "Fictional forecast: Extreme cloudbursts and sea-level rise prompt coastal wetland retention zones and 'sponge city' retrofits across southwestern Taiwan and Yilan.",
+      "gameplay_impact": {
+        "region_housing_shock_ids": [
+          "south_tainan",
+          "south_kaohsiung",
+          "east_islands"
+        ],
+        "region_housing_shock_pct": -0.06,
+        "health_delta": 1
+      }
+    },
+    {
+      "id": "FF_2038_cbdc_antiscam",
+      "year_range": [
+        2037,
+        2045
+      ],
+      "probability": 0.34,
+      "category": "housing_finance",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "cbdc_ai_antiscam"
+      ],
+      "title": "數位新台幣（CBDC）上線與『AI 零時差反詐防火牆』",
+      "summary": "中央銀行歷經多年試驗後推出可程式化『數位新台幣』，並整合電信與銀行端 AI 異常金流攔截網。人頭帳戶與假投資詐騙案量在兩年內銳減七成，高齡長者的退休金防線顯著加固。",
+      "institutional_aftermath": "實體紙鈔流通量減半，但社會也同步針對數位隱私權與『保留現金支付自由』立法設立紅線。",
+      "trend_basis": "虛構推演 · 延伸自央行數位貨幣試驗與 2024–2025 年台灣打詐法制化進程。",
+      "cultural_footnote_en": "Fictional forecast: Taiwan's digital NTD (CBDC) paired with real-time AI anti-fraud interception slashes investment scams by 70%, while spurring privacy safeguards.",
+      "gameplay_impact": {
+        "reduce_scam_risk": true,
+        "happiness_delta": 3,
+        "knowledge_delta": 2
+      }
+    },
+    {
+      "id": "FF_2039_ai_tax_ubi_pilot",
+      "year_range": [
+        2038,
+        2048
+      ],
+      "probability": 0.35,
+      "category": "ai_economy",
+      "regions": [
+        "ALL"
+      ],
+      "requires_world_flags": [
+        "ai_automation_wave"
+      ],
+      "sets_world_flags": [
+        "ubi_safety_net"
+      ],
+      "title": "自動化算力稅與『全民基本轉型津貼（UBI 試點）』啟動",
+      "summary": "隨著 AI 與無人化系統創造的產值高度集中於少數大型企業，台灣在歷經多年財稅辯論後開徵『自動化算力與資料紅利稅』，優先發放給待業、全職照顧者與低所得家戶作為基本生活安全網。",
+      "institutional_aftermath": "工作不再是維持生存的唯一條件，社區照護、藝術創作與公民參與的社會價值獲得重新肯定。",
+      "trend_basis": "虛構推演 · 依賴前置事件『AI 代理進駐辦公室』，延伸自全球 AI 稅與基本收入政策討論。",
+      "cultural_footnote_en": "Fictional forecast: Following widespread AI automation, Taiwan taxes automated compute dividends to fund a targeted Universal Basic Transition stipend.",
+      "gameplay_impact": {
+        "cash_subsidy_2025": 180000,
+        "happiness_delta": 5
+      }
+    },
+    {
+      "id": "FF_2041_culture_wave_export",
+      "year_range": [
+        2040,
+        2052
+      ],
+      "probability": 0.3,
+      "category": "society_infra",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "tw_culture_softpower"
+      ],
+      "title": "『台流內容』與沉浸式華語文化出海潮：文創與遊戲業迎來黃金期",
+      "summary": "憑藉開放自由的創作環境與 AI 跨語系即時在地化工具，台灣原創影視、獨立遊戲與歷史文化 IP 席捲歐美與亞洲串流平台，原本長期低薪的文史設計與數位內容產業薪資明顯翻身。",
+      "institutional_aftermath": "文組與跨領域創作者擺脫『畢業即低薪』標籤，文化觀光成為台灣最具辨識度的國際名片。",
+      "trend_basis": "虛構推演 · 延伸自台灣自由創作環境、獨立遊戲與文化內容產業出海潛力。",
+      "cultural_footnote_en": "Fictional forecast: Aided by AI localization and creative freedom, Taiwanese films, indie games, and design IPs surge globally, lifting humanities and creative wages.",
+      "gameplay_impact": {
+        "non_tech_wage_mult": 1.1,
+        "happiness_delta": 4,
+        "social_delta": 3
+      }
+    },
+    {
+      "id": "FF_2044_dementia_gene_therapy",
+      "year_range": [
+        2042,
+        2054
+      ],
+      "probability": 0.35,
+      "category": "biotech_health",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "dementia_breakthrough"
+      ],
+      "title": "阿茲海默與失智症早期基因療法問世：三明治世代迎來喘息",
+      "summary": "跨國與台灣神經醫學團隊合作研發的早期神經修復療法獲批納入健保專案，能將輕度認知障礙的惡化速度延緩七成以上。原本面臨崩潰的高齡失智照護體系迎來歷史性轉折。",
+      "institutional_aftermath": "75 歲以上長者維持獨立自理生活的比例大幅提高，中高齡被迫離職照護的悲劇顯著減少。",
+      "trend_basis": "虛構推演 · 延伸自神經退化性疾病療法進展與超高齡台灣最大的長照痛點。",
+      "cultural_footnote_en": "Fictional forecast: Early-stage gene therapy slows Alzheimer's progression by over 70%, bringing immense relief to Taiwan's sandwich-generation caregivers.",
+      "gameplay_impact": {
+        "care_cost_mult": 0.72,
+        "health_delta_elder": 6,
+        "happiness_delta": 5
+      }
+    },
+    {
+      "id": "FF_2048_compact_towns",
+      "year_range": [
+        2046,
+        2060
+      ],
+      "probability": 0.32,
+      "category": "demographics_care",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "compact_towns_era"
+      ],
+      "title": "人口跌破 1,900 萬：全島『精簡城鎮』重劃與無人機醫療物流網",
+      "summary": "台灣總人口如預期滑落至 1,900 萬以下，許多偏遠村落邁入自然整併。各縣市不再盲目擴張重劃區，而是將公共設施集中於『精簡核心城鎮』，偏鄉改由常態化無人機配送藥品、生鮮與遠距巡診車服務。",
+      "institutional_aftermath": "大片退耕與空置坡地回歸自然復育，台灣山林生態與生物多樣性意外迎來百年最佳恢復期。",
+      "trend_basis": "虛構推演 · 延伸自國發會 2024–2070 人口中推估路徑與空間治理轉型。",
+      "cultural_footnote_en": "Fictional forecast: As Taiwan's population dips below 19 million, counties pivot to 'compact town' hubs served by medical drones while rural hillsides rewild.",
+      "gameplay_impact": {
+        "living_cost_mult": 0.98,
+        "health_delta": 2,
+        "happiness_delta": 1
+      }
+    },
+    {
+      "id": "FF_2054_holo_remote_work",
+      "year_range": [
+        2052,
+        2068
+      ],
+      "probability": 0.32,
+      "category": "ai_economy",
+      "regions": [
+        "ALL"
+      ],
+      "requires_world_flags": [
+        "ai_automation_wave"
+      ],
+      "sets_world_flags": [
+        "post_northbound_era"
+      ],
+      "title": "全息協作與空間運算普及：『北漂時代終結』與跨縣市同酬化",
+      "summary": "輕量化空間運算眼鏡與低延遲全息會議徹底抹平實體辦公距離，台北與竹科企業全面開放『全島任意縣市遠距正職』。許多年輕人選擇在彰化、台南或花蓮老家就能領取都會區薪資，長達半世紀的北漂潮正式反轉。",
+      "institutional_aftermath": "南北房價所得比差距明顯收斂，地方創生與社區生活品質取代通勤時間成為選居首要條件。",
+      "trend_basis": "虛構推演 · 依賴『AI 辦公室轉型』，延伸自遠距工作演進與台灣區域均衡發展願景。",
+      "cultural_footnote_en": "Fictional forecast: Holographic spatial collaboration ends half a century of 'northbound migration' to Taipei, letting workers earn metro salaries from hometowns islandwide.",
+      "gameplay_impact": {
+        "unlock_remote_all": true,
+        "region_bonus_ids": [
+          "central",
+          "south_tainan",
+          "south_kaohsiung",
+          "east_islands"
+        ],
+        "region_wage_mult": 1.12,
+        "happiness_delta": 4
+      }
+    },
+    {
+      "id": "FF_2060_solo_cohousing",
+      "year_range": [
+        2055,
+        2075
+      ],
+      "probability": 0.34,
+      "category": "society_infra",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "solo_society_ethics"
+      ],
+      "title": "一人戶突破四成：『跨世代共居宅』與法制化意定監護普及",
+      "summary": "不婚、頂客與高齡獨居使台灣單人家庭成為最大戶型。傳統以血緣為中心的家庭觀徹底轉型，好友合資共老宅、青銀共居社區與預設『意定監護＋安寧信託』成為法律與社會日常，獨老不再等同孤立無援。",
+      "institutional_aftermath": "民法與醫療法大幅放寬『非血緣緊急醫療代理人』權限，重新定義二十一世紀中葉的台灣家人關係。",
+      "trend_basis": "虛構推演 · 延伸自台灣一人戶占比持續攀升與意定監護制度發展。",
+      "cultural_footnote_en": "Fictional forecast: With single-person households exceeding 40%, chosen-family co-housing and legal healthcare proxies redefine aging in mid-century Taiwan.",
+      "gameplay_impact": {
+        "social_delta": 7,
+        "happiness_delta": 5
+      }
+    },
+    {
+      "id": "FF_2064_organ_regen_100yr",
+      "year_range": [
+        2058,
+        2082
+      ],
+      "probability": 0.34,
+      "category": "biotech_health",
+      "regions": [
+        "ALL"
+      ],
+      "requires_world_flags": [
+        "cancer_vaccine_nhi"
+      ],
+      "sets_world_flags": [
+        "century_lifespan_era"
+      ],
+      "title": "幹細胞器官再生臨床普及：台灣正式跨入『百歲健康人生』時代",
+      "summary": "自體幹細胞 3D 生物列印修復心肌、腎臟與關節軟骨技術成熟，台灣平均壽命突破 90 歲大關。然而長壽也意味著退休準備期拉長至三十年以上，『多段式職涯（讀書→工作→休耕→再創業）』取代傳統單線人生。",
+      "institutional_aftermath": "勞退與年金制度全面導入『百歲長壽年金池』，高齡社會的重心從延命轉向維持生活意義。",
+      "trend_basis": "虛構推演 · 依賴『癌症慢性病化』前置突破，延伸自再生醫學與台灣長壽趨勢。",
+      "cultural_footnote_en": "Fictional forecast: Stem-cell organ regeneration pushes Taiwanese life expectancy past 90, turning single-track retirement into multi-stage 100-year careers.",
+      "gameplay_impact": {
+        "health_delta": 7,
+        "mortality_mult": 0.85,
+        "happiness_delta": 3
+      }
+    },
+    {
+      "id": "FF_2072_one_to_one_memory",
+      "year_range": [
+        2066,
+        2092
+      ],
+      "probability": 0.34,
+      "category": "demographics_care",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "age_ratio_1_to_1"
+      ],
+      "title": "『青老比 1：1』歷史時刻與全台數位家族記憶館計畫",
+      "summary": "台灣總人口來到約 1,500 萬人、65 歲以上人口接近半數，達成『每 1 位青壯年對應 1 位長者』的結構平衡。國家發起全台口述歷史與數位家族記憶庫計畫，把戰後至今百餘年的庶民故事完整留給更精巧卻富裕的新世代。",
+      "institutional_aftermath": "社會正式告別人口紅利成長迷思，轉以『人均福祉、生態與文化厚度』作為國家衡量核心。",
+      "trend_basis": "虛構推演 · 延伸自國發會 2070 年人口中推估（1,497 萬人、65+ 占 46.5%、青老比 1:1）。",
+      "cultural_footnote_en": "Fictional forecast: As Taiwan reaches a 1:1 working-age to senior ratio around 15 million residents, a national digital oral-history archive preserves a century of everyday lives.",
+      "gameplay_impact": {
+        "happiness_delta": 4,
+        "social_delta": 4
+      }
+    },
+    {
+      "id": "FF_2078_netzero_green_island",
+      "year_range": [
+        2072,
+        2110
+      ],
+      "probability": 0.35,
+      "category": "climate_energy",
+      "regions": [
+        "ALL"
+      ],
+      "requires_world_flags": [
+        "clean_baseload_ready"
+      ],
+      "sets_world_flags": [
+        "green_island_stabilized"
+      ],
+      "title": "淨零轉型滿四分之一世紀：全台立體綠廊城市與潔淨空氣回歸",
+      "summary": "受惠於早年果斷完成潔淨基載與全電交通轉型，台灣都會區全面拆除老舊高架道路改建為立體森林步廊，PM2.5 長年維持極低水準，夏季都市熱島效應較半世紀前明顯降溫，成為亞太低碳宜居標竿。",
+      "institutional_aftermath": "呼吸道與心血管環境致病率創下歷史新低，人與海洋山林重新建立緊密連結。",
+      "trend_basis": "虛構推演 · 依賴前置分支『潔淨基載電力商轉』，推演台灣完成長期淨零轉型後的環境紅利。",
+      "cultural_footnote_en": "Fictional forecast: Decades after clean baseload power and full electrification, Taiwan's cities convert old viaducts into vertical greenways with historically clean air.",
+      "gameplay_impact": {
+        "health_delta": 6,
+        "happiness_delta": 6,
+        "mortality_mult": 0.92
+      }
+    }
+  ]
+}

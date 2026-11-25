@@ -386,14 +386,29 @@
       "options": [
         {
           "key": "corp_internship",
-          "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給、避開 22K 低薪風險）",
+          "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給）",
           "effects": {
             "wage_mult": 1.16,
             "social": 6,
             "knowledge": 5,
             "flag_set": "uni_internship",
             "money_delta_twd_2025": 120000
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2008,
+              "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給）"
+            },
+            {
+              "min_year": 2009,
+              "max_year": 2014,
+              "label": "爭取知名企業實習／產學預聘（畢業即轉正、避開 22K 低薪定錨）"
+            },
+            {
+              "min_year": 2015,
+              "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給）"
+            }
+          ]
         },
         {
           "key": "prep_civil_exam",
@@ -560,12 +575,22 @@
         },
         {
           "key": "slow_travel_invest",
-          "label": "靠股息年金搭高鐵環台泡溫泉、定期出國賞櫻慢活（幸福++）",
+          "label": "靠股息年金環台泡溫泉、定期出國賞櫻慢活（幸福++）",
           "effects": {
             "happiness": 14,
             "health": 4,
             "money_delta_ratio": -0.08
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2006,
+              "label": "靠退休積蓄搭火車與客運環台泡溫泉、從容慢活（幸福++）"
+            },
+            {
+              "min_year": 2007,
+              "label": "靠股息年金搭高鐵環台泡溫泉、定期出國賞櫻慢活（幸福++）"
+            }
+          ]
         }
       ]
     }

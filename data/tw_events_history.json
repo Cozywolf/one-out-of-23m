@@ -40,7 +40,7 @@
         "立法院法律沿革"
       ],
       "protagonist_involvement": {
-        "base_prob": 0.06,
+        "base_prob": 0.14,
         "regions": [
           "central"
         ],
@@ -95,7 +95,7 @@
         "國家人權博物館史料"
       ],
       "protagonist_involvement": {
-        "base_prob": 0.08,
+        "base_prob": 0.14,
         "regions": [
           "south_kaohsiung",
           "north_taipei"
@@ -410,7 +410,7 @@
         "靖娟兒童安全文教基金會史料"
       ],
       "protagonist_involvement": {
-        "base_prob": 0.05,
+        "base_prob": 0.14,
         "regions": [
           "north_taipei",
           "north_hsinchu"
@@ -486,7 +486,7 @@
         "內政部消防署法制沿革"
       ],
       "protagonist_involvement": {
-        "base_prob": 0.07,
+        "base_prob": 0.14,
         "regions": [
           "central"
         ],
@@ -996,7 +996,7 @@
         "立法院軍事審判法修法紀錄"
       ],
       "protagonist_involvement": {
-        "base_prob": 0.08,
+        "base_prob": 0.15,
         "regions": [
           "ALL"
         ],
