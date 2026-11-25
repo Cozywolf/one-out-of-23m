@@ -1,12 +1,12 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.1 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.2 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
  * 3. tw_lifetable.json         calibrated mortality, causes, typhoon & lifestyle risks
- * 4. tw_events_history.json    66 historical & legal-aftermath events (3-part edu cards)
+ * 4. tw_events_history.json    85 single-year historical & legal-aftermath events (3-part edu cards)
  * 5. tw_decisions.json         34 Taiwan localized decisions + 5 pause questions
  * 6. tw_names.json             weighted surnames & 6 cohort given-name pools
- * 7. tw_education_careers.json 4 education eras & 16 era/region/major-gated Taiwan careers
+ * 7. tw_education_careers.json 4 education eras & 21 era/region/major-gated Taiwan careers
  * 8. tw_culture_eras.json      era social/family atmospheres, customs & overseas comm channels
  * 9. tw_study_abroad.json      6 study-abroad pathways, 6 countries' era events, 12 return triggers + D27
  * 10-13. tw_life_stages, tw_market_history, tw_ambient_peers, tw_future_forecasts
@@ -2933,6 +2933,10 @@
       if (life.studentLoanNominal > 0 && isWorking) {
         life.studentLoanNominal = Math.max(0, life.studentLoanNominal - Math.min(life.studentLoanNominal, Math.max(Math.round(life.studentLoanNominal * 0.1), Math.round(36000 * era.cpi))));
       }
+      // Young adults who have not started working yet never run up living-cost debt: family covers the gap
+      if (!life.careerId && life.location === "TAIWAN" && life.age < 32 && !life.flags.retired && annualExpenseNominal > earnedThisYear) {
+        annualExpenseNominal = Math.min(annualExpenseNominal, earnedThisYear + Math.max(0, life.moneyNominal));
+      }
       // Lenders and relatives stop lending at some point: beyond a credit line the household has to cut spending instead
       if (life.age >= 18 && life.stockNominal <= 0 && annualExpenseNominal > earnedThisYear) {
         const debt = Math.max(0, -life.moneyNominal);
@@ -3022,7 +3026,7 @@
               age: life.age, year: life.currentYear, roc: era.roc,
               isCrash: true,
               pct: mkt.price_pct,
-              title: `📉 【${isMarginEra ? "史實台股融資斷頭" : "史實台股重壓慘賠"}】${life.currentYear} 年大盤劇震（全年 ${(mkt.price_pct * 100).toFixed(1)}%，盤中最大回撤 ${(mkt.max_drawdown * 100).toFixed(1)}%）`,
+              title: `📉 【${isMarginEra ? "台股融資斷頭" : "台股重壓慘賠"}】${life.currentYear} 年大盤劇震（全年 ${(mkt.price_pct * 100).toFixed(1)}%，盤中最大回撤 ${(mkt.max_drawdown * 100).toFixed(1)}%）`,
               text: isMarginEra
                 ? `${mkt.note ? mkt.note + "。" : ""}你的融資槓桿部位慘遭追繳斷頭，股市資產與保證金合計蒸發約 NT$${lostAmt.toLocaleString()}，財務陷入重大危機！`
                 : `${mkt.note ? mkt.note + "。" : ""}你重壓熱門股遭遇大盤崩跌慘遭腰斬套牢，股票資產與拆借合計蒸發約 NT$${lostAmt.toLocaleString()}，財務陷入重大危機！`
@@ -3054,7 +3058,7 @@
             age: life.age, year: life.currentYear, roc: era.roc,
             isCrash: !isUp,
             pct: mkt.price_pct,
-            title: `${isUp ? "📈" : "📉"} 【史實股市波動】${life.currentYear} 年加權指數 ${mkt.price_pct >= 0 ? "+" : ""}${(mkt.price_pct * 100).toFixed(1)}%`,
+            title: `${isUp ? "📈" : "📉"} 【${mkt.isHistorical ? "史實股市波動" : "股市波動"}】${life.currentYear} 年加權指數 ${mkt.price_pct >= 0 ? "+" : ""}${(mkt.price_pct * 100).toFixed(1)}%`,
             text: `${mkt.note ? mkt.note + "。" : ""}你持有的${label}部位今年帳面${isUp ? "增值" : "縮水"}約 NT$${Math.abs(delta).toLocaleString()}（目前市值 NT$${life.stockNominal.toLocaleString()}）。`
           });
           if (!isUp && mkt.price_pct <= -0.35) life.stats.happiness -= 8;
@@ -4565,7 +4569,9 @@
         if (ef.money_delta_twd_2025) {
           const isDependentStudent = life.age < 24 && (life.workYears || 0) === 0 && !life.flags.part_time_approved && !life.flags.vocational_coop && !life.flags.uni_parttime && !life.flags.uni_internship && life.flags.hs_tier !== "work_early";
           if (!(ef.money_delta_twd_2025 < 0 && isDependentStudent && life.moneyNominal <= 0)) {
-            life.moneyNominal += Math.round(ef.money_delta_twd_2025 * this.wageScale(era) * era.cpi);
+            let deltaNom = Math.round(ef.money_delta_twd_2025 * this.wageScale(era) * era.cpi);
+            if (deltaNom < 0 && (life.workYears || 0) === 0) deltaNom = -Math.min(-deltaNom, Math.max(0, life.moneyNominal)); // 尚未工作者由家人補足
+            life.moneyNominal += deltaNom;
           }
         }
       }

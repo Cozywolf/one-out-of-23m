@@ -5144,7 +5144,7 @@ window.TW_DATA = {
               2022,
               2026
             ],
-            "title": "飆股群組／im.B「保本高息」平台邀約",
+            "title": "通訊軟體飆股群組與高息債權平台邀約",
             "crash_year": "immediate_or_next_year",
             "source_note": "通訊軟體飆股群組與高息債權平台盛行，主打穩賺不賠話術"
           },
