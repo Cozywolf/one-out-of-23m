@@ -4254,31 +4254,68 @@ window.TW_DATA = {
             "key": "stem_eng",
             "label": "電資／理工／資訊工程學門",
             "effects": {
-              "starting_pay_mult": 1.12,
+              "major_group": "stem_eng",
+              "starting_pay_mult": 1.04,
               "happiness": -3
+            },
+            "era_labels": [
+              {
+                "max_year": 1979,
+                "label": "理工／電機工程學門"
+              },
+              {
+                "min_year": 1980,
+                "label": "電資／理工／資訊工程學門"
+              }
+            ]
+          },
+          {
+            "key": "med_doctor",
+            "label": "醫學／牙醫系（六至七年，錄取門檻最高）",
+            "requires_knowledge_min": 84,
+            "effects": {
+              "major_group": "med_health",
+              "happiness": -5
             }
           },
           {
-            "key": "med_health",
-            "label": "醫學／牙藥／護理衛生學門",
+            "key": "health_allied",
+            "label": "護理／藥學／醫技學系",
             "effects": {
-              "starting_pay_mult": 1.14,
-              "happiness": -4
+              "major_group": "med_health",
+              "happiness": -2
             }
           },
           {
-            "key": "humanities_biz",
-            "label": "法政／商管／會計／人文藝術學門",
+            "key": "law",
+            "label": "法律學系",
+            "requires_knowledge_min": 62,
             "effects": {
-              "happiness": 4,
-              "starting_pay_mult": 1.0
+              "major_group": "humanities_biz",
+              "happiness": -1
+            }
+          },
+          {
+            "key": "biz",
+            "label": "商管／會計／財金學系",
+            "effects": {
+              "major_group": "humanities_biz",
+              "happiness": 1
+            }
+          },
+          {
+            "key": "arts",
+            "label": "人文／社會／藝術／傳播學系",
+            "effects": {
+              "major_group": "humanities_biz",
+              "happiness": 4
             }
           },
           {
             "key": "public_funded",
-            "label": "軍警校或公費師範體系",
+            "label": "軍警校或公費師範（畢業分發，服務年限內不能離職）",
             "effects": {
-              "tuition_free": true
+              "major_group": "public_funded"
             }
           }
         ]
@@ -4331,7 +4368,7 @@ window.TW_DATA = {
         "conditions": {
           "age_range": [
             19,
-            24
+            30
           ],
           "sex": "M"
         },
@@ -4369,7 +4406,6 @@ window.TW_DATA = {
             "key": "volunteer_soldier",
             "label": "簽志願役",
             "effects": {
-              "starting_pay_mult": 1.2,
               "savings_rate_bonus": 0.15,
               "happiness": -4
             }
@@ -4438,8 +4474,7 @@ window.TW_DATA = {
                 "north_taipei",
                 "north_hsinchu"
               ],
-              "wage_mult": 1.25,
-              "rent_cost_mult": 2.2,
+              "wage_mult": 1.08,
               "relationships": -6
             },
             "era_labels": [
@@ -4462,7 +4497,6 @@ window.TW_DATA = {
             "key": "stay_home",
             "label": "留在家鄉工作並住家裡",
             "effects": {
-              "rent_cost_mult": 0.2,
               "relationships": 6,
               "happiness": 4,
               "career_ceiling_local": true
@@ -4487,7 +4521,7 @@ window.TW_DATA = {
         "conditions": {
           "age_range": [
             18,
-            32
+            45
           ],
           "requires_working_adult": true
         },
@@ -4535,8 +4569,8 @@ window.TW_DATA = {
         "title": "職涯轉職契機：跨界跳槽還是深耕本業？",
         "conditions": {
           "age_range": [
-            27,
-            48
+            25,
+            56
           ],
           "requires_working_adult": true,
           "min_work_years": 4
@@ -4546,7 +4580,7 @@ window.TW_DATA = {
             "key": "stay_current_grow",
             "label": "留在原領域累積資深年資（穩定調薪 +8%）",
             "effects": {
-              "wage_mult": 1.08,
+              "wage_mult": 1.04,
               "happiness": 2
             }
           }
@@ -4641,8 +4675,7 @@ window.TW_DATA = {
             "label": "返鄉就業或轉遠距照顧家人",
             "effects": {
               "migrate_to": "birth_region",
-              "wage_mult": 0.8,
-              "rent_cost_mult": 0.4,
+              "wage_mult": 0.92,
               "happiness": 8,
               "relationships": 10
             },
@@ -4977,8 +5010,8 @@ window.TW_DATA = {
         "title": "買房的終極算計",
         "conditions": {
           "age_range": [
-            27,
-            46
+            25,
+            60
           ],
           "not_homeowner": true
         },
@@ -5232,7 +5265,8 @@ window.TW_DATA = {
           "age_range": [
             28,
             60
-          ]
+          ],
+          "requires_working_adult": true
         },
         "options": [
           {
@@ -5319,8 +5353,8 @@ window.TW_DATA = {
         "title": "遇見心動的對象：開啟一段感情嗎？",
         "conditions": {
           "age_range": [
-            19,
-            36
+            18,
+            62
           ],
           "no_partner_yet": true
         },
@@ -5371,8 +5405,8 @@ window.TW_DATA = {
         "title": "步入婚姻嗎？",
         "conditions": {
           "age_range": [
-            23,
-            40
+            20,
+            64
           ],
           "has_partner": true
         },
@@ -5422,8 +5456,8 @@ window.TW_DATA = {
         "title": "生不生小孩？",
         "conditions": {
           "age_range": [
-            24,
-            42
+            20,
+            52
           ],
           "married": true
         },
@@ -5433,8 +5467,7 @@ window.TW_DATA = {
             "label": "生育下一代，迎接家庭新成員",
             "effects": {
               "children_delta": 1,
-              "subsidy_post_2026_twd": 100000,
-              "old_age_support": 10
+              "subsidy_post_2026_twd": 100000
             },
             "era_labels": [
               {
@@ -5448,12 +5481,19 @@ window.TW_DATA = {
             ]
           },
           {
+            "key": "not_now",
+            "label": "今年先不要，過一兩年再說",
+            "effects": {
+              "postpone_child": true
+            }
+          },
+          {
             "key": "dink_pets",
             "label": "選擇不生育，專注兩人生活與財務自由",
             "effects": {
+              "no_more_kids": true,
               "savings_rate_bonus": 0.15,
-              "happiness": 5,
-              "old_age_support": -5
+              "happiness": 4
             },
             "era_labels": [
               {
@@ -5479,8 +5519,8 @@ window.TW_DATA = {
         "title": "婚姻亮紅燈",
         "conditions": {
           "age_range": [
-            30,
-            55
+            27,
+            60
           ],
           "married": true
         },
@@ -5551,9 +5591,7 @@ window.TW_DATA = {
           {
             "key": "private_cram",
             "label": "送私立名校與全科課後補習",
-            "effects": {
-              "child_mobility_bonus": 0.25
-            },
+            "effects": {},
             "requires_cram_afford": true,
             "era_labels": [
               {
@@ -5724,8 +5762,8 @@ window.TW_DATA = {
         "title": "退休時間點抉擇",
         "conditions": {
           "age_range": [
-            55,
-            68
+            50,
+            90
           ]
         },
         "options": [
@@ -6445,8 +6483,8 @@ window.TW_DATA = {
           1950,
           2130
         ],
-        "salary_mult_min": 0.58,
-        "salary_mult_max": 0.85,
+        "salary_mult_min": 0.42,
+        "salary_mult_max": 0.72,
         "preferred_regions": [
           "south_tainan",
           "central",
@@ -6458,7 +6496,8 @@ window.TW_DATA = {
         "stability": 0.72,
         "health_drain": 0.6,
         "remote_capable": false,
-        "flavor": "看天吃飯，早起巡田或出海，易受颱風與 2002 年 WTO 進口農產衝擊。"
+        "flavor": "看天吃飯，早起巡田或出海，易受颱風與 2002 年 WTO 進口農產衝擊。",
+        "pick_weight": 1.1
       },
       {
         "id": "car_civil_teacher",
@@ -6468,7 +6507,7 @@ window.TW_DATA = {
           2130
         ],
         "salary_mult_min": 0.98,
-        "salary_mult_max": 1.32,
+        "salary_mult_max": 1.22,
         "preferred_regions": [
           "north_taipei",
           "east_islands",
@@ -6484,17 +6523,18 @@ window.TW_DATA = {
         "stability": 0.99,
         "health_drain": 0.1,
         "remote_capable": false,
-        "flavor": "工作極度穩定，1950–60 年代含實物配給與眷舍，2008 海嘯後更是青年避風港。"
+        "flavor": "工作極度穩定，1950–60 年代含實物配給與眷舍，2008 海嘯後更是青年避風港。",
+        "entry": "civil"
       },
       {
         "id": "car_epz_worker",
-        "name": "加工出口區作業員／紡織成衣員",
+        "name": "工廠作業員",
         "era_range": [
-          1960,
-          1995
+          1950,
+          2130
         ],
-        "salary_mult_min": 0.7,
-        "salary_mult_max": 0.88,
+        "salary_mult_min": 0.56,
+        "salary_mult_max": 0.78,
         "preferred_regions": [
           "south_kaohsiung",
           "central",
@@ -6505,7 +6545,9 @@ window.TW_DATA = {
         "stability": 0.75,
         "health_drain": 0.8,
         "remote_capable": false,
-        "flavor": "1966 高雄加工出口區設立後，成為台灣經濟起飛與女性大量投入職場的縮影。"
+        "flavor": "從紡織廠、加工出口區到科技廠產線，撐起台灣外銷的基層主力。",
+        "max_edu_level": 3,
+        "pick_weight": 2.2
       },
       {
         "id": "car_craft_apprentice",
@@ -6514,8 +6556,8 @@ window.TW_DATA = {
           1950,
           2130
         ],
-        "salary_mult_min": 0.85,
-        "salary_mult_max": 1.35,
+        "salary_mult_min": 0.68,
+        "salary_mult_max": 1.12,
         "preferred_regions": [
           "central",
           "south_tainan",
@@ -6527,17 +6569,19 @@ window.TW_DATA = {
         "stability": 0.82,
         "health_drain": 0.9,
         "remote_capable": false,
-        "flavor": "熬過學徒出師後憑一技之長立身，近年缺工反讓老師傅身價看漲。"
+        "flavor": "熬過學徒出師後憑一技之長立身，近年缺工反讓老師傅身價看漲。",
+        "pick_weight": 1.4,
+        "max_edu_level": 3
       },
       {
         "id": "car_export_sales",
         "name": "外銷貿易業務（一卡皮箱走天下）",
         "era_range": [
           1970,
-          2005
+          2130
         ],
-        "salary_mult_min": 1.15,
-        "salary_mult_max": 1.85,
+        "salary_mult_min": 0.9,
+        "salary_mult_max": 1.4,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -6550,18 +6594,19 @@ window.TW_DATA = {
         "stability": 0.76,
         "health_drain": 0.6,
         "remote_capable": false,
-        "flavor": "提著裝滿樣品的一卡皮箱飛往歐美參展接單，撐起台灣外銷奇蹟。"
+        "flavor": "提著裝滿樣品的一卡皮箱飛往歐美參展接單，撐起台灣外銷奇蹟。",
+        "pick_weight": 0.8
       },
       {
         "id": "car_sme_boss",
         "name": "傳產頭家／中小企業廠主",
-        "pick_weight": 0.45,
+        "pick_weight": 0.3,
         "era_range": [
           1970,
           2130
         ],
-        "salary_mult_min": 0.75,
-        "salary_mult_max": 2.6,
+        "salary_mult_min": 0.7,
+        "salary_mult_max": 2.1,
         "preferred_regions": [
           "central",
           "north_hsinchu",
@@ -6577,13 +6622,13 @@ window.TW_DATA = {
       },
       {
         "id": "car_doctor_pharma",
-        "name": "醫師／牙醫師／藥師",
+        "name": "醫師／牙醫師",
         "era_range": [
           1955,
           2130
         ],
-        "salary_mult_min": 2.15,
-        "salary_mult_max": 3.4,
+        "salary_mult_min": 2.6,
+        "salary_mult_max": 3.9,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -6600,17 +6645,22 @@ window.TW_DATA = {
         "stability": 0.96,
         "health_drain": 0.85,
         "remote_capable": false,
-        "flavor": "須具備醫學或藥學系學歷之頂尖醫療專業，2025 調查醫師年薪中位數逾 211 萬元居各業之冠。"
+        "flavor": "醫學系六至七年養成並通過國考與住院醫師訓練，2025 調查醫師年薪中位數逾 211 萬元居各業之冠。",
+        "required_sub_majors": [
+          "med_doctor"
+        ],
+        "entry": "license",
+        "auto_license": true
       },
       {
         "id": "car_lawyer_cpa",
-        "name": "律師／會計師／法務顧問",
+        "name": "律師／法務顧問",
         "era_range": [
           1955,
           2130
         ],
-        "salary_mult_min": 1.65,
-        "salary_mult_max": 2.85,
+        "salary_mult_min": 1.35,
+        "salary_mult_max": 2.4,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -6627,7 +6677,35 @@ window.TW_DATA = {
         "stability": 0.92,
         "health_drain": 0.75,
         "remote_capable": false,
-        "flavor": "須具備法政或商管會計學門背景並通過國家專技高考，執業後社會地位與報酬俱佳。"
+        "flavor": "須法律系背景並通過律師高考，早年錄取率僅個位數。",
+        "required_sub_majors": [
+          "law"
+        ],
+        "entry": "license",
+        "exam_name": "律師高考",
+        "fallback_title": "法務專員",
+        "pass_rate_points": [
+          [
+            1955,
+            0.03
+          ],
+          [
+            1988,
+            0.06
+          ],
+          [
+            2000,
+            0.08
+          ],
+          [
+            2011,
+            0.12
+          ],
+          [
+            2100,
+            0.12
+          ]
+        ]
       },
       {
         "id": "car_finance_broker",
@@ -6636,8 +6714,8 @@ window.TW_DATA = {
           1980,
           2130
         ],
-        "salary_mult_min": 1.25,
-        "salary_mult_max": 2.2,
+        "salary_mult_min": 1.05,
+        "salary_mult_max": 1.9,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -6654,17 +6732,23 @@ window.TW_DATA = {
         "stability": 0.78,
         "health_drain": 0.6,
         "remote_capable": true,
-        "flavor": "1987–1990 股市狂潮年終豐厚，2024 金融保險業年薪中位數達 110.6 萬元。"
+        "flavor": "1987–1990 股市狂潮年終豐厚，2024 金融保險業年薪中位數達 110.6 萬元。",
+        "required_sub_majors": [
+          "biz",
+          "law",
+          "stem_eng"
+        ],
+        "pick_weight": 0.7
       },
       {
         "id": "car_hsinchu_semi",
         "name": "半導體／IC 設計／AI 工程師",
         "era_range": [
-          1987,
+          1980,
           2130
         ],
-        "salary_mult_min": 1.65,
-        "salary_mult_max": 2.75,
+        "salary_mult_min": 1.3,
+        "salary_mult_max": 2.4,
         "preferred_regions": [
           "north_hsinchu",
           "south_tainan",
@@ -6682,7 +6766,8 @@ window.TW_DATA = {
         "stability": 0.88,
         "health_drain": 1.1,
         "remote_capable": true,
-        "flavor": "1990–2007 享股票分紅配股紅利，2020s 乘 AI 出口浪潮成為高薪代表但輪班工時長。"
+        "flavor": "1990–2007 享股票分紅配股紅利，2020s 乘 AI 出口浪潮成為高薪代表但輪班工時長。",
+        "pick_weight": 1.3
       },
       {
         "id": "car_cram_service_mgr",
@@ -6691,8 +6776,8 @@ window.TW_DATA = {
           1985,
           2130
         ],
-        "salary_mult_min": 0.88,
-        "salary_mult_max": 1.65,
+        "salary_mult_min": 0.72,
+        "salary_mult_max": 1.15,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -6706,7 +6791,8 @@ window.TW_DATA = {
         "stability": 0.8,
         "health_drain": 0.5,
         "remote_capable": false,
-        "flavor": "伴隨服務業就業破六成與補教熱潮而起，工時多集中晚間與假日。"
+        "flavor": "伴隨服務業就業破六成與補教熱潮而起，工時多集中晚間與假日。",
+        "pick_weight": 0.8
       },
       {
         "id": "car_software_remote",
@@ -6715,8 +6801,8 @@ window.TW_DATA = {
           1998,
           2130
         ],
-        "salary_mult_min": 1.2,
-        "salary_mult_max": 2.05,
+        "salary_mult_min": 1.1,
+        "salary_mult_max": 1.8,
         "preferred_regions": [
           "north_taipei",
           "north_hsinchu",
@@ -6733,7 +6819,8 @@ window.TW_DATA = {
         "stability": 0.84,
         "health_drain": 0.6,
         "remote_capable": true,
-        "flavor": "新鮮人起薪居各職務前段，2020 後具備跨國遠距與數位游牧彈性。"
+        "flavor": "新鮮人起薪居各職務前段，2020 後具備跨國遠距與數位游牧彈性。",
+        "pick_weight": 0.9
       },
       {
         "id": "car_gig_delivery",
@@ -6742,8 +6829,8 @@ window.TW_DATA = {
           2016,
           2130
         ],
-        "salary_mult_min": 0.72,
-        "salary_mult_max": 1.05,
+        "salary_mult_min": 0.58,
+        "salary_mult_max": 0.85,
         "preferred_regions": [
           "north_taipei",
           "north_hsinchu",
@@ -6756,7 +6843,9 @@ window.TW_DATA = {
         "stability": 0.7,
         "health_drain": 1.0,
         "remote_capable": false,
-        "flavor": "時間彈性且門檻低，但缺乏職涯累積並承擔較高機車交通與日曬雨淋風險。"
+        "flavor": "時間彈性且門檻低，但缺乏職涯累積並承擔較高機車交通與日曬雨淋風險。",
+        "pick_weight": 0.5,
+        "max_switch_age": 50
       },
       {
         "id": "car_creator_ecom",
@@ -6765,8 +6854,8 @@ window.TW_DATA = {
           2014,
           2130
         ],
-        "salary_mult_min": 0.45,
-        "salary_mult_max": 2.2,
+        "salary_mult_min": 0.4,
+        "salary_mult_max": 1.5,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -6779,17 +6868,19 @@ window.TW_DATA = {
         "stability": 0.55,
         "health_drain": 0.5,
         "remote_capable": true,
-        "flavor": "高度 M 型化新興職涯，極少數爆紅致富，多數須面對演算法與流量焦慮。"
+        "flavor": "高度 M 型化新興職涯，極少數爆紅致富，多數須面對演算法與流量焦慮。",
+        "pick_weight": 0.25,
+        "max_switch_age": 40
       },
       {
         "id": "car_healthcare_ltc",
         "name": "醫療護理師／長照居服員",
         "era_range": [
-          1975,
+          1955,
           2130
         ],
-        "salary_mult_min": 0.85,
-        "salary_mult_max": 1.25,
+        "salary_mult_min": 0.82,
+        "salary_mult_max": 1.12,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -6813,11 +6904,11 @@ window.TW_DATA = {
         "id": "car_tourism_hospitality",
         "name": "觀光旅宿／餐飲從業人員",
         "era_range": [
-          1985,
+          1955,
           2130
         ],
-        "salary_mult_min": 0.68,
-        "salary_mult_max": 1.02,
+        "salary_mult_min": 0.56,
+        "salary_mult_max": 0.82,
         "preferred_regions": [
           "east_islands",
           "south_tainan",
@@ -6841,8 +6932,8 @@ window.TW_DATA = {
           1965,
           2130
         ],
-        "salary_mult_min": 0.85,
-        "salary_mult_max": 1.35,
+        "salary_mult_min": 0.64,
+        "salary_mult_max": 1.1,
         "preferred_regions": [
           "north_taipei",
           "north_hsinchu",
@@ -6859,6 +6950,134 @@ window.TW_DATA = {
         "health_drain": 0.5,
         "remote_capable": false,
         "flavor": "台灣就業人數最龐大的中產受薪骨幹，貼近主計總處薪資中位數，安穩但須面對通膨與房貸壓力。"
+      },
+      {
+        "id": "car_pharma_medtech",
+        "name": "藥師／醫檢師／治療師",
+        "era_range": [
+          1955,
+          2130
+        ],
+        "salary_mult_min": 1.0,
+        "salary_mult_max": 1.4,
+        "preferred_regions": [
+          "north_taipei",
+          "central",
+          "south_kaohsiung",
+          "south_tainan"
+        ],
+        "min_edu_level": 4,
+        "required_majors": [
+          "med_health"
+        ],
+        "required_sub_majors": [
+          "health_allied"
+        ],
+        "preferred_majors": [
+          "med_health"
+        ],
+        "pick_weight": 1.6,
+        "stability": 0.94,
+        "health_drain": 0.6,
+        "remote_capable": false,
+        "flavor": "藥學、醫技與復健專業，考取證照後在醫院、診所與藥局執業。"
+      },
+      {
+        "id": "car_cpa",
+        "name": "會計師",
+        "era_range": [
+          1955,
+          2130
+        ],
+        "salary_mult_min": 1.25,
+        "salary_mult_max": 2.1,
+        "preferred_regions": [
+          "north_taipei",
+          "central",
+          "south_kaohsiung"
+        ],
+        "min_edu_level": 4,
+        "required_majors": [
+          "humanities_biz"
+        ],
+        "required_sub_majors": [
+          "biz"
+        ],
+        "preferred_majors": [
+          "humanities_biz"
+        ],
+        "entry": "license",
+        "exam_name": "會計師高考",
+        "fallback_title": "會計／查帳員",
+        "pass_rate_points": [
+          [
+            1955,
+            0.04
+          ],
+          [
+            1988,
+            0.08
+          ],
+          [
+            2005,
+            0.1
+          ],
+          [
+            2100,
+            0.12
+          ]
+        ],
+        "stability": 0.92,
+        "health_drain": 0.75,
+        "remote_capable": false,
+        "flavor": "須商管會計背景並通過會計師高考，忙季徹夜查帳。"
+      },
+      {
+        "id": "car_service_worker",
+        "name": "門市／保全／清潔服務人員",
+        "era_range": [
+          1950,
+          2130
+        ],
+        "salary_mult_min": 0.5,
+        "salary_mult_max": 0.7,
+        "preferred_regions": [
+          "north_taipei",
+          "central",
+          "south_kaohsiung",
+          "south_tainan"
+        ],
+        "min_edu_level": 0,
+        "max_edu_level": 3,
+        "preferred_majors": [],
+        "pick_weight": 1.8,
+        "stability": 0.78,
+        "health_drain": 0.6,
+        "remote_capable": false,
+        "flavor": "百貨、商店、餐館與大樓裡最常見的面孔，薪水貼近基本工資。"
+      },
+      {
+        "id": "car_driver_logistics",
+        "name": "司機／物流倉儲人員",
+        "era_range": [
+          1955,
+          2130
+        ],
+        "salary_mult_min": 0.62,
+        "salary_mult_max": 0.95,
+        "preferred_regions": [
+          "north_hsinchu",
+          "central",
+          "south_kaohsiung"
+        ],
+        "min_edu_level": 1,
+        "max_edu_level": 3,
+        "preferred_majors": [],
+        "pick_weight": 1.0,
+        "stability": 0.82,
+        "health_drain": 0.8,
+        "remote_capable": false,
+        "flavor": "貨車、公車、計程車到電商倉儲，長時間在路上。"
       }
     ]
   },
@@ -8386,7 +8605,7 @@ window.TW_DATA = {
             "requires_knowledge_min": 45,
             "effects": {
               "knowledge": 8,
-              "wage_mult": 1.14,
+              "wage_mult": 1.06,
               "flag_set": "vocational_elite",
               "uni_admit_bonus": 0.25
             },
@@ -8408,7 +8627,7 @@ window.TW_DATA = {
               "money_delta_twd_2025": 90000,
               "social": 5,
               "health": -3,
-              "wage_mult": 1.06,
+              "wage_mult": 1.03,
               "flag_set": "vocational_coop"
             }
           },
@@ -8456,7 +8675,7 @@ window.TW_DATA = {
             "label": "咬牙熬過三年四個月跟師傅學滿技術（出師後成搶手技藝師傅，收入大幅跳升）",
             "effects": {
               "health": -4,
-              "wage_mult": 1.28,
+              "wage_mult": 1.12,
               "flag_set": "master_craftsman",
               "knowledge": 4
             }
@@ -8537,7 +8756,7 @@ window.TW_DATA = {
               "happiness": -3,
               "health": -2,
               "flag_set": "uni_lab_research",
-              "wage_mult": 1.08
+              "wage_mult": 1.03
             },
             "era_labels": [
               {
@@ -8568,7 +8787,7 @@ window.TW_DATA = {
               "happiness": -4,
               "flag_set": "uni_cross_coding",
               "remote_unlock": true,
-              "wage_mult": 1.1
+              "wage_mult": 1.04
             },
             "era_labels": [
               {
@@ -8603,7 +8822,7 @@ window.TW_DATA = {
             "key": "corp_internship",
             "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給）",
             "effects": {
-              "wage_mult": 1.16,
+              "wage_mult": 1.05,
               "social": 6,
               "knowledge": 5,
               "flag_set": "uni_internship",
@@ -8703,7 +8922,7 @@ window.TW_DATA = {
             "label": "動用大學社團／同業人脈內推跳槽外商或大廠（需人際 ≥ 68 或曾任社團幹部）",
             "requires_social_or_club": true,
             "effects": {
-              "wage_mult": 1.24,
+              "wage_mult": 1.1,
               "social": 5,
               "happiness": 6,
               "flag_set": "referral_promoted"
@@ -8775,7 +8994,7 @@ window.TW_DATA = {
             "label": "加入同業公會／扶輪社／獅子會拓展人脈與事業機會（人際++、應酬傷身）",
             "effects": {
               "social": 10,
-              "wage_mult": 1.1,
+              "wage_mult": 1.05,
               "health": -5,
               "money_delta_twd_2025": -150000
             }

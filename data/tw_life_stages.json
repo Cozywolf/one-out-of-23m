@@ -305,7 +305,7 @@
           "requires_knowledge_min": 45,
           "effects": {
             "knowledge": 8,
-            "wage_mult": 1.14,
+            "wage_mult": 1.06,
             "flag_set": "vocational_elite",
             "uni_admit_bonus": 0.25
           },
@@ -327,7 +327,7 @@
             "money_delta_twd_2025": 90000,
             "social": 5,
             "health": -3,
-            "wage_mult": 1.06,
+            "wage_mult": 1.03,
             "flag_set": "vocational_coop"
           }
         },
@@ -375,7 +375,7 @@
           "label": "咬牙熬過三年四個月跟師傅學滿技術（出師後成搶手技藝師傅，收入大幅跳升）",
           "effects": {
             "health": -4,
-            "wage_mult": 1.28,
+            "wage_mult": 1.12,
             "flag_set": "master_craftsman",
             "knowledge": 4
           }
@@ -456,7 +456,7 @@
             "happiness": -3,
             "health": -2,
             "flag_set": "uni_lab_research",
-            "wage_mult": 1.08
+            "wage_mult": 1.03
           },
           "era_labels": [
             {
@@ -487,7 +487,7 @@
             "happiness": -4,
             "flag_set": "uni_cross_coding",
             "remote_unlock": true,
-            "wage_mult": 1.1
+            "wage_mult": 1.04
           },
           "era_labels": [
             {
@@ -522,7 +522,7 @@
           "key": "corp_internship",
           "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給）",
           "effects": {
-            "wage_mult": 1.16,
+            "wage_mult": 1.05,
             "social": 6,
             "knowledge": 5,
             "flag_set": "uni_internship",
@@ -622,7 +622,7 @@
           "label": "動用大學社團／同業人脈內推跳槽外商或大廠（需人際 ≥ 68 或曾任社團幹部）",
           "requires_social_or_club": true,
           "effects": {
-            "wage_mult": 1.24,
+            "wage_mult": 1.1,
             "social": 5,
             "happiness": 6,
             "flag_set": "referral_promoted"
@@ -694,7 +694,7 @@
           "label": "加入同業公會／扶輪社／獅子會拓展人脈與事業機會（人際++、應酬傷身）",
           "effects": {
             "social": 10,
-            "wage_mult": 1.1,
+            "wage_mult": 1.05,
             "health": -5,
             "money_delta_twd_2025": -150000
           }
