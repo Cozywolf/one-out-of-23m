@@ -332,7 +332,8 @@
       ],
       "relation": "昔日社團夥伴",
       "text": "友校的社團老朋友傳來一張照片——他們母校大門口的校名拆掉了一半，以前下課總排到巷口的雞排攤，這個學期也跟著拉下鐵門了。",
-      "historical_note": ""
+      "historical_note": "",
+      "min_edu_level": 4
     },
     {
       "id": "AP_2026_caregiver_neighbor",

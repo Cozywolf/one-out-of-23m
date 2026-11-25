@@ -337,7 +337,7 @@
         prob *= 1.15;
       }
 
-      prob = isIncident ? clamp(prob, 0.004, 0.045) : clamp(prob, 0.01, 0.28);
+      prob = isIncident ? clamp(prob * 0.5, 0.001, 0.02) : clamp(prob, 0.005, 0.22);
       if (Math.random() >= prob) return null;
 
       if (isIncident) {
@@ -435,6 +435,7 @@
       if (!career) return "";
       if (career.id === "car_epz_worker") return year < 1966 ? "紡織／食品工廠工人" : year <= 1995 ? "加工出口區作業員／紡織成衣員" : "科技廠／工廠作業員";
       if (career.id === "car_export_sales" && year > 2005) return "國外業務／採購專員";
+      if (career.id === "car_creator_ecom" && year < 2017) return "自媒體／網拍電商經營者";
       if (career.id === "car_service_worker" && year < 1980) return "店員／服務員／雜工";
       if (career.id === "car_tourism_hospitality" && year < 1985) return "旅社／餐館從業人員";
       if (career.id === "car_hsinchu_semi" && year < 1995) return "電子／半導體工程師";
@@ -815,6 +816,7 @@
       const pool = open.length ? open : careers.filter((c) => !c.required_majors && !c.required_majors_if_uni && !c.required_sub_majors && !c.entry);
       return weightedPick(pool, (c) => {
         let w = c.pick_weight != null ? c.pick_weight : 1.0;
+        if (life.sex === "F" && c.female_weight != null) w *= c.female_weight;
         if (c.preferred_regions.includes(life.regionId)) w *= 2.4;
         if (life.major && c.preferred_majors.includes(life.major)) w *= 3.0;
         return w;
@@ -1003,7 +1005,7 @@
           return "📊 時代趨勢：統計顯示台灣碩士學歷者年薪中位數較大學畢業生高出逾四成，約 28%–35% 理工與商管畢業生選擇先念研究所再入職場。";
 
         case "D06_northbound_migration":
-          if (y < 1990) return "📊 時代趨勢：工廠與公司行號集中在北部，中南部與東部的年輕人畢業後離鄉找頭路十分常見，過年返鄉車票一票難求。";
+          if (y < 2000) return "📊 時代趨勢：工廠與公司行號集中在北部，中南部與東部的年輕人畢業後離鄉找頭路十分常見，過年返鄉車票一票難求。";
           return "📊 時代趨勢：跨區就業統計顯示，中彰投畢業生約 27.7%、雲嘉南與高屏約 23.0%、宜花東與離島更高達 40%–50% 選擇北漂或赴西部都會區工作。";
 
         case "D07_career_track":
@@ -1049,6 +1051,7 @@
 
         case "D14_financial_trap":
           if (y < 1995) return "📊 時代趨勢：民間游資充沛但合法理財管道有限，高息地下投資公司與民間互助會蔚為風潮，許多中產家庭誤信親友口碑而將積蓄全數投入。";
+          if (y < 2004) return "📊 時代趨勢：股市投顧節目與未上市盤商當道，許多散戶靠小道消息追逐題材，資訊落差極大。";
           if (y < 2010) return "📊 時代趨勢：金融商品快速推陳出新，超過三成散戶過度信賴理專話術或高循環利率現金卡，低估了市場反轉時的槓桿殺傷力。";
           return "📊 時代趨勢：網路假投資群組與高息話術盛行，受害族群橫跨上班族與退休長者，超過六成受騙者最初都是從「小額試水溫」逐步加碼。";
 
@@ -1614,8 +1617,8 @@
       if (opt.requires_year_min && life.currentYear < opt.requires_year_min) {
         return { eligible: false, reason: "此制度於當前年代尚未開放" };
       }
-      if (opt.requires_edu === "master_or_stem" && !(life.eduLevel >= 5 || life.major === "stem_eng" || life.major === "med_health")) {
-        return { eligible: false, reason: "需具備研究所或理工電資醫藥背景" };
+      if (opt.requires_edu === "master_or_stem" && !(life.eduLevel >= 4 && (life.currentYear < 2000 || life.major === "stem_eng" || life.major === "med_health"))) {
+        return { eligible: false, reason: life.currentYear < 2000 ? "需具備大學以上學歷" : "需具備大學以上理工電資或醫藥背景" };
       }
       if (opt.requires_remote_or_senior && !(life.flags.remote_capable || life.workYears >= 8)) {
         return { eligible: false, reason: "需具備遠距彈性職涯（軟體／金融／創作者）或 8 年以上資深年資" };
@@ -1782,8 +1785,8 @@
       const wantsMarriage = life.marriageInclination < everMarryTarget;
       const wMap = {
         LS02A_primary_exam: () => {
-          const poorGirl = life.sex === "F" ? 0.2 : 0;
-          const stop = clamp(0.5 - (life.quintile - 1) * 0.11 + poorGirl, 0.04, 0.75);
+          const poorGirl = life.sex === "F" ? 0.24 * (6 - life.quintile) / 5 : 0;
+          const stop = clamp(0.52 - (life.quintile - 1) * 0.12 + poorGirl, 0.03, 0.8);
           return { enter_junior: (1 - stop) * 0.82, enter_junior_voc: (1 - stop) * 0.18, stop_after_primary: stop };
         },
         LS02_junior_high_exam_branch: () => {
@@ -1810,7 +1813,7 @@
             else if (o.key === "family_biz_startup") w[o.key] = life.quintile >= 4 ? 0.07 : 0.035;
             else if (o.key.startsWith("career_")) {
               const car = (this.data.educationCareers.careers || []).find((x) => "career_" + x.id === o.key);
-              w[o.key] = car && car.entry === "license" && !car.auto_license ? 0.2 : car && car.auto_license ? 2.5 : (car && car.pick_weight != null ? car.pick_weight : 1) * 0.3;
+              w[o.key] = car && car.entry === "license" && !car.auto_license ? 0.2 : car && car.auto_license ? 2.5 : (car && car.pick_weight != null ? car.pick_weight : 1) * (life.sex === "F" && car && car.female_weight != null ? car.female_weight : 1) * 0.3;
             }
           }
           return w;
@@ -2339,7 +2342,7 @@
         };
         const item = flavorTexts[imp.unlock_daily_flavor];
         if (item && !life.flags.dailyFlavors.some((f) => (typeof f === "string" ? f : f.text) === item.text)) {
-          life.flags.dailyFlavors.push(item);
+          life.flags.dailyFlavors.push({ ...item, max_year: life.currentYear + 18 });
         }
       }
     }
@@ -2498,7 +2501,7 @@
             resolvedTitle: `【回國契機】${tr.title}`,
             resolvedDesc: tr.desc,
             resolvedSource: tr.cultural_footnote_en || "",
-            options: tpl.options
+            options: tpl.options.filter((o) => !(o.requires_year_min && life.currentYear < o.requires_year_min))
           };
         }
       }
@@ -2521,6 +2524,8 @@
         const effKnow = life.stats.knowledge + (life.flags.uni_lab_research ? 8 : 0) + (life.flags.uni_grad_abroad_prep ? 6 : 0);
         if (effKnow < pw.min_knowledge) continue;
         if (life.eduLevel < pw.requires_edu_min) continue;
+        if (pw.id !== "SA03_young_student" && pw.id !== "SA04_exchange_dual" && this.isStudentNow(life)) continue;
+        if (pw.id === "SA04_exchange_dual" && !life.education.includes("在學")) continue;
         const saRate = this.hasSwitch(life.currentYear, "lift_martial_law") ? 0.052 : 0.022;
         if (Math.random() > saRate) continue;
 
@@ -2831,7 +2836,7 @@
         if (life.age > 44 || life.triggeredDecisions["D07_career_track"]) {
           this.assignCareer(life, this.pickEraCareer(life));
           life.flags.career_chosen = true;
-        } else if (!life.job.includes("求職")) {
+        } else if (!life.job.includes("求職") && life.flags.hs_tier !== "work_early") {
           life.job = "求職中";
         }
       }
@@ -2843,6 +2848,8 @@
           if (life.job === life.sector) life.job = disp;
           life.sector = disp;
         }
+        // Volunteer soldiers reach natural exit points (8 and 20 years of service)
+        if (life.flags.rank_title === "志願役軍士官" && (life.workYears === 8 || life.workYears === 20)) life.flags.switch_prompt = life.currentYear + 1;
         if (life.currentYear > curCareer.era_range[1] && life.age < 58 && !life.flags.era_end_prompted) {
           life.flags.era_end_prompted = true;
           life.flags.switch_prompt = life.currentYear + 2;
@@ -3191,7 +3198,7 @@
           if (life.age < cu.age_range[0] || life.age > cu.age_range[1]) return false;
           if (cu.stage === "postpartum_care" && !(life.childrenBirthYears || []).some((by) => life.currentYear - by >= 0 && life.currentYear - by <= 1)) return false;
           if (cu.id === "cust_exam_temple" && !(life.age === 14 || life.age === 15 || life.age === 18 || life.age === 17)) return false;
-          if (cu.id === "cust_lny_adult" && !(life.annualSalaryNominal > 0 && !life.married && life.family.parentsAlive)) return false;
+          if (cu.id === "cust_lny_adult" && !(life.annualSalaryNominal > 0 && !life.married && !life.flags.ever_married && life.family.parentsAlive)) return false;
           return Math.random() < 0.14;
         });
         if (matchedCustom) {
@@ -3234,9 +3241,12 @@
               ...cultVignettes,
               ...eduFlavors,
               ...dailyFlavors
-            ];
+            ].filter((t) => !(life.flags.seenTexts && life.flags.seenTexts[t] != null && life.age - life.flags.seenTexts[t] < 14));
             if (pool.length) {
-              life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: pick(pool) });
+              const txt = pick(pool);
+              life.flags.seenTexts = life.flags.seenTexts || {};
+              life.flags.seenTexts[txt] = life.age;
+              life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: txt });
             }
           }
         }
@@ -3431,6 +3441,8 @@
     findEligibleDecision(life, era, eduMode, isPauseYear, priorityOnly = false, onlyIds = null) {
       const candidates = [];
       for (const d of this.data.decisions.decisions) {
+        if (d.deprecated_by) continue;
+        if (d.id === "D07_career_track" && life.careerId) continue;
         if (onlyIds && !onlyIds.includes(d.id)) continue;
         // While living overseas only location-neutral cards apply; everything else is Taiwan-local
         if (life.location !== "TAIWAN" && !["D12_first_pot_of_gold", "D17B_romance_encounter", "D18_marriage_choice", "D19_have_children", "D20_marriage_crisis", "D25_retirement_timing"].includes(d.id)) {
@@ -3438,7 +3450,8 @@
         }
         const c = d.conditions || {};
         const isFixedAge = c.age != null || ["D01_junior_high_track", "D02_university_major", "D05_graduation_crossroads"].includes(d.id);
-        const isPriorityCard = isFixedAge || ["D04_military_service", "D17_critical_illness_cost", "D22_major_disaster", "D28_debt_clearance", "D30_forced_home_sale", "D31_cashflow_debt_crisis"].includes(d.id) || (d.id === "D07_career_track" && !life.flags.career_chosen);
+        const isPriorityCard = isFixedAge || ["D04_military_service", "D17_critical_illness_cost", "D22_major_disaster", "D28_debt_clearance", "D30_forced_home_sale", "D31_cashflow_debt_crisis"].includes(d.id) || (d.id === "D07_career_track" && !life.flags.career_chosen) ||
+          (d.id === "D25_retirement_timing" && life.age >= this.getPensionAge(life));
         if (priorityOnly && !isPriorityCard) continue;
 
         if (!d.once_per_era_variant && d.id !== "D31_cashflow_debt_crisis" && life.triggeredDecisions[d.id]) continue;
@@ -3730,6 +3743,11 @@
               : o.key === "have_child" ? { ...o, label: life.currentYear >= 2026 ? "再生一個（可申領每胎 10 萬元生育補助）" : "再生一個", era_labels: null } : o);
           }
         }
+        if (d.id === "D17B_romance_encounter" && life.age >= 28) {
+          resolvedOptions = resolvedOptions.map((o) => o.key === "start_romance" && o.era_labels
+            ? { ...o, era_labels: o.era_labels.map((r) => ({ ...r, label: r.label.replace("在校園社團或職場日久生情", "在職場或親友介紹下日久生情") })) } : o);
+          if (life.flags.widowed || life.flags.divorced) resolvedTitle = "又遇見聊得來的人：要再給自己一次機會嗎？";
+        }
         if (d.id === "D18_marriage_choice" && life.partnerInfo) {
           resolvedDesc = `你和${life.partnerInfo.name}交往一段時間了，雙方家人也開始問起婚事。你們打算怎麼走下去？`;
         }
@@ -3773,7 +3791,7 @@
           const pickedCars = licensed.slice(0, 2);
           while (pickedCars.length < 4 && openCars.length) {
             const car = weightedPick(openCars, (x) => (x.pick_weight != null ? x.pick_weight : 1) *
-              (x.preferred_regions.includes(life.regionId) ? 1.6 : 1) *
+              (x.preferred_regions.includes(life.regionId) ? 1.6 : 1) * (life.sex === "F" && x.female_weight != null ? x.female_weight : 1) *
               ((life.major && x.preferred_majors.includes(life.major)) ? 1.5 : 1) *
               ((x.required_sub_majors || x.required_majors || (x.required_majors_if_uni && life.eduLevel >= 4)) ? 2.6 : 1));
             pickedCars.push(car);
@@ -3810,7 +3828,7 @@
           const regNow = this.getRegion(life.regionId);
           const curMo = Math.round((life.annualSalaryNominal || this.computeCurrentAnnualSalaryNominal(life, era, regNow)) / 12);
           const prompted = Boolean(life.flags.switch_prompt && life.currentYear <= life.flags.switch_prompt);
-          const minRatio = ["car_civil_teacher", "car_doctor_pharma", "car_lawyer_cpa", "car_cpa"].includes(life.careerId) ? 1.0 : (prompted ? 0.72 : 0.92);
+          const minRatio = life.flags.rank_title === "志願役軍士官" && prompted ? 0.7 : ["car_civil_teacher", "car_doctor_pharma", "car_lawyer_cpa", "car_cpa"].includes(life.careerId) ? 1.0 : (prompted ? 0.72 : 0.92);
           const altList = this.getEligibleCareers(life, life.careerId)
             .filter((car) => !car.entry && !(car.max_switch_age && life.age > car.max_switch_age))
             .filter((car) => this.estimateCareerMonthlySalary(life, car, era, regNow) >= curMo * minRatio)
@@ -3829,7 +3847,7 @@
           if (stayOpt) {
             switchOpts.push({
               ...stayOpt,
-              label: `留在「${life.job}」深耕累積資深年資，穩健調薪 +8%`
+              label: `留在「${life.job}」深耕累積資深年資，穩健調薪`
             });
           }
           resolvedOptions = switchOpts;

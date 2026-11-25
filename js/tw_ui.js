@@ -447,8 +447,8 @@
     $("metaPersonality").textContent = (l.personalities || []).map((x) => x.name).join("・") || "—";
     $("metaEdu").textContent = l.education;
     $("metaJob").textContent = l.job + (l.annualSalaryNominal ? `（年薪約 ${fmtTWD(l.annualSalaryNominal)}）` : "");
-    $("metaFamily").textContent = `${l.married ? "已婚" : l.partner ? "穩定交往" : "未婚"} ｜ 子女 ${l.children} 人`;
-    $("metaHousing").textContent = l.location !== "TAIWAN" ? "海外租屋／居所" : (l.homeowner ? `自購屋（市值 ${fmtTWD(l.homeValueNominal)}）` : (l.flags.stay_home ? "住家裡" : "租屋"));
+    $("metaFamily").textContent = `${l.married ? `已婚${l.spouse ? `（配偶 ${l.spouse.name}・${l.spouse.retired ? "已退休" : l.spouse.working ? "工作中" : "家庭照顧"}）` : ""}` : l.partner ? `穩定交往${l.partnerInfo ? `（${l.partnerInfo.name}）` : ""}` : l.flags.widowed ? "喪偶" : l.flags.divorced ? "離婚" : "未婚"} ｜ 子女 ${l.children} 人`;
+    $("metaHousing").textContent = l.location !== "TAIWAN" ? "海外租屋／居所" : (l.homeowner ? `${l.flags.home_source === "繼承" ? "繼承老家" : "自有住宅"}（市值 ${fmtTWD(l.homeValueNominal)}）` : (l.age < 18 || l.flags.lives_with_parents ? "住家裡" : "租屋"));
     $("metaSurvival").textContent = (l.lastSurvivalRate * 100).toFixed(2) + "%";
 
     const notes = [];
@@ -461,6 +461,8 @@
     if (l.flags.disabled) notes.push("🦽 因病致殘／長期失能（健康上限受限、工作收入大幅減少）");
     if (l.flags.inadequate_med_years > 0) notes.push("🏥 病情控制不佳（早逝風險升高）");
     if (l.flags.heavy_debt) notes.push("⚠️ 背負沉重債務壓力");
+    if (l.studentLoanNominal > 0) notes.push(`🎓 留學貸款餘額約 ${fmtTWD(l.studentLoanNominal)}`);
+    if (l.flags.bedridden) notes.push("🛏 行動不便，需要長期照護");
     if (l.flags.pendingTraps && l.flags.pendingTraps.length) notes.push(`⏳ 高息理財尚未結算（${l.flags.pendingTraps.length} 筆）`);
     const noteEl = $("lifeStatusNote");
     if (notes.length) { noteEl.textContent = notes.join(" ｜ "); noteEl.hidden = false; }
@@ -500,7 +502,7 @@
       const noSalText = l.age < 6 ? "學齡前（無收入）"
         : l.age < 18 ? ((l.flags.part_time_approved || l.flags.vocational_coop || l.flags.hs_tier === "work_early") ? "合法工讀／學徒津貼" : "在學中（父母撫養，未打工）")
         : l.education.includes("在學") ? ((l.flags.part_time_approved || l.flags.uni_parttime || l.flags.uni_internship) ? "大學打工／實習（無全職薪）" : "在學中（父母撫養，未打工）")
-        : l.flags.fulltime_caregiver ? "全職照護中（無薪）" : "待業／無全職薪資";
+        : l.flags.fulltime_caregiver ? "全職照護中（無薪）" : l.flags.retired ? "退休" : (!l.careerId && l.location === "TAIWAN") ? "求職中（尚未開始工作）" : "待業／無全職薪資";
       $("valSalaryMonthly").textContent = noSalText;
       $("valSalaryAnnualReal").textContent = l.lastYearIncomeNominal > 0
         ? `本年打工／實習收入 ${fmtTWD(l.lastYearIncomeNominal)}`
@@ -512,7 +514,9 @@
       : (l.children || 0);
     const cfTags = [l.married ? "已婚" : "單身"];
     if (depKids > 0) cfTags.push(`撫養${depKids}子`);
-    cfTags.push(l.homeowner ? "房貸/自住" : (l.flags.stay_home ? "住家裡" : "租屋"));
+    cfTags.push(l.homeowner ? "房貸/自住" : (l.flags.lives_with_parents ? "住家裡" : "租屋"));
+    if (l.married && l.spouse && l.spouse.incomeNominal > 0) cfTags.push(`含配偶收入 ${fmtTWD(l.spouse.incomeNominal)}`);
+    if (l.studentLoanNominal > 0) cfTags.push(`留學貸款餘額 ${fmtTWD(l.studentLoanNominal)}`);
     if (l.flags.austerity_years > 0) cfTags.push("節儉期");
     const cfEl = $("cashflowBreakdown");
     cfEl.textContent = `本年收支：收入 ${fmtTWD(l.lastYearIncomeNominal || 0)} － 支出 ${fmtTWD(l.lastYearExpenseNominal || 0)} ＝ ${netCf >= 0 ? "+" : ""}${fmtTWD(netCf)}` +
@@ -642,7 +646,7 @@
             <div class="pec-impacts">人生衝擊：${item.impacts}</div>
             <div class="eec-aftermath">
               <strong>📌 這件事改變了台灣什麼（制度與社會餘波）</strong>
-              ${item.aftermath}
+              ${state.engine.visibleAftermath(item.aftermath, l.currentYear)}
             </div>
             ${state.showEnNotes && item.cultural_footnote_en ? `
               <div class="eec-en-note"><strong>EN Cultural Footnote:</strong>${item.cultural_footnote_en}</div>` : ""}
@@ -675,9 +679,9 @@
               <div class="edu-event-body">
                 <p class="eec-fact">${item.summary}</p>
                 <details class="eec-aftermath-spoiler">
-                  <summary>📌 查看後世制度與社會餘波（可能含後續年份發展）</summary>
+                  <summary>📌 這件事後來改變了什麼（只顯示到目前年份）</summary>
                   <div class="eec-aftermath" style="margin-top:6px;">
-                    ${item.aftermath}
+                    ${state.engine.visibleAftermath(item.aftermath, l.currentYear)}
                   </div>
                 </details>
                 ${state.showEnNotes && item.cultural_footnote_en ? `
@@ -1195,7 +1199,7 @@
     const rows = [
       ["離世原因", l.causeOfDeath ? l.causeOfDeath.label : "結束模擬"],
       ["學歷與職涯", `${l.education} ／ ${l.job}`],
-      ["家庭與居住", `${l.married ? "已婚" : "未婚"}・子女 ${l.children} 人・${l.homeowner ? "自購房屋" : "租屋"}`],
+      ["家庭與居住", `${l.married ? "已婚" : l.flags.widowed ? "喪偶" : l.flags.divorced ? "離婚" : "未婚"}・子女 ${l.children} 人・${l.homeowner ? "自有房屋" : l.flags.lives_with_parents ? "住家裡" : "租屋"}`],
       ["海外足跡", (l.abroadSummaryHistory && l.abroadSummaryHistory.length) ? l.abroadSummaryHistory.join(" → ").slice(0, 38) : "終身立足台灣"],
       ["期末實質資產", `折合 2025 購買力約 ${fmtTWD(totalReal)}（關鍵抉擇 ${l.decisionHistory ? l.decisionHistory.length : 0} 次）`]
     ];
@@ -1290,6 +1294,12 @@
           state.engine.applyDecision(state.life, dec, opt.key, era);
           $("decisionModal").hidden = true;
           state.pendingDecision = null;
+          const nextDec = state.engine.findFollowUpDecision(state.life, dec, era);
+          if (nextDec) {
+            renderLifeAll();
+            showDecisionModal(nextDec);
+            return;
+          }
           state.paused = false;
           state.lastFrameTs = performance.now();
           renderLifeAll();
@@ -1364,7 +1374,7 @@
       <div class="id-row"><span>最終學歷與職業</span><b>${l.education} ／ ${l.job}</b></div>
       <div class="id-row"><span>個性傾向</span><b>${(l.personalities || []).map((x) => x.name).join("、") || "—"}</b></div>
       <div class="id-row"><span>海外留學足跡</span><b>${l.abroadSummaryHistory.length ? l.abroadSummaryHistory.join(" → ") : "終身立足台灣"}</b></div>
-      <div class="id-row"><span>家庭與居住</span><b>${l.married ? "已婚" : "未婚"}・子女 ${l.children} 人・${l.homeowner ? "有房" : "租屋"}</b></div>
+      <div class="id-row"><span>家庭與居住</span><b>${l.married ? "已婚" : l.flags.widowed ? "喪偶" : l.flags.divorced ? "離婚" : "未婚"}・子女 ${l.children} 人・${l.homeowner ? "有房" : "租屋"}</b></div>
       <div class="id-row"><span>最終實質資產</span><b>折合 2025 購買力約 ${fmtTWD(totalReal)}</b></div>
     `;
     const trajWrap = $("endTrajectoryWrap");
@@ -1461,7 +1471,9 @@
         reflections: l.reflections || [],
         trajectory: l.trajectory || [],
         causeOfDeath: l.causeOfDeath || { key: "manual", label: "提前結束", isSensitive: false },
+        studentLoanNominal: l.studentLoanNominal || 0,
         flags: {
+          widowed: Boolean(l.flags && l.flags.widowed), divorced: Boolean(l.flags && l.flags.divorced), lives_with_parents: Boolean(l.flags && l.flags.lives_with_parents),
           financialBarriers: (l.flags && l.flags.financialBarriers) || [],
           disabled: Boolean(l.flags && l.flags.disabled)
         }
@@ -1649,7 +1661,7 @@
       if (state.autoMode && state.pendingDecision && state.life) {
         const era = state.engine.getEraParams(state.life.currentYear);
         const eligible = state.pendingDecision.options.filter((o) => state.engine.isOptionEligible(state.life, o, era).eligible);
-        const chosen = eligible.length ? eligible[0] : state.pendingDecision.options[0];
+        const chosen = state.engine.chooseAutoOption(state.life, state.pendingDecision, eligible, era);
         state.engine.applyDecision(state.life, state.pendingDecision, chosen.key, era);
         closeAllModals(true);
         renderLifeAll();

@@ -83,7 +83,7 @@ window.TW_DATA = {
               "text": "搭捷運轉公車上下班、上下課",
               "min_year": 1996
             },
-            "公車",
+            "擠公車上學、上班",
             {
               "text": "雙北跨橋機車潮",
               "min_age": 18
@@ -2373,7 +2373,7 @@ window.TW_DATA = {
         ],
         "title": "解嚴、台積電成立與開放探親",
         "summary": "1987年2月台積電成立、7月15日宣布解除長達38年戒嚴、11月開放民眾赴大陸探親，許多老兵第一次踏上返鄉路。",
-        "institutional_aftermath": "政治全面解凍、台商西進序幕拉開，同時埋下日後台灣成為全球半導體核心的種子。",
+        "institutional_aftermath": "政治全面解凍，台商西進序幕拉開，社會運動與言論空間快速打開。",
         "gameplay_impact": {
           "happiness_delta": 4
         },
@@ -3230,7 +3230,7 @@ window.TW_DATA = {
         ],
         "title": "全球金融海嘯與雷曼連動債風暴",
         "summary": "2008年9月雷曼兄弟倒閉引爆全球金融海嘯，台灣約10萬名投資人持有連動債嚴重受損，台股全年大跌46%（自高點回落逾五成七），出口與科技業湧現無薪假。",
-        "institutional_aftermath": "催生《金融消費者保護法》與銀行理專不當銷售規範，並促使翌年政府推出22K方案因應青年失業潮。",
+        "institutional_aftermath": "催生《金融消費者保護法》與銀行理專不當銷售規範；2009年政府推出22K實習方案因應青年失業潮。",
         "gameplay_impact": {
           "happiness_delta": -2,
           "tech_layoff_risk_mult": 1.6,
@@ -6497,7 +6497,8 @@ window.TW_DATA = {
         "health_drain": 0.6,
         "remote_capable": false,
         "flavor": "看天吃飯，早起巡田或出海，易受颱風與 2002 年 WTO 進口農產衝擊。",
-        "pick_weight": 1.1
+        "pick_weight": 1.1,
+        "female_weight": 0.7
       },
       {
         "id": "car_civil_teacher",
@@ -6547,7 +6548,8 @@ window.TW_DATA = {
         "remote_capable": false,
         "flavor": "從紡織廠、加工出口區到科技廠產線，撐起台灣外銷的基層主力。",
         "max_edu_level": 3,
-        "pick_weight": 2.2
+        "pick_weight": 2.2,
+        "female_weight": 1.5
       },
       {
         "id": "car_craft_apprentice",
@@ -6571,7 +6573,8 @@ window.TW_DATA = {
         "remote_capable": false,
         "flavor": "熬過學徒出師後憑一技之長立身，近年缺工反讓老師傅身價看漲。",
         "pick_weight": 1.4,
-        "max_edu_level": 3
+        "max_edu_level": 3,
+        "female_weight": 0.22
       },
       {
         "id": "car_export_sales",
@@ -6618,7 +6621,8 @@ window.TW_DATA = {
         "stability": 0.62,
         "health_drain": 0.9,
         "remote_capable": false,
-        "flavor": "從「客廳即工廠」黑手變頭家，順風時買透天、逆風時須扛關稅與軋票壓力。"
+        "flavor": "從「客廳即工廠」黑手變頭家，順風時買透天、逆風時須扛關稅與軋票壓力。",
+        "female_weight": 0.5
       },
       {
         "id": "car_doctor_pharma",
@@ -6767,7 +6771,8 @@ window.TW_DATA = {
         "health_drain": 1.1,
         "remote_capable": true,
         "flavor": "1990–2007 享股票分紅配股紅利，2020s 乘 AI 出口浪潮成為高薪代表但輪班工時長。",
-        "pick_weight": 1.3
+        "pick_weight": 1.3,
+        "female_weight": 0.5
       },
       {
         "id": "car_cram_service_mgr",
@@ -6820,7 +6825,8 @@ window.TW_DATA = {
         "health_drain": 0.6,
         "remote_capable": true,
         "flavor": "新鮮人起薪居各職務前段，2020 後具備跨國遠距與數位游牧彈性。",
-        "pick_weight": 0.9
+        "pick_weight": 0.9,
+        "female_weight": 0.5
       },
       {
         "id": "car_gig_delivery",
@@ -6845,7 +6851,8 @@ window.TW_DATA = {
         "remote_capable": false,
         "flavor": "時間彈性且門檻低，但缺乏職涯累積並承擔較高機車交通與日曬雨淋風險。",
         "pick_weight": 0.5,
-        "max_switch_age": 50
+        "max_switch_age": 50,
+        "female_weight": 0.4
       },
       {
         "id": "car_creator_ecom",
@@ -6898,7 +6905,8 @@ window.TW_DATA = {
         "stability": 0.94,
         "health_drain": 1.0,
         "remote_capable": false,
-        "flavor": "超高齡社會最不可或缺的剛性專業，輪班護病比高但幾乎沒有失業風險。"
+        "flavor": "超高齡社會最不可或缺的剛性專業，輪班護病比高但幾乎沒有失業風險。",
+        "female_weight": 2.4
       },
       {
         "id": "car_tourism_hospitality",
@@ -6922,7 +6930,8 @@ window.TW_DATA = {
         "stability": 0.72,
         "health_drain": 0.7,
         "remote_capable": false,
-        "flavor": "花東離島與古都核心產業，受景氣、地震與 2021 疫情無薪假衝擊最直接。"
+        "flavor": "花東離島與古都核心產業，受景氣、地震與 2021 疫情無薪假衝擊最直接。",
+        "female_weight": 1.3
       },
       {
         "id": "car_office_white_collar",
@@ -6949,7 +6958,8 @@ window.TW_DATA = {
         "stability": 0.86,
         "health_drain": 0.5,
         "remote_capable": false,
-        "flavor": "台灣就業人數最龐大的中產受薪骨幹，貼近主計總處薪資中位數，安穩但須面對通膨與房貸壓力。"
+        "flavor": "台灣就業人數最龐大的中產受薪骨幹，貼近主計總處薪資中位數，安穩但須面對通膨與房貸壓力。",
+        "female_weight": 1.35
       },
       {
         "id": "car_pharma_medtech",
@@ -7054,7 +7064,8 @@ window.TW_DATA = {
         "stability": 0.78,
         "health_drain": 0.6,
         "remote_capable": false,
-        "flavor": "百貨、商店、餐館與大樓裡最常見的面孔，薪水貼近基本工資。"
+        "flavor": "百貨、商店、餐館與大樓裡最常見的面孔，薪水貼近基本工資。",
+        "female_weight": 1.3
       },
       {
         "id": "car_driver_logistics",
@@ -7077,7 +7088,8 @@ window.TW_DATA = {
         "stability": 0.82,
         "health_drain": 0.8,
         "remote_capable": false,
-        "flavor": "貨車、公車、計程車到電商倉儲，長時間在路上。"
+        "flavor": "貨車、公車、計程車到電商倉儲，長時間在路上。",
+        "female_weight": 0.15
       }
     ]
   },
@@ -7596,8 +7608,8 @@ window.TW_DATA = {
         "max_quintile": 5,
         "min_knowledge": 62,
         "requires_edu_min": 4,
-        "cost_twd_2025": 650000,
-        "study_years": 1,
+        "cost_twd_2025": 1300000,
+        "study_years": 3,
         "allowed_countries": [
           "JPN",
           "DEU",
@@ -9849,7 +9861,8 @@ window.TW_DATA = {
         ],
         "relation": "昔日社團夥伴",
         "text": "友校的社團老朋友傳來一張照片——他們母校大門口的校名拆掉了一半，以前下課總排到巷口的雞排攤，這個學期也跟著拉下鐵門了。",
-        "historical_note": ""
+        "historical_note": "",
+        "min_edu_level": 4
       },
       {
         "id": "AP_2026_caregiver_neighbor",

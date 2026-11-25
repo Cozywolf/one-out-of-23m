@@ -141,8 +141,8 @@
       "max_quintile": 5,
       "min_knowledge": 62,
       "requires_edu_min": 4,
-      "cost_twd_2025": 650000,
-      "study_years": 1,
+      "cost_twd_2025": 1300000,
+      "study_years": 3,
       "allowed_countries": [
         "JPN",
         "DEU",
