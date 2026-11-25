@@ -110,20 +110,32 @@
       },
       "options": [
         {
-          "key": "stem_med",
-          "label": "電資／工程／醫藥衛生學門",
+          "key": "stem_eng",
+          "label": "電資／理工／資訊工程學門",
           "effects": {
-            "starting_pay_mult": 1.13,
+            "starting_pay_mult": 1.12,
             "unlock_careers": [
               "tech_semi",
-              "medical"
+              "software"
             ],
             "happiness": -3
           }
         },
         {
+          "key": "med_health",
+          "label": "醫學／牙藥／護理衛生學門",
+          "effects": {
+            "starting_pay_mult": 1.14,
+            "unlock_careers": [
+              "medical",
+              "healthcare"
+            ],
+            "happiness": -4
+          }
+        },
+        {
           "key": "humanities_biz",
-          "label": "商管／文史／藝術學門",
+          "label": "法政／商管／會計／人文藝術學門",
           "effects": {
             "happiness": 4,
             "starting_pay_mult": 1.0,
@@ -252,7 +264,7 @@
           "label": "考國內研究所（2年）",
           "effects": {
             "income_years_zero": 2,
-            "long_term_wage_mult": 1.45,
+            "long_term_wage_mult": 1.06,
             "knowledge": 10
           }
         },
@@ -262,7 +274,7 @@
           "effects": {
             "money_delta_ratio": -0.45,
             "unlock_overseas_career": true,
-            "long_term_wage_mult": 1.6
+            "long_term_wage_mult": 1.14
           }
         },
         {

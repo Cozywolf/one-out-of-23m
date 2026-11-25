@@ -379,18 +379,35 @@
       return career.name;
     }
 
+    isCareerEligibleForLife(life, c) {
+      if (!c) return false;
+      if (life.currentYear < c.era_range[0] || life.currentYear > c.era_range[1]) return false;
+      if (life.eduLevel < c.min_edu_level) return false;
+      if (Array.isArray(c.required_majors) && c.required_majors.length) {
+        if (life.eduLevel < 4) return false;
+        const hasMajor = Boolean(life.major && c.required_majors.includes(life.major));
+        const hasCross = Boolean(c.allow_cross_coding && life.flags && life.flags.uni_cross_coding);
+        if (!hasMajor && !hasCross) return false;
+      }
+      if (Array.isArray(c.required_majors_if_uni) && c.required_majors_if_uni.length && life.eduLevel >= 4) {
+        if (!life.major || !c.required_majors_if_uni.includes(life.major)) return false;
+      }
+      return true;
+    }
+
     // Get era- and education-eligible Taiwan careers sorted by fit (major, region, skills)
     getEligibleCareers(life, excludeCareerId = null) {
       const careers = (this.data.educationCareers && this.data.educationCareers.careers) || [];
       if (!careers.length) return [];
       let eligible = careers.filter((c) =>
-        life.currentYear >= c.era_range[0] &&
-        life.currentYear <= c.era_range[1] &&
-        life.eduLevel >= c.min_edu_level &&
+        this.isCareerEligibleForLife(life, c) &&
         (!excludeCareerId || c.id !== excludeCareerId)
       );
       if (!eligible.length) {
-        eligible = careers.filter((c) => !excludeCareerId || c.id !== excludeCareerId);
+        eligible = careers.filter((c) =>
+          !c.required_majors && !c.required_majors_if_uni &&
+          (!excludeCareerId || c.id !== excludeCareerId)
+        );
       }
       const scored = eligible.map((c) => {
         let score = 0;
@@ -407,12 +424,12 @@
     estimateCareerMonthlySalary(life, career, era, reg) {
       if (!career) return 0;
       const midMult = (career.salary_mult_min + career.salary_mult_max) / 2;
-      const eduMult = life.eduLevel >= 5 ? 1.42 : life.eduLevel === 4 ? 1.05 : life.eduLevel === 3 ? 0.88 : 0.74;
-      const expMult = 1 + Math.min(Math.max(1, life.workYears || 1), 25) * 0.015;
-      const jobMult = (life.flags && life.flags.wage_mult) || 1.0;
+      const eduMult = life.eduLevel >= 5 ? 1.18 : life.eduLevel === 4 ? 1.0 : life.eduLevel === 3 ? 0.86 : 0.74;
+      const expMult = 1 + Math.min(Math.max(1, life.workYears || 1), 20) * 0.012;
+      const jobMult = clamp((life.flags && life.flags.wage_mult) || 1.0, 0.40, 1.65);
       const focusMult = life.focus === "work" ? 1.12 : 1.0;
       const regMult = (reg && reg.income_multiplier) || 1.0;
-      const annualBase = era.avg_monthly_wage_twd * 13.2 * regMult * midMult * eduMult * expMult * jobMult * focusMult * 0.82;
+      const annualBase = era.avg_monthly_wage_twd * 13.0 * regMult * midMult * eduMult * expMult * jobMult * focusMult * 0.78;
       const estAnnual = Math.max(era.min_wage_twd * 12, annualBase);
       return Math.round(estAnnual / 12 / 1000) * 1000;
     }
@@ -454,12 +471,8 @@
     pickEraCareer(life) {
       const careers = (this.data.educationCareers && this.data.educationCareers.careers) || [];
       if (!careers.length) return null;
-      const eligible = careers.filter((c) =>
-        life.currentYear >= c.era_range[0] &&
-        life.currentYear <= c.era_range[1] &&
-        life.eduLevel >= c.min_edu_level
-      );
-      const pool = eligible.length ? eligible : careers;
+      const eligible = careers.filter((c) => this.isCareerEligibleForLife(life, c));
+      const pool = eligible.length ? eligible : careers.filter((c) => !c.required_majors && !c.required_majors_if_uni);
       return weightedPick(pool, (c) => {
         let w = 1.0;
         if (c.preferred_regions.includes(life.regionId)) w *= 2.4;
@@ -901,15 +914,21 @@
       const careNom = (careBase2025 > 0 && life.family.parentsAlive) ? Math.round(careBase2025 * 12 * realWageRatio * era.cpi) : 0;
       const commuterNom = (life.abroad && life.abroad.commuterMode) ? Math.round(220000 * era.cpi) : 0;
 
-      // Income-linked taxes, labor/NHI premiums & middle-class lifestyle creep (scales with contemporary wage)
-      const lifestyleRate = life.focus === "save" ? 0.12 : 0.18;
+      // Progressive income tax, labor/NHI premiums & lifestyle scaling (scales with real annual salary)
+      const realAnnualSalary = (life.annualSalaryNominal || 0) / Math.max(0.07, era.cpi);
+      const isSave = life.focus === "save";
+      let lifestyleRate;
+      if (realAnnualSalary <= 700000) lifestyleRate = isSave ? 0.11 : 0.15;
+      else if (realAnnualSalary <= 1400000) lifestyleRate = isSave ? 0.18 : 0.24;
+      else if (realAnnualSalary <= 2500000) lifestyleRate = isSave ? 0.26 : 0.33;
+      else lifestyleRate = isSave ? 0.34 : 0.42;
       const taxAndLifestyleNom = (isWorking && life.annualSalaryNominal > 0)
         ? Math.round(life.annualSalaryNominal * lifestyleRate)
         : 0;
-      // Retirees with accumulated liquid wealth gradually spend on travel, health & quality of life (2.2%/yr cap)
+      // Retirees gradually draw down liquid wealth for retirement living, travel & medical care (4.2%/yr)
       const liqWealth = Math.max(0, (life.moneyNominal || 0) + (life.stockNominal || 0));
       const retireeSpendNom = life.flags.retired
-        ? Math.min(Math.round(550000 * era.cpi), Math.round(liqWealth * 0.022))
+        ? Math.round(liqWealth * 0.042)
         : 0;
 
       const veh = life.ownedAssets && life.ownedAssets.vehicle;
@@ -935,10 +954,10 @@
       if (life.age < 18 || inSchool || life.flags.exam_prep_years > 0 || life.flags.unemployed || life.flags.fulltime_caregiver) {
         return 0;
       }
-      const eduMult = life.eduLevel >= 5 ? 1.42 : life.eduLevel === 4 ? 1.05 : life.eduLevel === 3 ? 0.88 : 0.74;
-      const expMult = 1 + Math.min(Math.max(1, life.workYears), 25) * 0.015;
+      const eduMult = life.eduLevel >= 5 ? 1.18 : life.eduLevel === 4 ? 1.0 : life.eduLevel === 3 ? 0.86 : 0.74;
+      const expMult = 1 + Math.min(Math.max(1, life.workYears), 20) * 0.012;
       const careerMult = life.careerSalaryMult || 1.0;
-      const jobMult = life.flags.wage_mult || 1.0;
+      const jobMult = clamp(life.flags.wage_mult || 1.0, 0.40, 1.65);
       const focusMult = life.focus === "work" ? 1.12 : 1.0;
       const tempMult = life.flags.temp_income_mult || 1.0;
 
@@ -946,9 +965,9 @@
       if (life.location !== "TAIWAN" && life.abroad) {
         const cObj = this.getAbroadCountry(life.abroad.countryId);
         const abMult = cObj ? cObj.salary_mult_vs_tw : 1.6;
-        annualBase = era.avg_monthly_wage_twd * 13.0 * abMult * eduMult * expMult * jobMult * focusMult * tempMult * 0.85;
+        annualBase = era.avg_monthly_wage_twd * 13.0 * abMult * eduMult * expMult * jobMult * focusMult * tempMult * 0.80;
       } else {
-        annualBase = era.avg_monthly_wage_twd * 13.2 * reg.income_multiplier * careerMult * eduMult * expMult * jobMult * focusMult * tempMult * 0.82;
+        annualBase = era.avg_monthly_wage_twd * 13.0 * reg.income_multiplier * careerMult * eduMult * expMult * jobMult * focusMult * tempMult * 0.78;
         if (life.workYears <= 2 && life.currentYear >= 2009 && life.currentYear <= 2013 && life.flags.hit_22k_anchor) {
           annualBase = Math.min(annualBase, 25246 * 12.5);
         }
@@ -1070,25 +1089,25 @@
     applyFutureForecastImpact(life, ev, era) {
       const imp = ev.gameplay_impact || {};
       const notes = [];
-      const isTech = Boolean((life.sector && (life.sector.includes("科技") || life.sector.includes("半導體") || life.sector.includes("軟體") || life.sector.includes("AI"))) || life.major === "stem_med");
+      const isTech = Boolean((life.sector && (life.sector.includes("科技") || life.sector.includes("半導體") || life.sector.includes("軟體") || life.sector.includes("AI"))) || life.major === "stem_eng");
 
       if (imp.wage_mult && imp.wage_mult !== 1) {
-        life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * imp.wage_mult, 0.35, 4.5);
+        life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * imp.wage_mult, 0.40, 1.65);
         const p = Math.round((imp.wage_mult - 1) * 100);
         notes.push(`整體薪資倍率 ${p >= 0 ? "+" : ""}${p}%`);
       }
       if (imp.tech_wage_mult && isTech) {
-        life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * imp.tech_wage_mult, 0.35, 4.5);
+        life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * imp.tech_wage_mult, 0.40, 1.65);
         const p = Math.round((imp.tech_wage_mult - 1) * 100);
         notes.push(`科技／電資領域薪資 ${p >= 0 ? "+" : ""}${p}%`);
       }
       if (imp.non_tech_wage_mult && !isTech) {
-        life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * imp.non_tech_wage_mult, 0.35, 4.5);
+        life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * imp.non_tech_wage_mult, 0.40, 1.65);
         const p = Math.round((imp.non_tech_wage_mult - 1) * 100);
         notes.push(`非科技產業薪資 ${p >= 0 ? "+" : ""}${p}%`);
       }
       if (imp.region_bonus_ids && imp.region_wage_mult && life.location === "TAIWAN" && imp.region_bonus_ids.includes(life.regionId)) {
-        life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * imp.region_wage_mult, 0.35, 4.5);
+        life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * imp.region_wage_mult, 0.40, 1.65);
         const p = Math.round((imp.region_wage_mult - 1) * 100);
         notes.push(`在地工作薪資提升 +${p}%`);
       }
@@ -1218,7 +1237,7 @@
       if (opt.requires_year_min && life.currentYear < opt.requires_year_min) {
         return { eligible: false, reason: "此制度於當前年代尚未開放" };
       }
-      if (opt.requires_edu === "master_or_stem" && !(life.eduLevel >= 5 || life.major === "stem_med")) {
+      if (opt.requires_edu === "master_or_stem" && !(life.eduLevel >= 5 || life.major === "stem_eng" || life.major === "med_health")) {
         return { eligible: false, reason: "需具備研究所或理工電資醫藥背景" };
       }
       if (opt.requires_remote_or_senior && !(life.flags.remote_capable || life.workYears >= 8)) {
@@ -1838,7 +1857,7 @@
             life.education = `${country.name_zh}${life.eduLevel >= 5 ? "海外碩士" : "海外學士"}畢業`;
             ab.prStatus = "畢業後工作簽證";
             life.job = `${country.name_zh}跨國企業／專業職`;
-            life.flags.remote_capable = life.flags.remote_capable || (life.major === "stem_med");
+            life.flags.remote_capable = life.flags.remote_capable || (life.major === "stem_eng");
             life.feed.unshift({
               type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
               text: `你順利從${country.name_zh}畢業（${life.education}），取得「${ab.prStatus}」並在當地開始求職工作。`,
@@ -2283,7 +2302,9 @@
       life.flags.margin_called_this_year = false;
 
       if (life.moneyNominal > 0) {
-        life.moneyNominal = Math.round(life.moneyNominal * (1 + era.deposit_rate_1yr));
+        const realCashNow = life.moneyNominal / Math.max(0.07, era.cpi);
+        const effDepRate = realCashNow > 3000000 ? Math.min(era.deposit_rate_1yr, 0.065) : era.deposit_rate_1yr;
+        life.moneyNominal = Math.round(life.moneyNominal * (1 + effDepRate));
       } else if (life.moneyNominal < 0) {
         const debtRate = life.flags.heavy_debt ? 0.08 : 0.035;
         life.moneyNominal = Math.round(life.moneyNominal * (1 + debtRate));
@@ -2293,7 +2314,7 @@
       if ((life.investStyle === "index_etf" || life.investStyle === "leverage") && life.age >= adultAge && !life.flags.retired && netCashflow > 0) {
         const emergencyBuffer = Math.max(Math.round(annualExpenseNominal * 0.5), Math.round(150000 * era.cpi));
         const investable = Math.max(0, life.moneyNominal - emergencyBuffer);
-        const dca = Math.min(investable, Math.round(netCashflow * 0.45));
+        const dca = Math.min(investable, Math.round(netCashflow * 0.25));
         if (dca > 0) {
           life.moneyNominal -= dca;
           life.stockNominal += dca;
@@ -2328,12 +2349,16 @@
                 : `${mkt.note ? mkt.note + "。" : ""}你重壓熱門股遭遇大盤崩跌慘遭腰斬套牢，股票資產與拆借合計蒸發約 NT$${lostAmt.toLocaleString()}，財務陷入重大危機！`
             });
           } else {
-            totalRet = clamp(mkt.price_pct * 1.75 + 0.015, -0.65, 2.2);
+            totalRet = clamp(mkt.price_pct * 1.45, -0.55, 1.40);
             life.stockNominal = Math.max(0, Math.round(beforeStock * (1 + totalRet)));
           }
+        } else if (life.age >= 55 || life.flags.retired) {
+          // Pre-retirement / retirement conservative glide-path allocation
+          totalRet = clamp(mkt.price_pct * 0.35 + mkt.div_yield * 0.60 - 0.005, -0.18, 0.14);
+          life.stockNominal = Math.max(0, Math.round(beforeStock * (1 + totalRet)));
         } else {
-          // Index / 0050 total return (historical TAIEX price return + Taiwan dividend yield)
-          totalRet = mkt.price_pct + mkt.div_yield;
+          // Working-age retail index return (reflects cash/bond buffer, tax & fee drag)
+          totalRet = (mkt.price_pct + mkt.div_yield) * 0.72 - 0.008;
           life.stockNominal = Math.max(0, Math.round(beforeStock * (1 + totalRet)));
         }
 
@@ -2921,8 +2946,9 @@
             if (bossOpt) dynOpts.push(bossOpt);
           }
           if (dynOpts.length) resolvedOptions = dynOpts;
-          const majorLabel = life.major === "stem_med" ? "電資／理工醫藥"
-            : life.major === "humanities_biz" ? "商管／人文"
+          const majorLabel = life.major === "stem_eng" ? "電資／理工工程"
+            : life.major === "med_health" ? "醫學／藥學／護理"
+            : life.major === "humanities_biz" ? "法政／商管／人文"
             : life.major === "public_funded" ? "軍警／公費師範"
             : "綜合／實務";
           resolvedDesc = `你目前學歷為「${life.education}」（${majorLabel}），身處${regNow.name_zh}。在 ${life.currentYear} 年（${era.roc}）踏入社會，依你的學經歷可選擇以下職業與實業跑道，不同產業將直接決定起薪與後續職涯發展：`;
@@ -3028,7 +3054,7 @@
         const maxHpRet = life.flags.disabled ? 48 : 100;
         life.stats.health = clamp(Math.round(life.stats.health), 0, maxHpRet);
         for (const k of ["happiness", "knowledge", "social"]) life.stats[k] = clamp(Math.round(life.stats[k]), 0, 100);
-        if (life.flags.wage_mult) life.flags.wage_mult = clamp(life.flags.wage_mult, 0.35, 4.5);
+        if (life.flags.wage_mult) life.flags.wage_mult = clamp(life.flags.wage_mult, 0.40, 1.65);
         life.decisionHistory.push({ age: life.age, year: life.currentYear, roc: era.roc, title: decision.resolvedTitle, choice: optLabel });
         life.feed.unshift({
           type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
@@ -3123,7 +3149,7 @@
 
       if (decision.id === "D02_university_major") {
         life.major = opt.key;
-        if (opt.key === "stem_med" && life.flags.hs_group_science) {
+        if ((opt.key === "stem_eng" || opt.key === "med_health") && life.flags.hs_group_science) {
           life.stats.knowledge += 5;
           extraLog += "（高中自然組底子讓你如魚得水）";
         } else if (opt.key === "humanities_biz" && life.flags.hs_group_humanities) {
@@ -3151,15 +3177,22 @@
             life.job = `義務役預官（${months} 個月）`;
             life.stats.knowledge += 4;
             life.stats.social += 4;
-            life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * 1.06, 0.35, 4.5);
+            life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * 1.06, 0.40, 1.65);
             extraLog = "（考取大專預官服役，累積領導歷練與同袍人脈）";
+          } else if (life.major === "med_health") {
+            life.careerId = "car_healthcare_ltc";
+            life.sector = "醫療院所／長照衛生體系";
+            life.job = life.currentYear >= 2008 ? "醫療替代役人員" : "衛生行政役人員";
+            life.careerSalaryMult = 1.15;
+            life.flags.career_chosen = true;
+            life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * 1.05, 0.40, 1.65);
           } else {
             life.careerId = "car_hsinchu_semi";
             life.sector = life.currentYear < 2018 ? "半導體／IC 設計／科技工程師" : "半導體／IC 設計／AI 工程師";
             life.job = life.currentYear >= 2008 ? "研發替代役工程師" : "國防役／替代役工程師";
             life.careerSalaryMult = 2.1;
             life.flags.career_chosen = true;
-            life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * 1.15, 0.35, 4.5);
+            life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * 1.15, 0.40, 1.65);
           }
         } else if (opt.key === "volunteer_soldier") {
           life.careerId = "car_civil_teacher";
@@ -3565,7 +3598,7 @@
       const maxHpDec = life.flags.disabled ? 48 : 100;
       life.stats.health = clamp(Math.round(life.stats.health), 0, maxHpDec);
       for (const k of ["happiness", "knowledge", "social"]) life.stats[k] = clamp(Math.round(life.stats[k]), 0, 100);
-      if (life.flags.wage_mult) life.flags.wage_mult = clamp(life.flags.wage_mult, 0.35, 4.5);
+      if (life.flags.wage_mult) life.flags.wage_mult = clamp(life.flags.wage_mult, 0.40, 1.65);
 
       life.decisionHistory.push({ age: life.age, year: life.currentYear, roc: era.roc, title: decision.resolvedTitle, choice: optLabel });
       life.feed.unshift({

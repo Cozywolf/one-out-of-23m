@@ -3550,20 +3550,32 @@ window.TW_DATA = {
         },
         "options": [
           {
-            "key": "stem_med",
-            "label": "電資／工程／醫藥衛生學門",
+            "key": "stem_eng",
+            "label": "電資／理工／資訊工程學門",
             "effects": {
-              "starting_pay_mult": 1.13,
+              "starting_pay_mult": 1.12,
               "unlock_careers": [
                 "tech_semi",
-                "medical"
+                "software"
               ],
               "happiness": -3
             }
           },
           {
+            "key": "med_health",
+            "label": "醫學／牙藥／護理衛生學門",
+            "effects": {
+              "starting_pay_mult": 1.14,
+              "unlock_careers": [
+                "medical",
+                "healthcare"
+              ],
+              "happiness": -4
+            }
+          },
+          {
             "key": "humanities_biz",
-            "label": "商管／文史／藝術學門",
+            "label": "法政／商管／會計／人文藝術學門",
             "effects": {
               "happiness": 4,
               "starting_pay_mult": 1.0,
@@ -3692,7 +3704,7 @@ window.TW_DATA = {
             "label": "考國內研究所（2年）",
             "effects": {
               "income_years_zero": 2,
-              "long_term_wage_mult": 1.45,
+              "long_term_wage_mult": 1.06,
               "knowledge": 10
             }
           },
@@ -3702,7 +3714,7 @@ window.TW_DATA = {
             "effects": {
               "money_delta_ratio": -0.45,
               "unlock_overseas_career": true,
-              "long_term_wage_mult": 1.6
+              "long_term_wage_mult": 1.14
             }
           },
           {
@@ -5660,8 +5672,8 @@ window.TW_DATA = {
           1970,
           2005
         ],
-        "salary_mult_min": 1.25,
-        "salary_mult_max": 2.1,
+        "salary_mult_min": 1.15,
+        "salary_mult_max": 1.85,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -5683,8 +5695,8 @@ window.TW_DATA = {
           1970,
           2130
         ],
-        "salary_mult_min": 0.8,
-        "salary_mult_max": 3.2,
+        "salary_mult_min": 0.75,
+        "salary_mult_max": 2.6,
         "preferred_regions": [
           "central",
           "north_hsinchu",
@@ -5699,14 +5711,14 @@ window.TW_DATA = {
         "flavor": "從「客廳即工廠」黑手變頭家，順風時買透天、逆風時須扛關稅與軋票壓力。"
       },
       {
-        "id": "car_doctor_lawyer",
-        "name": "醫師／律師／會計師（三師）",
+        "id": "car_doctor_pharma",
+        "name": "醫師／牙醫師／藥師",
         "era_range": [
           1955,
           2130
         ],
-        "salary_mult_min": 2.3,
-        "salary_mult_max": 3.8,
+        "salary_mult_min": 2.15,
+        "salary_mult_max": 3.4,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -5714,13 +5726,43 @@ window.TW_DATA = {
           "south_tainan"
         ],
         "min_edu_level": 4,
-        "preferred_majors": [
-          "stem_med"
+        "required_majors": [
+          "med_health"
         ],
-        "stability": 0.95,
-        "health_drain": 0.8,
+        "preferred_majors": [
+          "med_health"
+        ],
+        "stability": 0.96,
+        "health_drain": 0.85,
         "remote_capable": false,
-        "flavor": "門檻極高的頂尖專業，2025 調查醫師年薪中位數逾 211 萬元居各業之冠。"
+        "flavor": "須具備醫學或藥學系學歷之頂尖醫療專業，2025 調查醫師年薪中位數逾 211 萬元居各業之冠。"
+      },
+      {
+        "id": "car_lawyer_cpa",
+        "name": "律師／會計師／法務顧問",
+        "era_range": [
+          1955,
+          2130
+        ],
+        "salary_mult_min": 1.65,
+        "salary_mult_max": 2.85,
+        "preferred_regions": [
+          "north_taipei",
+          "central",
+          "south_kaohsiung",
+          "south_tainan"
+        ],
+        "min_edu_level": 4,
+        "required_majors": [
+          "humanities_biz"
+        ],
+        "preferred_majors": [
+          "humanities_biz"
+        ],
+        "stability": 0.92,
+        "health_drain": 0.75,
+        "remote_capable": false,
+        "flavor": "須具備法政或商管會計學門背景並通過國家專技高考，執業後社會地位與報酬俱佳。"
       },
       {
         "id": "car_finance_broker",
@@ -5729,14 +5771,18 @@ window.TW_DATA = {
           1980,
           2130
         ],
-        "salary_mult_min": 1.35,
-        "salary_mult_max": 2.6,
+        "salary_mult_min": 1.25,
+        "salary_mult_max": 2.2,
         "preferred_regions": [
           "north_taipei",
           "central",
           "south_kaohsiung"
         ],
         "min_edu_level": 4,
+        "required_majors": [
+          "humanities_biz",
+          "stem_eng"
+        ],
         "preferred_majors": [
           "humanities_biz"
         ],
@@ -5752,8 +5798,8 @@ window.TW_DATA = {
           1987,
           2130
         ],
-        "salary_mult_min": 1.75,
-        "salary_mult_max": 3.1,
+        "salary_mult_min": 1.65,
+        "salary_mult_max": 2.75,
         "preferred_regions": [
           "north_hsinchu",
           "south_tainan",
@@ -5761,8 +5807,12 @@ window.TW_DATA = {
           "south_kaohsiung"
         ],
         "min_edu_level": 4,
+        "required_majors": [
+          "stem_eng"
+        ],
+        "allow_cross_coding": true,
         "preferred_majors": [
-          "stem_med"
+          "stem_eng"
         ],
         "stability": 0.88,
         "health_drain": 1.1,
@@ -5800,16 +5850,20 @@ window.TW_DATA = {
           1998,
           2130
         ],
-        "salary_mult_min": 1.25,
-        "salary_mult_max": 2.2,
+        "salary_mult_min": 1.2,
+        "salary_mult_max": 2.05,
         "preferred_regions": [
           "north_taipei",
           "north_hsinchu",
           "central"
         ],
         "min_edu_level": 4,
+        "required_majors": [
+          "stem_eng"
+        ],
+        "allow_cross_coding": true,
         "preferred_majors": [
-          "stem_med"
+          "stem_eng"
         ],
         "stability": 0.84,
         "health_drain": 0.6,
@@ -5847,7 +5901,7 @@ window.TW_DATA = {
           2130
         ],
         "salary_mult_min": 0.45,
-        "salary_mult_max": 2.8,
+        "salary_mult_max": 2.2,
         "preferred_regions": [
           "north_taipei",
           "central",
@@ -5879,8 +5933,11 @@ window.TW_DATA = {
           "south_tainan"
         ],
         "min_edu_level": 3,
+        "required_majors_if_uni": [
+          "med_health"
+        ],
         "preferred_majors": [
-          "stem_med"
+          "med_health"
         ],
         "stability": 0.94,
         "health_drain": 1.0,
