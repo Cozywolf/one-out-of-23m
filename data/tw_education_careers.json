@@ -213,6 +213,7 @@
     {
       "id": "car_sme_boss",
       "name": "傳產頭家／中小企業廠主",
+      "pick_weight": 0.45,
       "era_range": [
         1970,
         2130
@@ -489,6 +490,33 @@
       "health_drain": 0.7,
       "remote_capable": false,
       "flavor": "花東離島與古都核心產業，受景氣、地震與 2021 疫情無薪假衝擊最直接。"
+    },
+    {
+      "id": "car_office_white_collar",
+      "name": "一般民間企業白領／行政／財會／行銷",
+      "pick_weight": 2.4,
+      "era_range": [
+        1965,
+        2130
+      ],
+      "salary_mult_min": 0.85,
+      "salary_mult_max": 1.35,
+      "preferred_regions": [
+        "north_taipei",
+        "north_hsinchu",
+        "central",
+        "south_tainan",
+        "south_kaohsiung"
+      ],
+      "min_edu_level": 3,
+      "preferred_majors": [
+        "humanities_biz",
+        "stem_eng"
+      ],
+      "stability": 0.86,
+      "health_drain": 0.5,
+      "remote_capable": false,
+      "flavor": "台灣就業人數最龐大的中產受薪骨幹，貼近主計總處薪資中位數，安穩但須面對通膨與房貸壓力。"
     }
   ]
 }

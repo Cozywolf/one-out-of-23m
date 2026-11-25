@@ -1,14 +1,15 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v2.0 (9 Databases Integrated) ===
- * Pure data-driven microsimulation consuming all 9 data/tw_*.json modules (or window.TW_DATA):
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.1 (13 Databases Integrated) ===
+ * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
- * 2. tw_eras.json              1950–2070+ anchors, year overrides, 18 institutional switches
+ * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
  * 3. tw_lifetable.json         calibrated mortality, causes, typhoon & lifestyle risks
- * 4. tw_events_history.json    37 historical & legal-aftermath events (3-part edu cards)
- * 5. tw_decisions.json         26 Taiwan localized decisions + 5 pause questions
+ * 4. tw_events_history.json    66 historical & legal-aftermath events (3-part edu cards)
+ * 5. tw_decisions.json         34 Taiwan localized decisions + 5 pause questions
  * 6. tw_names.json             weighted surnames & 6 cohort given-name pools
- * 7. tw_education_careers.json 4 education eras & 15 era/region-specific Taiwan careers
- * 8. tw_culture_eras.json      4 era social/family atmospheres, customs & overseas comm channels
+ * 7. tw_education_careers.json 4 education eras & 16 era/region/major-gated Taiwan careers
+ * 8. tw_culture_eras.json      era social/family atmospheres, customs & overseas comm channels
  * 9. tw_study_abroad.json      6 study-abroad pathways, 6 countries' era events, 12 return triggers + D27
+ * 10-13. tw_life_stages, tw_market_history, tw_ambient_peers, tw_future_forecasts
  */
 (function (global) {
   "use strict";
@@ -256,8 +257,13 @@
       if (expTags.includes("in_military") && !hasTag("in_military")) return null;
       if (expTags.includes("has_children") && !hasTag("has_children")) return null;
       if (expTags.includes("has_stocks") && ev.id === "EV_2004_procomp_scandal" && !hasTag("has_stocks")) return null;
+      if (expTags.includes("east_origin_or_resident") && !hasTag("east_origin_or_resident")) return null;
 
-      let prob = rule.base_prob || 0.08;
+      // Two-track historical mode: cap single-point tragedies to <= 1 per lifetime
+      const isIncident = rule.pi_track === "incident";
+      if (isIncident && (life.flags.incident_pi_count || 0) >= 1) return null;
+
+      let prob = rule.base_prob || (isIncident ? 0.012 : 0.08);
       const matchedTraitLabels = [];
 
       // Personality trait multipliers
@@ -272,7 +278,7 @@
       // Experience multipliers
       for (const tag of expTags) {
         if (hasTag(tag)) {
-          prob *= 1.45;
+          prob *= isIncident ? 1.25 : 1.40;
           matchedExpLabels.push(tagLabelMap[tag] || tag);
         }
       }
@@ -282,8 +288,12 @@
         prob *= 1.15;
       }
 
-      prob = clamp(prob, 0.008, 0.65);
+      prob = isIncident ? clamp(prob, 0.004, 0.045) : clamp(prob, 0.01, 0.28);
       if (Math.random() >= prob) return null;
+
+      if (isIncident) {
+        life.flags.incident_pi_count = (life.flags.incident_pi_count || 0) + 1;
+      }
 
       // Pick outcome
       const outcome = weightedPick(rule.outcomes, (o) => o.weight || 1);
@@ -474,7 +484,7 @@
       const eligible = careers.filter((c) => this.isCareerEligibleForLife(life, c));
       const pool = eligible.length ? eligible : careers.filter((c) => !c.required_majors && !c.required_majors_if_uni);
       return weightedPick(pool, (c) => {
-        let w = 1.0;
+        let w = c.pick_weight != null ? c.pick_weight : 1.0;
         if (c.preferred_regions.includes(life.regionId)) w *= 2.4;
         if (life.major && c.preferred_majors.includes(life.major)) w *= 3.0;
         return w;
@@ -904,7 +914,7 @@
           housingNom = isWorking ? Math.round(48000 * (life.married ? 1.25 : 1.0) * realWageRatio * era.cpi) : 0;
         } else {
           const rentBase = reg.id === "north_taipei" ? 168000 : reg.id === "north_hsinchu" ? 132000 : 96000;
-          const rentMult = (life.flags.rent_cost_mult || 1.0) * (life.flags.future_rent_mult || 1.0) * familyRentScale;
+          const rentMult = (life.flags.rent_cost_mult || 1.0) * (life.flags.future_rent_mult || 1.0) * (1 + (life.flags.elderly_rent_surcharge || 0)) * familyRentScale;
           housingNom = Math.round(rentBase * rentMult * realWageRatio * era.cpi);
         }
       }
@@ -960,6 +970,9 @@
       const jobMult = clamp(life.flags.wage_mult || 1.0, 0.40, 1.65);
       const focusMult = life.focus === "work" ? 1.12 : 1.0;
       const tempMult = life.flags.temp_income_mult || 1.0;
+      const expatMult = life.flags.expat_years_left > 0
+        ? (life.flags.expat_wage_mult || 1.45)
+        : (life.flags.expat_completed ? 1.08 : 1.0);
 
       let annualBase;
       if (life.location !== "TAIWAN" && life.abroad) {
@@ -967,7 +980,7 @@
         const abMult = cObj ? cObj.salary_mult_vs_tw : 1.6;
         annualBase = era.avg_monthly_wage_twd * 13.0 * abMult * eduMult * expMult * jobMult * focusMult * tempMult * 0.80;
       } else {
-        annualBase = era.avg_monthly_wage_twd * 13.0 * reg.income_multiplier * careerMult * eduMult * expMult * jobMult * focusMult * tempMult * 0.78;
+        annualBase = era.avg_monthly_wage_twd * 13.0 * reg.income_multiplier * careerMult * eduMult * expMult * jobMult * focusMult * tempMult * expatMult * 0.78;
         if (life.workYears <= 2 && life.currentYear >= 2009 && life.currentYear <= 2013 && life.flags.hit_22k_anchor) {
           annualBase = Math.min(annualBase, 25246 * 12.5);
         }
@@ -1374,7 +1387,81 @@
           };
         }
       }
+      if (opt.key === "study_abroad") {
+        if (!(life.quintile >= 4 || realLiquid >= 1200000 || life.stats.knowledge >= 75)) {
+          return { eligible: false, reason: "須具 Q4–Q5 家庭資源、流動資產 ≥ NT$120 萬或頂尖獎學金門檻（知識 ≥ 75）方可出國留學" };
+        }
+      }
       return { eligible: true, reason: "" };
+    }
+
+    chooseAutoOption(life, decision, eligibleOpts, era) {
+      if (!eligibleOpts || !eligibleOpts.length) return decision.options[0];
+      if (eligibleOpts.length === 1) return eligibleOpts[0];
+
+      const id = decision.id;
+      const isTrait = (tid) => (life.personalities || []).some((p) => p.id === tid);
+      const hasRisk = isTrait("risk_taker");
+      const isCautious = isTrait("cautious");
+      const isFamily = isTrait("family_first");
+
+      const wMap = {
+        D17B_romance_encounter: () => {
+          const p = life.birthYear < 1985 ? 0.90 : life.birthYear < 2000 ? 0.80 : 0.72;
+          return { start_romance: p, focus_self: 1 - p };
+        },
+        D18_marriage_choice: () => {
+          const marryW = life.birthYear < 1985 ? 0.92 : life.birthYear < 2000 ? 0.78 : 0.65;
+          const tradShare = life.currentYear < 1995 ? 0.75 : 0.42;
+          return {
+            traditional_wedding: marryW * tradShare,
+            simple_registration: marryW * (1 - tradShare),
+            stay_unmarried: 1 - marryW
+          };
+        },
+        D19_have_children: () => {
+          let p;
+          if (life.children === 0) p = clamp(0.42 + era.tfr * 0.25, 0.55, 0.95);
+          else if (life.children === 1) p = clamp((era.tfr - 0.5) * 0.35, 0.25, 0.88);
+          else p = clamp((era.tfr - 1.5) * 0.25, 0.08, 0.75);
+          return { have_child: p, dink_pets: 1 - p };
+        },
+        D14_financial_trap: () => ({
+          avoid: isCautious ? 0.92 : hasRisk ? 0.52 : 0.78,
+          partial_try: isCautious ? 0.06 : hasRisk ? 0.30 : 0.16,
+          all_in: isCautious ? 0.02 : hasRisk ? 0.18 : 0.06
+        }),
+        D16_relative_loan_guarantor: () => ({
+          co_sign: isFamily ? 0.24 : isCautious ? 0.05 : 0.12,
+          small_gift_no_guarantee: 0.48,
+          refuse: isFamily ? 0.28 : 0.40
+        }),
+        D13_buying_home: () => ({
+          buy_core: 0.36,
+          buy_suburb: 0.48,
+          rent_invest: 0.16
+        }),
+        D06_northbound_migration: () => {
+          const r = this.getRegion(life.regionId);
+          const rates = (r && r.out_migration_rates) || {};
+          const p = clamp(rates.to_north || rates.to_west_metro || 0.30, 0.18, 0.55);
+          return { move_north: p, stay_home: 1 - p };
+        },
+        D05_graduation_crossroads: () => {
+          if (life.currentYear < 1995) return { direct_work: 0.72, domestic_master: 0.18, study_abroad: 0.10 };
+          return { direct_work: 0.55, domestic_master: 0.32, study_abroad: 0.13 };
+        },
+        D20_marriage_crisis: () => {
+          if (life.currentYear < 1990) return { endure_for_kids: 0.55, move_out_counseling: 0.33, divorce: 0.12 };
+          return { move_out_counseling: 0.48, endure_for_kids: 0.24, divorce: 0.28 };
+        }
+      };
+
+      if (wMap[id]) {
+        const weights = wMap[id]();
+        return weightedPick(eligibleOpts, (o) => (weights[o.key] != null ? weights[o.key] : 0.2));
+      }
+      return pick(eligibleOpts);
     }
 
     calcAnnualDeathProb(life, era) {
@@ -1969,10 +2056,14 @@
         const saRate = this.hasSwitch(life.currentYear, "lift_martial_law") ? 0.052 : 0.022;
         if (Math.random() > saRate) continue;
 
-        // Build 3 destination options + 1 stay option
+        // Build 3 randomized destination options + 1 stay option
         const availCountries = pw.allowed_countries
           .map((cid) => this.getAbroadCountry(cid))
           .filter(Boolean);
+        for (let si = availCountries.length - 1; si > 0; si--) {
+          const sj = Math.floor(Math.random() * (si + 1));
+          [availCountries[si], availCountries[sj]] = [availCountries[sj], availCountries[si]];
+        }
         const pickedCountries = availCountries.slice(0, 3);
         const estCostNom = Math.round(pw.cost_twd_2025 * era.cpi);
 
@@ -2110,10 +2201,10 @@
         life.stats.happiness -= 8;
         let inheritNote = "";
         life.ownedAssets = life.ownedAssets || { vehicle: null, valuables: null };
-        if (life.quintile >= 4 && !life.homeowner && Math.random() < (life.quintile === 5 ? 0.55 : 0.25)) {
+        if (life.quintile >= 3 && !life.homeowner && Math.random() < (life.quintile === 5 ? 0.65 : life.quintile === 4 ? 0.45 : 0.30)) {
           const inhSpec = this.getHomeCostSpec(life, "suburb", era);
           life.homeowner = true;
-          life.homeValueNominal = Math.round(inhSpec.totalPrice * 0.85);
+          life.homeValueNominal = Math.round(inhSpec.totalPrice * (life.quintile === 3 ? 0.68 : 0.85));
           life.mortgageBalanceNominal = 0;
           life.mortgageAnnualPayment = 0;
           inheritNote = `長輩留下了老家房產供你繼承（估值約 NT$${Math.round(life.homeValueNominal / 10000).toLocaleString()} 萬，免背房貸）。`;
@@ -2217,8 +2308,8 @@
         this.stepOverseasLife(life, era, eduMode);
       }
 
-      // 4. Organic northbound migration in Taiwan
-      if (life.location === "TAIWAN" && life.age === 24 && !life.migrated && !life.flags.stay_home && !life.triggeredDecisions["D06_northbound_migration"]) {
+      // 4. Organic northbound migration in Taiwan (wait until age 27 so D06 window 22-26 gets priority)
+      if (life.location === "TAIWAN" && life.age === 27 && !life.migrated && !life.flags.stay_home && !life.triggeredDecisions["D06_northbound_migration"]) {
         const rates = reg.out_migration_rates || {};
         const prob = rates.to_north || rates.to_west_metro || 0;
         if (prob > 0 && Math.random() < prob) {
@@ -2269,6 +2360,25 @@
       }
       if (life.flags.austerity_years > 0) {
         life.flags.austerity_years -= 1;
+      }
+      if (life.flags.expat_years_left > 0) {
+        life.flags.expat_years_left -= 1;
+        if (life.flags.expat_years_left === 0) {
+          life.flags.expat_completed = true;
+        }
+      }
+      if (life.location === "TAIWAN" && life.age >= 68 && !life.homeowner && life.flags.elderly_rent_rejection_risk && !life.flags.elderly_rent_hit_done && Math.random() < 0.12) {
+        life.flags.elderly_rent_hit_done = true;
+        life.flags.elderly_rent_surcharge = 0.18;
+        const moveShock = Math.round(60000 * era.cpi);
+        life.moneyNominal -= moveShock;
+        life.stats.happiness -= 8;
+        life.stats.health -= 3;
+        life.feed.unshift({
+          type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
+          text: `【高齡租屋困境】房東因顧忌年事已高拒絕續租，你被迫倉促搬遷並支付更高租金與押金（額外支出約 NT$${moveShock.toLocaleString()}，後續房租上調 18%）。`,
+          highlight: true
+        });
       }
 
       // Deduct full annual living expenses FIRST (basic living + rent/mortgage + kids + eldercare)
@@ -2407,27 +2517,44 @@
         return ev.regions.includes("ALL") || ev.regions.includes(life.regionId);
       });
 
-      let matchedEvents = rawMatchedEvents;
+      let displayEventSet = new Set(rawMatchedEvents.map((ev) => ev.id));
       if (!showAllHistoricalEvents && rawMatchedEvents.length > 0) {
         const nextAllowedAge = life.flags.nextHistoricalAllowedAge != null ? life.flags.nextHistoricalAllowedAge : 0;
         if (life.age >= nextAllowedAge) {
-          matchedEvents = [pick(rawMatchedEvents)];
+          const pickedEv = pick(rawMatchedEvents);
+          displayEventSet = new Set([pickedEv.id]);
           life.flags.nextHistoricalAllowedAge = life.age + (Math.random() < 0.5 ? 2 : 3);
         } else {
-          matchedEvents = [];
+          displayEventSet = new Set();
         }
       }
 
-      for (const ev of matchedEvents) {
+      life.flags.appliedEventImpacts = life.flags.appliedEventImpacts || {};
+      life.flags.checkedProtagonistEvents = life.flags.checkedProtagonistEvents || {};
+      let shownHistoricalCount = 0;
+
+      for (const ev of rawMatchedEvents) {
+        if (!life.flags.appliedEventImpacts[ev.id]) {
+          life.flags.appliedEventImpacts[ev.id] = life.currentYear;
+          this.applyHistoricalImpact(life, ev, era, eduMode);
+        }
+
+        let protHit = null;
+        if (historicalMode && ev.protagonist_involvement && !life.flags.checkedProtagonistEvents[ev.id]) {
+          life.flags.checkedProtagonistEvents[ev.id] = life.currentYear;
+          protHit = this.evaluateProtagonistInvolvement(life, ev, era);
+        }
+
+        const shouldShowCard = Boolean(protHit) || displayEventSet.has(ev.id);
+        if (!shouldShowCard) continue;
+
         life.triggeredEvents[ev.id] = life.currentYear;
         yearMark = "event";
+        shownHistoricalCount += 1;
         const isFilteredEdu = eduMode && ev.sensitive;
-        this.applyHistoricalImpact(life, ev, era, eduMode);
         const overseasWire = life.location !== "TAIWAN";
         if (overseasWire) life.homesickness = clamp(life.homesickness + 5, 0, 100);
 
-        // Historical Mode: check if protagonist directly becomes a party to this major event
-        const protHit = historicalMode ? this.evaluateProtagonistInvolvement(life, ev, era) : null;
         if (protHit) {
           life.feed.unshift({
             type: "historical_protagonist",
@@ -2483,17 +2610,20 @@
       }
 
       // 6B. Taiwan Future Forecast (台灣未來預測 — 2027+, random yet logically consistent fictional projections)
-      if (life.currentYear >= 2027 && matchedEvents.length === 0) {
+      if (life.currentYear >= 2027 && shownHistoricalCount === 0) {
         if (this.maybeTriggerFutureForecast(life, era, cultEra)) {
           yearMark = "event";
         }
       }
 
       // 7. Taiwan Customs, Ambient Peer Vignettes (1in8b.life style), Education/Culture & Typhoon Rolls
-      if (matchedEvents.length === 0) {
+      if (shownHistoricalCount === 0) {
         const customs = (this.data.cultureEras && this.data.cultureEras.taiwan_customs) || [];
         const matchedCustom = customs.find((cu) => {
           if (life.triggeredCustoms[cu.id]) return false;
+          if (cu.min_year && life.currentYear < cu.min_year) return false;
+          if (cu.max_year && life.currentYear > cu.max_year) return false;
+          if (cu.requires_working && !(life.annualSalaryNominal > 0 && !life.flags.retired)) return false;
           if (life.age < cu.age_range[0] || life.age > cu.age_range[1]) return false;
           if (cu.stage === "postpartum_care" && !(life.childrenBirthYears || []).some((by) => life.currentYear - by >= 0 && life.currentYear - by <= 1)) return false;
           if (cu.id === "cust_exam_temple" && !(life.education.includes("在學") || (life.eduLevel >= 2 && life.flags.max_edu_cap !== "junior_high"))) return false;
@@ -2603,7 +2733,7 @@
         yearMark = "decision";
         if (autoMode) {
           const eligibleOpts = pendingDecision.options.filter((o) => this.isOptionEligible(life, o, era).eligible);
-          const chosenOpt = eligibleOpts.length ? pick(eligibleOpts) : pendingDecision.options[0];
+          const chosenOpt = this.chooseAutoOption(life, pendingDecision, eligibleOpts, era);
           this.applyDecision(life, pendingDecision, chosenOpt.key, era);
         }
       }
@@ -2715,9 +2845,17 @@
         if (priorityOnly && !isPriorityCard) continue;
 
         if (!d.once_per_era_variant && d.id !== "D31_cashflow_debt_crisis" && life.triggeredDecisions[d.id]) continue;
+        const isFastFunnel = ["D06_northbound_migration", "D17B_romance_encounter", "D18_marriage_choice", "D19_have_children"].includes(d.id);
         if (!isPriorityCard && !c.trigger_events && !c.trigger_years && d.id !== "D01B_youth_parttime_request") {
           if (isPauseYear) continue;
-          if (life.age - life.lastDecisionAge < DECISION_COOLDOWN) continue;
+          const minGap = isFastFunnel ? 1 : DECISION_COOLDOWN;
+          if (life.age - life.lastDecisionAge < minGap) continue;
+        }
+        if (d.id === "D19_have_children") {
+          const births = life.childrenBirthYears || [];
+          const lastBirthYear = births.length ? births[births.length - 1] : null;
+          const maxKids = life.birthYear < 1970 ? 3 : 2;
+          if (life.children >= maxKids || (lastBirthYear != null && (life.currentYear - lastBirthYear) < 2)) continue;
         }
         if (d.id === "D01B_youth_parttime_request" && isPauseYear) continue;
 
@@ -2831,7 +2969,17 @@
         }
         if (!d.options.some((o) => this.isOptionEligible(life, o, era).eligible)) continue;
         const exemptSkip = isFixedAge || (d.id === "D07_career_track" && !life.flags.career_chosen) || d.id === "D04_military_service" || d.id === "D28_debt_clearance" || d.id === "D30_forced_home_sale";
-        const randPassProb = d.id === "D01B_youth_parttime_request" ? 0.75 : ["D17B_romance_encounter", "D18_marriage_choice", "D19_have_children"].includes(d.id) ? 0.58 : 0.36;
+        const randPassMap = {
+          D01B_youth_parttime_request: 0.75,
+          D06_northbound_migration: 0.65,
+          D13_buying_home: 0.75,
+          D17B_romance_encounter: 0.78,
+          D18_marriage_choice: 0.85,
+          D19_have_children: 0.80,
+          D16_relative_loan_guarantor: 0.07,
+          D20_marriage_crisis: 0.05
+        };
+        const randPassProb = randPassMap[d.id] != null ? randPassMap[d.id] : 0.36;
         if (c.age_range && !exemptSkip && !c.trigger_years && !c.trigger_events && Math.random() > randPassProb) continue;
 
         let resolvedTitle = (activeVariant && activeVariant.title) || d.title;
@@ -3069,7 +3217,18 @@
       if (ef.happiness) life.stats.happiness += ef.happiness;
       if (ef.health) life.stats.health += ef.health;
       if (ef.relationships) life.stats.social += ef.relationships;
-      if (ef.wage_mult) life.flags.wage_mult = (life.flags.wage_mult || 1.0) * ef.wage_mult;
+      if (ef.wage_mult && decision.id !== "D08_overseas_assignment") life.flags.wage_mult = (life.flags.wage_mult || 1.0) * ef.wage_mult;
+      if (decision.id === "D08_overseas_assignment" && opt.key === "accept_expat") {
+        life.flags.expat_years_left = 5;
+        life.flags.expat_wage_mult = 1.45;
+        if (life.married && Math.random() < (ef.marital_strain_prob || 0.2)) {
+          life.stats.happiness -= 6;
+          life.stats.social -= 3;
+          extraLog += "（長期遠距離外派造成夫妻與親子磨合壓力增高）";
+        } else {
+          extraLog += "（啟動 5 年海外外派任期並享 1.45× 外派津貼，期滿返台保留管理資歷加給）";
+        }
+      }
       if (ef.starting_pay_mult) life.flags.wage_mult = (life.flags.wage_mult || 1.0) * ef.starting_pay_mult;
       if (ef.long_term_wage_mult) life.flags.wage_mult = (life.flags.wage_mult || 1.0) * ef.long_term_wage_mult;
       if (ef.midlife_mortality_mult) life.flags.midlife_mortality_mult = ef.midlife_mortality_mult;
@@ -3433,6 +3592,10 @@
         for (let ci = 0; ci < ef.children_delta; ci++) {
           life.childrenBirthYears.push(life.currentYear);
         }
+        const maxKidsAfter = life.birthYear < 1970 ? 3 : 2;
+        if (decision.id === "D19_have_children" && life.children < maxKidsAfter) {
+          delete life.triggeredDecisions["D19_have_children"];
+        }
         if (life.location === "TAIWAN" && life.currentYear >= 2026 && ef.subsidy_post_2026_twd) {
           life.moneyNominal += ef.subsidy_post_2026_twd; extraLog = "（領取 2026 好孕三方案每胎 10 萬元生育補助）";
         }
@@ -3440,6 +3603,10 @@
       if (decision.id === "D20_marriage_crisis") {
         if (opt.key === "divorce") {
           life.married = false; life.partner = false;
+          if (life.age <= 48) {
+            delete life.triggeredDecisions["D17B_romance_encounter"];
+            delete life.triggeredDecisions["D18_marriage_choice"];
+          }
           const split = ef.asset_split || 0.5;
           if (life.moneyNominal > 0) life.moneyNominal = Math.round(life.moneyNominal * split);
           if (life.stockNominal > 0) life.stockNominal = Math.round(life.stockNominal * split);
@@ -3610,12 +3777,12 @@
       });
     }
 
-    runBatch(regionId, birthYear, n, eduMode, historicalMode) {
+    runBatch(regionId, birthYear, n, eduMode, historicalMode, showAllHistoricalEvents = false) {
       let sumAge = 0, alive65 = 0, uni = 0, home = 0, abroad = 0, returned = 0, protHitCount = 0, protFatalCount = 0, sumRealWealth = 0, sumDecisions = 0;
       for (let i = 0; i < n; i++) {
         const l = this.createLife({ regionMode: "manual", manualRegionId: regionId, birthYear });
         while (l.alive && l.age < 105) {
-          this.stepYear(l, { eduMode, historicalMode: !eduMode && Boolean(historicalMode), autoMode: true });
+          this.stepYear(l, { eduMode, historicalMode: !eduMode && Boolean(historicalMode), autoMode: true, showAllHistoricalEvents: Boolean(showAllHistoricalEvents) });
         }
         sumAge += l.age;
         if (l.age >= 65) alive65++;

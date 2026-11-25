@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": "1.0.0",
-    "total_decisions": 29,
+    "total_decisions": 34,
     "design_principle": "選項僅改變後續機率與參數權重，不保證單一結果；支援一卡多年代變體（era_variants）。"
   },
   "pause_questions": [
@@ -424,17 +424,17 @@
           "variant_id": "china_taigan",
           "year_range": [
             1990,
-            2016
+            2019
           ],
-          "label_context": "西進中國擔任台幹（2012高峰43萬人）"
+          "label_context": "西進中國大陸或赴東南亞設廠擔任台幹"
         },
         {
           "variant_id": "us_jp_fab",
           "year_range": [
             2020,
-            2035
+            2045
           ],
-          "label_context": "赴美國亞利桑那或日本熊本廠外派"
+          "label_context": "赴美國亞利桑那、日本熊本或歐洲半導體／科技據點外派"
         }
       ],
       "options": [
@@ -1340,9 +1340,9 @@
           "EV_1963_gloria_typhoon_shihmen",
           "EV_1959_87_flood",
           "EV_1999_921_earthquake",
-          "EV_2008_2009_gfc_22k_morakot",
+          "EV_2009_morakot_88_flood",
           "EV_2024_hualien_quake_housing_peak",
-          "EV_2025_2026_super_aged_ai_tariff"
+          "EV_2025_super_aged_ai_tariff"
         ],
         "age_range": [
           18,

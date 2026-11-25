@@ -79,41 +79,71 @@
       ]
     },
     {
-      "id": "cult_1990_2009",
+      "id": "cult_1990_1999",
       "year_range": [
         1990,
-        2009
+        1999
       ],
-      "label": "民主深化、網路萌芽與雙薪轉折（1990–2000s）",
-      "family_gender_norm": "雙薪核心家庭成主流，女性高教比例追上男性，開始挑戰聘金與過年回娘家習俗；2006 年離婚率達高峰。",
-      "money_culture": "雙卡消費風潮與 2005 卡債危機、2008 雷曼連動債教訓，2003 SARS 後房價展開長多頭。",
-      "social_atmosphere": "1996 首次總統直選、2000 首次政黨輪替；BBS／PTT、無名小站、漫畫王與網咖成為青春記憶。",
-      "typical_first_marriage_age": 29,
-      "overseas_comm_channel": "BBS／PTT 看板、MSN 即時通與 Skype 網路電話",
+      "label": "民主轉型、聯考末代與呼叫器年代（1990s）",
+      "family_gender_norm": "雙薪核心家庭普及，女性大專就學率快速追上男性，職場平權意識抬頭。",
+      "money_culture": "1990 台股萬二崩盤後逐步重整，全民健保上路減輕醫藥負擔，民間仍偏好儲蓄與標會。",
+      "social_atmosphere": "1991 終止動員戡亂、1996 首次總統直選、台北捷運通車；BB Call、漫畫王與撥接 BBS 剛起步。",
+      "typical_first_marriage_age": 27,
+      "overseas_comm_channel": "越洋電話、傳真與早期 BBS／電子郵件",
       "daily_vignettes": [
         {
           "text": "放學後和同學去巷口租漫畫、買十元紅茶，回家趕著看晚間卡通與綜藝節目。",
           "min_year": 1990,
-          "max_year": 2009,
+          "max_year": 1999,
           "min_age": 7,
           "max_age": 17
         },
         {
           "text": "腰間別著呼叫器（BB Call），下班和朋友約在泡沫紅茶店或漫畫王打發時間。",
           "min_year": 1990,
-          "max_year": 2002,
+          "max_year": 1999,
           "min_age": 18,
           "requires_working": true
         },
         {
+          "text": "選舉前夕造勢晚會旗海飄揚，電視台與地下電台每晚熱烈辯論台灣的前途。",
+          "min_year": 1990,
+          "max_year": 1999,
+          "min_age": 10
+        }
+      ]
+    },
+    {
+      "id": "cult_2000_2009",
+      "year_range": [
+        2000,
+        2009
+      ],
+      "label": "政黨輪替、網路社群萌芽與 22K 轉折（2000s）",
+      "family_gender_norm": "晚婚趨勢浮現，女性高教比例追上男性，開始挑戰傳統聘金與過年回娘家習俗；2006 年離婚率達高峰。",
+      "money_culture": "雙卡消費風潮與 2005 卡債危機、2008 雷曼連動債教訓，2003 SARS 後房價展開長多頭。",
+      "social_atmosphere": "2000 首次政黨輪替、2007 高鐵通車；PTT、無名小站、MSN 與網咖成為青春記憶。",
+      "typical_first_marriage_age": 29,
+      "overseas_comm_channel": "BBS／PTT 看板、MSN 即時通與 Skype 網路電話",
+      "daily_vignettes": [
+        {
+          "text": "放學後和同學去網咖或逛光南唱片行，回家趕著跟上無名小站相簿與 MSN 上線潮。",
+          "min_year": 2000,
+          "max_year": 2009,
+          "min_age": 10,
+          "max_age": 17
+        },
+        {
           "text": "下班或下課後掛在 BBS／PTT 與 MSN 上聊天，同學間互相幫對方的無名小站衝人氣。",
-          "min_year": 2003,
+          "min_year": 2000,
           "max_year": 2009,
           "min_age": 14,
           "max_age": 35
         },
         {
           "text": "選舉前夕造勢晚會旗海飄揚，電視政論節目每晚熱烈辯論台灣的前途。",
+          "min_year": 2000,
+          "max_year": 2009,
           "min_age": 10
         },
         {
@@ -206,6 +236,21 @@
       "homesickness_boost": 6,
       "happiness_delta": 1,
       "social_delta": 2,
+      "cultural_footnote_en": "During Qingming Tomb-Sweeping Day and the Seventh Lunar Month Zhongyuan Ghost Festival, Taiwanese families and workplaces set out offerings to honor ancestors and appease wandering spirits for peace and safety."
+    },
+    {
+      "id": "cust_green_kuaikuai",
+      "stage": "workplace_tech",
+      "min_year": 1995,
+      "age_range": [
+        20,
+        70
+      ],
+      "requires_working": true,
+      "text": "公司機房伺服器與醫院、產線機台旁虔誠擺上整排效期內的「綠色奶油椰子乖乖」，祈求系統全年綠燈不出包。",
+      "homesickness_boost": 4,
+      "happiness_delta": 2,
+      "social_delta": 1,
       "cultural_footnote_en": "Green 'Kuai Kuai' (meaning 'behave well') coconut snacks are famously placed on servers, hospital machines, and semiconductor fabs in Taiwan to prevent glitches."
     },
     {

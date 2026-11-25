@@ -687,6 +687,113 @@
         "happiness_delta": 6,
         "mortality_mult": 0.92
       }
+    },
+    {
+      "id": "FF_2034_geopolitical_supply_shock",
+      "year_range": [
+        2032,
+        2042
+      ],
+      "probability": 0.32,
+      "category": "geopolitics_economy",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "geopolitical_stress_tested"
+      ],
+      "title": "印太航運保費飆升與區域供應鏈地緣震盪",
+      "summary": "區域安全情勢升溫帶動台灣周邊海空運兵險與能源進口成本跳漲，部分外資避險部位短線撤出，民間物價與製造業急單／斷鏈波動劇烈，後備民防演習亦趨於常態化。",
+      "institutional_aftermath": "企業全面建立雙供應鏈與能源儲備安全存量，社會對戰備韌性與緊急物資配送的重視大幅提升。",
+      "trend_basis": "虛構推演 · 反映地緣政治對台灣海島能源、外資流向與物價通膨的結構性外部衝擊。",
+      "cultural_footnote_en": "Fictional forecast: Regional security tensions spike maritime insurance and LNG import costs, triggering capital volatility and normalizing civil-defense preparedness.",
+      "gameplay_impact": {
+        "stock_shock_pct": -0.14,
+        "living_cost_mult": 1.08,
+        "happiness_delta": -5,
+        "knowledge_delta": 1
+      }
+    },
+    {
+      "id": "FF_2042_nhi_fiscal_squeeze",
+      "year_range": [
+        2040,
+        2052
+      ],
+      "probability": 0.36,
+      "category": "demographics_care",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "nhi_fiscal_tightened"
+      ],
+      "title": "超高齡醫藥支出爆量：健保費率大調漲與自費差額擴大",
+      "summary": "隨著 65 歲以上人口與新式昂貴療法持續增加，健保安全準備金再度見底。政府宣布大幅調升健保與補充保費費率並擴大門診部分負擔與藥品自費差額，醫護人力荒亦迫使部分地區門診減診。",
+      "institutional_aftermath": "醫療資源朝分級轉診與高齡自付上限改革調整，商業實支實付與長照保單成為中產家庭標配。",
+      "trend_basis": "虛構推演 · 平衡少子高齡化與高價先進醫療並存下的財政代價。",
+      "cultural_footnote_en": "Fictional forecast: Surge in elderly healthcare spending forces steep NHI premium hikes and higher out-of-pocket co-pays amid nursing shortages.",
+      "gameplay_impact": {
+        "living_cost_mult": 1.06,
+        "care_cost_mult": 1.15,
+        "health_delta_elder": -2,
+        "happiness_delta": -4
+      }
+    },
+    {
+      "id": "FF_2048_century_drought_fab_water",
+      "year_range": [
+        2045,
+        2058
+      ],
+      "probability": 0.32,
+      "category": "climate_energy",
+      "regions": [
+        "north_hsinchu",
+        "central",
+        "south_tainan",
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "century_drought_adapted"
+      ],
+      "title": "極端氣候百年大旱：水庫見底與工業供水「供五停二」衝擊",
+      "summary": "連續兩年聖嬰與極端氣候導致中南部與竹苗主要水庫蓄水跌破一成，全台啟動高壓工業節水與民生分區限水。科學園區緊急出動水車載水維持晶圓廠運轉，農田全面休耕引發菜價飆漲。",
+      "institutional_aftermath": "加速全台海淡水廠、再生水廠與跨區調度聯通管完工，高耗水製程水價級距大幅上修。",
+      "trend_basis": "虛構推演 · 延伸自台灣 2021 年百年大旱經驗與未來氣候變遷極端枯水期風險。",
+      "cultural_footnote_en": "Fictional forecast: A multi-year mega-drought forces water rationing across central and northern Taiwan, forcing chip fabs onto water trucks and spiking food inflation.",
+      "gameplay_impact": {
+        "living_cost_mult": 1.07,
+        "non_tech_wage_mult": 0.96,
+        "happiness_delta": -5
+      }
+    },
+    {
+      "id": "FF_2058_major_fault_earthquake",
+      "year_range": [
+        2050,
+        2075
+      ],
+      "probability": 0.28,
+      "category": "climate_energy",
+      "regions": [
+        "ALL"
+      ],
+      "sets_world_flags": [
+        "post_quake_retrofit_era"
+      ],
+      "title": "西南部盲斷層規模 7.0 強震：老屋危機與老舊電網重創",
+      "summary": "台灣遭遇半世紀以來首見的淺層規模 7.0 都會區周邊強震，老舊無電梯公寓與部分未都更老街區傳出倒塌與供電輸配受損，引發全台加速強制老屋耐震快篩與公共設施補強。",
+      "institutional_aftermath": "全面推動防災型公辦都更與關鍵電網地下化，防災保險成為購屋貸款必要條件。",
+      "trend_basis": "虛構推演 · 依據台灣歷史強震 60–100 年重現期統計納入中長期天災壓力測試。",
+      "cultural_footnote_en": "Fictional forecast: A shallow M7.0 fault earthquake exposes aging apartment stock and grid vulnerabilities, catalyzing mandatory seismic retrofits nationwide.",
+      "gameplay_impact": {
+        "stock_shock_pct": -0.10,
+        "housing_cost_mult": 1.06,
+        "health_delta": -3,
+        "happiness_delta": -6,
+        "mortality_mult": 1.05
+      }
     }
   ]
 }

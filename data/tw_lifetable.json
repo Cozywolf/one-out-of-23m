@@ -57,10 +57,10 @@
     {
       "age_min": 0,
       "age_max": 0,
-      "stage": "嬰兒期（新生兒）",
+      "stage": "嬰兒期（未滿1歲）",
       "qx_per_1000_male": 4.3,
       "qx_per_1000_female": 3.9,
-      "note": "台灣新生兒（出生28天內）死亡率約4.1‰，近20年多為日韓2–3倍；1980年代前倍率可達2.5–6倍",
+      "note": "台灣嬰兒（未滿1歲）死亡率約4.1‰（其中出生28天內新生兒死亡率約2.8‰），近20年多為日韓2–3倍；1980年代前倍率可達2.5–6倍",
       "cause_weights": {
         "congenital_perinatal": 0.7,
         "accident_other": 0.3
@@ -172,7 +172,7 @@
     "cancer": {
       "top_cause_since_year": 1982,
       "deaths_2025": 54838,
-      "share_of_all_deaths": 0.3,
+      "share_of_all_deaths": 0.275,
       "new_cases_2023": 138051,
       "median_onset_age": {
         "overall": 65,

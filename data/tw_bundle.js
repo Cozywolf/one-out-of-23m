@@ -1310,10 +1310,10 @@ window.TW_DATA = {
       {
         "age_min": 0,
         "age_max": 0,
-        "stage": "嬰兒期（新生兒）",
+        "stage": "嬰兒期（未滿1歲）",
         "qx_per_1000_male": 4.3,
         "qx_per_1000_female": 3.9,
-        "note": "台灣新生兒（出生28天內）死亡率約4.1‰，近20年多為日韓2–3倍；1980年代前倍率可達2.5–6倍",
+        "note": "台灣嬰兒（未滿1歲）死亡率約4.1‰（其中出生28天內新生兒死亡率約2.8‰），近20年多為日韓2–3倍；1980年代前倍率可達2.5–6倍",
         "cause_weights": {
           "congenital_perinatal": 0.7,
           "accident_other": 0.3
@@ -1425,7 +1425,7 @@ window.TW_DATA = {
       "cancer": {
         "top_cause_since_year": 1982,
         "deaths_2025": 54838,
-        "share_of_all_deaths": 0.3,
+        "share_of_all_deaths": 0.275,
         "new_cases_2023": 138051,
         "median_onset_age": {
           "overall": 65,
@@ -1485,7 +1485,7 @@ window.TW_DATA = {
     "meta": {
       "schema_version": "1.0.0",
       "coverage_years": [
-        1979,
+        1950,
         2026
       ],
       "educational_structure": "三段式結構：summary（事實）→ institutional_aftermath（制度與社會餘波）→ gameplay_impact（遊戲影響）",
@@ -1498,7 +1498,7 @@ window.TW_DATA = {
         "south_kaohsiung",
         "east_islands"
       ],
-      "coverage": "1950–2026（共 56 起重大歷史、社會、金融、災難與法制事件）"
+      "coverage": "1950–2026（共 66 起重大歷史、制度、金融、災難與法制事件）"
     },
     "events": [
       {
@@ -1949,7 +1949,7 @@ window.TW_DATA = {
           "國家人權博物館史料"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.14,
+          "base_prob": 0.015,
           "regions": [
             "south_kaohsiung",
             "north_taipei"
@@ -1986,7 +1986,8 @@ window.TW_DATA = {
               "job_lost": true,
               "money_ratio_delta": -0.45
             }
-          ]
+          ],
+          "pi_track": "incident"
         }
       },
       {
@@ -2012,7 +2013,7 @@ window.TW_DATA = {
           "立法院法律沿革"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.14,
+          "base_prob": 0.015,
           "regions": [
             "central"
           ],
@@ -2042,8 +2043,31 @@ window.TW_DATA = {
               "happiness_delta": -10,
               "money_ratio_delta": -0.12
             }
-          ]
+          ],
+          "pi_track": "incident"
         }
+      },
+      {
+        "id": "EV_1980_hsinchu_science_park",
+        "year": 1980,
+        "year_end": 1980,
+        "category": "economy_industry",
+        "regions": [
+          "north_hsinchu",
+          "ALL"
+        ],
+        "title": "新竹科學工業園區設立（台灣矽谷起點）",
+        "summary": "1980年12月新竹科學園區正式揭牌，配合工研院技術移轉與海外工程師返台創業（如聯電等），開啟台灣半導體與資通訊黃金時代。",
+        "institutional_aftermath": "重塑桃竹苗所得與人口結構，「竹科工程師」躍升為戰後跨世代高薪與中產階級上升象徵。",
+        "gameplay_impact": {
+          "tech_wage_bonus": 1.05,
+          "narrative_tag": "hsinchu_science_park"
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Established in December 1980, Hsinchu Science Park anchored Taiwan's semiconductor ecosystem and turned Hsinchu into Asia's silicon hub.",
+        "sources": [
+          "國科會竹科管理局史料"
+        ]
       },
       {
         "id": "EV_1982_li_shike_wang_yingxian",
@@ -2086,6 +2110,27 @@ window.TW_DATA = {
         "cultural_footnote_en": "The 1984 assassination of Taiwanese-American writer Henry Liu in California severely strained US-Taiwan ties and accelerated the end of Martial Law.",
         "sources": [
           "國史館史料"
+        ]
+      },
+      {
+        "id": "EV_1984_labor_standards_act",
+        "year": 1984,
+        "year_end": 1984,
+        "category": "law_economy",
+        "regions": [
+          "ALL"
+        ],
+        "title": "《勞動基準法》頒布施行（台灣首部綜合性勞工法）",
+        "summary": "1984年8月《勞動基準法》正式施行，首度明訂最低工資、法定工時、加班費、資遣費與舊制退休金規範，結束戰後工廠缺乏統一勞動底線的年代。",
+        "institutional_aftermath": "確立受僱勞工基本勞動基準與童工／青少年工讀保護（15歲門檻），奠定日後2005年勞退新制改革基礎。",
+        "gameplay_impact": {
+          "happiness_delta": 2,
+          "narrative_tag": "labor_standards_act"
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Taiwan's 1984 Labor Standards Act codified minimum wages, overtime pay, severance, and minimum working-age protections across industries.",
+        "sources": [
+          "勞動部法制史料"
         ]
       },
       {
@@ -2132,7 +2177,7 @@ window.TW_DATA = {
           "財政部與金融監督管理史料"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.12,
+          "base_prob": 0.06,
           "regions": [
             "north_taipei"
           ],
@@ -2141,7 +2186,7 @@ window.TW_DATA = {
             70
           ],
           "trait_mult": {
-            "risk_taker": 2.0,
+            "risk_taker": 2,
             "cautious": 0.5
           },
           "exp_tags": [
@@ -2165,7 +2210,8 @@ window.TW_DATA = {
               "job_lost": true,
               "heavy_debt": true
             }
-          ]
+          ],
+          "pi_track": "systemic"
         }
       },
       {
@@ -2234,7 +2280,7 @@ window.TW_DATA = {
           "理財周刊"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.14,
+          "base_prob": 0.09,
           "regions": [
             "ALL"
           ],
@@ -2271,13 +2317,14 @@ window.TW_DATA = {
               "happiness_delta": -32,
               "heavy_debt": true
             }
-          ]
+          ],
+          "pi_track": "systemic"
         }
       },
       {
         "id": "EV_1991_su_jianhe",
         "year": 1991,
-        "year_end": 2012,
+        "year_end": 1991,
         "category": "crime_justice",
         "regions": [
           "north_taipei",
@@ -2320,7 +2367,7 @@ window.TW_DATA = {
           "靖娟兒童安全文教基金會史料"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.14,
+          "base_prob": 0.012,
           "regions": [
             "north_taipei",
             "north_hsinchu"
@@ -2350,7 +2397,8 @@ window.TW_DATA = {
               "happiness_delta": -35,
               "health_delta": -10
             }
-          ]
+          ],
+          "pi_track": "incident"
         }
       },
       {
@@ -2376,6 +2424,28 @@ window.TW_DATA = {
         ]
       },
       {
+        "id": "EV_1995_nhi_launch",
+        "year": 1995,
+        "year_end": 1995,
+        "category": "welfare_health",
+        "regions": [
+          "ALL"
+        ],
+        "title": "全民健康保險開辦（告別因病而貧）",
+        "summary": "1995年3月全民健保正式開辦，將公保、勞保、農保與過去毫無保險的婦幼長者全數納入單一保險網，納保率迅速突破99%。",
+        "institutional_aftermath": "大幅壓低家庭重大傷病自付醫療負擔，使台灣基層醫療可近性躍居全球前段，並顯著拉升中高齡存活率。",
+        "gameplay_impact": {
+          "happiness_delta": 5,
+          "health_delta": 3,
+          "narrative_tag": "nhi_launch"
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Launched in March 1995, Taiwan's single-payer National Health Insurance achieved >99% coverage and dramatically cut medical bankruptcy.",
+        "sources": [
+          "衛福部健保署史料"
+        ]
+      },
+      {
         "id": "EV_1995_welcome_fire",
         "year": 1995,
         "year_end": 1995,
@@ -2396,7 +2466,7 @@ window.TW_DATA = {
           "內政部消防署法制沿革"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.14,
+          "base_prob": 0.01,
           "regions": [
             "central"
           ],
@@ -2426,7 +2496,8 @@ window.TW_DATA = {
               "fatal": true,
               "death_cause": "1995 年台中衛爾康西餐廳大火（公共安全事故）"
             }
-          ]
+          ],
+          "pi_track": "incident"
         }
       },
       {
@@ -2452,6 +2523,27 @@ window.TW_DATA = {
         "sources": [
           "立法院法制沿革",
           "台灣新聞倫理史料"
+        ]
+      },
+      {
+        "id": "EV_1996_first_presidential_election",
+        "year": 1996,
+        "year_end": 1996,
+        "category": "politics_democracy",
+        "regions": [
+          "ALL"
+        ],
+        "title": "首次總統直選與台海飛彈危機",
+        "summary": "1996年3月23日台灣舉行中華民國史上第一次公民直選總統，投票率達76.04%，在中共對台海試射飛彈與美軍雙航母戒備的緊張氛圍中完成和平投票。",
+        "institutional_aftermath": "奠定台灣民主政權的直接民意正當性，同時使地緣政治與資金避險意識深植台灣經濟與移民抉擇。",
+        "gameplay_impact": {
+          "happiness_delta": 2,
+          "narrative_tag": "first_direct_presidential_election"
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Taiwan's landmark March 1996 direct presidential election saw 76% turnout despite cross-strait missile tests.",
+        "sources": [
+          "中選會選舉資料庫"
         ]
       },
       {
@@ -2505,7 +2597,7 @@ window.TW_DATA = {
         ],
         "disaster_year": 1999,
         "protagonist_involvement": {
-          "base_prob": 0.16,
+          "base_prob": 0.09,
           "regions": [
             "central",
             "north_taipei"
@@ -2547,7 +2639,8 @@ window.TW_DATA = {
               "fatal": true,
               "death_cause": "1999 年 921 集集大地震（建物倒塌）"
             }
-          ]
+          ],
+          "pi_track": "systemic"
         }
       },
       {
@@ -2570,6 +2663,27 @@ window.TW_DATA = {
         "sources": [
           "科技新報",
           "工商時報"
+        ]
+      },
+      {
+        "id": "EV_2000_first_party_turnover",
+        "year": 2000,
+        "year_end": 2000,
+        "category": "politics_democracy",
+        "regions": [
+          "ALL"
+        ],
+        "title": "2000 年首次政黨輪替（和平政權轉移）",
+        "summary": "2000年總統大選完成台灣戰後首次中央執政權和平輪替，終結國民黨長達半世紀的執政，展現台灣民主制度的穩定成熟。",
+        "institutional_aftermath": "強化定期選舉與政黨監督常態化，激勵不少海外台灣青年返台投入公共政策與媒體轉型。",
+        "gameplay_impact": {
+          "happiness_delta": 2,
+          "narrative_tag": "first_party_turnover"
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The 2000 presidential election marked Taiwan's first peaceful transfer of executive power between rival political parties.",
+        "sources": [
+          "中選會公開史料"
         ]
       },
       {
@@ -2605,7 +2719,7 @@ window.TW_DATA = {
           "ALL"
         ],
         "title": "SARS 和平醫院封院與 0050 ETF 成立",
-        "summary": "SARS期間全台通報668例、181例死亡、逾15萬人居家隔離；4月24日台北和平醫院封院釀醫護與院內民眾重大傷亡。同年台灣首檔指數ETF「0050」成立。",
+        "summary": "SARS期間經WHO與疾管署最終血清抗體覆核，全台確診346例、73人死亡、逾15萬人居家隔離；4月24日台北和平醫院封院釀醫護與院內民眾重大傷亡。同年台灣首檔指數ETF「0050」成立。",
         "institutional_aftermath": "SARS重創促成台灣建立中央流行疫情指揮中心與負壓隔離醫療體系，成為2020年COVID-19初期防堵成功的關鍵經驗。",
         "gameplay_impact": {
           "trigger_decision": "D23_pandemic_dilemma",
@@ -2619,7 +2733,7 @@ window.TW_DATA = {
           "經濟日報"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.08,
+          "base_prob": 0.012,
           "regions": [
             "north_taipei"
           ],
@@ -2659,7 +2773,8 @@ window.TW_DATA = {
               "fatal": true,
               "death_cause": "2003 年 SARS 嚴重急性呼吸道症候群"
             }
-          ]
+          ],
+          "pi_track": "incident"
         }
       },
       {
@@ -2682,7 +2797,7 @@ window.TW_DATA = {
           "投保中心與金管會公開資料"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.1,
+          "base_prob": 0.05,
           "regions": [
             "ALL"
           ],
@@ -2699,14 +2814,15 @@ window.TW_DATA = {
           ],
           "outcomes": [
             {
-              "weight": 1.0,
+              "weight": 1,
               "severity": "economic_major",
               "narrative": "你深信財報亮眼的明星科技股博達而重壓大半股票資產，無預警重整後股價連吞跌停淪為壁紙，多年積蓄重創。",
               "stock_ratio_delta": -0.75,
               "money_ratio_delta": -0.2,
               "happiness_delta": -20
             }
-          ]
+          ],
+          "pi_track": "systemic"
         }
       },
       {
@@ -2731,7 +2847,7 @@ window.TW_DATA = {
           "台大論文"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.12,
+          "base_prob": 0.08,
           "regions": [
             "ALL"
           ],
@@ -2749,7 +2865,7 @@ window.TW_DATA = {
           ],
           "outcomes": [
             {
-              "weight": 1.0,
+              "weight": 1,
               "severity": "economic_severe",
               "narrative": "你為周轉生活費辦了多張現金卡與信用卡以卡養卡，近 20% 循環利息滾成百萬卡債陷入「卡奴」困境，直到 2008 消債條例上路才得以更生。",
               "money_ratio_delta": -0.8,
@@ -2757,7 +2873,8 @@ window.TW_DATA = {
               "happiness_delta": -28,
               "heavy_debt": true
             }
-          ]
+          ],
+          "pi_track": "systemic"
         }
       },
       {
@@ -2783,81 +2900,140 @@ window.TW_DATA = {
         ]
       },
       {
-        "id": "EV_2008_2009_gfc_22k_morakot",
-        "year": 2008,
-        "year_end": 2009,
-        "category": "finance_disaster",
+        "id": "EV_2007_thsr_launch",
+        "year": 2007,
+        "year_end": 2007,
+        "category": "infra_economy",
         "regions": [
-          "ALL",
-          "south_kaohsiung",
-          "south_tainan"
+          "ALL"
         ],
-        "title": "金融海嘯、22K 方案與莫拉克八八風災",
-        "summary": "2008年雷曼連動債釀台灣約10萬人受害、台股跌57.7%；2009年失業率飆至5.85%（8月達6.13%歷史新高）、政府推月薪22K實習方案；同年8月莫拉克颱風釀681死、小林村滅村。",
-        "institutional_aftermath": "22K成為世代低薪代名詞；八八風災大幅推動原鄉防災撤離與土石流警戒系統升級。",
+        "title": "台灣高鐵全線通車（西部一日生活圈成形）",
+        "summary": "2007年台灣高鐵通車（台北至左營僅約90–120分鐘），繼1996台北捷運與2006雪山隧道後，徹底改寫台灣西部走廊通勤與商務版圖。",
+        "institutional_aftermath": "帶動桃園青埔、竹北、台中烏日與台南沙崙高鐵特區房地產起飛，也讓雙北以外都會區擴大跨縣市通勤人口。",
+        "gameplay_impact": {
+          "happiness_delta": 3,
+          "narrative_tag": "thsr_one_day_living_circle"
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Opening in 2007, Taiwan High Speed Rail shrank the Taipei–Kaohsiung trip to ~90 minutes, reshaping commuting and regional property markets.",
+        "sources": [
+          "交通部高鐵營運資料"
+        ]
+      },
+      {
+        "id": "EV_2008_gfc_lehman",
+        "year": 2008,
+        "year_end": 2008,
+        "category": "finance_economy",
+        "regions": [
+          "ALL"
+        ],
+        "title": "全球金融海嘯與雷曼連動債風暴",
+        "summary": "2008年9月雷曼兄弟倒閉引爆全球金融海嘯，台灣約10萬名投資人持有連動債嚴重受損，全年台股大跌57.7%，出口與科技業湧現無薪假。",
+        "institutional_aftermath": "催生《金融消費者保護法》與銀行理專不當銷售規範，並促使翌年政府推出22K方案因應青年失業潮。",
         "gameplay_impact": {
           "stock_return_2008": -0.577,
-          "trigger_decision_job": "D10_unpaid_leave",
-          "trigger_decision_south": "D22_major_disaster"
+          "trigger_decision_job": "D10_unpaid_leave"
         },
-        "sensitive": true,
-        "cultural_footnote_en": "A brutal double hit: the 2008–09 financial crisis anchored fresh-grad pay around NT$22K ('22K generation'), while Typhoon Morakot buried Xiaolin Village in southern Taiwan.",
+        "sensitive": false,
+        "cultural_footnote_en": "The 2008 Lehman Brothers collapse wiped out structured notes held by ~100,000 Taiwanese investors, plunged the TAIEX 57.7%, and triggered widespread unpaid leave.",
         "sources": [
           "今周刊",
-          "中央銀行年報",
-          "遠見",
-          "聯合報",
-          "監察院"
+          "中央銀行年報"
         ],
-        "impact_regions": [
-          "south_kaohsiung",
-          "south_tainan"
-        ],
-        "disaster_year": 2009,
         "protagonist_involvement": {
-          "base_prob": 0.13,
+          "pi_track": "systemic",
+          "base_prob": 0.1,
           "regions": [
-            "south_kaohsiung",
-            "south_tainan",
             "ALL"
           ],
           "age_range": [
-            18,
+            20,
             75
           ],
           "trait_mult": {
-            "risk_taker": 1.8,
-            "family_first": 1.3
+            "risk_taker": 1.7
           },
           "exp_tags": [
-            "has_savings",
+            "has_savings"
+          ],
+          "outcomes": [
+            {
+              "weight": 1,
+              "severity": "economic_major",
+              "narrative": "銀行理專推銷的連動債價值大幅縮水加上金融海嘯裁員減薪，你的積蓄受到重創，被迫縮衣節食度過景氣寒冬。",
+              "money_ratio_delta": -0.45,
+              "stock_ratio_delta": -0.4,
+              "job_lost": true,
+              "happiness_delta": -20
+            }
+          ]
+        }
+      },
+      {
+        "id": "EV_2009_morakot_88_flood",
+        "year": 2009,
+        "year_end": 2009,
+        "category": "disaster_economy",
+        "regions": [
+          "south_kaohsiung",
+          "south_tainan",
+          "east_islands"
+        ],
+        "title": "莫拉克八八風災與 22K 方案（失業率 5.85%）",
+        "summary": "2009年8月莫拉克颱風三天降下整年雨量重創南台灣與花東，釀681死、小林村滅村；同年全台年均失業率攀至5.85%（8月達6.13%），政府推出大專畢業生22K實習方案。",
+        "institutional_aftermath": "22K成為世代低薪代名詞；八八風災全面推動原鄉防災撤離與土石流警戒系統升級。",
+        "gameplay_impact": {
+          "trigger_decision_south": "D22_major_disaster",
+          "happiness_delta_region": -6
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "In 2009, Typhoon Morakot devastated southern and eastern Taiwan—burying Xiaolin Village with 681 dead—while youth unemployment spurred the NT$22K internship scheme.",
+        "sources": [
+          "聯合報",
+          "監察院",
+          "遠見"
+        ],
+        "impact_regions": [
+          "south_kaohsiung",
+          "south_tainan",
+          "east_islands"
+        ],
+        "disaster_year": 2009,
+        "protagonist_involvement": {
+          "pi_track": "systemic",
+          "base_prob": 0.08,
+          "regions": [
+            "south_kaohsiung",
+            "south_tainan",
+            "east_islands"
+          ],
+          "age_range": [
+            18,
+            80
+          ],
+          "trait_mult": {
+            "family_first": 1.25
+          },
+          "exp_tags": [
             "homeowner"
           ],
           "outcomes": [
             {
-              "weight": 0.62,
-              "severity": "economic_major",
-              "narrative": "銀行理專推銷的雷曼連動債一夕歸零加上金融海嘯裁員，你的退休金與積蓄腰斬，被迫大幅縮衣節食。",
-              "money_ratio_delta": -0.55,
-              "stock_ratio_delta": -0.55,
-              "job_lost": true,
-              "happiness_delta": -24
-            },
-            {
-              "weight": 0.26,
+              "weight": 0.92,
               "severity": "disaster_relocate",
-              "narrative": "莫拉克八八風災三天降下整年雨量，南台灣家園遭洪水與土石流沖毀，你成為災民被迫異地安置重建。",
+              "narrative": "莫拉克八八風災三天降下整年雨量，南台灣／東部家園遭洪水與土石流沖毀，你成為災民被迫異地安置重建。",
               "lose_home": true,
-              "money_ratio_delta": -0.45,
-              "happiness_delta": -26,
+              "money_ratio_delta": -0.4,
+              "happiness_delta": -24,
               "force_relocate": true
             },
             {
-              "weight": 0.12,
+              "weight": 0.08,
               "severity": "fatal",
               "narrative": "莫拉克颱風引發大規模山崩與土石流深夜沖毀家園，你在八八風災中不幸罹難。",
               "fatal": true,
-              "death_cause": "2009 年莫拉克颱風（八八風災土石流）"
+              "death_cause": "2009 年莫拉克八八風災"
             }
           ]
         }
@@ -2906,7 +3082,7 @@ window.TW_DATA = {
           "立法院軍事審判法修法紀錄"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.15,
+          "base_prob": 0.014,
           "regions": [
             "ALL"
           ],
@@ -2923,69 +3099,15 @@ window.TW_DATA = {
           ],
           "outcomes": [
             {
-              "weight": 1.0,
+              "weight": 1,
               "severity": "trajectory",
               "narrative": "你服役期間親身見證軍中不當管教文化，退伍後毅然站上凱道加入 25 萬人白衫軍運動，促成《軍事審判法》修法成為人生重要轉折。",
               "happiness_delta": -4,
               "knowledge_delta": 8,
               "social_delta": 10
             }
-          ]
-        }
-      },
-      {
-        "id": "EV_2014_2016_random_attacks_safety_net",
-        "year": 2014,
-        "year_end": 2016,
-        "category": "crime_society",
-        "regions": [
-          "north_taipei",
-          "ALL"
-        ],
-        "title": "台北捷運隨機殺人案（2014）與內湖小燈泡命案（2016）",
-        "summary": "2014年北捷板南線隨機襲擊釀4死20餘傷；2016年內湖4歲女童遇害，引發全台對無差別暴力與精神衛生資源的高度焦慮。",
-        "institutional_aftermath": "強化大眾運輸安全機制，並促使政府啟動跨部會「強化社會安全網」計畫（衛政結合社政追蹤高風險個案），深化被害人保護與司法對話。",
-        "gameplay_impact": {
-          "happiness_delta_north_taipei": -3,
-          "social_safety_net_level": 1
-        },
-        "sensitive": true,
-        "cultural_footnote_en": "High-profile random attacks in 2014 and 2016 prompted Taiwan's cross-ministry 'Strengthening the Social Safety Net' mental-health and social-work initiative.",
-        "sources": [
-          "衛福部強化社會安全網計畫"
-        ],
-        "protagonist_involvement": {
-          "base_prob": 0.06,
-          "regions": [
-            "north_taipei"
           ],
-          "age_range": [
-            15,
-            65
-          ],
-          "trait_mult": {
-            "workaholic": 1.3,
-            "sociable": 1.3,
-            "sensitive_introvert": 1.4
-          },
-          "exp_tags": [],
-          "outcomes": [
-            {
-              "weight": 0.85,
-              "severity": "trauma",
-              "narrative": "你搭乘板南線捷運時恰巧身處相鄰車廂，經歷人群驚慌逃散的驚魂瞬間，此後長期搭車保持高度戒備並更加關注台灣社會安全網議題。",
-              "happiness_delta": -18,
-              "health_delta": -6
-            },
-            {
-              "weight": 0.15,
-              "severity": "injury_trauma",
-              "narrative": "你在雙北公共空間突發無差別暴力事件中受波及受傷，歷經醫療與心理諮商才逐步重返日常。",
-              "health_delta": -24,
-              "happiness_delta": -25,
-              "money_ratio_delta": -0.1
-            }
-          ]
+          "pi_track": "incident"
         }
       },
       {
@@ -3009,7 +3131,7 @@ window.TW_DATA = {
           "高雄市政府與監察院調查報告"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.1,
+          "base_prob": 0.015,
           "regions": [
             "south_kaohsiung"
           ],
@@ -3044,6 +3166,84 @@ window.TW_DATA = {
               "fatal": true,
               "death_cause": "2014 年高雄地下丙烯管線氣爆事故"
             }
+          ],
+          "pi_track": "incident"
+        }
+      },
+      {
+        "id": "EV_2014_sunflower_movement",
+        "year": 2014,
+        "year_end": 2014,
+        "category": "politics_society",
+        "regions": [
+          "north_taipei",
+          "ALL"
+        ],
+        "title": "太陽花學運（318 公民佔領國會與世代轉折）",
+        "summary": "2014年3月青年學生與公民團體因反對《海峽兩岸服務貿易協議》審查程序，佔領立法院議場24天並引發50萬人凱道集會。",
+        "institutional_aftermath": "重塑台灣青年世代的政治參與、兩岸經貿審視基準與公民科技文化，使海內外青年重新定位台灣認同。",
+        "gameplay_impact": {
+          "happiness_delta": 1,
+          "narrative_tag": "sunflower_movement"
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The March 2014 Sunflower Movement saw students and civic groups occupy Taiwan's legislature for 24 days over trade-pact oversight, reshaping a generation's civic engagement.",
+        "sources": [
+          "立法院與中研院相關口述史料"
+        ]
+      },
+      {
+        "id": "EV_2014_taipei_metro_attack",
+        "year": 2014,
+        "year_end": 2014,
+        "category": "crime_society",
+        "regions": [
+          "north_taipei",
+          "ALL"
+        ],
+        "title": "台北捷運隨機攻擊事件",
+        "summary": "2014年5月北捷板南線龍山寺至江子翠站間發生無差別持刀攻擊，釀4死20餘傷，衝擊雙北通勤族安全感。",
+        "institutional_aftermath": "強化大眾運輸見警率與車站通報應變機制，社會開始嚴肅討論心理衛生與孤立者預警議題。",
+        "gameplay_impact": {
+          "happiness_delta_north_taipei": -3
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "A 2014 stabbing attack on the Taipei Metro Blue Line shocked commuters and prompted major transit security upgrades.",
+        "sources": [
+          "交通部及北市府公開紀錄"
+        ],
+        "protagonist_involvement": {
+          "pi_track": "incident",
+          "base_prob": 0.012,
+          "regions": [
+            "north_taipei"
+          ],
+          "age_range": [
+            15,
+            65
+          ],
+          "trait_mult": {
+            "workaholic": 1.25,
+            "sociable": 1.25,
+            "sensitive_introvert": 1.3
+          },
+          "exp_tags": [],
+          "outcomes": [
+            {
+              "weight": 0.85,
+              "severity": "trauma",
+              "narrative": "你搭乘板南線捷運時恰巧身處相鄰車廂，經歷人群驚慌逃散的驚魂瞬間，此後長期搭車保持高度戒備並更加關注台灣社會安全網議題。",
+              "happiness_delta": -18,
+              "health_delta": -6
+            },
+            {
+              "weight": 0.15,
+              "severity": "injury_trauma",
+              "narrative": "你在雙北公共空間突發無差別暴力事件中受波及受傷，歷經醫療與心理諮商才逐步重返日常。",
+              "health_delta": -24,
+              "happiness_delta": -25,
+              "money_ratio_delta": -0.1
+            }
           ]
         }
       },
@@ -3069,7 +3269,7 @@ window.TW_DATA = {
           "鏡週刊"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.08,
+          "base_prob": 0.012,
           "regions": [
             "north_taipei",
             "north_hsinchu"
@@ -3102,7 +3302,8 @@ window.TW_DATA = {
               "fatal": true,
               "death_cause": "2015 年八仙樂園粉塵爆炸意外"
             }
-          ]
+          ],
+          "pi_track": "incident"
         }
       },
       {
@@ -3123,6 +3324,28 @@ window.TW_DATA = {
         "cultural_footnote_en": "A US$180M anti-money-laundering fine against Mega Bank in NY triggered strict banking KYC checks that Taiwanese residents encounter at every bank counter today.",
         "sources": [
           "法務部與金管會洗錢防制修法資料"
+        ]
+      },
+      {
+        "id": "EV_2016_neihu_safety_net",
+        "year": 2016,
+        "year_end": 2016,
+        "category": "crime_society",
+        "regions": [
+          "north_taipei",
+          "ALL"
+        ],
+        "title": "內湖女童案與《強化社會安全網計畫》",
+        "summary": "2016年3月台北內湖發生4歲女童（小燈泡）遇害案，引發全台對精神衛生體系與高風險家庭斷裂的深刻檢討。",
+        "institutional_aftermath": "促使行政院啟動跨部會「強化社會安全網」計畫，結合衛政、社政與警政追蹤高風險個案，並推動被害人司法參與。",
+        "gameplay_impact": {
+          "happiness_delta_north_taipei": -2,
+          "social_safety_net_level": 1
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "The tragic 2016 Neihu attack catalyzed Taiwan's cross-ministry 'Strengthening the Social Safety Net' mental-health and social-work initiative.",
+        "sources": [
+          "衛福部強化社會安全網計畫"
         ]
       },
       {
@@ -3173,7 +3396,7 @@ window.TW_DATA = {
       {
         "id": "EV_2021_taroko_408",
         "year": 2021,
-        "year_end": 2024,
+        "year_end": 2021,
         "category": "society_safety",
         "regions": [
           "east_islands",
@@ -3193,7 +3416,7 @@ window.TW_DATA = {
           "交通部台鐵公司化資料"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.11,
+          "base_prob": 0.015,
           "regions": [
             "east_islands",
             "north_taipei"
@@ -3225,7 +3448,8 @@ window.TW_DATA = {
               "fatal": true,
               "death_cause": "2021 年台鐵太魯閣號 408 車次出軌事故"
             }
-          ]
+          ],
+          "pi_track": "incident"
         }
       },
       {
@@ -3251,7 +3475,7 @@ window.TW_DATA = {
           "法務部打詐新四法"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.14,
+          "base_prob": 0.1,
           "regions": [
             "ALL"
           ],
@@ -3284,31 +3508,9 @@ window.TW_DATA = {
               "money_ratio_delta": -0.35,
               "happiness_delta": -18
             }
-          ]
+          ],
+          "pi_track": "systemic"
         }
-      },
-      {
-        "id": "EV_2023_2025_kaikai_case",
-        "year": 2023,
-        "year_end": 2025,
-        "category": "crime_society",
-        "regions": [
-          "north_taipei",
-          "ALL"
-        ],
-        "title": "剴剴虐童案與《刑法》修法",
-        "summary": "2023年底台北1歲男童在出養等待期間遭保母凌虐致死，暴露跨縣市社福訪視斷裂；2025年5月國民法官法庭判處主嫌無期徒刑。",
-        "institutional_aftermath": "引發大規模公民檢討托育社安網；立法院於2025年7月18日三讀通過「剴剴條款」（增訂刑法第272條之1、修正第286條），明定凌虐未滿7歲幼童致死最重可判死刑。",
-        "gameplay_impact": {
-          "childcare_anxiety_delta": 3,
-          "narrative_tag": "citizen_judges_era"
-        },
-        "sensitive": true,
-        "cultural_footnote_en": "A fatal child-abuse case tried under Taiwan's new Citizen Judges system led to 2025 penal code amendments imposing severe penalties for lethal child abuse.",
-        "sources": [
-          "司法院國民法官判決",
-          "立法院刑法修法紀錄"
-        ]
       },
       {
         "id": "EV_2023_metoo_taiwan",
@@ -3358,7 +3560,7 @@ window.TW_DATA = {
         ],
         "disaster_year": 2024,
         "protagonist_involvement": {
-          "base_prob": 0.14,
+          "base_prob": 0.08,
           "regions": [
             "east_islands"
           ],
@@ -3397,51 +3599,92 @@ window.TW_DATA = {
               "fatal": true,
               "death_cause": "2024 年 0403 花蓮規模 7.2 強震"
             }
-          ]
+          ],
+          "pi_track": "systemic"
         }
       },
       {
-        "id": "EV_2025_2026_super_aged_ai_tariff",
+        "id": "EV_2023_2025_kaikai_case",
         "year": 2025,
-        "year_end": 2026,
+        "year_end": 2025,
+        "category": "crime_society",
+        "regions": [
+          "north_taipei",
+          "ALL"
+        ],
+        "title": "剴剴虐童案與《刑法》修法",
+        "summary": "2023年底台北1歲男童在出養等待期間遭保母凌虐致死，暴露跨縣市社福訪視斷裂；2025年5月國民法官法庭判處主嫌無期徒刑。",
+        "institutional_aftermath": "引發大規模公民檢討托育社安網；立法院於2025年7月18日三讀通過「剴剴條款」（增訂刑法第272條之1、修正第286條），明定凌虐未滿7歲幼童致死最重可判死刑。",
+        "gameplay_impact": {
+          "childcare_anxiety_delta": 3,
+          "narrative_tag": "citizen_judges_era"
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "A fatal child-abuse case tried under Taiwan's new Citizen Judges system led to 2025 penal code amendments imposing severe penalties for lethal child abuse.",
+        "sources": [
+          "司法院國民法官判決",
+          "立法院刑法修法紀錄"
+        ]
+      },
+      {
+        "id": "EV_2025_super_aged_ai_tariff",
+        "year": 2025,
+        "year_end": 2025,
         "category": "economy_society_disaster",
         "regions": [
           "ALL",
           "central",
           "east_islands"
         ],
-        "title": "超高齡社會、AI 出口狂潮、對等關稅與光復洪災",
-        "summary": "2025年台灣65+人口達20.06%正式進入超高齡社會、總生育率跌至0.695；8月美對台20%關稅致傳產無薪假8,543人（2026年1月降為15%），9月樺加沙颱風致花蓮光復鄉19死；但AI帶動2025經濟成長7.37%，2026年10月台股逼近5萬點（49,968.92點），中華大學於2026年停招。",
+        "title": "邁入超高齡社會、AI 出口狂潮、對等關稅與光復洪災",
+        "summary": "2025年台灣65+人口達20.06%正式進入超高齡社會、總生育率跌至0.695；8月美對台暫時性20%對等關稅致傳產無薪假8,543人，9月樺加沙颱風致花蓮光復鄉19死；但AI出口強勁帶動全年經濟成長7.37%。",
         "institutional_aftermath": "形成科技業財富效應與傳產減班、少子高齡化並存的「K型台灣」時代面貌。",
         "gameplay_impact": {
-          "tech_wage_bonus": 1.15,
+          "tech_wage_bonus": 1.12,
           "trad_mfg_unpaid_leave_prob": 0.08,
-          "elderly_care_trigger_mult": 1.5,
-          "private_uni_closure_prob": 0.05
+          "elderly_care_trigger_mult": 1.5
         },
         "sensitive": false,
-        "cultural_footnote_en": "By 2025–26, Taiwan entered a 'super-aged' society (over 20% aged 65+) with the world's lowest fertility, even as an AI semiconductor boom drove stocks near 50,000 points.",
+        "cultural_footnote_en": "In 2025, Taiwan officially entered a 'super-aged' society (>20% aged 65+) with a 0.695 fertility rate, while AI exports drove 7.37% GDP growth despite tariff pressures on traditional industries.",
         "sources": [
           "聯合報",
           "公視新聞",
-          "天下雜誌",
-          "科技新報",
-          "優分析",
-          "關鍵評論網",
-          "遠見",
-          "工商時報"
+          "天下雜誌"
         ],
         "impact_regions": [
           "east_islands"
         ],
         "disaster_year": 2025
+      },
+      {
+        "id": "EV_2026_taiex_50k_uni_closure",
+        "year": 2026,
+        "year_end": 2026,
+        "category": "economy_education",
+        "regions": [
+          "ALL"
+        ],
+        "title": "台股逼近五萬點、關稅降至 15% 與少子化私校停招潮",
+        "summary": "2026年1月台美關稅談判降至15%緩解傳產壓力；AI超級週期推升台股於10月盤中觸及49,968.92點新高，但少子化浪潮亦使中華大學等私立大專於2026年宣布停招。",
+        "institutional_aftermath": "資本市場繁榮與高教退場潮並存，凸顯台灣人口少子化與產業集中化轉折。",
+        "gameplay_impact": {
+          "tech_wage_bonus": 1.05,
+          "private_uni_closure_prob": 0.05
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 2026, tariff relief and the AI boom briefly lifted Taiwan's stock index near 50,000, even as declining births forced private universities like Chung Hua University to halt admissions.",
+        "sources": [
+          "科技新報",
+          "優分析",
+          "工商時報"
+        ]
       }
     ]
   },
   "decisions": {
     "meta": {
       "schema_version": "1.0.0",
-      "total_decisions": 29,
+      "total_decisions": 34,
       "design_principle": "選項僅改變後續機率與參數權重，不保證單一結果；支援一卡多年代變體（era_variants）。"
     },
     "pause_questions": [
@@ -3864,17 +4107,17 @@ window.TW_DATA = {
             "variant_id": "china_taigan",
             "year_range": [
               1990,
-              2016
+              2019
             ],
-            "label_context": "西進中國擔任台幹（2012高峰43萬人）"
+            "label_context": "西進中國大陸或赴東南亞設廠擔任台幹"
           },
           {
             "variant_id": "us_jp_fab",
             "year_range": [
               2020,
-              2035
+              2045
             ],
-            "label_context": "赴美國亞利桑那或日本熊本廠外派"
+            "label_context": "赴美國亞利桑那、日本熊本或歐洲半導體／科技據點外派"
           }
         ],
         "options": [
@@ -4780,9 +5023,9 @@ window.TW_DATA = {
             "EV_1963_gloria_typhoon_shihmen",
             "EV_1959_87_flood",
             "EV_1999_921_earthquake",
-            "EV_2008_2009_gfc_22k_morakot",
+            "EV_2009_morakot_88_flood",
             "EV_2024_hualien_quake_housing_peak",
-            "EV_2025_2026_super_aged_ai_tariff"
+            "EV_2025_super_aged_ai_tariff"
           ],
           "age_range": [
             18,
@@ -5691,6 +5934,7 @@ window.TW_DATA = {
       {
         "id": "car_sme_boss",
         "name": "傳產頭家／中小企業廠主",
+        "pick_weight": 0.45,
         "era_range": [
           1970,
           2130
@@ -5967,6 +6211,33 @@ window.TW_DATA = {
         "health_drain": 0.7,
         "remote_capable": false,
         "flavor": "花東離島與古都核心產業，受景氣、地震與 2021 疫情無薪假衝擊最直接。"
+      },
+      {
+        "id": "car_office_white_collar",
+        "name": "一般民間企業白領／行政／財會／行銷",
+        "pick_weight": 2.4,
+        "era_range": [
+          1965,
+          2130
+        ],
+        "salary_mult_min": 0.85,
+        "salary_mult_max": 1.35,
+        "preferred_regions": [
+          "north_taipei",
+          "north_hsinchu",
+          "central",
+          "south_tainan",
+          "south_kaohsiung"
+        ],
+        "min_edu_level": 3,
+        "preferred_majors": [
+          "humanities_biz",
+          "stem_eng"
+        ],
+        "stability": 0.86,
+        "health_drain": 0.5,
+        "remote_capable": false,
+        "flavor": "台灣就業人數最龐大的中產受薪骨幹，貼近主計總處薪資中位數，安穩但須面對通膨與房貸壓力。"
       }
     ]
   },
@@ -6051,41 +6322,71 @@ window.TW_DATA = {
         ]
       },
       {
-        "id": "cult_1990_2009",
+        "id": "cult_1990_1999",
         "year_range": [
           1990,
-          2009
+          1999
         ],
-        "label": "民主深化、網路萌芽與雙薪轉折（1990–2000s）",
-        "family_gender_norm": "雙薪核心家庭成主流，女性高教比例追上男性，開始挑戰聘金與過年回娘家習俗；2006 年離婚率達高峰。",
-        "money_culture": "雙卡消費風潮與 2005 卡債危機、2008 雷曼連動債教訓，2003 SARS 後房價展開長多頭。",
-        "social_atmosphere": "1996 首次總統直選、2000 首次政黨輪替；BBS／PTT、無名小站、漫畫王與網咖成為青春記憶。",
-        "typical_first_marriage_age": 29,
-        "overseas_comm_channel": "BBS／PTT 看板、MSN 即時通與 Skype 網路電話",
+        "label": "民主轉型、聯考末代與呼叫器年代（1990s）",
+        "family_gender_norm": "雙薪核心家庭普及，女性大專就學率快速追上男性，職場平權意識抬頭。",
+        "money_culture": "1990 台股萬二崩盤後逐步重整，全民健保上路減輕醫藥負擔，民間仍偏好儲蓄與標會。",
+        "social_atmosphere": "1991 終止動員戡亂、1996 首次總統直選、台北捷運通車；BB Call、漫畫王與撥接 BBS 剛起步。",
+        "typical_first_marriage_age": 27,
+        "overseas_comm_channel": "越洋電話、傳真與早期 BBS／電子郵件",
         "daily_vignettes": [
           {
             "text": "放學後和同學去巷口租漫畫、買十元紅茶，回家趕著看晚間卡通與綜藝節目。",
             "min_year": 1990,
-            "max_year": 2009,
+            "max_year": 1999,
             "min_age": 7,
             "max_age": 17
           },
           {
             "text": "腰間別著呼叫器（BB Call），下班和朋友約在泡沫紅茶店或漫畫王打發時間。",
             "min_year": 1990,
-            "max_year": 2002,
+            "max_year": 1999,
             "min_age": 18,
             "requires_working": true
           },
           {
+            "text": "選舉前夕造勢晚會旗海飄揚，電視台與地下電台每晚熱烈辯論台灣的前途。",
+            "min_year": 1990,
+            "max_year": 1999,
+            "min_age": 10
+          }
+        ]
+      },
+      {
+        "id": "cult_2000_2009",
+        "year_range": [
+          2000,
+          2009
+        ],
+        "label": "政黨輪替、網路社群萌芽與 22K 轉折（2000s）",
+        "family_gender_norm": "晚婚趨勢浮現，女性高教比例追上男性，開始挑戰傳統聘金與過年回娘家習俗；2006 年離婚率達高峰。",
+        "money_culture": "雙卡消費風潮與 2005 卡債危機、2008 雷曼連動債教訓，2003 SARS 後房價展開長多頭。",
+        "social_atmosphere": "2000 首次政黨輪替、2007 高鐵通車；PTT、無名小站、MSN 與網咖成為青春記憶。",
+        "typical_first_marriage_age": 29,
+        "overseas_comm_channel": "BBS／PTT 看板、MSN 即時通與 Skype 網路電話",
+        "daily_vignettes": [
+          {
+            "text": "放學後和同學去網咖或逛光南唱片行，回家趕著跟上無名小站相簿與 MSN 上線潮。",
+            "min_year": 2000,
+            "max_year": 2009,
+            "min_age": 10,
+            "max_age": 17
+          },
+          {
             "text": "下班或下課後掛在 BBS／PTT 與 MSN 上聊天，同學間互相幫對方的無名小站衝人氣。",
-            "min_year": 2003,
+            "min_year": 2000,
             "max_year": 2009,
             "min_age": 14,
             "max_age": 35
           },
           {
             "text": "選舉前夕造勢晚會旗海飄揚，電視政論節目每晚熱烈辯論台灣的前途。",
+            "min_year": 2000,
+            "max_year": 2009,
             "min_age": 10
           },
           {
@@ -6178,6 +6479,21 @@ window.TW_DATA = {
         "homesickness_boost": 6,
         "happiness_delta": 1,
         "social_delta": 2,
+        "cultural_footnote_en": "During Qingming Tomb-Sweeping Day and the Seventh Lunar Month Zhongyuan Ghost Festival, Taiwanese families and workplaces set out offerings to honor ancestors and appease wandering spirits for peace and safety."
+      },
+      {
+        "id": "cust_green_kuaikuai",
+        "stage": "workplace_tech",
+        "min_year": 1995,
+        "age_range": [
+          20,
+          70
+        ],
+        "requires_working": true,
+        "text": "公司機房伺服器與醫院、產線機台旁虔誠擺上整排效期內的「綠色奶油椰子乖乖」，祈求系統全年綠燈不出包。",
+        "homesickness_boost": 4,
+        "happiness_delta": 2,
+        "social_delta": 1,
         "cultural_footnote_en": "Green 'Kuai Kuai' (meaning 'behave well') coconut snacks are famously placed on servers, hospital machines, and semiconductor fabs in Taiwan to prevent glitches."
       },
       {
@@ -8142,10 +8458,10 @@ window.TW_DATA = {
         "note": "4 月對等關稅急殺後隨 AI 出口狂飆 V 轉，全年大漲 25.7% 至 28,963 點"
       },
       "2026": {
-        "price_pct": 0.385,
-        "max_drawdown": -0.2,
+        "price_pct": 0.319,
+        "max_drawdown": -0.236,
         "housing_pct": 0.01,
-        "note": "AI 超級週期推動盤中逼近 5 萬點（49,968.92），全年收漲 38.5%"
+        "note": "AI 超級週期推動 10 月盤中逼近 5 萬點（49,968.92），截至 11 月底暫估上漲約 31.9%（高點回撤 -23.6%）"
       }
     }
   },
@@ -8186,8 +8502,8 @@ window.TW_DATA = {
       {
         "id": "AP_1964_radio_baseball",
         "year_range": [
-          1962,
-          1974
+          1968,
+          1976
         ],
         "age_range": [
           7,
@@ -9216,6 +9532,113 @@ window.TW_DATA = {
           "health_delta": 6,
           "happiness_delta": 6,
           "mortality_mult": 0.92
+        }
+      },
+      {
+        "id": "FF_2034_geopolitical_supply_shock",
+        "year_range": [
+          2032,
+          2042
+        ],
+        "probability": 0.32,
+        "category": "geopolitics_economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "geopolitical_stress_tested"
+        ],
+        "title": "印太航運保費飆升與區域供應鏈地緣震盪",
+        "summary": "區域安全情勢升溫帶動台灣周邊海空運兵險與能源進口成本跳漲，部分外資避險部位短線撤出，民間物價與製造業急單／斷鏈波動劇烈，後備民防演習亦趨於常態化。",
+        "institutional_aftermath": "企業全面建立雙供應鏈與能源儲備安全存量，社會對戰備韌性與緊急物資配送的重視大幅提升。",
+        "trend_basis": "虛構推演 · 反映地緣政治對台灣海島能源、外資流向與物價通膨的結構性外部衝擊。",
+        "cultural_footnote_en": "Fictional forecast: Regional security tensions spike maritime insurance and LNG import costs, triggering capital volatility and normalizing civil-defense preparedness.",
+        "gameplay_impact": {
+          "stock_shock_pct": -0.14,
+          "living_cost_mult": 1.08,
+          "happiness_delta": -5,
+          "knowledge_delta": 1
+        }
+      },
+      {
+        "id": "FF_2042_nhi_fiscal_squeeze",
+        "year_range": [
+          2040,
+          2052
+        ],
+        "probability": 0.36,
+        "category": "demographics_care",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "nhi_fiscal_tightened"
+        ],
+        "title": "超高齡醫藥支出爆量：健保費率大調漲與自費差額擴大",
+        "summary": "隨著 65 歲以上人口與新式昂貴療法持續增加，健保安全準備金再度見底。政府宣布大幅調升健保與補充保費費率並擴大門診部分負擔與藥品自費差額，醫護人力荒亦迫使部分地區門診減診。",
+        "institutional_aftermath": "醫療資源朝分級轉診與高齡自付上限改革調整，商業實支實付與長照保單成為中產家庭標配。",
+        "trend_basis": "虛構推演 · 平衡少子高齡化與高價先進醫療並存下的財政代價。",
+        "cultural_footnote_en": "Fictional forecast: Surge in elderly healthcare spending forces steep NHI premium hikes and higher out-of-pocket co-pays amid nursing shortages.",
+        "gameplay_impact": {
+          "living_cost_mult": 1.06,
+          "care_cost_mult": 1.15,
+          "health_delta_elder": -2,
+          "happiness_delta": -4
+        }
+      },
+      {
+        "id": "FF_2048_century_drought_fab_water",
+        "year_range": [
+          2045,
+          2058
+        ],
+        "probability": 0.32,
+        "category": "climate_energy",
+        "regions": [
+          "north_hsinchu",
+          "central",
+          "south_tainan",
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "century_drought_adapted"
+        ],
+        "title": "極端氣候百年大旱：水庫見底與工業供水「供五停二」衝擊",
+        "summary": "連續兩年聖嬰與極端氣候導致中南部與竹苗主要水庫蓄水跌破一成，全台啟動高壓工業節水與民生分區限水。科學園區緊急出動水車載水維持晶圓廠運轉，農田全面休耕引發菜價飆漲。",
+        "institutional_aftermath": "加速全台海淡水廠、再生水廠與跨區調度聯通管完工，高耗水製程水價級距大幅上修。",
+        "trend_basis": "虛構推演 · 延伸自台灣 2021 年百年大旱經驗與未來氣候變遷極端枯水期風險。",
+        "cultural_footnote_en": "Fictional forecast: A multi-year mega-drought forces water rationing across central and northern Taiwan, forcing chip fabs onto water trucks and spiking food inflation.",
+        "gameplay_impact": {
+          "living_cost_mult": 1.07,
+          "non_tech_wage_mult": 0.96,
+          "happiness_delta": -5
+        }
+      },
+      {
+        "id": "FF_2058_major_fault_earthquake",
+        "year_range": [
+          2050,
+          2075
+        ],
+        "probability": 0.28,
+        "category": "climate_energy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "post_quake_retrofit_era"
+        ],
+        "title": "西南部盲斷層規模 7.0 強震：老屋危機與老舊電網重創",
+        "summary": "台灣遭遇半世紀以來首見的淺層規模 7.0 都會區周邊強震，老舊無電梯公寓與部分未都更老街區傳出倒塌與供電輸配受損，引發全台加速強制老屋耐震快篩與公共設施補強。",
+        "institutional_aftermath": "全面推動防災型公辦都更與關鍵電網地下化，防災保險成為購屋貸款必要條件。",
+        "trend_basis": "虛構推演 · 依據台灣歷史強震 60–100 年重現期統計納入中長期天災壓力測試。",
+        "cultural_footnote_en": "Fictional forecast: A shallow M7.0 fault earthquake exposes aging apartment stock and grid vulnerabilities, catalyzing mandatory seismic retrofits nationwide.",
+        "gameplay_impact": {
+          "stock_shock_pct": -0.1,
+          "housing_cost_mult": 1.06,
+          "health_delta": -3,
+          "happiness_delta": -6,
+          "mortality_mult": 1.05
         }
       }
     ]
