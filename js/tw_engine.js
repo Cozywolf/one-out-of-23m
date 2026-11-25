@@ -312,7 +312,8 @@
       const isIncident = rule.pi_track === "incident";
       if (isIncident && (life.flags.incident_pi_count || 0) >= 1) return null;
 
-      let prob = rule.base_prob || (isIncident ? 0.012 : 0.08);
+      // Default odds are low; personality, place and experience are what make someone a likely target
+      let prob = (rule.base_prob || (isIncident ? 0.012 : 0.08)) * (isIncident ? 0.35 : 0.4);
       const matchedTraitLabels = [];
 
       // Personality trait multipliers
@@ -327,17 +328,17 @@
       // Experience multipliers
       for (const tag of expTags) {
         if (hasTag(tag)) {
-          prob *= isIncident ? 1.25 : 1.40;
+          prob *= isIncident ? 1.7 : 1.9;
           matchedExpLabels.push(tagLabelMap[tag] || tag);
         }
       }
 
       // Slight proximity boost if specifically in primary non-ALL region
       if (!rule.regions.includes("ALL") && rule.regions.includes(life.regionId)) {
-        prob *= 1.15;
+        prob *= 1.5;
       }
 
-      prob = isIncident ? clamp(prob * 0.5, 0.001, 0.02) : clamp(prob, 0.005, 0.22);
+      prob = isIncident ? clamp(prob, 0.0005, 0.03) : clamp(prob, 0.002, 0.2);
       if (Math.random() >= prob) return null;
 
       if (isIncident) {
@@ -606,8 +607,38 @@
       life.flags.ever_married = true;
       life.flags.widowed = false;
       life.spouse.working = Math.random() < this.spouseWorkProb(life.spouse, life);
+      // Assets merge at marriage: remember what each side brought in and track who earns what afterwards
+      life.flags.premarital_net = this.getNetWorthNominal(life);
+      life.flags.premarital_cpi = this.getEraParams(life.currentYear).cpi;
+      life.flags.marital_own_income = 0;
+      life.flags.marital_spouse_income = 0;
       const stayProb = life.currentYear < 1980 ? 0.72 : life.currentYear < 2000 ? 0.5 : 0.26;
       if (life.flags.lives_with_parents && Math.random() > stayProb) life.flags.moved_out = true;
+    }
+
+    // Divorce: premarital assets stay with each side; assets built during the marriage are split by each side's income share
+    divideMaritalAssets(life, era) {
+      const own = life.flags.marital_own_income || 0;
+      const sp = life.flags.marital_spouse_income || 0;
+      const ownShare = own + sp > 0 ? clamp(own / (own + sp), 0.15, 0.85) : 0.5;
+      const premarital = Math.round((life.flags.premarital_net || 0) * era.cpi / Math.max(0.07, life.flags.premarital_cpi || era.cpi));
+      const net = this.getNetWorthNominal(life);
+      const marital = net - premarital;
+      const keep = Math.round(premarital + marital * ownShare);
+      let homeNote = "";
+      if (life.homeowner && ownShare < 0.5) {
+        homeNote = "房子歸對方，";
+        life.homeowner = false; life.homeValueNominal = 0; life.mortgageBalanceNominal = 0; life.mortgageAnnualPayment = 0;
+      } else if (life.homeowner) {
+        homeNote = "房子留給你，";
+      }
+      // Settle the difference in cash (and stocks first if cash runs short)
+      const diff = keep - this.getNetWorthNominal(life);
+      if (diff >= 0) life.moneyNominal += diff;
+      else this.spendLiquid(life, -diff);
+      ["premarital_net", "premarital_cpi", "marital_own_income", "marital_spouse_income"].forEach((k) => { delete life.flags[k]; });
+      const pctOwn = Math.round(ownShare * 100);
+      return { ownShare, note: `（婚前財產各自保留，婚後共同累積的財產依兩人收入貢獻分配：你 ${pctOwn}%、對方 ${100 - pctOwn}%；${homeNote}重新開始。）` };
     }
 
     endRelationship(life) {
@@ -642,6 +673,7 @@
         life.married = false; life.partner = false;
         life.spouse = null;
         life.flags.widowed = true;
+        ["premarital_net", "premarital_cpi", "marital_own_income", "marital_spouse_income"].forEach((k) => { delete life.flags[k]; });
         life.flags.spouseLostAge = life.age;
         delete life.triggeredDecisions["D17B_romance_encounter"];
         delete life.triggeredDecisions["D18_marriage_choice"];
@@ -2912,6 +2944,10 @@
         });
       }
 
+      if (life.married) {
+        life.flags.marital_own_income = (life.flags.marital_own_income || 0) + Math.max(0, earnedThisYear) / Math.max(0.07, era.cpi);
+        life.flags.marital_spouse_income = (life.flags.marital_spouse_income || 0) + Math.max(0, spouseIncome) / Math.max(0.07, era.cpi);
+      }
       earnedThisYear += spouseIncome;
       // Grown-up children support ageing parents with little savings
       if (life.age >= 65) {
@@ -4440,15 +4476,13 @@
       }
       if (decision.id === "D20_marriage_crisis") {
         if (opt.key === "divorce") {
+          const split = this.divideMaritalAssets(life, era);
           this.endRelationship(life);
           life.flags.divorced = true;
           life.flags.next_romance_age = life.age + 3;
-          const split = ef.asset_split || 0.5;
-          if (life.moneyNominal > 0) life.moneyNominal = Math.round(life.moneyNominal * split);
-          if (life.stockNominal > 0) life.stockNominal = Math.round(life.stockNominal * split);
           life.stats.happiness += (ef.short_term_happiness || -12);
           life.flags.delayedHappiness.push({ year: life.currentYear + 2, delta: ef.long_term_happiness || 8, note: "離婚兩年後，你逐漸走出低谷，重新找回生活步調。" });
-          extraLog = "（雙方協議財產對半分割，開始重整人生）";
+          extraLog = split.note;
         } else if (opt.key === "move_out_counseling") {
           life.flags.stay_home = false;
           if (Math.random() < (ef.repair_prob || 0.65)) { life.stats.happiness += 6; life.stats.social += 6; extraLog = life.currentYear < 1990 ? "（搬出去自組小家庭、親友居中協調後，夫妻感情慢慢回溫）" : "（透過搬離原住處與諮商，伴侶關係顯著修復）"; }
