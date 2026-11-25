@@ -507,8 +507,17 @@
         : "年薪 NT$0";
     }
     const netCf = l.lastYearNetCashflowNominal || 0;
-    $("cashflowBreakdown").textContent = `本年收支：收入 ${fmtTWD(l.lastYearIncomeNominal || 0)} － 支出 ${fmtTWD(l.lastYearExpenseNominal || 0)} ＝ ${netCf >= 0 ? "+" : ""}${fmtTWD(netCf)}` +
+    const depKids = (l.childrenBirthYears && l.childrenBirthYears.length)
+      ? l.childrenBirthYears.filter((by) => (l.currentYear - by) >= 0 && (l.currentYear - by) < 22).length
+      : (l.children || 0);
+    const cfTags = [l.married ? "已婚" : "單身"];
+    if (depKids > 0) cfTags.push(`撫養${depKids}子`);
+    cfTags.push(l.homeowner ? "房貸/自住" : (l.flags.stay_home ? "住家裡" : "租屋"));
+    if (l.flags.austerity_years > 0) cfTags.push("節儉期");
+    const cfEl = $("cashflowBreakdown");
+    cfEl.textContent = `本年收支：收入 ${fmtTWD(l.lastYearIncomeNominal || 0)} － 支出 ${fmtTWD(l.lastYearExpenseNominal || 0)} ＝ ${netCf >= 0 ? "+" : ""}${fmtTWD(netCf)}` +
       (l.lastYearForcedStockSell > 0 ? `（賣股補貼 ${fmtTWD(l.lastYearForcedStockSell)}）` : "");
+    cfEl.title = `支出結構：${reg.name_zh} · ${cfTags.join(" · ")}`;
 
     const sh = l.salaryHistory || [];
     const shDetails = $("salaryHistoryDetails");
@@ -526,8 +535,13 @@
       shDetails.hidden = true;
     }
 
+    const oa = l.ownedAssets || {};
+    const extraAssets = [];
+    if (oa.vehicle) extraAssets.push(`${oa.vehicle.type === "car" ? "🚗" : "🛵"} ${oa.vehicle.name}`);
+    if (oa.valuables) extraAssets.push(`💍 ${oa.valuables.name}`);
     $("assetBreakdown").textContent = `現金 ${fmtTWD(l.moneyNominal)} ｜ 台股 ${fmtTWD(l.stockNominal)}` +
-      (l.homeowner ? ` ｜ 房淨值 ${fmtTWD(homeEq)}（房貸 ${fmtTWD(l.mortgageBalanceNominal)}）` : " ｜ 無自住房產");
+      (l.homeowner ? ` ｜ 房淨值 ${fmtTWD(homeEq)}（房貸 ${fmtTWD(l.mortgageBalanceNominal)}）` : " ｜ 無自住房產") +
+      (extraAssets.length ? ` ｜ ${extraAssets.join("・")}` : "");
 
     const mktEl = $("marketTickerBadge");
     if (l.lastMarketReturnPct != null && l.currentYear >= 1967) {
@@ -746,6 +760,18 @@
                 <div class="eec-footer"><span>${item.trend_basis}</span></div>
               </div>
             </details>
+          </article>
+        `;
+      }
+      if (item.type === "parent_decision") {
+        return `
+          <article class="parent-decision-card">
+            <div class="feed-item-head">
+              <span class="pd-tag">${item.title}</span>
+              <span>${item.age} 歲 · ${item.year}（${item.roc}）</span>
+            </div>
+            <div class="pd-text">${item.text}</div>
+            ${item.impactNote ? `<div class="pd-impact">${item.impactNote}</div>` : ""}
           </article>
         `;
       }
@@ -1237,7 +1263,7 @@
   function showDecisionModal(dec) {
     state.pendingDecision = dec;
     const era = state.engine.getEraParams(state.life.currentYear);
-    $("decBadge").textContent = dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : "人生抉擇";
+    $("decBadge").textContent = dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
     $("decYearTag").textContent = `${state.life.currentYear}（${era.roc}）· ${state.life.age} 歲`;
     $("decTitle").textContent = dec.resolvedTitle;
     $("decDesc").textContent = dec.resolvedDesc;

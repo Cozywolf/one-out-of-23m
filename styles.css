@@ -3666,3 +3666,25 @@ body.theme-dark .dec-trend-box {
   background: rgba(110, 140, 255, 0.14);
   border-left-color: #82a0ff;
 }
+
+
+/* === v5.7 Parental Auto-Decision Card (for minors < 18) === */
+.parent-decision-card {
+  border: 1px solid rgba(180, 118, 42, 0.35);
+  border-left: 3px solid #b4762a;
+  background: rgba(180, 118, 42, 0.08);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.pd-tag { font-weight: 700; color: #8c5514; }
+body.theme-dark .pd-tag { color: #f0be7a; }
+.pd-text { margin-top: 4px; line-height: 1.62; }
+.pd-impact {
+  margin-top: 6px;
+  padding-top: 5px;
+  border-top: 1px dotted var(--line);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+}

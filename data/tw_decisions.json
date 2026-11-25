@@ -292,19 +292,34 @@
       "title": "職涯跑道選擇",
       "conditions": {
         "age_range": [
-          24,
-          35
-        ]
+          21,
+          33
+        ],
+        "requires_working_adult": true
       },
       "options": [
         {
           "key": "tech_finance",
           "label": "進科技大廠或金融保險業",
           "effects": {
-            "wage_mult": 1.45,
             "health": -6,
             "work_hours_high": true
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1979,
+              "label": "投入外銷貿易業務或成長中的出口產業（高績效高工時）"
+            },
+            {
+              "min_year": 1980,
+              "max_year": 1986,
+              "label": "進入金融銀行、外銷貿易或電子新興產業（高薪高壓）"
+            },
+            {
+              "min_year": 1987,
+              "label": "進入科技大廠（半導體／軟體）或金融保險業（高薪高工時）"
+            }
+          ]
         },
         {
           "key": "civil_service",
@@ -337,7 +352,8 @@
         "age_range": [
           26,
           45
-        ]
+        ],
+        "requires_working_adult": true
       },
       "era_variants": [
         {
@@ -406,7 +422,17 @@
             "rent_cost_mult": 0.4,
             "happiness": 8,
             "relationships": 10
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2004,
+              "label": "辭去北部工作返鄉就業，陪伴家人（薪資打折但省房租）"
+            },
+            {
+              "min_year": 2005,
+              "label": "返鄉就業或轉遠距工作照顧家人（薪資微調、生活壓力大減）"
+            }
+          ]
         }
       ]
     },
@@ -424,7 +450,8 @@
           2020,
           2021,
           2025
-        ]
+        ],
+        "requires_working_adult": true
       },
       "options": [
         {
@@ -473,7 +500,8 @@
           35,
           55
         ],
-        "health_below": 60
+        "health_below": 60,
+        "requires_working_adult": true
       },
       "options": [
         {
@@ -514,7 +542,17 @@
           "effects": {
             "invest_style": "deposit",
             "volatility": 0.01
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1986,
+              "label": "存銀行／郵局高利定存（穩健保本、享當年代高利率）"
+            },
+            {
+              "min_year": 1987,
+              "label": "銀行定存或儲蓄險（依當年代利率計算）"
+            }
+          ]
         },
         {
           "key": "etf_dca",
@@ -525,6 +563,16 @@
           },
           "era_labels": [
             {
+              "max_year": 1961,
+              "label": "參加親友民間互助會（標會）或買黃金保值"
+            },
+            {
+              "min_year": 1962,
+              "max_year": 1985,
+              "label": "分批買進台股大型績優股（如水泥、紡織、金融股）"
+            },
+            {
+              "min_year": 1986,
               "max_year": 2002,
               "label": "定期買進台股大型權值股或開放式共同基金"
             },
@@ -540,6 +588,97 @@
           "effects": {
             "invest_style": "leverage",
             "crash_wipeout_prob": 0.65
+          },
+          "era_labels": [
+            {
+              "max_year": 1961,
+              "label": "借錢投入高息民間合會與地下拆借（高報酬高倒會風險）"
+            },
+            {
+              "min_year": 1962,
+              "max_year": 1979,
+              "label": "聽街頭消息重壓熱門股（大起大落風險極高）"
+            },
+            {
+              "min_year": 1980,
+              "label": "融資槓桿／聽明牌重壓飆股（牛市翻倍、股災易斷頭）"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D12B_vehicle_purchase",
+      "stage": "finance",
+      "title": "人生代步工具抉擇：買車、買機車，還是搭大眾運輸？",
+      "conditions": {
+        "age_range": [
+          21,
+          38
+        ],
+        "requires_working_adult": true,
+        "no_car_yet": true
+      },
+      "options": [
+        {
+          "key": "buy_car",
+          "label": "購入一台代步汽車（提升生活品質與通勤便利，須負擔車款與每年養車費）",
+          "era_labels": [
+            {
+              "max_year": 1979,
+              "label": "砸重金購入國產／進口房車（此時汽車屬高價奢侈品，養車開銷可觀）"
+            },
+            {
+              "min_year": 1980,
+              "max_year": 2009,
+              "label": "購入一台國產房車代步（提升通勤舒適度，但增加每年油錢稅金保養費）"
+            },
+            {
+              "min_year": 2010,
+              "label": "購入一台國產房車／休旅車代步（通勤便利，須負擔車款與每年油稅保養費）"
+            }
+          ],
+          "requires_vehicle_afford": "car",
+          "effects": {
+            "buy_vehicle": "car",
+            "happiness": 7,
+            "health": 2
+          }
+        },
+        {
+          "key": "buy_scooter",
+          "label": "買一台機車代步通勤（入手門檻親民、保養便宜）",
+          "era_labels": [
+            {
+              "max_year": 1974,
+              "label": "買一台國產輕檔車／機車代步（省時省力，入手門檻親民）"
+            },
+            {
+              "min_year": 1975,
+              "label": "買一台白牌速克達機車通勤（機動性高、保養費親民）"
+            }
+          ],
+          "requires_vehicle_afford": "scooter",
+          "effects": {
+            "buy_vehicle": "scooter",
+            "happiness": 3
+          }
+        },
+        {
+          "key": "public_transit",
+          "label": "不買車，繼續搭公車／火車／捷運通勤（省下購車與養車支出）",
+          "era_labels": [
+            {
+              "max_year": 1995,
+              "label": "不買車，靠公車、客運、火車或腳踏車通勤（省下購車與養車費）"
+            },
+            {
+              "min_year": 1996,
+              "label": "不買車，靠捷運、公車與鐵路通勤（省下購車與養車費）"
+            }
+          ],
+          "effects": {
+            "happiness": -1
           }
         }
       ]
@@ -665,7 +804,17 @@
             "loss_prob_on_crash": 0.9,
             "happiness_on_crash": -35,
             "suicide_risk_mult_if_debt": 1.8
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1994,
+              "label": "把大半積蓄投進去，甚至抵押房產或向親友借錢加碼"
+            },
+            {
+              "min_year": 1995,
+              "label": "把大半積蓄投進去，甚至借信貸加碼"
+            }
+          ]
         },
         {
           "key": "small_try",
@@ -717,10 +866,20 @@
         },
         {
           "key": "hold_diamond",
-          "label": "刪 App 蓋牌續抱（結果依歷史年份分化）",
+          "label": "蓋牌續抱度過股災（結果依歷史年份分化）",
           "effects": {
             "hold_through_cycle": true
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2007,
+              "label": "不進號子看盤，把股票存摺鎖進抽屜蓋牌續抱（結果依年份分化）"
+            },
+            {
+              "min_year": 2008,
+              "label": "刪掉看盤 App 蓋牌續抱（結果依歷史年份分化）"
+            }
+          ]
         },
         {
           "key": "buy_the_dip",
@@ -782,13 +941,23 @@
       "options": [
         {
           "key": "self_pay_advanced",
-          "label": "動用存款選用自費標靶藥／先進療程（復原最佳、大幅壓低致死與失能風險）",
+          "label": "動用存款選用自費先進療程（復原最佳、大幅壓低致死與失能風險）",
           "requires_med_afford": true,
           "effects": {
             "cost_ratio_pre_1995": 0.85,
             "cost_ratio_post_1995": 0.25,
             "survival_bonus": 0.35
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2000,
+              "label": "動用存款選用自費進口特效藥與先進手術療程（復原最佳、大幅壓低致死與失能風險）"
+            },
+            {
+              "min_year": 2001,
+              "label": "動用存款選用自費標靶藥／先進療程（復原最佳、大幅壓低致死與失能風險）"
+            }
+          ]
         },
         {
           "key": "sell_home_for_med",
@@ -818,6 +987,58 @@
               "label": "改採全民健保基礎給付治療（省下龐大自費，但仍有殘疾與復發風險）"
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "D17B_romance_encounter",
+      "stage": "family",
+      "title": "遇見心動的對象：開啟一段感情嗎？",
+      "conditions": {
+        "age_range": [
+          19,
+          36
+        ],
+        "no_partner_yet": true
+      },
+      "options": [
+        {
+          "key": "start_romance",
+          "label": "用心經營這段感情，確立穩定交往關係",
+          "era_labels": [
+            {
+              "max_year": 1984,
+              "label": "透過親友介紹或聯誼相識，決定認真交往（確立穩定伴侶）"
+            },
+            {
+              "min_year": 1985,
+              "max_year": 2004,
+              "label": "在校園社團或職場日久生情，決定正式交往（確立穩定伴侶）"
+            },
+            {
+              "min_year": 2005,
+              "max_year": 2014,
+              "label": "在職場或網路社群聊得投機，決定穩定交往（確立穩定伴侶）"
+            },
+            {
+              "min_year": 2015,
+              "label": "透過朋友聚會或交友軟體相識，決定穩定交往（確立穩定伴侶）"
+            }
+          ],
+          "effects": {
+            "start_partner": true,
+            "happiness": 8,
+            "relationships": 8
+          }
+        },
+        {
+          "key": "focus_self",
+          "label": "現階段先專注學業與事業，暫時維持單身",
+          "effects": {
+            "knowledge": 2,
+            "happiness": 1,
+            "retry_romance_later": true
+          }
         }
       ]
     },
@@ -882,7 +1103,8 @@
           24,
           42
         ],
-        "has_partner": true
+        "has_partner": true,
+        "requires_after_marriage_choice": true
       },
       "options": [
         {
@@ -907,12 +1129,27 @@
         },
         {
           "key": "dink_pets",
-          "label": "當頂客族／改養毛小孩",
+          "label": "選擇不生育，專注兩人生活與財務自由",
           "effects": {
             "savings_rate_bonus": 0.15,
             "happiness": 5,
             "old_age_support": -5
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1989,
+              "label": "決定暫不生育，專注兩人工作與存錢生活"
+            },
+            {
+              "min_year": 1990,
+              "max_year": 2004,
+              "label": "當頂客族，把時間與積蓄留給兩人世界"
+            },
+            {
+              "min_year": 2005,
+              "label": "當頂客族／改養毛小孩，保有自由與較高儲蓄率"
+            }
+          ]
         }
       ]
     },
@@ -930,11 +1167,21 @@
       "options": [
         {
           "key": "move_out_counseling",
-          "label": "搬離婆家／夫家並做婚姻諮商",
+          "label": "搬離婆家／夫家，尋求溝通修復關係",
           "effects": {
             "rent_cost_added": true,
             "repair_prob": 0.65
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1989,
+              "label": "搬離婆家／夫家另組小家庭，並請親友長輩從中協調溝通"
+            },
+            {
+              "min_year": 1990,
+              "label": "搬離婆家／夫家並尋求專業婚姻諮商修復關係"
+            }
+          ]
         },
         {
           "key": "endure_for_kids",
@@ -962,20 +1209,34 @@
       "title": "下一代的教育軍備賽",
       "conditions": {
         "age_range": [
-          35,
-          50
+          30,
+          56
         ],
-        "has_school_age_child": true
+        "has_school_age_child": true,
+        "requires_child_age_range": [
+          6,
+          15
+        ]
       },
       "options": [
         {
           "key": "private_cram",
-          "label": "送私校、雙語安親與全科補習",
+          "label": "送私立名校與全科課後補習",
           "effects": {
             "annual_expense_mult": 1.35,
             "child_mobility_bonus": 0.25
           },
-          "requires_cram_afford": true
+          "requires_cram_afford": true,
+          "era_labels": [
+            {
+              "max_year": 1994,
+              "label": "送私立名校、才藝班與全科升學補習班"
+            },
+            {
+              "min_year": 1995,
+              "label": "送私校、雙語安親與全科補習"
+            }
+          ]
         },
         {
           "key": "public_balanced",
@@ -999,6 +1260,10 @@
           "EV_2008_2009_gfc_22k_morakot",
           "EV_2024_hualien_quake_housing_peak",
           "EV_2025_2026_super_aged_ai_tariff"
+        ],
+        "age_range": [
+          18,
+          95
         ]
       },
       "options": [
@@ -1032,6 +1297,10 @@
           2020,
           2021,
           2022
+        ],
+        "age_range": [
+          18,
+          95
         ]
       },
       "options": [
@@ -1057,7 +1326,7 @@
     {
       "id": "D24_elderly_care_storm",
       "stage": "late_and_crisis",
-      "title": "三明治世代的長照風暴",
+      "title": "三明治世代的父母照護難題",
       "conditions": {
         "age_range": [
           42,
@@ -1068,12 +1337,27 @@
       "options": [
         {
           "key": "hire_caregiver",
-          "label": "聘外籍看護或送長照機構",
+          "label": "聘請專業看護或安排入住養護機構",
           "effects": {
             "monthly_care_cost_twd_2025": 35000,
             "keep_job": true
           },
-          "requires_caregiver_afford": true
+          "requires_caregiver_afford": true,
+          "era_labels": [
+            {
+              "max_year": 1991,
+              "label": "聘請本籍看護或安排入住安養機構（每月固定高額支出）"
+            },
+            {
+              "min_year": 1992,
+              "max_year": 2006,
+              "label": "聘請外籍看護或送安養機構（保住職場年資但支出高）"
+            },
+            {
+              "min_year": 2007,
+              "label": "聘外籍看護或送長照機構（每月固定支出、保住工作）"
+            }
+          ]
         },
         {
           "key": "quit_fulltime_care",
@@ -1087,13 +1371,23 @@
         },
         {
           "key": "share_with_siblings",
-          "label": "與手足輪流＋申請政府長照資源（獨生子女鎖定不可選）",
+          "label": "與手足輪流照料分擔壓力（獨生子女鎖定不可選）",
           "requires_siblings": true,
           "effects": {
             "monthly_care_cost_twd_2025": 12000,
             "health": -3,
             "relationships": 4
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2006,
+              "label": "與手足輪流分擔照護與醫藥費（獨生子女鎖定不可選）"
+            },
+            {
+              "min_year": 2007,
+              "label": "與手足輪流＋申請政府長照資源（獨生子女鎖定不可選）"
+            }
+          ]
         }
       ]
     },
@@ -1129,13 +1423,23 @@
         },
         {
           "key": "early_fire",
-          "label": "提早財富自由（FIRE，需淨資產達標）",
+          "label": "提早財富自由退休（需淨資產達標）",
           "requires_fire_assets": true,
           "effects": {
             "retired": true,
             "happiness": 15,
             "health": 10
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 2014,
+              "label": "資產充足，提早退休享受人生（需淨資產達標）"
+            },
+            {
+              "min_year": 2015,
+              "label": "提早財富自由（FIRE，需淨資產達標）"
+            }
+          ]
         }
       ]
     },
@@ -1210,12 +1514,16 @@
       "title": "子女想出國留學：全額資助還是無力負擔？",
       "conditions": {
         "age_range": [
-          45,
-          62
+          40,
+          66
         ],
         "has_school_age_child": true,
         "requires_year_min": 1978,
-        "note": "依家庭存款與房產淨值檢定能否負擔子女海外學費與生活費"
+        "note": "依家庭存款與房產淨值檢定能否負擔子女海外學費與生活費",
+        "requires_child_age_range": [
+          18,
+          24
+        ]
       },
       "options": [
         {
@@ -1286,6 +1594,79 @@
             "home_foreclosed": true,
             "happiness": -28,
             "health": -10
+          }
+        }
+      ]
+    },
+    {
+      "id": "D31_cashflow_debt_crisis",
+      "stage": "finance",
+      "title": "收支赤字與債務危機：如何度過資金缺口？",
+      "conditions": {
+        "special": "cashflow_debt_crisis",
+        "age_range": [
+          20,
+          85
+        ],
+        "note": "當存款持續為負且無持股可變現時觸發，玩家須面對賣車變現、賣房止血、向親友借款或借貸周轉等抉擇"
+      },
+      "options": [
+        {
+          "key": "sell_vehicle",
+          "label": "忍痛變賣名下汽車／機車籌措現金，並啟動兩年縮衣節食期（僅持有車輛者可選）",
+          "requires_vehicle": true,
+          "effects": {
+            "sell_owned_vehicle": true,
+            "happiness": -8,
+            "health": -3
+          }
+        },
+        {
+          "key": "sell_valuables",
+          "label": "忍痛典當／變賣持有的高價金飾、嫁妝或傳家珠寶換現（僅持有貴重資產者可選）",
+          "requires_valuables": true,
+          "effects": {
+            "sell_owned_valuables": true,
+            "happiness": -9
+          }
+        },
+        {
+          "key": "sell_home_crisis",
+          "label": "忍痛降價出售自住房產還清債務，改回租屋生活（僅有房者可選）",
+          "requires_homeowner": true,
+          "effects": {
+            "forced_sell_home": true,
+            "happiness": -18,
+            "health": -4
+          }
+        },
+        {
+          "key": "borrow_relatives",
+          "label": "低頭向親友開口借款周轉（免高利但背負沉重人情，需人際 ≥ 45 或家境 Q3 以上）",
+          "requires_relative_borrow": true,
+          "effects": {
+            "borrow_relatives_cash": true,
+            "relationships": -12,
+            "happiness": -8
+          }
+        },
+        {
+          "key": "high_interest_loan",
+          "label": "無資產可賣：啟動極致縮衣節食，並辦理借貸／信貸硬撐（高利滾存，債務恐惡化）",
+          "era_labels": [
+            {
+              "max_year": 1994,
+              "label": "啟動縮衣節食並向民間高息借貸調頭寸硬撐（利息沉重，債務恐滾雪球擴大）"
+            },
+            {
+              "min_year": 1995,
+              "label": "啟動縮衣節食並辦理銀行信貸／信用卡預借現金硬撐（高利滾存，債務恐惡化）"
+            }
+          ],
+          "effects": {
+            "take_high_interest_loan": true,
+            "happiness": -10,
+            "health": -5
           }
         }
       ]

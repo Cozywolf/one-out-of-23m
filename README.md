@@ -1,7 +1,9 @@
-# 生在台灣（v5.5.1）· 2,340 萬分之 1 台灣人生模擬
+# 生在台灣（v5.8）· 2,340 萬分之 1 台灣人生模擬
 
-一款以 **1in8b.life** 與 **born-somewhere** 為靈感、導入台灣官方統計與戰後現代史的微觀人生模擬器。無須建置工具，解壓後雙擊 `index.html` 即可在瀏覽器離線運行，亦原生支援 GitHub Pages 子路徑部署。
+> 參照 [1in8b.life](https://1in8b.life/) 模擬精神與 [rollroyces/born-somewhere](https://github.com/rollroyces/born-somewhere) 架構改編，專注於 **台灣六大區域 × 跨年代（1950–2110+）** 的微觀人生模擬器。
 
+線上試玩：[https://cozywolf.github.io/one-out-of-23m/](https://cozywolf.github.io/one-out-of-23m/)  
+教學防雷版（預設關閉重大惡性社會事件）：`https://cozywolf.github.io/one-out-of-23m/?edu=1`
 ---
 
 ## 一、簡單遊玩說明

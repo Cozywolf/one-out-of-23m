@@ -3658,19 +3658,34 @@ window.TW_DATA = {
         "title": "職涯跑道選擇",
         "conditions": {
           "age_range": [
-            24,
-            35
-          ]
+            21,
+            33
+          ],
+          "requires_working_adult": true
         },
         "options": [
           {
             "key": "tech_finance",
             "label": "進科技大廠或金融保險業",
             "effects": {
-              "wage_mult": 1.45,
               "health": -6,
               "work_hours_high": true
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1979,
+                "label": "投入外銷貿易業務或成長中的出口產業（高績效高工時）"
+              },
+              {
+                "min_year": 1980,
+                "max_year": 1986,
+                "label": "進入金融銀行、外銷貿易或電子新興產業（高薪高壓）"
+              },
+              {
+                "min_year": 1987,
+                "label": "進入科技大廠（半導體／軟體）或金融保險業（高薪高工時）"
+              }
+            ]
           },
           {
             "key": "civil_service",
@@ -3703,7 +3718,8 @@ window.TW_DATA = {
           "age_range": [
             26,
             45
-          ]
+          ],
+          "requires_working_adult": true
         },
         "era_variants": [
           {
@@ -3772,7 +3788,17 @@ window.TW_DATA = {
               "rent_cost_mult": 0.4,
               "happiness": 8,
               "relationships": 10
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 2004,
+                "label": "辭去北部工作返鄉就業，陪伴家人（薪資打折但省房租）"
+              },
+              {
+                "min_year": 2005,
+                "label": "返鄉就業或轉遠距工作照顧家人（薪資微調、生活壓力大減）"
+              }
+            ]
           }
         ]
       },
@@ -3790,7 +3816,8 @@ window.TW_DATA = {
             2020,
             2021,
             2025
-          ]
+          ],
+          "requires_working_adult": true
         },
         "options": [
           {
@@ -3839,7 +3866,8 @@ window.TW_DATA = {
             35,
             55
           ],
-          "health_below": 60
+          "health_below": 60,
+          "requires_working_adult": true
         },
         "options": [
           {
@@ -3880,7 +3908,17 @@ window.TW_DATA = {
             "effects": {
               "invest_style": "deposit",
               "volatility": 0.01
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1986,
+                "label": "存銀行／郵局高利定存（穩健保本、享當年代高利率）"
+              },
+              {
+                "min_year": 1987,
+                "label": "銀行定存或儲蓄險（依當年代利率計算）"
+              }
+            ]
           },
           {
             "key": "etf_dca",
@@ -3891,6 +3929,16 @@ window.TW_DATA = {
             },
             "era_labels": [
               {
+                "max_year": 1961,
+                "label": "參加親友民間互助會（標會）或買黃金保值"
+              },
+              {
+                "min_year": 1962,
+                "max_year": 1985,
+                "label": "分批買進台股大型績優股（如水泥、紡織、金融股）"
+              },
+              {
+                "min_year": 1986,
                 "max_year": 2002,
                 "label": "定期買進台股大型權值股或開放式共同基金"
               },
@@ -3906,6 +3954,97 @@ window.TW_DATA = {
             "effects": {
               "invest_style": "leverage",
               "crash_wipeout_prob": 0.65
+            },
+            "era_labels": [
+              {
+                "max_year": 1961,
+                "label": "借錢投入高息民間合會與地下拆借（高報酬高倒會風險）"
+              },
+              {
+                "min_year": 1962,
+                "max_year": 1979,
+                "label": "聽街頭消息重壓熱門股（大起大落風險極高）"
+              },
+              {
+                "min_year": 1980,
+                "label": "融資槓桿／聽明牌重壓飆股（牛市翻倍、股災易斷頭）"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "D12B_vehicle_purchase",
+        "stage": "finance",
+        "title": "人生代步工具抉擇：買車、買機車，還是搭大眾運輸？",
+        "conditions": {
+          "age_range": [
+            21,
+            38
+          ],
+          "requires_working_adult": true,
+          "no_car_yet": true
+        },
+        "options": [
+          {
+            "key": "buy_car",
+            "label": "購入一台代步汽車（提升生活品質與通勤便利，須負擔車款與每年養車費）",
+            "era_labels": [
+              {
+                "max_year": 1979,
+                "label": "砸重金購入國產／進口房車（此時汽車屬高價奢侈品，養車開銷可觀）"
+              },
+              {
+                "min_year": 1980,
+                "max_year": 2009,
+                "label": "購入一台國產房車代步（提升通勤舒適度，但增加每年油錢稅金保養費）"
+              },
+              {
+                "min_year": 2010,
+                "label": "購入一台國產房車／休旅車代步（通勤便利，須負擔車款與每年油稅保養費）"
+              }
+            ],
+            "requires_vehicle_afford": "car",
+            "effects": {
+              "buy_vehicle": "car",
+              "happiness": 7,
+              "health": 2
+            }
+          },
+          {
+            "key": "buy_scooter",
+            "label": "買一台機車代步通勤（入手門檻親民、保養便宜）",
+            "era_labels": [
+              {
+                "max_year": 1974,
+                "label": "買一台國產輕檔車／機車代步（省時省力，入手門檻親民）"
+              },
+              {
+                "min_year": 1975,
+                "label": "買一台白牌速克達機車通勤（機動性高、保養費親民）"
+              }
+            ],
+            "requires_vehicle_afford": "scooter",
+            "effects": {
+              "buy_vehicle": "scooter",
+              "happiness": 3
+            }
+          },
+          {
+            "key": "public_transit",
+            "label": "不買車，繼續搭公車／火車／捷運通勤（省下購車與養車支出）",
+            "era_labels": [
+              {
+                "max_year": 1995,
+                "label": "不買車，靠公車、客運、火車或腳踏車通勤（省下購車與養車費）"
+              },
+              {
+                "min_year": 1996,
+                "label": "不買車，靠捷運、公車與鐵路通勤（省下購車與養車費）"
+              }
+            ],
+            "effects": {
+              "happiness": -1
             }
           }
         ]
@@ -4031,7 +4170,17 @@ window.TW_DATA = {
               "loss_prob_on_crash": 0.9,
               "happiness_on_crash": -35,
               "suicide_risk_mult_if_debt": 1.8
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1994,
+                "label": "把大半積蓄投進去，甚至抵押房產或向親友借錢加碼"
+              },
+              {
+                "min_year": 1995,
+                "label": "把大半積蓄投進去，甚至借信貸加碼"
+              }
+            ]
           },
           {
             "key": "small_try",
@@ -4083,10 +4232,20 @@ window.TW_DATA = {
           },
           {
             "key": "hold_diamond",
-            "label": "刪 App 蓋牌續抱（結果依歷史年份分化）",
+            "label": "蓋牌續抱度過股災（結果依歷史年份分化）",
             "effects": {
               "hold_through_cycle": true
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 2007,
+                "label": "不進號子看盤，把股票存摺鎖進抽屜蓋牌續抱（結果依年份分化）"
+              },
+              {
+                "min_year": 2008,
+                "label": "刪掉看盤 App 蓋牌續抱（結果依歷史年份分化）"
+              }
+            ]
           },
           {
             "key": "buy_the_dip",
@@ -4148,13 +4307,23 @@ window.TW_DATA = {
         "options": [
           {
             "key": "self_pay_advanced",
-            "label": "動用存款選用自費標靶藥／先進療程（復原最佳、大幅壓低致死與失能風險）",
+            "label": "動用存款選用自費先進療程（復原最佳、大幅壓低致死與失能風險）",
             "requires_med_afford": true,
             "effects": {
               "cost_ratio_pre_1995": 0.85,
               "cost_ratio_post_1995": 0.25,
               "survival_bonus": 0.35
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 2000,
+                "label": "動用存款選用自費進口特效藥與先進手術療程（復原最佳、大幅壓低致死與失能風險）"
+              },
+              {
+                "min_year": 2001,
+                "label": "動用存款選用自費標靶藥／先進療程（復原最佳、大幅壓低致死與失能風險）"
+              }
+            ]
           },
           {
             "key": "sell_home_for_med",
@@ -4184,6 +4353,58 @@ window.TW_DATA = {
                 "label": "改採全民健保基礎給付治療（省下龐大自費，但仍有殘疾與復發風險）"
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "D17B_romance_encounter",
+        "stage": "family",
+        "title": "遇見心動的對象：開啟一段感情嗎？",
+        "conditions": {
+          "age_range": [
+            19,
+            36
+          ],
+          "no_partner_yet": true
+        },
+        "options": [
+          {
+            "key": "start_romance",
+            "label": "用心經營這段感情，確立穩定交往關係",
+            "era_labels": [
+              {
+                "max_year": 1984,
+                "label": "透過親友介紹或聯誼相識，決定認真交往（確立穩定伴侶）"
+              },
+              {
+                "min_year": 1985,
+                "max_year": 2004,
+                "label": "在校園社團或職場日久生情，決定正式交往（確立穩定伴侶）"
+              },
+              {
+                "min_year": 2005,
+                "max_year": 2014,
+                "label": "在職場或網路社群聊得投機，決定穩定交往（確立穩定伴侶）"
+              },
+              {
+                "min_year": 2015,
+                "label": "透過朋友聚會或交友軟體相識，決定穩定交往（確立穩定伴侶）"
+              }
+            ],
+            "effects": {
+              "start_partner": true,
+              "happiness": 8,
+              "relationships": 8
+            }
+          },
+          {
+            "key": "focus_self",
+            "label": "現階段先專注學業與事業，暫時維持單身",
+            "effects": {
+              "knowledge": 2,
+              "happiness": 1,
+              "retry_romance_later": true
+            }
           }
         ]
       },
@@ -4248,7 +4469,8 @@ window.TW_DATA = {
             24,
             42
           ],
-          "has_partner": true
+          "has_partner": true,
+          "requires_after_marriage_choice": true
         },
         "options": [
           {
@@ -4273,12 +4495,27 @@ window.TW_DATA = {
           },
           {
             "key": "dink_pets",
-            "label": "當頂客族／改養毛小孩",
+            "label": "選擇不生育，專注兩人生活與財務自由",
             "effects": {
               "savings_rate_bonus": 0.15,
               "happiness": 5,
               "old_age_support": -5
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1989,
+                "label": "決定暫不生育，專注兩人工作與存錢生活"
+              },
+              {
+                "min_year": 1990,
+                "max_year": 2004,
+                "label": "當頂客族，把時間與積蓄留給兩人世界"
+              },
+              {
+                "min_year": 2005,
+                "label": "當頂客族／改養毛小孩，保有自由與較高儲蓄率"
+              }
+            ]
           }
         ]
       },
@@ -4296,11 +4533,21 @@ window.TW_DATA = {
         "options": [
           {
             "key": "move_out_counseling",
-            "label": "搬離婆家／夫家並做婚姻諮商",
+            "label": "搬離婆家／夫家，尋求溝通修復關係",
             "effects": {
               "rent_cost_added": true,
               "repair_prob": 0.65
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1989,
+                "label": "搬離婆家／夫家另組小家庭，並請親友長輩從中協調溝通"
+              },
+              {
+                "min_year": 1990,
+                "label": "搬離婆家／夫家並尋求專業婚姻諮商修復關係"
+              }
+            ]
           },
           {
             "key": "endure_for_kids",
@@ -4328,20 +4575,34 @@ window.TW_DATA = {
         "title": "下一代的教育軍備賽",
         "conditions": {
           "age_range": [
-            35,
-            50
+            30,
+            56
           ],
-          "has_school_age_child": true
+          "has_school_age_child": true,
+          "requires_child_age_range": [
+            6,
+            15
+          ]
         },
         "options": [
           {
             "key": "private_cram",
-            "label": "送私校、雙語安親與全科補習",
+            "label": "送私立名校與全科課後補習",
             "effects": {
               "annual_expense_mult": 1.35,
               "child_mobility_bonus": 0.25
             },
-            "requires_cram_afford": true
+            "requires_cram_afford": true,
+            "era_labels": [
+              {
+                "max_year": 1994,
+                "label": "送私立名校、才藝班與全科升學補習班"
+              },
+              {
+                "min_year": 1995,
+                "label": "送私校、雙語安親與全科補習"
+              }
+            ]
           },
           {
             "key": "public_balanced",
@@ -4365,6 +4626,10 @@ window.TW_DATA = {
             "EV_2008_2009_gfc_22k_morakot",
             "EV_2024_hualien_quake_housing_peak",
             "EV_2025_2026_super_aged_ai_tariff"
+          ],
+          "age_range": [
+            18,
+            95
           ]
         },
         "options": [
@@ -4398,6 +4663,10 @@ window.TW_DATA = {
             2020,
             2021,
             2022
+          ],
+          "age_range": [
+            18,
+            95
           ]
         },
         "options": [
@@ -4423,7 +4692,7 @@ window.TW_DATA = {
       {
         "id": "D24_elderly_care_storm",
         "stage": "late_and_crisis",
-        "title": "三明治世代的長照風暴",
+        "title": "三明治世代的父母照護難題",
         "conditions": {
           "age_range": [
             42,
@@ -4434,12 +4703,27 @@ window.TW_DATA = {
         "options": [
           {
             "key": "hire_caregiver",
-            "label": "聘外籍看護或送長照機構",
+            "label": "聘請專業看護或安排入住養護機構",
             "effects": {
               "monthly_care_cost_twd_2025": 35000,
               "keep_job": true
             },
-            "requires_caregiver_afford": true
+            "requires_caregiver_afford": true,
+            "era_labels": [
+              {
+                "max_year": 1991,
+                "label": "聘請本籍看護或安排入住安養機構（每月固定高額支出）"
+              },
+              {
+                "min_year": 1992,
+                "max_year": 2006,
+                "label": "聘請外籍看護或送安養機構（保住職場年資但支出高）"
+              },
+              {
+                "min_year": 2007,
+                "label": "聘外籍看護或送長照機構（每月固定支出、保住工作）"
+              }
+            ]
           },
           {
             "key": "quit_fulltime_care",
@@ -4453,13 +4737,23 @@ window.TW_DATA = {
           },
           {
             "key": "share_with_siblings",
-            "label": "與手足輪流＋申請政府長照資源（獨生子女鎖定不可選）",
+            "label": "與手足輪流照料分擔壓力（獨生子女鎖定不可選）",
             "requires_siblings": true,
             "effects": {
               "monthly_care_cost_twd_2025": 12000,
               "health": -3,
               "relationships": 4
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 2006,
+                "label": "與手足輪流分擔照護與醫藥費（獨生子女鎖定不可選）"
+              },
+              {
+                "min_year": 2007,
+                "label": "與手足輪流＋申請政府長照資源（獨生子女鎖定不可選）"
+              }
+            ]
           }
         ]
       },
@@ -4495,13 +4789,23 @@ window.TW_DATA = {
           },
           {
             "key": "early_fire",
-            "label": "提早財富自由（FIRE，需淨資產達標）",
+            "label": "提早財富自由退休（需淨資產達標）",
             "requires_fire_assets": true,
             "effects": {
               "retired": true,
               "happiness": 15,
               "health": 10
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 2014,
+                "label": "資產充足，提早退休享受人生（需淨資產達標）"
+              },
+              {
+                "min_year": 2015,
+                "label": "提早財富自由（FIRE，需淨資產達標）"
+              }
+            ]
           }
         ]
       },
@@ -4576,12 +4880,16 @@ window.TW_DATA = {
         "title": "子女想出國留學：全額資助還是無力負擔？",
         "conditions": {
           "age_range": [
-            45,
-            62
+            40,
+            66
           ],
           "has_school_age_child": true,
           "requires_year_min": 1978,
-          "note": "依家庭存款與房產淨值檢定能否負擔子女海外學費與生活費"
+          "note": "依家庭存款與房產淨值檢定能否負擔子女海外學費與生活費",
+          "requires_child_age_range": [
+            18,
+            24
+          ]
         },
         "options": [
           {
@@ -4652,6 +4960,79 @@ window.TW_DATA = {
               "home_foreclosed": true,
               "happiness": -28,
               "health": -10
+            }
+          }
+        ]
+      },
+      {
+        "id": "D31_cashflow_debt_crisis",
+        "stage": "finance",
+        "title": "收支赤字與債務危機：如何度過資金缺口？",
+        "conditions": {
+          "special": "cashflow_debt_crisis",
+          "age_range": [
+            20,
+            85
+          ],
+          "note": "當存款持續為負且無持股可變現時觸發，玩家須面對賣車變現、賣房止血、向親友借款或借貸周轉等抉擇"
+        },
+        "options": [
+          {
+            "key": "sell_vehicle",
+            "label": "忍痛變賣名下汽車／機車籌措現金，並啟動兩年縮衣節食期（僅持有車輛者可選）",
+            "requires_vehicle": true,
+            "effects": {
+              "sell_owned_vehicle": true,
+              "happiness": -8,
+              "health": -3
+            }
+          },
+          {
+            "key": "sell_valuables",
+            "label": "忍痛典當／變賣持有的高價金飾、嫁妝或傳家珠寶換現（僅持有貴重資產者可選）",
+            "requires_valuables": true,
+            "effects": {
+              "sell_owned_valuables": true,
+              "happiness": -9
+            }
+          },
+          {
+            "key": "sell_home_crisis",
+            "label": "忍痛降價出售自住房產還清債務，改回租屋生活（僅有房者可選）",
+            "requires_homeowner": true,
+            "effects": {
+              "forced_sell_home": true,
+              "happiness": -18,
+              "health": -4
+            }
+          },
+          {
+            "key": "borrow_relatives",
+            "label": "低頭向親友開口借款周轉（免高利但背負沉重人情，需人際 ≥ 45 或家境 Q3 以上）",
+            "requires_relative_borrow": true,
+            "effects": {
+              "borrow_relatives_cash": true,
+              "relationships": -12,
+              "happiness": -8
+            }
+          },
+          {
+            "key": "high_interest_loan",
+            "label": "無資產可賣：啟動極致縮衣節食，並辦理借貸／信貸硬撐（高利滾存，債務恐惡化）",
+            "era_labels": [
+              {
+                "max_year": 1994,
+                "label": "啟動縮衣節食並向民間高息借貸調頭寸硬撐（利息沉重，債務恐滾雪球擴大）"
+              },
+              {
+                "min_year": 1995,
+                "label": "啟動縮衣節食並辦理銀行信貸／信用卡預借現金硬撐（高利滾存，債務恐惡化）"
+              }
+            ],
+            "effects": {
+              "take_high_interest_loan": true,
+              "happiness": -10,
+              "health": -5
             }
           }
         ]
@@ -5501,7 +5882,7 @@ window.TW_DATA = {
           20,
           75
         ],
-        "text": "清明連假塞在國道返鄉掃墓，中元節公司門口擺滿綠色乖乖與普渡供品祈求系統平安順遂。",
+        "text": "清明連假返鄉掃墓祭祖，中元節街坊與公司門口擺滿澎湃供品祈求平安順遂。",
         "homesickness_boost": 6,
         "happiness_delta": 1,
         "social_delta": 2,
@@ -5514,7 +5895,7 @@ window.TW_DATA = {
           26,
           42
         ],
-        "text": "迎接新生命後，家中安排「坐月子」（麻油雞補身或入住產後護理之家），成為雙薪家庭重要的育兒起點。",
+        "text": "迎接新生命後，家中細心安排「坐月子」（麻油雞補身與親友探視），成為家庭重要的育兒起點。",
         "homesickness_boost": 12,
         "happiness_delta": 4,
         "social_delta": 4,
@@ -6435,7 +6816,7 @@ window.TW_DATA = {
         "options": [
           {
             "key": "cram_study",
-            "label": "上安親班／文理補習班狂寫評量（知識++、升學考加分、幸福-）",
+            "label": "上課後補習班狂寫評量（知識++、升學考加分、幸福-）",
             "effects": {
               "knowledge": 11,
               "happiness": -5,
@@ -6443,7 +6824,17 @@ window.TW_DATA = {
               "money_delta_twd_2025": -90000,
               "flag_set": "childhood_cram",
               "hs_exam_bonus": 7
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1984,
+                "label": "放學留校補習或去文理補習班狂寫參考書（知識++、升學加分、幸福-）"
+              },
+              {
+                "min_year": 1985,
+                "label": "上安親班／文理補習班狂寫評量（知識++、升學考加分、幸福-）"
+              }
+            ]
           },
           {
             "key": "sports_arts",
@@ -6505,13 +6896,28 @@ window.TW_DATA = {
           },
           {
             "key": "enter_vocational",
-            "label": "就讀高職或五專（學一技之長、考證照或日後拚統測升科大）",
+            "label": "就讀高職或五專（學一技之長、考證照或後續升學）",
             "effects": {
               "track": "vocational",
               "knowledge": 4,
               "early_job_ready": true,
               "hs_tier": "vocational"
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1996,
+                "label": "就讀高職或五專（學一技之長、考證照或日後拚二專／插大）"
+              },
+              {
+                "min_year": 1997,
+                "max_year": 2000,
+                "label": "就讀高職或五專（學一技之長、考證照或日後升二技／科大）"
+              },
+              {
+                "min_year": 2001,
+                "label": "就讀高職或五專（學一技之長、考證照或日後拚統測升科大）"
+              }
+            ]
           },
           {
             "key": "stop_schooling",
@@ -6577,7 +6983,7 @@ window.TW_DATA = {
       {
         "id": "LS04_vocational_path",
         "stage": "vocational_school",
-        "title": "高職／五專校園抉擇：拚證照競賽、建教實習還是衝科大？",
+        "title": "高職／五專校園抉擇：拚證照競賽、建教實習還是繼續升學？",
         "conditions": {
           "age": 17,
           "requires_hs_tier": [
@@ -6589,14 +6995,24 @@ window.TW_DATA = {
         "options": [
           {
             "key": "skill_cert_competition",
-            "label": "苦練考取乙級技術士證照／拚全國技藝競賽（技能加薪、保送國立科大機會）",
+            "label": "苦練專業技能、考取乙級技術士證照與全國技藝競賽（技能起薪++、保送升學）",
             "requires_knowledge_min": 45,
             "effects": {
               "knowledge": 8,
               "wage_mult": 1.14,
               "flag_set": "vocational_elite",
               "uni_admit_bonus": 0.25
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1996,
+                "label": "苦練專業技能、考取乙級技術士證照與全國技藝競賽（起薪++、保送技術學院）"
+              },
+              {
+                "min_year": 1997,
+                "label": "苦練專業技能、考取乙級技術士證照與全國技藝競賽（起薪++、保送國立科大）"
+              }
+            ]
           },
           {
             "key": "coop_internship",
@@ -6611,13 +7027,28 @@ window.TW_DATA = {
           },
           {
             "key": "aim_tech_uni",
-            "label": "報名補習班專攻統測／插大，目標洗上國立科技大學",
+            "label": "報名補習班專攻升學考試，目標考上國立技職院校",
             "effects": {
               "knowledge": 9,
               "happiness": -4,
               "money_delta_twd_2025": -60000,
               "uni_admit_bonus": 0.18
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1996,
+                "label": "報名補習班專攻二專／插大考試，目標考上國立技術學院或大學"
+              },
+              {
+                "min_year": 1997,
+                "max_year": 2000,
+                "label": "報名補習班專攻二技／插大，目標考上國立科技大學"
+              },
+              {
+                "min_year": 2001,
+                "label": "報名補習班專攻統測／插大，目標考上國立科技大學"
+              }
+            ]
           }
         ]
       },
@@ -6715,14 +7146,29 @@ window.TW_DATA = {
           },
           {
             "key": "double_major_coding",
-            "label": "雙主修／輔系或自學程式跨領域（知識+、解鎖科技軟體與遠距職涯資格）",
+            "label": "跨領域修習第二專長（知識+、提升職場轉型與高薪彈性）",
             "effects": {
               "knowledge": 11,
               "happiness": -4,
               "flag_set": "uni_cross_coding",
               "remote_unlock": true,
               "wage_mult": 1.1
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1979,
+                "label": "跨系旁聽外語、商管或工程實務課程（知識+、強化職場競爭力）"
+              },
+              {
+                "min_year": 1980,
+                "max_year": 2004,
+                "label": "雙主修／輔系或自學電腦程式跨領域（知識+、開啟科技業職涯資格）"
+              },
+              {
+                "min_year": 2005,
+                "label": "雙主修／輔系或自學程式跨領域（知識+、解鎖科技軟體與遠距職涯資格）"
+              }
+            ]
           }
         ]
       },
@@ -6776,22 +7222,42 @@ window.TW_DATA = {
           },
           {
             "key": "prep_grad_abroad",
-            "label": "狂刷歷屆考研／托福 GRE 雅思衝刺（大幅提升國內頂大碩士與出國留學契機）",
+            "label": "狂刷歷屆考研／外語留學考試衝刺（大幅提升頂大碩士與出國留學契機）",
             "effects": {
               "knowledge": 12,
               "happiness": -5,
               "flag_set": "uni_grad_abroad_prep"
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1989,
+                "label": "狂刷歷屆考研／托福 GRE 衝刺（大幅提升國內頂大碩士與出國留學契機）"
+              },
+              {
+                "min_year": 1990,
+                "label": "狂刷歷屆考研／托福 GRE 雅思衝刺（大幅提升國內頂大碩士與出國留學契機）"
+              }
+            ]
           },
           {
             "key": "grad_travel_youth",
-            "label": "趁年輕機車環島、打工換宿與畢業旅行（幸福++、健康+、留下難忘青春）",
+            "label": "趁年輕環島旅行與畢業出遊（幸福++、健康+、留下難忘青春）",
             "effects": {
               "happiness": 12,
               "health": 5,
               "social": 6,
               "money_delta_twd_2025": -40000
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 2007,
+                "label": "趁年輕搭火車／騎機車環島與畢業旅行（幸福++、健康+、留下難忘青春）"
+              },
+              {
+                "min_year": 2008,
+                "label": "趁年輕機車環島、打工換宿與畢業旅行（幸福++、健康+、留下難忘青春）"
+              }
+            ]
           }
         ]
       },
@@ -6894,7 +7360,7 @@ window.TW_DATA = {
       {
         "id": "LS10_retirement_third_life",
         "stage": "retirement_env",
-        "title": "退休後的第三人生：社區大學、幫忙帶孫還是環台慢活？",
+        "title": "退休後的第三人生：樂齡進修、幫忙帶孫還是環台慢活？",
         "conditions": {
           "age_range": [
             63,
@@ -6907,14 +7373,24 @@ window.TW_DATA = {
         "options": [
           {
             "key": "community_college",
-            "label": "報名台灣社區大學／樂齡中心學書法攝影並當志工（人際++、健康+、對抗孤老）",
+            "label": "報名樂齡學苑並當志工（人際++、健康+、對抗孤老）",
             "effects": {
               "social": 12,
               "happiness": 10,
               "health": 8,
               "knowledge": 5,
               "midlife_mortality_mult": 0.85
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1997,
+                "label": "報名長青學苑學書法攝影並擔任志工（人際++、健康+、對抗孤老）"
+              },
+              {
+                "min_year": 1998,
+                "label": "報名台灣社區大學／樂齡中心學書法攝影並當志工（人際++、健康+、對抗孤老）"
+              }
+            ]
           },
           {
             "key": "help_grandkids",
@@ -6924,7 +7400,8 @@ window.TW_DATA = {
               "social": 10,
               "happiness": 8,
               "health": -5
-            }
+            },
+            "requires_adult_children": true
           },
           {
             "key": "slow_travel_invest",
