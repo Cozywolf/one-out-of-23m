@@ -54,7 +54,6 @@
           "label": "念高職或五專學一技之長",
           "effects": {
             "knowledge": 4,
-            "early_job_ready": true,
             "track": "vocational"
           }
         },
@@ -113,44 +112,68 @@
           "key": "stem_eng",
           "label": "電資／理工／資訊工程學門",
           "effects": {
-            "starting_pay_mult": 1.12,
-            "unlock_careers": [
-              "tech_semi",
-              "software"
-            ],
+            "major_group": "stem_eng",
+            "starting_pay_mult": 1.04,
             "happiness": -3
+          },
+          "era_labels": [
+            {
+              "max_year": 1979,
+              "label": "理工／電機工程學門"
+            },
+            {
+              "min_year": 1980,
+              "label": "電資／理工／資訊工程學門"
+            }
+          ]
+        },
+        {
+          "key": "med_doctor",
+          "label": "醫學／牙醫系（六至七年，錄取門檻最高）",
+          "requires_knowledge_min": 84,
+          "effects": {
+            "major_group": "med_health",
+            "happiness": -5
           }
         },
         {
-          "key": "med_health",
-          "label": "醫學／牙藥／護理衛生學門",
+          "key": "health_allied",
+          "label": "護理／藥學／醫技學系",
           "effects": {
-            "starting_pay_mult": 1.14,
-            "unlock_careers": [
-              "medical",
-              "healthcare"
-            ],
-            "happiness": -4
+            "major_group": "med_health",
+            "happiness": -2
           }
         },
         {
-          "key": "humanities_biz",
-          "label": "法政／商管／會計／人文藝術學門",
+          "key": "law",
+          "label": "法律學系",
+          "requires_knowledge_min": 62,
           "effects": {
-            "happiness": 4,
-            "starting_pay_mult": 1.0,
-            "private_uni_closure_risk_after_2022": 0.06
+            "major_group": "humanities_biz",
+            "happiness": -1
+          }
+        },
+        {
+          "key": "biz",
+          "label": "商管／會計／財金學系",
+          "effects": {
+            "major_group": "humanities_biz",
+            "happiness": 1
+          }
+        },
+        {
+          "key": "arts",
+          "label": "人文／社會／藝術／傳播學系",
+          "effects": {
+            "major_group": "humanities_biz",
+            "happiness": 4
           }
         },
         {
           "key": "public_funded",
-          "label": "軍警校或公費師範體系",
+          "label": "軍警校或公費師範（畢業分發，服務年限內不能離職）",
           "effects": {
-            "tuition_free": true,
-            "unlock_careers": [
-              "civil_servant_teacher_military"
-            ],
-            "job_stability": 0.99
+            "major_group": "public_funded"
           }
         }
       ]
@@ -179,17 +202,18 @@
         },
         {
           "key": "transfer_or_grad",
-          "label": "先入學，日後再拚轉學考或洗研究所",
+          "label": "先就讀錄取的後段校系，日後再拚轉學考或研究所",
           "effects": {
-            "knowledge": 3,
+            "enroll_backup_uni": true,
+            "knowledge": 2,
             "happiness": -1
-          }
+          },
+          "requires_year_min": 1997
         },
         {
           "key": "work_or_military",
           "label": "直接就業或先去當兵",
           "effects": {
-            "early_work_years": 1,
             "knowledge": -2
           }
         }
@@ -202,7 +226,7 @@
       "conditions": {
         "age_range": [
           19,
-          24
+          30
         ],
         "sex": "M"
       },
@@ -219,10 +243,7 @@
           "key": "rd_substitute",
           "label": "申請研發替代役或預官",
           "requires_edu": "master_or_stem",
-          "effects": {
-            "career_gap_months": 0,
-            "tech_entry_bonus": 0.3
-          },
+          "effects": {},
           "era_labels": [
             {
               "max_year": 1999,
@@ -243,7 +264,6 @@
           "key": "volunteer_soldier",
           "label": "簽志願役",
           "effects": {
-            "starting_pay_mult": 1.2,
             "savings_rate_bonus": 0.15,
             "happiness": -4
           }
@@ -273,7 +293,6 @@
           "label": "出國留學（需Q4–Q5資源或學貸）",
           "effects": {
             "money_delta_ratio": -0.45,
-            "unlock_overseas_career": true,
             "long_term_wage_mult": 1.14
           }
         },
@@ -281,7 +300,6 @@
           "key": "direct_work",
           "label": "直接進入職場",
           "effects": {
-            "early_work_years": 2,
             "era_2009_22k_risk": 0.45
           }
         }
@@ -299,6 +317,10 @@
         "region_not_in": [
           "north_taipei",
           "north_hsinchu"
+        ],
+        "career_not_in": [
+          "car_civil_teacher",
+          "car_farmer_fisher"
         ]
       },
       "options": [
@@ -310,20 +332,43 @@
               "north_taipei",
               "north_hsinchu"
             ],
-            "wage_mult": 1.25,
-            "rent_cost_mult": 2.2,
+            "wage_mult": 1.08,
             "relationships": -6
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1979,
+              "label": "離鄉北上，到台北或桃園的工廠、商行找頭路"
+            },
+            {
+              "min_year": 1980,
+              "max_year": 1999,
+              "label": "離鄉北上，到雙北公司行號或新竹科學園區打拚"
+            },
+            {
+              "min_year": 2000,
+              "label": "北漂雙北或赴桃竹苗科學園區打拚"
+            }
+          ]
         },
         {
           "key": "stay_home",
           "label": "留在家鄉工作並住家裡",
           "effects": {
-            "rent_cost_mult": 0.2,
             "relationships": 6,
             "happiness": 4,
             "career_ceiling_local": true
           }
+        }
+      ],
+      "era_titles": [
+        {
+          "max_year": 1999,
+          "label": "離鄉北上，還是留在家鄉？"
+        },
+        {
+          "min_year": 2000,
+          "label": "北漂還是留鄉？"
         }
       ]
     },
@@ -334,7 +379,7 @@
       "conditions": {
         "age_range": [
           18,
-          32
+          45
         ],
         "requires_working_adult": true
       },
@@ -366,22 +411,13 @@
           "key": "civil_service",
           "label": "全職備考高普考／國營事業",
           "effects": {
-            "exam_prep_years": 1,
-            "pass_prob_base": 0.25,
-            "layoff_prob_if_pass": 0.0
+            "exam_prep_years": 1
           }
         },
         {
           "key": "family_biz_startup",
           "label": "接家業或創業當頭家",
-          "effects": {
-            "wage_variance_high": true,
-            "tariff_wto_exposure": true,
-            "region_bonus": [
-              "central",
-              "south_tainan"
-            ]
-          }
+          "effects": {}
         }
       ]
     },
@@ -391,8 +427,8 @@
       "title": "職涯轉職契機：跨界跳槽還是深耕本業？",
       "conditions": {
         "age_range": [
-          27,
-          48
+          25,
+          56
         ],
         "requires_working_adult": true,
         "min_work_years": 4
@@ -402,7 +438,7 @@
           "key": "stay_current_grow",
           "label": "留在原領域累積資深年資（穩定調薪 +8%）",
           "effects": {
-            "wage_mult": 1.08,
+            "wage_mult": 1.04,
             "happiness": 2
           }
         }
@@ -417,13 +453,28 @@
           26,
           45
         ],
-        "requires_working_adult": true
+        "requires_working_adult": true,
+        "career_in": [
+          "car_export_sales",
+          "car_office_white_collar",
+          "car_hsinchu_semi",
+          "car_software_remote",
+          "car_finance_broker"
+        ]
       },
       "era_variants": [
         {
+          "variant_id": "sea_taigan",
+          "year_range": [
+            1987,
+            1992
+          ],
+          "label_context": "公司到東南亞設廠，詢問你是否願意外派"
+        },
+        {
           "variant_id": "china_taigan",
           "year_range": [
-            1990,
+            1993,
             2019
           ],
           "label_context": "西進中國大陸或赴東南亞設廠擔任台幹"
@@ -482,8 +533,7 @@
           "label": "返鄉就業或轉遠距照顧家人",
           "effects": {
             "migrate_to": "birth_region",
-            "wage_mult": 0.8,
-            "rent_cost_mult": 0.4,
+            "wage_mult": 0.92,
             "happiness": 8,
             "relationships": 10
           },
@@ -497,6 +547,16 @@
               "label": "返鄉就業或轉遠距工作照顧家人（薪資微調、生活壓力大減）"
             }
           ]
+        }
+      ],
+      "era_titles": [
+        {
+          "max_year": 1999,
+          "label": "離鄉多年：要不要搬回老家？"
+        },
+        {
+          "min_year": 2000,
+          "label": "北漂十年的返鄉掙扎"
         }
       ]
     },
@@ -515,7 +575,15 @@
           2021,
           2025
         ],
-        "requires_working_adult": true
+        "requires_working_adult": true,
+        "career_not_in": [
+          "car_civil_teacher",
+          "car_doctor_pharma",
+          "car_lawyer_cpa",
+          "car_cpa",
+          "car_pharma_medtech",
+          "car_healthcare_ltc"
+        ]
       },
       "options": [
         {
@@ -549,11 +617,18 @@
           "key": "borrow_credit",
           "label": "刷卡或信貸周轉撐過景氣谷底",
           "effects": {
-            "debt_added_ratio": 0.35,
-            "debt_trap_flag": true
+            "debt_added_ratio": 0.35
           }
         }
-      ]
+      ],
+      "self_employed_variant": {
+        "title": "景氣寒冬：訂單與客源驟減",
+        "labels": {
+          "gig_side_job": "縮減規模、兼差接零工撐過淡季",
+          "resign_retrain": "收掉生意或暫停耕作，轉行找工作",
+          "borrow_credit": "借款周轉撐過景氣谷底"
+        }
+      }
     },
     {
       "id": "D11_health_red_flags",
@@ -586,7 +661,29 @@
             "midlife_mortality_mult": 1.35
           }
         }
-      ]
+      ],
+      "career_labels": {
+        "default": [
+          "調整步調、準時下班並規律運動與定期健檢",
+          "趁還能拚繼續加班多賺一點"
+        ],
+        "tech": [
+          "降薪換準時下班、規律運動與定期健檢",
+          "趁還能拚繼續加班領分紅"
+        ],
+        "farm": [
+          "減少耕作面積、規律看診與休息",
+          "農忙照舊，先撐過這一季"
+        ],
+        "civil": [
+          "申請調整職務、規律運動與定期健檢",
+          "硬撐年資與考績，繼續加班"
+        ],
+        "self": [
+          "少接一些單，規律運動與定期健檢",
+          "趁訂單多繼續日夜趕工"
+        ]
+      }
     },
     {
       "id": "D12_first_pot_of_gold",
@@ -604,8 +701,7 @@
           "key": "time_deposit",
           "label": "銀行定存或儲蓄險（依當年代利率計算）",
           "effects": {
-            "invest_style": "deposit",
-            "volatility": 0.01
+            "invest_style": "deposit"
           },
           "era_labels": [
             {
@@ -627,8 +723,7 @@
           "key": "etf_dca",
           "label": "定期定額投資台股大盤",
           "effects": {
-            "invest_style": "index_etf",
-            "long_term_return_bonus": 0.07
+            "invest_style": "index_etf"
           },
           "era_labels": [
             {
@@ -660,8 +755,7 @@
           "key": "margin_speculation",
           "label": "融資槓桿／聽明牌重壓飆股",
           "effects": {
-            "invest_style": "leverage",
-            "crash_wipeout_prob": 0.65
+            "invest_style": "leverage"
           },
           "era_labels": [
             {
@@ -760,7 +854,13 @@
             "happiness": -1
           }
         }
-      ]
+      ],
+      "transit_year_by_region": {
+        "north_taipei": 1996,
+        "south_kaohsiung": 2008,
+        "north_hsinchu": 2017,
+        "central": 2021
+      }
     },
     {
       "id": "D13_buying_home",
@@ -768,8 +868,8 @@
       "title": "買房的終極算計",
       "conditions": {
         "age_range": [
-          27,
-          46
+          25,
+          60
         ],
         "not_homeowner": true
       },
@@ -780,7 +880,6 @@
           "effects": {
             "homeowner": true,
             "mortgage_dti": 0.45,
-            "inflation_hedge": true,
             "happiness": 6
           },
           "requires_home_afford": "core",
@@ -796,7 +895,12 @@
             },
             {
               "min_year": 2023,
-              "label": "咬牙買蛋黃區（搭配新青安扛 40 年房貸）"
+              "label": "咬牙買蛋黃區（搭配新青安扛 40 年房貸）",
+              "max_year": 2026
+            },
+            {
+              "min_year": 2027,
+              "label": "咬牙買蛋黃區（搭配青安優惠長年期房貸）"
             }
           ]
         },
@@ -815,8 +919,7 @@
           "label": "堅持租屋、把頭期款投入股市",
           "effects": {
             "homeowner": false,
-            "liquid_invest_bonus": true,
-            "elderly_rent_rejection_risk": 0.3
+            "liquid_invest_bonus": true
           }
         }
       ]
@@ -834,6 +937,16 @@
       },
       "era_variants": [
         {
+          "variant_id": "roscas_1970s",
+          "year_range": [
+            1970,
+            1984
+          ],
+          "title": "親友招攬高息互助會（標會）",
+          "crash_year": "immediate_or_next_year",
+          "source_note": "街坊會頭招會，利息比銀行高，但會頭捲款倒會的消息也時有所聞"
+        },
+        {
           "variant_id": "hongyuan_1988",
           "year_range": [
             1985,
@@ -842,6 +955,16 @@
           "title": "親友力推「鴻源機構」月息 4 分",
           "crash_year": 1990,
           "source_note": "街頭巷尾瘋傳地下投資公司月息 4 分，許多鄰居同事爭相跟進（風險與後果尚不明朗）"
+        },
+        {
+          "variant_id": "unlisted_1995",
+          "year_range": [
+            1992,
+            2003
+          ],
+          "title": "未上市股票與投顧老師明牌",
+          "crash_year": "immediate_or_next_year",
+          "source_note": "盤商兜售未上市科技股，第四台投顧老師天天報明牌"
         },
         {
           "variant_id": "dual_card_2005",
@@ -864,14 +987,34 @@
           "source_note": "銀行理專主打海外連動債『高配息、低波動』，吸引大批定存族解約轉買"
         },
         {
+          "variant_id": "crypto_2015",
+          "year_range": [
+            2015,
+            2021
+          ],
+          "title": "虛擬貨幣與海外高息投資說明會",
+          "crash_year": "immediate_or_next_year",
+          "source_note": "標榜保證獲利的代幣與海外平台在說明會與社群間流傳"
+        },
+        {
           "variant_id": "scam_2024",
           "year_range": [
             2022,
             2026
           ],
-          "title": "飆股群組／im.B「保本高息」平台邀約",
+          "title": "通訊軟體飆股群組與高息債權平台邀約",
           "crash_year": "immediate_or_next_year",
           "source_note": "通訊軟體飆股群組與高息債權平台盛行，主打穩賺不賠話術"
+        },
+        {
+          "variant_id": "deepfake_2027",
+          "year_range": [
+            2027,
+            2060
+          ],
+          "title": "AI 深偽名人推薦的「保證獲利」投資",
+          "crash_year": "immediate_or_next_year",
+          "source_note": "以假亂真的名人影片與客服機器人誘導匯款，真假越來越難分辨"
         }
       ],
       "options": [
@@ -946,9 +1089,7 @@
         {
           "key": "hold_diamond",
           "label": "蓋牌續抱度過股災（結果依歷史年份分化）",
-          "effects": {
-            "hold_through_cycle": true
-          },
+          "effects": {},
           "era_labels": [
             {
               "max_year": 2007,
@@ -969,8 +1110,7 @@
           "key": "buy_the_dip",
           "label": "動用預備金進場抄底",
           "effects": {
-            "buy_dip_ratio": 0.4,
-            "cash_buffer_risk": true
+            "buy_dip_ratio": 0.4
           }
         }
       ]
@@ -983,7 +1123,8 @@
         "age_range": [
           28,
           60
-        ]
+        ],
+        "requires_working_adult": true
       },
       "options": [
         {
@@ -1027,11 +1168,7 @@
           "key": "self_pay_advanced",
           "label": "動用存款選用自費先進療程（復原最佳、大幅壓低致死與失能風險）",
           "requires_med_afford": true,
-          "effects": {
-            "cost_ratio_pre_1995": 0.85,
-            "cost_ratio_post_1995": 0.25,
-            "survival_bonus": 0.35
-          },
+          "effects": {},
           "era_labels": [
             {
               "max_year": 2000,
@@ -1048,19 +1185,13 @@
           "label": "存款不夠——忍痛賣房變現籌措救命自費療程（僅有房者可選）",
           "requires_homeowner_for_med": true,
           "effects": {
-            "sell_home_medical": true,
-            "survival_bonus": 0.3,
             "happiness": -10
           }
         },
         {
           "key": "standard_nhi",
           "label": "無力負擔自費，改採基礎保守治療（存款拮据時有殘疾失能與病情惡化早逝風險）",
-          "effects": {
-            "cost_ratio_pre_1995": 0.35,
-            "cost_ratio_post_1995": 0.05,
-            "inadequate_med_risk": true
-          },
+          "effects": {},
           "era_labels": [
             {
               "max_year": 1994,
@@ -1080,8 +1211,8 @@
       "title": "遇見心動的對象：開啟一段感情嗎？",
       "conditions": {
         "age_range": [
-          19,
-          36
+          18,
+          62
         ],
         "no_partner_yet": true
       },
@@ -1132,8 +1263,8 @@
       "title": "步入婚姻嗎？",
       "conditions": {
         "age_range": [
-          23,
-          40
+          20,
+          64
         ],
         "has_partner": true
       },
@@ -1172,7 +1303,6 @@
           "label": "維持同居或不婚",
           "effects": {
             "married": false,
-            "financial_autonomy": true,
             "old_age_loneliness_risk": 0.15
           }
         }
@@ -1184,8 +1314,8 @@
       "title": "生不生小孩？",
       "conditions": {
         "age_range": [
-          24,
-          42
+          20,
+          52
         ],
         "married": true
       },
@@ -1195,9 +1325,7 @@
           "label": "生育下一代，迎接家庭新成員",
           "effects": {
             "children_delta": 1,
-            "annual_child_cost_years": 22,
-            "subsidy_post_2026_twd": 100000,
-            "old_age_support": 10
+            "subsidy_post_2026_twd": 100000
           },
           "era_labels": [
             {
@@ -1211,12 +1339,19 @@
           ]
         },
         {
+          "key": "not_now",
+          "label": "今年先不要，過一兩年再說",
+          "effects": {
+            "postpone_child": true
+          }
+        },
+        {
           "key": "dink_pets",
           "label": "選擇不生育，專注兩人生活與財務自由",
           "effects": {
+            "no_more_kids": true,
             "savings_rate_bonus": 0.15,
-            "happiness": 5,
-            "old_age_support": -5
+            "happiness": 4
           },
           "era_labels": [
             {
@@ -1242,8 +1377,8 @@
       "title": "婚姻亮紅燈",
       "conditions": {
         "age_range": [
-          30,
-          55
+          27,
+          60
         ],
         "married": true
       },
@@ -1252,7 +1387,6 @@
           "key": "move_out_counseling",
           "label": "搬離婆家／夫家，尋求溝通修復關係",
           "effects": {
-            "rent_cost_added": true,
             "repair_prob": 0.65
           },
           "era_labels": [
@@ -1263,6 +1397,16 @@
             {
               "min_year": 1990,
               "label": "搬離婆家／夫家並尋求專業婚姻諮商修復關係"
+            }
+          ],
+          "era_labels_male": [
+            {
+              "max_year": 1989,
+              "label": "帶著妻小搬出父母家另組小家庭，並請親友從中協調"
+            },
+            {
+              "min_year": 1990,
+              "label": "搬出父母家、分擔家務並尋求專業婚姻諮商修復關係"
             }
           ]
         },
@@ -1305,10 +1449,7 @@
         {
           "key": "private_cram",
           "label": "送私立名校與全科課後補習",
-          "effects": {
-            "annual_expense_mult": 1.35,
-            "child_mobility_bonus": 0.25
-          },
+          "effects": {},
           "requires_cram_afford": true,
           "era_labels": [
             {
@@ -1422,8 +1563,7 @@
           "key": "hire_caregiver",
           "label": "聘請專業看護或安排入住養護機構",
           "effects": {
-            "monthly_care_cost_twd_2025": 35000,
-            "keep_job": true
+            "monthly_care_cost_twd_2025": 35000
           },
           "requires_caregiver_afford": true,
           "era_labels": [
@@ -1480,23 +1620,23 @@
       "title": "退休時間點抉擇",
       "conditions": {
         "age_range": [
-          55,
-          68
+          50,
+          90
         ]
       },
       "options": [
         {
           "key": "standard_retire",
-          "label": "屆齡領勞保／勞退（或公教月退）退休",
+          "label": "辦理退休，開始領取老年給付／退休金",
           "effects": {
             "retired": true,
-            "health": 8,
-            "pension_active": true
-          }
+            "health": 8
+          },
+          "requires_pension_age": true
         },
         {
           "key": "second_career",
-          "label": "退而不休／二度就業對抗長壽通膨",
+          "label": "先不退，轉任較輕鬆的工作（收入減少，幾年後再決定）",
           "effects": {
             "retired": false,
             "income_mult": 0.55,
@@ -1543,7 +1683,6 @@
           "label": "簽署《病主法》預立醫療決定（拒絕無效插管）並交代身後事",
           "effects": {
             "happiness": 8,
-            "end_of_life_dignity": true,
             "terminal_cost_mult": 0.4
           }
         },
@@ -1614,7 +1753,6 @@
           "label": "動用存款全額資助子女赴海外留學圓夢（需流動資產達門檻）",
           "requires_child_abroad_cash": true,
           "effects": {
-            "fund_child_abroad_cash": true,
             "happiness": 10,
             "relationships": 8
           }
@@ -1624,7 +1762,6 @@
           "label": "增貸或變賣部分房產／退休老本送子女出國（需有足夠房產淨值）",
           "requires_child_abroad_home": true,
           "effects": {
-            "fund_child_abroad_mortgage": true,
             "happiness": 6,
             "relationships": 8,
             "health": -4
@@ -1634,7 +1771,6 @@
           "key": "cannot_afford_abroad",
           "label": "存款與薪資有限，只能婉拒留學、讓子女留在台灣升學或自行申貸",
           "effects": {
-            "record_child_abroad_barrier": true,
             "happiness": -7,
             "relationships": -3
           }
@@ -1664,7 +1800,6 @@
           "label": "向親友借錢周轉／申請房貸寬限硬撐不賣房（需人際 ≥ 60 或家境 Q4 以上）",
           "requires_borrow_rescue": true,
           "effects": {
-            "borrow_to_keep_home": true,
             "happiness": -12,
             "health": -8,
             "relationships": -6
@@ -1674,7 +1809,6 @@
           "key": "foreclosure_auction",
           "label": "無力再繳本息，房屋遭銀行低價法拍（資產大幅折損並留存債務）",
           "effects": {
-            "home_foreclosed": true,
             "happiness": -28,
             "health": -10
           }

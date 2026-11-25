@@ -28,7 +28,9 @@
       "daily_vignettes": [
         {
           "text": "家裡把美援麵粉袋洗淨車成短褲與內衣，左鄰右舍的孩子都穿一樣的布料。",
-          "max_age": 35
+          "max_age": 35,
+          "min_age": 4,
+          "max_year": 1966
         },
         {
           "text": "巷口雜貨店響起愛國獎券開獎廣播，大人們屏息核對手中泛黃的獎券。",
@@ -37,7 +39,8 @@
         {
           "text": "母親參加鄰里的民間互助會（標會），每月省吃儉用存錢幫家裡添購腳踏車。",
           "max_age": 25,
-          "requires_parents_alive": true
+          "requires_parents_alive": true,
+          "min_age": 5
         }
       ]
     },
@@ -72,7 +75,7 @@
         },
         {
           "text": "收音機裡傳來校園民歌與《愛拚才會贏》，街頭偶爾可見解嚴後熱烈的社會運動布條。",
-          "min_year": 1987,
+          "min_year": 1988,
           "max_year": 1989,
           "min_age": 10
         }
@@ -96,7 +99,8 @@
           "min_year": 1990,
           "max_year": 1999,
           "min_age": 7,
-          "max_age": 17
+          "max_age": 17,
+          "requires_student": true
         },
         {
           "text": "腰間別著呼叫器（BB Call），下班和朋友約在泡沫紅茶店或漫畫王打發時間。",
@@ -131,7 +135,8 @@
           "min_year": 2000,
           "max_year": 2009,
           "min_age": 10,
-          "max_age": 17
+          "max_age": 17,
+          "requires_student": true
         },
         {
           "text": "下班或下課後掛在 BBS／PTT 與 MSN 上聊天，同學間互相幫對方的無名小站衝人氣。",
@@ -172,7 +177,8 @@
           "text": "放學後和同學揪團打手遊、逛文具店買貼紙，回家討論班上最新的熱門影片。",
           "min_year": 2012,
           "min_age": 7,
-          "max_age": 17
+          "max_age": 17,
+          "requires_student": true
         },
         {
           "text": "午休時同事聚在一起滑手機看 0050 與台股大盤，手裡各拿一杯半糖去冰的手搖飲。",
@@ -182,7 +188,7 @@
         {
           "text": "智慧型手機與臉書剛普及，大家聚餐前習慣先幫餐點拍照打卡。",
           "min_year": 2010,
-          "max_year": 2015,
+          "max_year": 2014,
           "min_age": 15
         },
         {
@@ -210,7 +216,8 @@
       "homesickness_boost": 4,
       "happiness_delta": 2,
       "social_delta": 2,
-      "cultural_footnote_en": "Before major exams, Taiwanese families pray to Wenchang Dijun (God of Culture) with scallions (smartness) and buns/zongzi (pun for 'passing')."
+      "cultural_footnote_en": "Before major exams, Taiwanese families pray to Wenchang Dijun (God of Culture) with scallions (smartness) and buns/zongzi (pun for 'passing').",
+      "requires_student": true
     },
     {
       "id": "cust_lny_adult",
@@ -251,7 +258,17 @@
       "homesickness_boost": 4,
       "happiness_delta": 2,
       "social_delta": 1,
-      "cultural_footnote_en": "Green 'Kuai Kuai' (meaning 'behave well') coconut snacks are famously placed on servers, hospital machines, and semiconductor fabs in Taiwan to prevent glitches."
+      "cultural_footnote_en": "Green 'Kuai Kuai' (meaning 'behave well') coconut snacks are famously placed on servers, hospital machines, and semiconductor fabs in Taiwan to prevent glitches.",
+      "career_in": [
+        "car_hsinchu_semi",
+        "car_software_remote",
+        "car_doctor_pharma",
+        "car_pharma_medtech",
+        "car_healthcare_ltc",
+        "car_office_white_collar",
+        "car_civil_teacher",
+        "car_finance_broker"
+      ]
     },
     {
       "id": "cust_postpartum",

@@ -11,19 +11,21 @@
   "hs_exam_system": {
     "eras": [
       {
+        "min_year": 1950,
         "max_year": 1967,
-        "name": "初中／省中聯考",
+        "name": "初中／初職聯考",
         "age": 12,
+        "level": "junior",
         "top_threshold": 68,
-        "hs_threshold": 48
+        "hs_threshold": 44
       },
       {
-        "min_year": 1968,
+        "min_year": 1950,
         "max_year": 2000,
         "name": "高中聯考（北聯／中聯／南聯）",
         "age": 15,
         "top_threshold": 70,
-        "hs_threshold": 50
+        "hs_threshold": 52
       },
       {
         "min_year": 2001,
@@ -92,11 +94,11 @@
           },
           "era_labels": [
             {
-              "max_year": 1984,
+              "max_year": 1989,
               "label": "放學留校補習或去文理補習班狂寫參考書（知識++、升學加分、幸福-）"
             },
             {
-              "min_year": 1985,
+              "min_year": 1990,
               "label": "上安親班／文理補習班狂寫評量（知識++、升學考加分、幸福-）"
             }
           ]
@@ -121,6 +123,44 @@
             "happiness": 2,
             "knowledge": -2,
             "flag_set": "childhood_family_help"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS02A_primary_exam",
+      "stage": "primary_exam",
+      "title": "國小畢業：初中聯考放榜",
+      "conditions": {
+        "special": "junior_exam_year",
+        "in_taiwan_only": true
+      },
+      "desc": "動態生成（1968 年九年國教前，國小畢業須考初中）",
+      "options": [
+        {
+          "key": "enter_junior",
+          "label": "考上初中，繼續升學",
+          "requires_exam_tier": "normal_hs_or_above",
+          "effects": {
+            "track": "junior",
+            "knowledge": 5
+          }
+        },
+        {
+          "key": "enter_junior_voc",
+          "label": "就讀初級職業學校（初職），學一點農工商技能",
+          "effects": {
+            "track": "junior_voc",
+            "knowledge": 3
+          }
+        },
+        {
+          "key": "stop_after_primary",
+          "label": "國小畢業就去當學徒或在家幫忙農事",
+          "effects": {
+            "track": "primary_labor",
+            "knowledge": -3,
+            "hs_tier": "work_early"
           }
         }
       ]
@@ -163,11 +203,15 @@
           "effects": {
             "track": "vocational",
             "knowledge": 4,
-            "early_job_ready": true,
             "hs_tier": "vocational"
           },
           "era_labels": [
             {
+              "max_year": 1964,
+              "label": "就讀高職（學一技之長、日後就業）"
+            },
+            {
+              "min_year": 1965,
               "max_year": 1996,
               "label": "就讀高職或五專（學一技之長、考證照或日後拚二專／插大）"
             },
@@ -261,7 +305,7 @@
           "requires_knowledge_min": 45,
           "effects": {
             "knowledge": 8,
-            "wage_mult": 1.14,
+            "wage_mult": 1.06,
             "flag_set": "vocational_elite",
             "uni_admit_bonus": 0.25
           },
@@ -283,7 +327,7 @@
             "money_delta_twd_2025": 90000,
             "social": 5,
             "health": -3,
-            "wage_mult": 1.06,
+            "wage_mult": 1.03,
             "flag_set": "vocational_coop"
           }
         },
@@ -331,7 +375,7 @@
           "label": "咬牙熬過三年四個月跟師傅學滿技術（出師後成搶手技藝師傅，收入大幅跳升）",
           "effects": {
             "health": -4,
-            "wage_mult": 1.28,
+            "wage_mult": 1.12,
             "flag_set": "master_craftsman",
             "knowledge": 4
           }
@@ -345,7 +389,17 @@
             "happiness": -3,
             "unlock_night_edu": true,
             "flag_set": "night_school_grad"
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1985,
+              "label": "白天工作、晚上念補校或夜間部補完高中職學歷（解除學歷上限！）"
+            },
+            {
+              "min_year": 1986,
+              "label": "白天工作、晚上念夜校／空中大學補學歷（解除學歷上限！）"
+            }
+          ]
         },
         {
           "key": "casual_jobs",
@@ -402,8 +456,18 @@
             "happiness": -3,
             "health": -2,
             "flag_set": "uni_lab_research",
-            "wage_mult": 1.08
-          }
+            "wage_mult": 1.03
+          },
+          "era_labels": [
+            {
+              "max_year": 1993,
+              "label": "跟著教授做研究／衝書卷獎（知識++、考研究所與留學獎學金大加分）"
+            },
+            {
+              "min_year": 1994,
+              "label": "大二就進教授實驗室做專題／衝書卷獎（知識++、推甄頂大與留學獎學金大加分）"
+            }
+          ]
         },
         {
           "key": "parttime_tutor",
@@ -423,7 +487,7 @@
             "happiness": -4,
             "flag_set": "uni_cross_coding",
             "remote_unlock": true,
-            "wage_mult": 1.1
+            "wage_mult": 1.04
           },
           "era_labels": [
             {
@@ -458,7 +522,7 @@
           "key": "corp_internship",
           "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給）",
           "effects": {
-            "wage_mult": 1.16,
+            "wage_mult": 1.05,
             "social": 6,
             "knowledge": 5,
             "flag_set": "uni_internship",
@@ -542,7 +606,14 @@
           37
         ],
         "requires_working": true,
-        "in_taiwan_only": true
+        "in_taiwan_only": true,
+        "career_not_in": [
+          "car_civil_teacher",
+          "car_farmer_fisher",
+          "car_doctor_pharma",
+          "car_lawyer_cpa",
+          "car_cpa"
+        ]
       },
       "desc": "出社會打滾幾年後進入第一個職涯高原期。你過往累積的屬性、社團人脈或大學備考基礎，此刻都能派上用場。",
       "options": [
@@ -551,11 +622,21 @@
           "label": "動用大學社團／同業人脈內推跳槽外商或大廠（需人際 ≥ 68 或曾任社團幹部）",
           "requires_social_or_club": true,
           "effects": {
-            "wage_mult": 1.24,
+            "wage_mult": 1.1,
             "social": 5,
             "happiness": 6,
             "flag_set": "referral_promoted"
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1999,
+              "label": "靠同學同業人脈介紹跳槽更好的公司（需人際 ≥ 68 或曾任社團幹部）"
+            },
+            {
+              "min_year": 2000,
+              "label": "動用大學社團／同業人脈內推跳槽外商或大廠（需人際 ≥ 68 或曾任社團幹部）"
+            }
+          ]
         },
         {
           "key": "exec_cert_study",
@@ -565,14 +646,25 @@
             "health": -4,
             "money_delta_twd_2025": -120000,
             "check_knowledge_promotion": true
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1998,
+              "label": "利用下班到夜間部或補習班進修、報考專業證照（依知識值檢定升遷加薪機率）"
+            },
+            {
+              "min_year": 1999,
+              "label": "利用下班進修專業證照／在職專班（依知識值檢定升遷加薪機率）"
+            }
+          ]
         },
         {
           "key": "switch_civil_service",
-          "label": "趁還有體力報考高普考／國營事業（若大學曾備考或知識 ≥ 72 上榜率極高）",
+          "label": "趁還有體力報考高普考／國營事業（須高中職以上；大學曾備考或知識高者較易上榜）",
           "effects": {
             "attempt_instant_civil_exam": true
-          }
+          },
+          "requires_edu_min": 3
         },
         {
           "key": "steady_balance",
@@ -602,7 +694,7 @@
           "label": "加入同業公會／扶輪社／獅子會拓展人脈與事業機會（人際++、應酬傷身）",
           "effects": {
             "social": 10,
-            "wage_mult": 1.1,
+            "wage_mult": 1.05,
             "health": -5,
             "money_delta_twd_2025": -150000
           }
