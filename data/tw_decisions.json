@@ -72,6 +72,35 @@
       "deprecated_by": "LS02_junior_high_exam_branch"
     },
     {
+      "id": "D01B_youth_parttime_request",
+      "stage": "education",
+      "title": "滿法定打工年齡：向父母提出打工申請？",
+      "conditions": {
+        "age_range": [
+          15,
+          17
+        ],
+        "requires_student_no_parttime": true
+      },
+      "options": [
+        {
+          "key": "persuade_parents_parttime",
+          "label": "向父母提出課餘打工計畫並爭取同意（滿 15 歲須父母同意，依人際、知識與家境判定成功率）",
+          "effects": {
+            "attempt_parttime_approval": true
+          }
+        },
+        {
+          "key": "focus_on_studies",
+          "label": "暫不打工，專心課業與校園生活（由父母負擔日常開銷，出社會前維持零個人資產）",
+          "effects": {
+            "knowledge": 4,
+            "happiness": 2
+          }
+        }
+      ]
+    },
+    {
       "id": "D02_university_major",
       "stage": "education",
       "title": "大學選系抉擇",

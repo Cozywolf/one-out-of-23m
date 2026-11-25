@@ -120,7 +120,6 @@
             "health": 4,
             "happiness": 2,
             "knowledge": -2,
-            "money_delta_twd_2025": 8000,
             "flag_set": "childhood_family_help"
           }
         }
@@ -188,7 +187,6 @@
           "label": "不繼續升學，直接進工廠／店面當學徒賺錢貼補家用",
           "effects": {
             "track": "labor",
-            "money_delta_ratio": 0.1,
             "knowledge": -4,
             "max_edu_cap": "junior_high",
             "hs_tier": "work_early"
@@ -282,7 +280,7 @@
           "key": "coop_internship",
           "label": "參加建教合作／提前進工廠與企業實習（存錢快、畢業直接轉正）",
           "effects": {
-            "money_delta_twd_2025": 160000,
+            "money_delta_twd_2025": 90000,
             "social": 5,
             "health": -3,
             "wage_mult": 1.06,
@@ -411,7 +409,7 @@
           "key": "parttime_tutor",
           "label": "狂接家教與校外打工存生活費（累積存款、減輕學貸、提早社會化）",
           "effects": {
-            "money_delta_twd_2025": 220000,
+            "money_delta_twd_2025": 120000,
             "social": 5,
             "health": -4,
             "flag_set": "uni_parttime"

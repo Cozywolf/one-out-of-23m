@@ -300,7 +300,7 @@
           const loss = Math.round(before * Math.abs(outcome.money_ratio_delta));
           life.moneyNominal = Math.round(before * (1 + outcome.money_ratio_delta));
           impactSummary.push(`現金資產減少約 NT$${loss.toLocaleString()}`);
-        } else {
+        } else if (life.age >= 18 && ((life.workYears || 0) > 0 || life.flags.part_time_approved)) {
           const flatLoss = Math.round(250000 * era.cpi * Math.abs(outcome.money_ratio_delta));
           life.moneyNominal -= flatLoss;
           impactSummary.push(`新增損失約 NT$${flatLoss.toLocaleString()}`);
@@ -417,7 +417,7 @@
       return Math.round(estAnnual / 12 / 1000) * 1000;
     }
 
-    filterEraTexts(list, year) {
+    filterEraTexts(list, year, life = null, isWorking = false) {
       if (!Array.isArray(list)) return [];
       const out = [];
       for (const item of list) {
@@ -426,7 +426,14 @@
         } else if (item && typeof item === "object" && item.text) {
           const minY = item.min_year != null ? item.min_year : -Infinity;
           const maxY = item.max_year != null ? item.max_year : Infinity;
-          if (year >= minY && year <= maxY) out.push(item.text);
+          if (year < minY || year > maxY) continue;
+          if (life) {
+            if (item.min_age != null && life.age < item.min_age) continue;
+            if (item.max_age != null && life.age > item.max_age) continue;
+            if (item.requires_working && !isWorking && (life.workYears || 0) < 1) continue;
+            if (item.requires_parents_alive && !(life.family && life.family.parentsAlive)) continue;
+          }
+          out.push(item.text);
         }
       }
       return out;
@@ -610,6 +617,10 @@
           if (y < 2000) return "📊 時代趨勢：九年國教後國中升學率躍升至 85%–94%，但台灣長期採高中職 3：7 政策，約 70% 升學青年就讀高職與五專，僅約 30% 進入普通高中。";
           if (y < 2014) return "📊 時代趨勢：基測時期全台國中畢業升學率達 95%–98%，高中與高職／五專就讀比例逐步拉近至約 5：5。";
           return "📊 時代趨勢：十二年國教會考時期，全台國中畢業升學率高達 99.7%，普通高中與技術型高中比例約 52% vs 48%。";
+
+        case "D01B_youth_parttime_request":
+          if (y < 1984) return "📊 時代趨勢：此時《勞基法》尚未全面上路，15 歲起常見青少年在工廠、餐飲店半工半讀貼補家用，但升學家庭多半仍嚴禁孩子課餘打工。";
+          return "📊 時代趨勢：依《勞動基準法》規範，滿 15 歲未滿 16 歲屬童工、16–17 歲須經法定代理人同意方可受僱；台灣高中職在學學生約一至兩成有課餘工讀經驗。";
 
         case "D02_university_major":
           if (y < 1990) return `📊 時代趨勢：此年代大學錄取率僅約 ${uniPct}%；女性大學生中約 78%–85% 選擇人文、商管、教育或護理領域，工程類科女性比例長期低於 10%。`;
@@ -806,18 +817,21 @@
     }
 
     calcYouthPocketMoneyNominal(life, era) {
-      if (life.age < 6) return 0;
-      const baseByQ2025 = { 1: 1200, 2: 2600, 3: 4800, 4: 7800, 5: 12000 };
-      const ageScale = life.age < 12 ? 0.50 : (life.age < 15 ? 0.85 : 1.15);
-      let real2025 = (baseByQ2025[life.quintile] || 4800) * ageScale;
-      if (life.flags.part_time_job || life.flags.vocational_coop || life.flags.uni_parttime) {
-        real2025 += life.age >= 18 ? 96000 : 48000;
+      if (life.age < 15) return 0;
+      if (life.flags.hs_tier === "work_early") {
+        return Math.round(era.min_wage_twd * 7.5);
       }
-      return Math.round(real2025 * era.cpi);
+      if (life.flags.part_time_approved || life.flags.vocational_coop || life.flags.uni_parttime) {
+        return Math.round(era.min_wage_twd * (life.age >= 18 ? 4.2 : 2.4));
+      }
+      return 0;
     }
 
     calcAnnualLivingExpenseNominal(life, era, reg, isWorking) {
       if (life.age < 18 && !isWorking) {
+        if (life.age >= 15 && (life.flags.hs_tier === "work_early" || life.flags.part_time_approved || life.flags.vocational_coop)) {
+          return Math.round(era.min_wage_twd * 1.0);
+        }
         return 0;
       }
       const inSchoolLocal = life.location === "TAIWAN" && (
@@ -826,10 +840,9 @@
         life.flags.retaking_exam
       );
       if (inSchoolLocal && !isWorking) {
-        // Full-time student in Taiwan: family covers room, board & tuition; student covers modest personal spending
-        const hasPT = Boolean(life.flags.part_time_job || life.flags.vocational_coop || life.flags.uni_parttime);
-        const studentBase2025 = hasPT ? 65000 : 18000;
-        return Math.round(studentBase2025 * era.cpi);
+        // Full-time student in Taiwan: parents cover room & board unless earning approved part-time income
+        const hasPT = Boolean(life.flags.part_time_approved || life.flags.uni_parttime);
+        return hasPT ? Math.round(era.min_wage_twd * 1.8) : 0;
       }
       const regionCostMult = {
         north_taipei: 1.24,
@@ -1031,6 +1044,9 @@
         if (life.currentYear < v.year_range[0] || life.currentYear > v.year_range[1]) return false;
         if (life.age < v.age_range[0] || life.age > v.age_range[1]) return false;
         if (v.regions && !v.regions.includes(life.regionId)) return false;
+        if (v.min_edu_level && life.eduLevel < v.min_edu_level) return false;
+        if (v.requires_working && (life.workYears || 0) < 1) return false;
+        if (v.requires_flag && !(life.flags && life.flags[v.requires_flag])) return false;
         return true;
       });
       if (!pool.length) return false;
@@ -1116,7 +1132,7 @@
         life.homeValueNominal = Math.max(Math.round(400000 * era.cpi), life.homeValueNominal + delta);
         notes.push(`沿海防洪重劃影響房產估值 ${Math.round(imp.region_housing_shock_pct * 100)}%`);
       }
-      if (imp.cash_subsidy_2025 && (life.flags.unemployed || life.flags.fulltime_caregiver || life.quintile <= 2)) {
+      if (imp.cash_subsidy_2025 && life.age >= 18 && (life.flags.unemployed || life.flags.fulltime_caregiver || (life.workYears > 0 && life.quintile <= 2))) {
         const amt = Math.round(imp.cash_subsidy_2025 * era.cpi);
         life.moneyNominal += amt;
         notes.push(`領取轉型基本生活津貼 +NT$${amt.toLocaleString()}`);
@@ -1752,12 +1768,14 @@
       }
       if (imp.unlock_daily_flavor) {
         const flavorTexts = {
-          bank_remove_helmet: "日常制度餘波：走進銀行領錢時，警衛禮貌請你脫下安全帽與口罩（源於 1982 李師科案後規範）。",
-          school_bus_safety_drill: "日常制度餘波：校外教學前，老師帶著全班實地演練開啟遊覽車安全門（源於 1992 健康幼稚園事件修法）。",
-          strict_bank_kyc_questions: "日常制度餘波：去銀行開戶與匯款時，行員詳細盤查資金來源與用途（源於 2016 兆豐案後洗錢防制修法）。"
+          bank_remove_helmet: { text: "日常制度餘波：走進銀行領錢時，警衛禮貌請你脫下安全帽與口罩（源於 1982 李師科案後規範）。", min_age: 18 },
+          school_bus_safety_drill: { text: "日常制度餘波：校外教學前，老師帶著全班實地演練開啟遊覽車安全門（源於 1992 健康幼稚園事件修法）。", min_age: 6, max_age: 18 },
+          strict_bank_kyc_questions: { text: "日常制度餘波：去銀行開戶與匯款時，行員詳細盤查資金來源與用途（源於 2016 兆豐案後洗錢防制修法）。", min_age: 18 }
         };
-        const txt = flavorTexts[imp.unlock_daily_flavor];
-        if (txt && !life.flags.dailyFlavors.includes(txt)) life.flags.dailyFlavors.push(txt);
+        const item = flavorTexts[imp.unlock_daily_flavor];
+        if (item && !life.flags.dailyFlavors.some((f) => (typeof f === "string" ? f : f.text) === item.text)) {
+          life.flags.dailyFlavors.push(item);
+        }
       }
     }
 
@@ -2138,6 +2156,8 @@
         if (life.age === 6) { life.education = "國小在學"; life.eduLevel = 1; }
         if (life.age === 12 && this.hasSwitch(life.currentYear, "compulsory_9yr_ed")) {
           life.education = "國中在學"; life.eduLevel = 2;
+        } else if (life.age === 13 && life.education === "國小在學") {
+          life.education = "國小畢業";
         }
         const rollUniAdmission = (bonus) => {
           const tierBonus = life.flags.hs_tier === "top_hs" ? 0.22 : life.flags.hs_tier === "normal_hs" ? 0.05 : -0.05;
@@ -2447,12 +2467,14 @@
       // 7. Taiwan Customs, Ambient Peer Vignettes (1in8b.life style), Education/Culture & Typhoon Rolls
       if (matchedEvents.length === 0) {
         const customs = (this.data.cultureEras && this.data.cultureEras.taiwan_customs) || [];
-        const matchedCustom = customs.find((cu) =>
-          !life.triggeredCustoms[cu.id] &&
-          life.age >= cu.age_range[0] && life.age <= cu.age_range[1] &&
-          (cu.stage !== "postpartum_care" || (life.childrenBirthYears || []).some((by) => life.currentYear - by >= 0 && life.currentYear - by <= 1)) &&
-          Math.random() < 0.14
-        );
+        const matchedCustom = customs.find((cu) => {
+          if (life.triggeredCustoms[cu.id]) return false;
+          if (life.age < cu.age_range[0] || life.age > cu.age_range[1]) return false;
+          if (cu.stage === "postpartum_care" && !(life.childrenBirthYears || []).some((by) => life.currentYear - by >= 0 && life.currentYear - by <= 1)) return false;
+          if (cu.id === "cust_exam_temple" && !(life.education.includes("在學") || (life.eduLevel >= 2 && life.flags.max_edu_cap !== "junior_high"))) return false;
+          if (cu.id === "cust_lny_adult" && !(life.annualSalaryNominal > 0 && !life.married && life.family.parentsAlive)) return false;
+          return Math.random() < 0.14;
+        });
         if (matchedCustom) {
           life.triggeredCustoms[matchedCustom.id] = true;
           if (life.location !== "TAIWAN") {
@@ -2479,19 +2501,20 @@
             life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: `今年共有 ${count} 個颱風影響台灣（年均 3–4 個），${reg.name_zh}遇上強風豪雨與停班停課日常。` });
           } else if (Math.random() < 0.26) {
             const commuteTags = life.age >= 15
-              ? this.filterEraTexts(reg.flavor_tags.commute, life.currentYear).map((x) => `${reg.name_zh}日常通勤：${x}。`)
+              ? this.filterEraTexts(reg.flavor_tags.commute, life.currentYear, life, isWorking).map((x) => `${reg.name_zh}日常通勤：${x}。`)
               : [];
-            const lifeTags = this.filterEraTexts(reg.flavor_tags.lifestyle, life.currentYear).map((x) => `在地生活切片：${x}。`);
-            const cultVignettes = cultEra ? this.filterEraTexts(cultEra.daily_vignettes, life.currentYear) : [];
+            const lifeTags = this.filterEraTexts(reg.flavor_tags.lifestyle, life.currentYear, life, isWorking).map((x) => `在地生活切片：${x}。`);
+            const cultVignettes = cultEra ? this.filterEraTexts(cultEra.daily_vignettes, life.currentYear, life, isWorking) : [];
             const eduFlavors = (life.age >= 7 && life.age <= 22 && eduEra)
-              ? this.filterEraTexts(eduEra.flavor_events, life.currentYear)
+              ? this.filterEraTexts(eduEra.flavor_events, life.currentYear, life, isWorking)
               : [];
+            const dailyFlavors = this.filterEraTexts(life.flags.dailyFlavors || [], life.currentYear, life, isWorking);
             const pool = [
               ...commuteTags,
               ...lifeTags,
               ...cultVignettes,
               ...eduFlavors,
-              ...(life.flags.dailyFlavors || [])
+              ...dailyFlavors
             ];
             if (pool.length) {
               life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: pick(pool) });
@@ -2658,7 +2681,7 @@
       const candidates = [];
       for (const d of this.data.decisions.decisions) {
         // Skip Taiwan-local-only cards while living overseas
-        if (life.location !== "TAIWAN" && ["D01_junior_high_track", "D02_university_major", "D03_exam_retake", "D04_military_service", "D05_graduation_crossroads", "D06_northbound_migration", "D09_return_hometown_dilemma", "D22_major_disaster"].includes(d.id)) {
+        if (life.location !== "TAIWAN" && ["D01_junior_high_track", "D01B_youth_parttime_request", "D02_university_major", "D03_exam_retake", "D04_military_service", "D05_graduation_crossroads", "D06_northbound_migration", "D09_return_hometown_dilemma", "D22_major_disaster"].includes(d.id)) {
           continue;
         }
         const c = d.conditions || {};
@@ -2667,10 +2690,11 @@
         if (priorityOnly && !isPriorityCard) continue;
 
         if (!d.once_per_era_variant && d.id !== "D31_cashflow_debt_crisis" && life.triggeredDecisions[d.id]) continue;
-        if (!isPriorityCard && !c.trigger_events && !c.trigger_years) {
+        if (!isPriorityCard && !c.trigger_events && !c.trigger_years && d.id !== "D01B_youth_parttime_request") {
           if (isPauseYear) continue;
           if (life.age - life.lastDecisionAge < DECISION_COOLDOWN) continue;
         }
+        if (d.id === "D01B_youth_parttime_request" && isPauseYear) continue;
 
         if (d.id === "D01_junior_high_track") {
           const targetAge = this.hasSwitch(life.currentYear, "compulsory_9yr_ed") ? 15 : 12;
@@ -2704,6 +2728,10 @@
           const inSchNow = life.education.includes("在學") || life.flags.in_grad_school_years > 0 || life.flags.retaking_exam;
           const workingNow = life.age >= 18 && !inSchNow && !(life.flags.military_gap_years > 0) && !life.flags.retired && !life.flags.unemployed && !life.flags.fulltime_caregiver;
           if (!workingNow) continue;
+        }
+        if (c.requires_student_no_parttime) {
+          const canRequest = life.age >= 15 && life.age <= 17 && life.flags.hs_tier !== "work_early" && !life.flags.part_time_approved && !life.flags.vocational_coop && life.eduLevel >= 2;
+          if (!canRequest) continue;
         }
         if (c.min_work_years && (life.workYears || 0) < c.min_work_years) continue;
         if (d.id === "D07B_career_switch" && (life.location !== "TAIWAN" || !life.careerId)) continue;
@@ -2778,7 +2806,7 @@
         }
         if (!d.options.some((o) => this.isOptionEligible(life, o, era).eligible)) continue;
         const exemptSkip = isFixedAge || (d.id === "D07_career_track" && !life.flags.career_chosen) || d.id === "D04_military_service" || d.id === "D28_debt_clearance" || d.id === "D30_forced_home_sale";
-        const randPassProb = ["D17B_romance_encounter", "D18_marriage_choice", "D19_have_children"].includes(d.id) ? 0.58 : 0.36;
+        const randPassProb = d.id === "D01B_youth_parttime_request" ? 0.75 : ["D17B_romance_encounter", "D18_marriage_choice", "D19_have_children"].includes(d.id) ? 0.58 : 0.36;
         if (c.age_range && !exemptSkip && !c.trigger_years && !c.trigger_events && Math.random() > randPassProb) continue;
 
         let resolvedTitle = (activeVariant && activeVariant.title) || d.title;
@@ -2788,6 +2816,9 @@
         if (d.id === "D01_junior_high_track" && !this.hasSwitch(life.currentYear, "compulsory_9yr_ed")) {
           resolvedTitle = "國小畢業升學抉擇（初中聯考時期）";
           resolvedDesc = "此時台灣義務教育僅涵蓋國小六年，升初中仍須參加聯考，家庭須決定要繼續升學或提早學藝工作。";
+        } else if (d.id === "D01B_youth_parttime_request") {
+          resolvedDesc = `你今年 ${life.age} 歲，依規定滿 15 歲起可從事合法工讀，但須取得父母（法定代理人）同意。在尚未出社會工作前，你的個人淨資產仍為 NT$0；若想提早靠打工存錢，必須先向父母提出並說服他們點頭：`;
+          resolvedSource = "在尚未開始全職工作或取得父母同意打工前，日常生活支出均由家庭負擔，個人名下資產維持 NT$0";
         } else if (d.id === "D04_military_service") {
           const months = this.getConscriptionMonths(life.birthYear, life.currentYear);
           resolvedDesc = `依你（${life.birthYear} 年生）於 ${life.currentYear} 年的台灣兵役制度，一般義務役役期約為「${months} 個月」${months >= 24 ? "（將明顯中斷職涯與收入）" : ""}。`;
@@ -3026,7 +3057,28 @@
       if (ef.hs_tier) life.flags.hs_tier = ef.hs_tier;
       if (ef.flag_set) {
         life.flags[ef.flag_set] = true;
-        if (ef.flag_set === "vocational_coop" || ef.flag_set === "uni_parttime") life.flags.part_time_job = true;
+        if (ef.flag_set === "vocational_coop" || ef.flag_set === "uni_parttime" || ef.flag_set === "uni_internship") {
+          life.flags.part_time_job = true;
+          life.flags.part_time_approved = true;
+        }
+      }
+      if (ef.attempt_parttime_approval) {
+        const approveProb = clamp(
+          0.45 + (life.stats.social - 50) * 0.008 + (life.stats.knowledge - 50) * 0.004 + (life.quintile <= 2 ? 0.18 : life.quintile >= 5 ? -0.15 : 0),
+          0.20, 0.90
+        );
+        if (Math.random() < approveProb) {
+          life.flags.part_time_approved = true;
+          life.flags.part_time_job = true;
+          life.stats.social += 4;
+          life.stats.happiness += 3;
+          life.stats.health -= 2;
+          extraLog += "（你提出清楚的課業與時間規劃，成功說服父母簽署同意書！開始合法課餘打工累積人生第一筆存款）";
+        } else {
+          life.stats.knowledge += 2;
+          life.stats.happiness -= 4;
+          extraLog += "（父母擔心影響課業與安全婉拒了申請，要你專心念書，出社會前生活費由家裡負擔）";
+        }
       }
       if (ef.hs_exam_bonus) life.flags.hs_exam_bonus = (life.flags.hs_exam_bonus || 0) + ef.hs_exam_bonus;
       if (ef.uni_admit_bonus) life.flags.uni_admit_bonus = (life.flags.uni_admit_bonus || 0) + ef.uni_admit_bonus;
@@ -3470,7 +3522,12 @@
 
       if (decision.id !== "D14_financial_trap") {
         if (ef.money_delta_ratio) life.moneyNominal = Math.round(life.moneyNominal * (1 + ef.money_delta_ratio));
-        if (ef.money_delta_twd_2025) life.moneyNominal += Math.round(ef.money_delta_twd_2025 * era.cpi);
+        if (ef.money_delta_twd_2025) {
+          const isDependentStudent = life.age < 24 && (life.workYears || 0) === 0 && !life.flags.part_time_approved && !life.flags.vocational_coop && !life.flags.uni_parttime && !life.flags.uni_internship && life.flags.hs_tier !== "work_early";
+          if (!(ef.money_delta_twd_2025 < 0 && isDependentStudent && life.moneyNominal <= 0)) {
+            life.moneyNominal += Math.round(ef.money_delta_twd_2025 * era.cpi);
+          }
+        }
       }
 
       const regAfter = this.getRegion(life.regionId);

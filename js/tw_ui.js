@@ -498,13 +498,13 @@
       $("valSalaryAnnualReal").textContent = `年收 ${fmtTWD(annSal)}（2025 購買力 ${fmtTWD(annSalReal)}）`;
     } else {
       const noSalText = l.age < 6 ? "學齡前（無收入）"
-        : l.age < 18 ? ((l.flags.part_time_job || l.flags.vocational_coop) ? "打工／建教零用金" : "在學中（僅小額零用錢）")
-        : l.education.includes("在學") ? ((l.flags.part_time_job || l.flags.uni_parttime) ? "大學打工（無全職薪）" : "在學中（無全職薪資）")
+        : l.age < 18 ? ((l.flags.part_time_approved || l.flags.vocational_coop || l.flags.hs_tier === "work_early") ? "合法工讀／學徒津貼" : "在學中（父母撫養，未打工）")
+        : l.education.includes("在學") ? ((l.flags.part_time_approved || l.flags.uni_parttime || l.flags.uni_internship) ? "大學打工／實習（無全職薪）" : "在學中（父母撫養，未打工）")
         : l.flags.fulltime_caregiver ? "全職照護中（無薪）" : "待業／無全職薪資";
       $("valSalaryMonthly").textContent = noSalText;
       $("valSalaryAnnualReal").textContent = l.lastYearIncomeNominal > 0
-        ? `本年零用／打工收入 ${fmtTWD(l.lastYearIncomeNominal)}`
-        : "年薪 NT$0";
+        ? `本年打工／實習收入 ${fmtTWD(l.lastYearIncomeNominal)}`
+        : ((l.age < 18 || l.education.includes("在學")) ? "年薪 NT$0（開始工作前由家庭負擔）" : "年薪 NT$0");
     }
     const netCf = l.lastYearNetCashflowNominal || 0;
     const depKids = (l.childrenBirthYears && l.childrenBirthYears.length)
@@ -1263,7 +1263,7 @@
   function showDecisionModal(dec) {
     state.pendingDecision = dec;
     const era = state.engine.getEraParams(state.life.currentYear);
-    $("decBadge").textContent = dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D07_career_track" ? "💼 職業與實業選擇" : dec.id === "D07B_career_switch" ? "🔄 職涯轉職契機" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
+    $("decBadge").textContent = dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D01B_youth_parttime_request" ? "🪪 法定打工申請" : dec.id === "D07_career_track" ? "💼 職業與實業選擇" : dec.id === "D07B_career_switch" ? "🔄 職涯轉職契機" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
     $("decYearTag").textContent = `${state.life.currentYear}（${era.roc}）· ${state.life.age} 歲`;
     $("decTitle").textContent = dec.resolvedTitle;
     $("decDesc").textContent = dec.resolvedDesc;

@@ -84,7 +84,10 @@ window.TW_DATA = {
               "min_year": 1996
             },
             "公車",
-            "雙北跨橋機車潮"
+            {
+              "text": "雙北跨橋機車潮",
+              "min_age": 18
+            }
           ],
           "housing": [
             "高房租",
@@ -99,7 +102,10 @@ window.TW_DATA = {
           "lifestyle": [
             "醫療與補教資源最密集",
             "步調緊湊",
-            "居住成本易擠壓幸福感"
+            {
+              "text": "居住成本易擠壓幸福感",
+              "min_age": 18
+            }
           ]
         },
         "out_migration_rates": {
@@ -160,7 +166,9 @@ window.TW_DATA = {
             },
             {
               "text": "園區上下班塞車",
-              "min_year": 1985
+              "min_year": 1985,
+              "min_age": 18,
+              "requires_working": true
             },
             {
               "text": "機捷／高鐵跨區通勤",
@@ -179,7 +187,8 @@ window.TW_DATA = {
             "全台幼年人口比與出生率最高",
             {
               "text": "高薪高工時工程師文化",
-              "min_year": 1985
+              "min_year": 1985,
+              "min_age": 18
             },
             {
               "text": "桃園多元移工與航空城",
@@ -254,7 +263,8 @@ window.TW_DATA = {
             "黑手變頭家與家族工廠文化",
             {
               "text": "易受2000年代西進與2025關稅衝擊",
-              "min_year": 2000
+              "min_year": 2000,
+              "min_age": 18
             },
             {
               "text": "南投為1999年921震央核心",
@@ -329,7 +339,8 @@ window.TW_DATA = {
             },
             {
               "text": "2002年WTO衝擊農家",
-              "min_year": 2002
+              "min_year": 2002,
+              "min_age": 14
             },
             "濃厚宗族廟會與飲食文化"
           ]
@@ -405,7 +416,8 @@ window.TW_DATA = {
             },
             {
               "text": "近年台積電進駐與演唱會經濟回溫",
-              "min_year": 2022
+              "min_year": 2022,
+              "min_age": 14
             },
             "屏東偏鄉就醫距離較遠"
           ]
@@ -3500,6 +3512,35 @@ window.TW_DATA = {
         "deprecated_by": "LS02_junior_high_exam_branch"
       },
       {
+        "id": "D01B_youth_parttime_request",
+        "stage": "education",
+        "title": "滿法定打工年齡：向父母提出打工申請？",
+        "conditions": {
+          "age_range": [
+            15,
+            17
+          ],
+          "requires_student_no_parttime": true
+        },
+        "options": [
+          {
+            "key": "persuade_parents_parttime",
+            "label": "向父母提出課餘打工計畫並爭取同意（滿 15 歲須父母同意，依人際、知識與家境判定成功率）",
+            "effects": {
+              "attempt_parttime_approval": true
+            }
+          },
+          {
+            "key": "focus_on_studies",
+            "label": "暫不打工，專心課業與校園生活（由父母負擔日常開銷，出社會前維持零個人資產）",
+            "effects": {
+              "knowledge": 4,
+              "happiness": 2
+            }
+          }
+        ]
+      },
+      {
         "id": "D02_university_major",
         "stage": "education",
         "title": "大學選系抉擇",
@@ -5900,9 +5941,19 @@ window.TW_DATA = {
         "typical_first_marriage_age": 22,
         "overseas_comm_channel": "航空家書與昂貴的越洋接線長途電話",
         "daily_vignettes": [
-          "家裡把美援麵粉袋洗淨車成短褲與內衣，左鄰右舍的孩子都穿一樣的布料。",
-          "巷口雜貨店響起愛國獎券開獎廣播，大人們屏息核對手中泛黃的獎券。",
-          "母親參加鄰里的民間互助會（標會），每月省吃儉用存錢幫家裡添購腳踏車。"
+          {
+            "text": "家裡把美援麵粉袋洗淨車成短褲與內衣，左鄰右舍的孩子都穿一樣的布料。",
+            "max_age": 35
+          },
+          {
+            "text": "巷口雜貨店響起愛國獎券開獎廣播，大人們屏息核對手中泛黃的獎券。",
+            "min_age": 4
+          },
+          {
+            "text": "母親參加鄰里的民間互助會（標會），每月省吃儉用存錢幫家裡添購腳踏車。",
+            "max_age": 25,
+            "requires_parents_alive": true
+          }
         ]
       },
       {
@@ -5918,21 +5969,27 @@ window.TW_DATA = {
         "typical_first_marriage_age": 25,
         "overseas_comm_channel": "航空郵簡、越洋電話卡與傳真機",
         "daily_vignettes": [
-          "晚飯後全家圍在客廳趕工組裝聖誕燈泡與塑膠花，電視正播著三台八點檔連續劇。",
           {
-            "text": "放學與下班路上，街頭唱片行正播著校園民歌與台語金曲，鄰居聚在騎樓泡茶聊景氣。",
+            "text": "晚飯後全家圍在客廳趕工組裝聖誕燈泡與塑膠花，電視正播著三台八點檔連續劇。",
+            "min_age": 4
+          },
+          {
+            "text": "放學與傍晚路上，街頭唱片行正播著校園民歌與台語金曲，鄰居聚在騎樓泡茶聊景氣。",
             "min_year": 1970,
-            "max_year": 1986
+            "max_year": 1986,
+            "min_age": 10
           },
           {
             "text": "鄰居阿伯熱衷大家樂求明牌，巷口證券號子一早開門就擠滿看盤的菜籃族。",
             "min_year": 1985,
-            "max_year": 1989
+            "max_year": 1989,
+            "min_age": 10
           },
           {
             "text": "收音機裡傳來校園民歌與《愛拚才會贏》，街頭偶爾可見解嚴後熱烈的社會運動布條。",
             "min_year": 1987,
-            "max_year": 1989
+            "max_year": 1989,
+            "min_age": 10
           }
         ]
       },
@@ -5950,20 +6007,36 @@ window.TW_DATA = {
         "overseas_comm_channel": "BBS／PTT 看板、MSN 即時通與 Skype 網路電話",
         "daily_vignettes": [
           {
+            "text": "放學後和同學去巷口租漫畫、買十元紅茶，回家趕著看晚間卡通與綜藝節目。",
+            "min_year": 1990,
+            "max_year": 2009,
+            "min_age": 7,
+            "max_age": 17
+          },
+          {
             "text": "腰間別著呼叫器（BB Call），下班和朋友約在泡沫紅茶店或漫畫王打發時間。",
             "min_year": 1990,
-            "max_year": 2002
+            "max_year": 2002,
+            "min_age": 18,
+            "requires_working": true
           },
           {
             "text": "下班或下課後掛在 BBS／PTT 與 MSN 上聊天，同學間互相幫對方的無名小站衝人氣。",
             "min_year": 2003,
-            "max_year": 2009
+            "max_year": 2009,
+            "min_age": 14,
+            "max_age": 35
           },
-          "選舉前夕造勢晚會旗海飄揚，電視政論節目每晚熱烈辯論台灣的前途。",
+          {
+            "text": "選舉前夕造勢晚會旗海飄揚，電視政論節目每晚熱烈辯論台灣的前途。",
+            "min_age": 10
+          },
           {
             "text": "房仲傳單越貼越密，身邊剛出社會的朋友開始感嘆薪水停在 22K 追不上房價。",
             "min_year": 2009,
-            "max_year": 2009
+            "max_year": 2009,
+            "min_age": 21,
+            "max_age": 36
           }
         ]
       },
@@ -5980,17 +6053,33 @@ window.TW_DATA = {
         "typical_first_marriage_age": 32,
         "overseas_comm_channel": "LINE 家族群組、即時視訊與台灣社群媒體",
         "daily_vignettes": [
-          "午休時同事聚在一起滑手機看 0050 與台股大盤，手裡各拿一杯半糖去冰的手搖飲。",
+          {
+            "text": "放學後和同學揪團打手遊、逛文具店買貼紙，回家討論班上最新的熱門影片。",
+            "min_year": 2012,
+            "min_age": 7,
+            "max_age": 17
+          },
+          {
+            "text": "午休時同事聚在一起滑手機看 0050 與台股大盤，手裡各拿一杯半糖去冰的手搖飲。",
+            "min_age": 20,
+            "requires_working": true
+          },
           {
             "text": "智慧型手機與臉書剛普及，大家聚餐前習慣先幫餐點拍照打卡。",
             "min_year": 2010,
-            "max_year": 2015
+            "max_year": 2015,
+            "min_age": 15
           },
           {
             "text": "家族 LINE 群組每天早上湧入長輩圖，還有親友轉傳的防詐騙提醒與旅遊照片。",
-            "min_year": 2012
+            "min_year": 2012,
+            "min_age": 15
           },
-          "身邊越來越多朋友選擇不婚不生、領養貓狗作伴，週末逛文創市集與露營。"
+          {
+            "text": "身邊越來越多朋友選擇不婚不生、領養貓狗作伴，週末逛文創市集與露營。",
+            "min_age": 24,
+            "max_age": 50
+          }
         ]
       }
     ],
@@ -7000,7 +7089,6 @@ window.TW_DATA = {
               "health": 4,
               "happiness": 2,
               "knowledge": -2,
-              "money_delta_twd_2025": 8000,
               "flag_set": "childhood_family_help"
             }
           }
@@ -7068,7 +7156,6 @@ window.TW_DATA = {
             "label": "不繼續升學，直接進工廠／店面當學徒賺錢貼補家用",
             "effects": {
               "track": "labor",
-              "money_delta_ratio": 0.1,
               "knowledge": -4,
               "max_edu_cap": "junior_high",
               "hs_tier": "work_early"
@@ -7162,7 +7249,7 @@ window.TW_DATA = {
             "key": "coop_internship",
             "label": "參加建教合作／提前進工廠與企業實習（存錢快、畢業直接轉正）",
             "effects": {
-              "money_delta_twd_2025": 160000,
+              "money_delta_twd_2025": 90000,
               "social": 5,
               "health": -3,
               "wage_mult": 1.06,
@@ -7291,7 +7378,7 @@ window.TW_DATA = {
             "key": "parttime_tutor",
             "label": "狂接家教與校外打工存生活費（累積存款、減輕學貸、提早社會化）",
             "effects": {
-              "money_delta_twd_2025": 220000,
+              "money_delta_twd_2025": 120000,
               "social": 5,
               "health": -4,
               "flag_set": "uni_parttime"
@@ -8189,6 +8276,7 @@ window.TW_DATA = {
           18,
           22
         ],
+        "min_edu_level": 3,
         "relation": "高中同桌",
         "text": "大學聯考放榜那天，你平時成績很好的同桌差了兩分沒上理想志願。隔週他把厚厚的參考書裝進書包去重考班報到，接下來一整年，同學聚會都沒有人見過他。",
         "historical_note": "大學聯考窄門時期錄取率僅約三至四成，「重考一年」是無數青年的共同青春記憶。"
@@ -8203,6 +8291,7 @@ window.TW_DATA = {
           20,
           26
         ],
+        "min_edu_level": 4,
         "relation": "大學死黨",
         "text": "抽中金馬獎去外島當兩年兵的死黨放返台假時，一個人在泡沫紅茶店坐了整個下午。他說營區打投幣電話要排一小時、寫信往返要兩週，最後還是沒熬過這場遠距離。",
         "historical_note": ""
@@ -8245,6 +8334,7 @@ window.TW_DATA = {
           24,
           48
         ],
+        "requires_working": true,
         "relation": "公司前輩",
         "text": "平常總是請大家喝手搖飲的部門前輩突然離職失聯。後來聽人資私下說，他辦了七張現金卡以卡養卡，20% 循環利息滾成還不清的黑洞，連薪水都快被強制扣押。",
         "historical_note": "雙卡風暴席捲全台，數十萬名持卡人深陷 20% 高利循環卡債困境。"
@@ -8259,6 +8349,7 @@ window.TW_DATA = {
           22,
           35
         ],
+        "requires_working": true,
         "relation": "前同事",
         "text": "辭職全職準備高普考兩年的前同事，今年放榜又差了零點八分落榜。他在電話裡沉默很久才問你：「如果再考一年還是沒上，我三十歲回民間企業還找得到工作嗎？」",
         "historical_note": ""
@@ -8273,6 +8364,7 @@ window.TW_DATA = {
           22,
           29
         ],
+        "min_edu_level": 4,
         "relation": "大學室友",
         "text": "大學室友畢業後投了六十封履歷，最後領著剛好兩萬二的起薪，在台北租了一間沒對外窗的頂樓加蓋。他在 MSN 上苦笑說，扣完房租和學貸，連感冒都不敢請病假。",
         "historical_note": "2009 年金融海嘯期間台灣失業率達 5.85%，企業實習 22K 方案意外形成青年起薪定錨效應。"
@@ -8301,6 +8393,7 @@ window.TW_DATA = {
           28,
           46
         ],
+        "requires_flag": "migrated_north",
         "relation": "同鄉北漂好友",
         "text": "和你一起北上打拚十年的同鄉好友決定搬回南部老家了。他說在北部租了十年房依舊追不上頭期款，回去薪水少兩成，但至少下班騎車十分鐘就能吃到家裡的熱湯。",
         "historical_note": "人力銀行調查顯示，約 68.6% 北漂族曾動念返鄉，但有 67.6% 因顧慮薪資打折而反覆掙扎。"
@@ -8316,7 +8409,7 @@ window.TW_DATA = {
           55
         ],
         "relation": "多年摯友",
-        "text": "相伴十年的大學好友終於和伴侶去戶政事務所登記結婚了。婚宴只請了幾桌最親近的親友，交換誓詞時，你看見她原本沉默反對多年的父親偷偷拭去眼角的淚。",
+        "text": "相伴十年的多年好友終於和伴侶去戶政事務所登記結婚了。婚宴只請了幾桌最親近的親友，交換誓詞時，你看見她原本沉默反對多年的父親偷偷拭去眼角的淚。",
         "historical_note": "2019 年 5 月台灣同性婚姻專法正式施行，成為亞洲第一個同性婚姻合法化國家。"
       },
       {
@@ -8357,6 +8450,7 @@ window.TW_DATA = {
           25,
           55
         ],
+        "requires_working": true,
         "relation": "前部門同事",
         "text": "過去總幫客戶畫商業簡報與修圖的前同事，這兩年轉行考了高齡體適能指導員。她笑說，AI 幾秒就能生成一百張圖，但握著長輩的手帶他們伸展，螢幕怎麼樣都取代不了。",
         "historical_note": ""
