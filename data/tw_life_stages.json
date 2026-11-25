@@ -87,7 +87,6 @@
             "knowledge": 11,
             "happiness": -5,
             "health": -3,
-            "money_delta_twd_2025": -90000,
             "flag_set": "childhood_cram",
             "hs_exam_bonus": 7
           },
@@ -110,7 +109,6 @@
             "social": 8,
             "happiness": 6,
             "knowledge": 3,
-            "money_delta_twd_2025": -50000,
             "flag_set": "childhood_talent"
           }
         },
@@ -122,7 +120,7 @@
             "health": 4,
             "happiness": 2,
             "knowledge": -2,
-            "money_delta_twd_2025": 15000,
+            "money_delta_twd_2025": 8000,
             "flag_set": "childhood_family_help"
           }
         }
@@ -297,7 +295,6 @@
           "effects": {
             "knowledge": 9,
             "happiness": -4,
-            "money_delta_twd_2025": -60000,
             "uni_admit_bonus": 0.18
           },
           "era_labels": [
@@ -355,6 +352,16 @@
         {
           "key": "casual_jobs",
           "label": "換過幾份餐飲與超商打工，維持自由生活步調",
+          "era_labels": [
+            {
+              "max_year": 1978,
+              "label": "換過幾份工廠臨工、餐飲與雜貨店打雜，維持自由生活步調"
+            },
+            {
+              "min_year": 1979,
+              "label": "換過幾份餐飲與超商打工，維持自由生活步調"
+            }
+          ],
           "effects": {
             "happiness": 4,
             "social": 4,
@@ -482,7 +489,7 @@
             "knowledge": 10,
             "happiness": -6,
             "social": -4,
-            "money_delta_twd_2025": -70000,
+            "money_delta_twd_2025": -18000,
             "flag_set": "uni_civil_prep"
           }
         },
@@ -512,7 +519,7 @@
             "happiness": 12,
             "health": 5,
             "social": 6,
-            "money_delta_twd_2025": -40000
+            "money_delta_twd_2025": -15000
           },
           "era_labels": [
             {

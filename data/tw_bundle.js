@@ -75,7 +75,14 @@ window.TW_DATA = {
         ],
         "flavor_tags": {
           "commute": [
-            "捷運（1996年木柵線通車後成型）",
+            {
+              "text": "公車與腳踏車通勤",
+              "max_year": 1995
+            },
+            {
+              "text": "捷運（1996年木柵線通車後成型）",
+              "min_year": 1996
+            },
             "公車",
             "雙北跨橋機車潮"
           ],
@@ -147,8 +154,18 @@ window.TW_DATA = {
         ],
         "flavor_tags": {
           "commute": [
-            "園區上下班塞車",
-            "機捷／高鐵跨區通勤",
+            {
+              "text": "客運、火車與鄉鎮幹道通勤",
+              "max_year": 1984
+            },
+            {
+              "text": "園區上下班塞車",
+              "min_year": 1985
+            },
+            {
+              "text": "機捷／高鐵跨區通勤",
+              "min_year": 2017
+            },
             "汽機車代步"
           ],
           "housing": [
@@ -160,8 +177,14 @@ window.TW_DATA = {
           ],
           "lifestyle": [
             "全台幼年人口比與出生率最高",
-            "高薪高工時工程師文化",
-            "桃園多元移工與航空城",
+            {
+              "text": "高薪高工時工程師文化",
+              "min_year": 1985
+            },
+            {
+              "text": "桃園多元移工與航空城",
+              "min_year": 1992
+            },
             "苗栗客庄聚落"
           ]
         },
@@ -215,7 +238,10 @@ window.TW_DATA = {
         "flavor_tags": {
           "commute": [
             "汽機車為主",
-            "中捷綠線"
+            {
+              "text": "中捷綠線",
+              "min_year": 2021
+            }
           ],
           "housing": [
             "傳統透天厝與新興重劃區大樓並存"
@@ -226,8 +252,14 @@ window.TW_DATA = {
           ],
           "lifestyle": [
             "黑手變頭家與家族工廠文化",
-            "易受2000年代西進與2025關稅衝擊",
-            "南投為1999年921震央核心"
+            {
+              "text": "易受2000年代西進與2025關稅衝擊",
+              "min_year": 2000
+            },
+            {
+              "text": "南投為1999年921震央核心",
+              "min_year": 1999
+            }
           ]
         },
         "out_migration_rates": {
@@ -291,8 +323,14 @@ window.TW_DATA = {
             "夏季高溫午後雷陣雨"
           ],
           "lifestyle": [
-            "農業與高齡化並存（嘉義縣65+占比全台最高）",
-            "2002年WTO衝擊農家",
+            {
+              "text": "農業與高齡化並存（嘉義縣65+占比全台最高）",
+              "min_year": 2005
+            },
+            {
+              "text": "2002年WTO衝擊農家",
+              "min_year": 2002
+            },
             "濃厚宗族廟會與飲食文化"
           ]
         },
@@ -342,7 +380,10 @@ window.TW_DATA = {
         "flavor_tags": {
           "commute": [
             "機車為主",
-            "高雄捷運與輕軌"
+            {
+              "text": "高雄捷運與輕軌",
+              "min_year": 2008
+            }
           ],
           "housing": [
             "舊市區公寓與北高雄科技廊帶新屋"
@@ -352,9 +393,20 @@ window.TW_DATA = {
             "颱風登陸首當其衝（如2009莫拉克）"
           ],
           "lifestyle": [
-            "1980–90年代重工業火車頭",
-            "2000年代產業轉型低潮",
-            "近年台積電進駐與演唱會經濟回溫",
+            {
+              "text": "1980–90年代重工業火車頭",
+              "min_year": 1980,
+              "max_year": 1999
+            },
+            {
+              "text": "2000年代產業轉型低潮",
+              "min_year": 2000,
+              "max_year": 2018
+            },
+            {
+              "text": "近年台積電進駐與演唱會經濟回溫",
+              "min_year": 2022
+            },
             "屏東偏鄉就醫距離較遠"
           ]
         },
@@ -410,8 +462,18 @@ window.TW_DATA = {
         "flavor_tags": {
           "commute": [
             "台鐵花東線搶票",
-            "蘇花公路／蘇花改",
-            "宜蘭2006年雪隧通車納入台北圈",
+            {
+              "text": "蘇花公路山海蜿蜒路途",
+              "max_year": 2019
+            },
+            {
+              "text": "蘇花公路／蘇花改",
+              "min_year": 2020
+            },
+            {
+              "text": "宜蘭2006年雪隧通車納入台北圈",
+              "min_year": 2006
+            },
             "離島船機交通"
           ],
           "housing": [
@@ -2437,7 +2499,7 @@ window.TW_DATA = {
             "north_taipei"
           ],
           "age_range": [
-            0,
+            18,
             90
           ],
           "trait_mult": {
@@ -3289,7 +3351,7 @@ window.TW_DATA = {
             "east_islands"
           ],
           "age_range": [
-            0,
+            18,
             90
           ],
           "trait_mult": {
@@ -3655,11 +3717,11 @@ window.TW_DATA = {
       {
         "id": "D07_career_track",
         "stage": "career",
-        "title": "職涯跑道選擇",
+        "title": "初入職場：選擇你的職業與實業跑道",
         "conditions": {
           "age_range": [
-            21,
-            33
+            18,
+            32
           ],
           "requires_working_adult": true
         },
@@ -3706,6 +3768,29 @@ window.TW_DATA = {
                 "central",
                 "south_tainan"
               ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "D07B_career_switch",
+        "stage": "career",
+        "title": "職涯轉職契機：跨界跳槽還是深耕本業？",
+        "conditions": {
+          "age_range": [
+            27,
+            48
+          ],
+          "requires_working_adult": true,
+          "min_work_years": 4
+        },
+        "options": [
+          {
+            "key": "stay_current_grow",
+            "label": "留在原領域累積資深年資（穩定調薪 +8%）",
+            "effects": {
+              "wage_mult": 1.08,
+              "happiness": 2
             }
           }
         ]
@@ -3916,7 +4001,12 @@ window.TW_DATA = {
               },
               {
                 "min_year": 1987,
+                "max_year": 2019,
                 "label": "銀行定存或儲蓄險（依當年代利率計算）"
+              },
+              {
+                "min_year": 2020,
+                "label": "銀行定存、高利活存或儲蓄險（依當年代利率計算）"
               }
             ]
           },
@@ -3935,16 +4025,21 @@ window.TW_DATA = {
               {
                 "min_year": 1962,
                 "max_year": 1985,
-                "label": "分批買進台股大型績優股（如水泥、紡織、金融股）"
+                "label": "分批買進台股大型績優股（水泥、紡織、金融股）"
               },
               {
                 "min_year": 1986,
                 "max_year": 2002,
-                "label": "定期買進台股大型權值股或開放式共同基金"
+                "label": "定期買進台股權值股或開放式共同基金"
               },
               {
                 "min_year": 2003,
+                "max_year": 2019,
                 "label": "定期定額台股大盤 ETF（如 0050）"
+              },
+              {
+                "min_year": 2020,
+                "label": "定期定額台股／海外大盤 ETF（如 0050）"
               }
             ]
           },
@@ -3967,7 +4062,12 @@ window.TW_DATA = {
               },
               {
                 "min_year": 1980,
+                "max_year": 2019,
                 "label": "融資槓桿／聽明牌重壓飆股（牛市翻倍、股災易斷頭）"
+              },
+              {
+                "min_year": 2020,
+                "label": "融資槓桿／當沖重壓熱門題材股（牛市翻倍、股災易斷頭）"
               }
             ]
           }
@@ -4243,7 +4343,12 @@ window.TW_DATA = {
               },
               {
                 "min_year": 2008,
-                "label": "刪掉看盤 App 蓋牌續抱（結果依歷史年份分化）"
+                "max_year": 2011,
+                "label": "關掉電腦看盤軟體蓋牌續抱（結果依歷史年份分化）"
+              },
+              {
+                "min_year": 2012,
+                "label": "刪掉手機看盤 App 蓋牌續抱（結果依歷史年份分化）"
               }
             ]
           },
@@ -4469,8 +4574,7 @@ window.TW_DATA = {
             24,
             42
           ],
-          "has_partner": true,
-          "requires_after_marriage_choice": true
+          "married": true
         },
         "options": [
           {
@@ -5402,7 +5506,15 @@ window.TW_DATA = {
         "cram_school_cost_ratio": 0.15,
         "female_early_work_prob_q1_q2": 0.02,
         "flavor_events": [
-          "補習班招牌比巷口超商還密集，週末還得趕場寫程式營隊與整理 108 課綱學習歷程檔案。",
+          {
+            "text": "十二年國教會考上路後，補習班招牌仍比巷口超商密集，考前模擬考一場接一場。",
+            "min_year": 2014,
+            "max_year": 2026
+          },
+          {
+            "text": "補習班招牌比巷口超商還密集，週末還得趕場寫程式營隊與整理 108 課綱學習歷程檔案。",
+            "min_year": 2019
+          },
           "雙語私校抽籤與入學考擠破頭，家長群組天天討論學區設籍與雙語教材。",
           "母校國小今年新生減班，老師感嘆十年前每個年級還有八個班。"
         ]
@@ -5807,8 +5919,21 @@ window.TW_DATA = {
         "overseas_comm_channel": "航空郵簡、越洋電話卡與傳真機",
         "daily_vignettes": [
           "晚飯後全家圍在客廳趕工組裝聖誕燈泡與塑膠花，電視正播著三台八點檔連續劇。",
-          "鄰居阿伯熱衷大家樂求明牌，巷口證券號子一早開門就擠滿看盤的菜籃族。",
-          "收音機裡傳來校園民歌與《愛拚才會贏》，街頭偶爾可見解嚴後熱烈的社會運動布條。"
+          {
+            "text": "放學與下班路上，街頭唱片行正播著校園民歌與台語金曲，鄰居聚在騎樓泡茶聊景氣。",
+            "min_year": 1970,
+            "max_year": 1986
+          },
+          {
+            "text": "鄰居阿伯熱衷大家樂求明牌，巷口證券號子一早開門就擠滿看盤的菜籃族。",
+            "min_year": 1985,
+            "max_year": 1989
+          },
+          {
+            "text": "收音機裡傳來校園民歌與《愛拚才會贏》，街頭偶爾可見解嚴後熱烈的社會運動布條。",
+            "min_year": 1987,
+            "max_year": 1989
+          }
         ]
       },
       {
@@ -5824,9 +5949,22 @@ window.TW_DATA = {
         "typical_first_marriage_age": 29,
         "overseas_comm_channel": "BBS／PTT 看板、MSN 即時通與 Skype 網路電話",
         "daily_vignettes": [
-          "下班或下課後掛在 BBS／PTT 與 MSN 上聊天，同學間互相幫對方的無名小站衝人氣。",
+          {
+            "text": "腰間別著呼叫器（BB Call），下班和朋友約在泡沫紅茶店或漫畫王打發時間。",
+            "min_year": 1990,
+            "max_year": 2002
+          },
+          {
+            "text": "下班或下課後掛在 BBS／PTT 與 MSN 上聊天，同學間互相幫對方的無名小站衝人氣。",
+            "min_year": 2003,
+            "max_year": 2009
+          },
           "選舉前夕造勢晚會旗海飄揚，電視政論節目每晚熱烈辯論台灣的前途。",
-          "房仲傳單越貼越密，身邊剛出社會的朋友開始感嘆薪水停在 22K 追不上房價。"
+          {
+            "text": "房仲傳單越貼越密，身邊剛出社會的朋友開始感嘆薪水停在 22K 追不上房價。",
+            "min_year": 2009,
+            "max_year": 2009
+          }
         ]
       },
       {
@@ -5843,7 +5981,15 @@ window.TW_DATA = {
         "overseas_comm_channel": "LINE 家族群組、即時視訊與台灣社群媒體",
         "daily_vignettes": [
           "午休時同事聚在一起滑手機看 0050 與台股大盤，手裡各拿一杯半糖去冰的手搖飲。",
-          "家族 LINE 群組每天早上湧入長輩圖，還有親友轉傳的防詐騙提醒與旅遊照片。",
+          {
+            "text": "智慧型手機與臉書剛普及，大家聚餐前習慣先幫餐點拍照打卡。",
+            "min_year": 2010,
+            "max_year": 2015
+          },
+          {
+            "text": "家族 LINE 群組每天早上湧入長輩圖，還有親友轉傳的防詐騙提醒與旅遊照片。",
+            "min_year": 2012
+          },
           "身邊越來越多朋友選擇不婚不生、領養貓狗作伴，週末逛文創市集與露營。"
         ]
       }
@@ -6567,8 +6713,8 @@ window.TW_DATA = {
       {
         "id": "RT03_childbirth_postpartum",
         "category": "family_care",
-        "title": "迎接新生命：海外天價托育 vs 回台坐月子與父母後援",
-        "desc": "異鄉育兒沒有親友幫手、托育費高昂，你開始認真考慮回台灣坐月子、讓孩子在阿公阿嬤身邊長大。",
+        "title": "成家與生兒育女的考量：海外高昂托育 vs 回台後援",
+        "desc": "步入婚姻後開始規劃是否生育下一代，但海外托育費天價又缺乏親友照應，讓你認真考慮回台灣建立家庭與坐月子後援。",
         "condition_type": "has_partner_childbearing",
         "age_range": [
           28,
@@ -6821,7 +6967,6 @@ window.TW_DATA = {
               "knowledge": 11,
               "happiness": -5,
               "health": -3,
-              "money_delta_twd_2025": -90000,
               "flag_set": "childhood_cram",
               "hs_exam_bonus": 7
             },
@@ -6844,7 +6989,6 @@ window.TW_DATA = {
               "social": 8,
               "happiness": 6,
               "knowledge": 3,
-              "money_delta_twd_2025": -50000,
               "flag_set": "childhood_talent"
             }
           },
@@ -6856,7 +7000,7 @@ window.TW_DATA = {
               "health": 4,
               "happiness": 2,
               "knowledge": -2,
-              "money_delta_twd_2025": 15000,
+              "money_delta_twd_2025": 8000,
               "flag_set": "childhood_family_help"
             }
           }
@@ -7031,7 +7175,6 @@ window.TW_DATA = {
             "effects": {
               "knowledge": 9,
               "happiness": -4,
-              "money_delta_twd_2025": -60000,
               "uni_admit_bonus": 0.18
             },
             "era_labels": [
@@ -7089,6 +7232,16 @@ window.TW_DATA = {
           {
             "key": "casual_jobs",
             "label": "換過幾份餐飲與超商打工，維持自由生活步調",
+            "era_labels": [
+              {
+                "max_year": 1978,
+                "label": "換過幾份工廠臨工、餐飲與雜貨店打雜，維持自由生活步調"
+              },
+              {
+                "min_year": 1979,
+                "label": "換過幾份餐飲與超商打工，維持自由生活步調"
+              }
+            ],
             "effects": {
               "happiness": 4,
               "social": 4,
@@ -7216,7 +7369,7 @@ window.TW_DATA = {
               "knowledge": 10,
               "happiness": -6,
               "social": -4,
-              "money_delta_twd_2025": -70000,
+              "money_delta_twd_2025": -18000,
               "flag_set": "uni_civil_prep"
             }
           },
@@ -7246,7 +7399,7 @@ window.TW_DATA = {
               "happiness": 12,
               "health": 5,
               "social": 6,
-              "money_delta_twd_2025": -40000
+              "money_delta_twd_2025": -15000
             },
             "era_labels": [
               {
@@ -7889,7 +8042,7 @@ window.TW_DATA = {
       {
         "id": "AP_1964_radio_baseball",
         "year_range": [
-          1955,
+          1962,
           1974
         ],
         "age_range": [
@@ -8127,7 +8280,7 @@ window.TW_DATA = {
       {
         "id": "AP_2017_australia_friend",
         "year_range": [
-          2009,
+          2011,
           2019
         ],
         "age_range": [

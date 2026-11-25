@@ -435,7 +435,7 @@
       $("overseasStatusBox").hidden = false;
       $("ovCountryLabel").textContent = `✈️ 旅居 ${l.abroad.flag} ${l.abroad.countryName}${l.abroad.commuterMode ? "（空中飛人）" : ""}`;
       $("ovPrBadge").textContent = l.abroad.prStatus;
-      $("ovMetaLine").textContent = `${l.abroad.pathwayName} ｜ 已旅外 ${l.abroad.yearsAbroad} 年 ｜ 透過「${cultEra ? cultEra.overseas_comm_channel : "跨海通訊"}」關注台灣`;
+      $("ovMetaLine").textContent = `${l.abroad.pathwayName} ｜ 已旅外 ${l.abroad.yearsAbroad} 年 ｜ 透過「${state.engine.getOverseasCommChannel(l.currentYear)}」關注台灣`;
       $("barHomesick").style.width = `${l.homesickness}%`;
       $("valHomesick").textContent = l.homesickness;
     } else {
@@ -1263,7 +1263,7 @@
   function showDecisionModal(dec) {
     state.pendingDecision = dec;
     const era = state.engine.getEraParams(state.life.currentYear);
-    $("decBadge").textContent = dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
+    $("decBadge").textContent = dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D07_career_track" ? "💼 職業與實業選擇" : dec.id === "D07B_career_switch" ? "🔄 職涯轉職契機" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
     $("decYearTag").textContent = `${state.life.currentYear}（${era.roc}）· ${state.life.age} 歲`;
     $("decTitle").textContent = dec.resolvedTitle;
     $("decDesc").textContent = dec.resolvedDesc;
@@ -1450,6 +1450,7 @@
         quintile: l.quintile, quintileLabel: l.quintileLabel,
         family: l.family, education: l.education, job: l.job,
         married: l.married, children: l.children, homeowner: l.homeowner,
+        ownedAssets: l.ownedAssets || { vehicle: null, valuables: null },
         moneyNominal: l.moneyNominal, stockNominal: l.stockNominal,
         homeValueNominal: l.homeValueNominal || 0, mortgageBalanceNominal: l.mortgageBalanceNominal || 0,
         personalities: l.personalities || [],

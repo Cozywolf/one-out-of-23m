@@ -289,11 +289,11 @@
     {
       "id": "D07_career_track",
       "stage": "career",
-      "title": "職涯跑道選擇",
+      "title": "初入職場：選擇你的職業與實業跑道",
       "conditions": {
         "age_range": [
-          21,
-          33
+          18,
+          32
         ],
         "requires_working_adult": true
       },
@@ -340,6 +340,29 @@
               "central",
               "south_tainan"
             ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "D07B_career_switch",
+      "stage": "career",
+      "title": "職涯轉職契機：跨界跳槽還是深耕本業？",
+      "conditions": {
+        "age_range": [
+          27,
+          48
+        ],
+        "requires_working_adult": true,
+        "min_work_years": 4
+      },
+      "options": [
+        {
+          "key": "stay_current_grow",
+          "label": "留在原領域累積資深年資（穩定調薪 +8%）",
+          "effects": {
+            "wage_mult": 1.08,
+            "happiness": 2
           }
         }
       ]
@@ -550,7 +573,12 @@
             },
             {
               "min_year": 1987,
+              "max_year": 2019,
               "label": "銀行定存或儲蓄險（依當年代利率計算）"
+            },
+            {
+              "min_year": 2020,
+              "label": "銀行定存、高利活存或儲蓄險（依當年代利率計算）"
             }
           ]
         },
@@ -569,16 +597,21 @@
             {
               "min_year": 1962,
               "max_year": 1985,
-              "label": "分批買進台股大型績優股（如水泥、紡織、金融股）"
+              "label": "分批買進台股大型績優股（水泥、紡織、金融股）"
             },
             {
               "min_year": 1986,
               "max_year": 2002,
-              "label": "定期買進台股大型權值股或開放式共同基金"
+              "label": "定期買進台股權值股或開放式共同基金"
             },
             {
               "min_year": 2003,
+              "max_year": 2019,
               "label": "定期定額台股大盤 ETF（如 0050）"
+            },
+            {
+              "min_year": 2020,
+              "label": "定期定額台股／海外大盤 ETF（如 0050）"
             }
           ]
         },
@@ -601,7 +634,12 @@
             },
             {
               "min_year": 1980,
+              "max_year": 2019,
               "label": "融資槓桿／聽明牌重壓飆股（牛市翻倍、股災易斷頭）"
+            },
+            {
+              "min_year": 2020,
+              "label": "融資槓桿／當沖重壓熱門題材股（牛市翻倍、股災易斷頭）"
             }
           ]
         }
@@ -877,7 +915,12 @@
             },
             {
               "min_year": 2008,
-              "label": "刪掉看盤 App 蓋牌續抱（結果依歷史年份分化）"
+              "max_year": 2011,
+              "label": "關掉電腦看盤軟體蓋牌續抱（結果依歷史年份分化）"
+            },
+            {
+              "min_year": 2012,
+              "label": "刪掉手機看盤 App 蓋牌續抱（結果依歷史年份分化）"
             }
           ]
         },
@@ -1103,8 +1146,7 @@
           24,
           42
         ],
-        "has_partner": true,
-        "requires_after_marriage_choice": true
+        "married": true
       },
       "options": [
         {
