@@ -1,0 +1,553 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "coverage_years": [
+      1950,
+      2070
+    ],
+    "roc_year_formula": "roc_year = gregorian_year - 1911",
+    "interpolation_note": "引擎逐年模擬時對 anchor_years 做線性內插，若遇 year_overrides 則優先以精確年度數據覆寫。",
+    "sources": [
+      "主計總處長期薪資、物價與失業率統計",
+      "監察院、內政部戶政司與公視／中央社歷年出生數與生育率統計",
+      "教育部大專校院與升學錄取率統計",
+      "國發會 2024–2070 人口推估報告",
+      "中央銀行、台銀定存利率與證交所／媒體整理台股紀錄",
+      "104 人力銀行與 1111 人力銀行引用主計總處薪資分布調查"
+    ]
+  },
+  "anchor_years": [
+    {
+      "year": 1955,
+      "cpi_index_2025_base": 0.1,
+      "avg_monthly_wage_twd": 700,
+      "min_wage_twd": 300,
+      "unemployment_rate": 0.038,
+      "uni_admission_rate": 0.2,
+      "tfr": 6.5,
+      "deposit_rate_1yr": 0.18,
+      "era_summary": "農村社會、美援、高通膨與高生育（1956年首訂基本工資300元）"
+    },
+    {
+      "year": 1965,
+      "cpi_index_2025_base": 0.18,
+      "avg_monthly_wage_twd": 1300,
+      "min_wage_twd": 450,
+      "unemployment_rate": 0.033,
+      "uni_admission_rate": 0.25,
+      "tfr": 4.8,
+      "deposit_rate_1yr": 0.108,
+      "era_summary": "加工出口區設立、客廳即工廠起步"
+    },
+    {
+      "year": 1975,
+      "cpi_index_2025_base": 0.38,
+      "avg_monthly_wage_twd": 4200,
+      "min_wage_twd": 600,
+      "unemployment_rate": 0.024,
+      "uni_admission_rate": 0.28,
+      "tfr": 2.8,
+      "deposit_rate_1yr": 0.12,
+      "era_summary": "十大建設、石油危機後經濟起飛"
+    },
+    {
+      "year": 1980,
+      "cpi_index_2025_base": 0.58,
+      "avg_monthly_wage_twd": 8800,
+      "min_wage_twd": 3300,
+      "unemployment_rate": 0.012,
+      "uni_admission_rate": 0.3,
+      "tfr": 2.5,
+      "deposit_rate_1yr": 0.125,
+      "era_summary": "工業化衝刺、新竹科學園區成立"
+    },
+    {
+      "year": 1985,
+      "cpi_index_2025_base": 0.65,
+      "avg_monthly_wage_twd": 13900,
+      "min_wage_twd": 6150,
+      "unemployment_rate": 0.029,
+      "uni_admission_rate": 0.32,
+      "tfr": 1.88,
+      "deposit_rate_1yr": 0.072,
+      "era_summary": "1984年生育率2.06首度低於2.1替換水準"
+    },
+    {
+      "year": 1990,
+      "cpi_index_2025_base": 0.72,
+      "avg_monthly_wage_twd": 24300,
+      "min_wage_twd": 9750,
+      "unemployment_rate": 0.017,
+      "uni_admission_rate": 0.38,
+      "tfr": 1.81,
+      "deposit_rate_1yr": 0.095,
+      "era_summary": "股市萬二崩盤(-80%)、鴻源倒閉、房價翻倍後修正"
+    },
+    {
+      "year": 1995,
+      "cpi_index_2025_base": 0.82,
+      "avg_monthly_wage_twd": 35400,
+      "min_wage_twd": 14880,
+      "unemployment_rate": 0.018,
+      "uni_admission_rate": 0.45,
+      "tfr": 1.78,
+      "deposit_rate_1yr": 0.073,
+      "era_summary": "全民健保開辦、410教改後大學擴張啟動"
+    },
+    {
+      "year": 2000,
+      "cpi_index_2025_base": 0.86,
+      "avg_monthly_wage_twd": 41900,
+      "min_wage_twd": 15840,
+      "unemployment_rate": 0.03,
+      "uni_admission_rate": 0.6,
+      "tfr": 1.68,
+      "deposit_rate_1yr": 0.05,
+      "era_summary": "網路泡沫(-66.6%)、首次政黨輪替、廣設大學"
+    },
+    {
+      "year": 2005,
+      "cpi_index_2025_base": 0.87,
+      "avg_monthly_wage_twd": 43200,
+      "min_wage_twd": 15840,
+      "unemployment_rate": 0.041,
+      "uni_admission_rate": 0.89,
+      "tfr": 1.12,
+      "deposit_rate_1yr": 0.018,
+      "era_summary": "雙卡風暴、勞退新制上路、實質薪資停滯期"
+    },
+    {
+      "year": 2010,
+      "cpi_index_2025_base": 0.9,
+      "avg_monthly_wage_twd": 44400,
+      "min_wage_twd": 17280,
+      "unemployment_rate": 0.052,
+      "uni_admission_rate": 0.95,
+      "tfr": 0.9,
+      "deposit_rate_1yr": 0.011,
+      "era_summary": "金融海嘯餘波、22K低薪定錨（大學畢業平均起薪25,246元）"
+    },
+    {
+      "year": 2015,
+      "cpi_index_2025_base": 0.95,
+      "avg_monthly_wage_twd": 48500,
+      "min_wage_twd": 20008,
+      "unemployment_rate": 0.038,
+      "uni_admission_rate": 0.96,
+      "tfr": 1.18,
+      "deposit_rate_1yr": 0.013,
+      "era_summary": "低利率、房價走高、少子化逼近大專校院"
+    },
+    {
+      "year": 2020,
+      "cpi_index_2025_base": 0.98,
+      "avg_monthly_wage_twd": 54300,
+      "min_wage_twd": 23800,
+      "unemployment_rate": 0.039,
+      "uni_admission_rate": 0.98,
+      "tfr": 0.99,
+      "deposit_rate_1yr": 0.0084,
+      "era_summary": "COVID-19爆發、定存利率首度跌破1%、實質經常性薪資41,538元首超2003年"
+    },
+    {
+      "year": 2025,
+      "cpi_index_2025_base": 1.0,
+      "avg_monthly_wage_twd": 62500,
+      "min_wage_twd": 28590,
+      "unemployment_rate": 0.0335,
+      "uni_admission_rate": 0.975,
+      "tfr": 0.695,
+      "deposit_rate_1yr": 0.0173,
+      "era_summary": "進入超高齡社會(65+占20.06%)、AI與資通訊占出口74%、經濟成長7.37%"
+    },
+    {
+      "year": 2040,
+      "cpi_index_2025_base": 1.25,
+      "avg_monthly_wage_twd": 78000,
+      "min_wage_twd": 36000,
+      "unemployment_rate": 0.035,
+      "uni_admission_rate": 0.98,
+      "tfr": 0.9,
+      "deposit_rate_1yr": 0.018,
+      "era_summary": "推估：總人口跌破2,100萬、長照人力高度緊繃"
+    },
+    {
+      "year": 2070,
+      "cpi_index_2025_base": 1.9,
+      "avg_monthly_wage_twd": 118000,
+      "min_wage_twd": 54000,
+      "unemployment_rate": 0.032,
+      "uni_admission_rate": 0.98,
+      "tfr": 1.0,
+      "deposit_rate_1yr": 0.02,
+      "era_summary": "國發會中推估：總人口1,497萬、65+占46.5%、年齡中位數62.4歲、青壯年與老人比1:1"
+    }
+  ],
+  "year_overrides": {
+    "1979": {
+      "births": 422518
+    },
+    "1984": {
+      "tfr": 2.06,
+      "uni_students": 173000
+    },
+    "1986": {
+      "industry_gdp_share": 0.4711,
+      "manufacturing_gdp_share": 0.3935
+    },
+    "1989": {
+      "services_gdp_share_above_50": true,
+      "taipei_house_price_per_ping_peak_twd": 255000
+    },
+    "1990": {
+      "stock_crash_pct": -0.8,
+      "taiex_peak": 12682,
+      "taiex_trough": 2485
+    },
+    "1994": {
+      "uni_admission_rate": 0.44,
+      "higher_ed_institutions": 130
+    },
+    "1997": {
+      "stock_crash_pct": -0.397
+    },
+    "2000": {
+      "stock_crash_pct": -0.666
+    },
+    "2001": {
+      "manufacturing_gdp_share": 0.2889
+    },
+    "2002": {
+      "uni_admission_rate": 0.83
+    },
+    "2003": {
+      "tfr": 1.23,
+      "etf_0050_launch": true
+    },
+    "2006": {
+      "divorces": 64540,
+      "crude_divorce_rate_per_1000": 2.83
+    },
+    "2007": {
+      "uni_students": 1120000
+    },
+    "2008": {
+      "tfr": 1.05,
+      "stock_crash_pct": -0.577
+    },
+    "2009": {
+      "unemployment_rate": 0.0585,
+      "unemployment_peak_aug": 0.0613,
+      "non_agri_wage_yoy": -0.0431,
+      "intern_22k_scheme": true
+    },
+    "2010": {
+      "grad_avg_starting_salary_twd": 25246,
+      "grad_3yr_salary_twd": 33151
+    },
+    "2011": {
+      "higher_ed_institutions": 163,
+      "stock_crash_pct": -0.283
+    },
+    "2012": {
+      "uni_students": 1355000,
+      "overseas_workers_china_peak": 430000
+    },
+    "2016": {
+      "births": 208440,
+      "min_wage_twd": 20008
+    },
+    "2019": {
+      "uni_admission_rate": 1.0
+    },
+    "2020": {
+      "deposit_rate_1yr": 0.0084,
+      "stock_crash_pct": -0.3,
+      "real_regular_wage_twd": 41538
+    },
+    "2021": {
+      "unemployment_rate": 0.0395,
+      "unpaid_leave_peak": 31980,
+      "last_ast_admission_rate": 0.9798,
+      "natural_pop_growth_negative_since_feb": true
+    },
+    "2022": {
+      "life_expectancy_drop_covid": -1.02,
+      "uni_shortfall_seats": 14493,
+      "overseas_workers_china": 177000
+    },
+    "2023": {
+      "higher_ed_institutions": 145,
+      "uni_students": 1095000
+    },
+    "2024": {
+      "tfr": 0.885,
+      "first_marriage_age_male": 33.1,
+      "first_marriage_age_female": 31.1,
+      "first_birth_mother_age": 31.7,
+      "overseas_workers_total": 666000,
+      "overseas_workers_us": 137000,
+      "overseas_workers_china": 231000,
+      "house_price_to_income_peak_q3": 10.82
+    },
+    "2025": {
+      "births": 107812,
+      "tfr": 0.695,
+      "marriages": 104376,
+      "crude_marriage_rate_per_1000": 4.47,
+      "divorces": 52101,
+      "crude_divorce_rate_per_1000": 2.23,
+      "elderly_65_plus_share": 0.2006,
+      "gdp_growth": 0.0737,
+      "ict_semiconductor_export_share": 0.74,
+      "services_employment_share": 0.6101,
+      "unemployment_rate": 0.0335,
+      "unpaid_leave_oct_tariff": 8543,
+      "scam_cases": 162000,
+      "scam_loss_twd_billion": 90.0,
+      "stock_crash_pct_dip": -0.18
+    },
+    "2026": {
+      "min_wage_twd": 29500,
+      "min_hourly_wage_twd": 196,
+      "birth_subsidy_per_child_twd": 100000,
+      "deposit_rate_1yr_range": [
+        0.01725,
+        0.0176
+      ],
+      "uni_admission_rate": 0.9754,
+      "taiex_intraday_high_oct": 49968.92,
+      "tsmc_share_price_oct_twd": 2590,
+      "etf_0050_holders_jul": 3563000
+    }
+  },
+  "institutional_switches": [
+    {
+      "id": "compulsory_9yr_ed",
+      "start_year": 1968,
+      "birth_cohort_start": 1956,
+      "category": "education",
+      "name": "九年國民義務教育",
+      "effect": "免考初中聯考，國中就學率躍升近100%"
+    },
+    {
+      "id": "outbound_tourism",
+      "start_year": 1979,
+      "category": "civil_liberty",
+      "name": "開放國人出國觀光",
+      "effect": "解鎖一般民眾出國旅遊選項"
+    },
+    {
+      "id": "lift_martial_law",
+      "start_year": 1987,
+      "category": "civil_liberty",
+      "name": "解除戒嚴（7/15）與開放大陸探親（11月）",
+      "effect": "解鎖社會運動、台商西進與自由出國留學；1988年開放報禁"
+    },
+    {
+      "id": "nhi_universal_healthcare",
+      "start_year": 1995,
+      "category": "healthcare",
+      "name": "全民健康保險開辦（3月）",
+      "effect": "大幅降低重大傷病醫療破產風險並提高存活率"
+    },
+    {
+      "id": "high_school_bctest",
+      "start_year": 2001,
+      "end_year": 2013,
+      "category": "education",
+      "name": "國中基本學力測驗（基測）",
+      "effect": "取代高中聯考，仍具明星高中排序壓力"
+    },
+    {
+      "id": "uni_multi_admission",
+      "start_year": 2002,
+      "category": "education",
+      "name": "大學多元入學（學測＋指考）",
+      "effect": "取代大學聯考，家庭資源與知識值對推甄申請權重上升"
+    },
+    {
+      "id": "labor_pension_new",
+      "start_year": 2005,
+      "category": "labor",
+      "name": "勞工退休金新制（7月）",
+      "effect": "雇主提撥6%至個人專戶，換工作不再年資歸零"
+    },
+    {
+      "id": "consumer_debt_clearance",
+      "start_year": 2008,
+      "category": "finance",
+      "name": "《消費者債務清理條例》施行（4月）",
+      "effect": "建立個人更生／清算機制，破產負債角色可合法重啟人生"
+    },
+    {
+      "id": "military_trial_reform",
+      "start_year": 2013,
+      "category": "justice",
+      "name": "《軍事審判法》修法",
+      "effect": "承平時期軍人涉案回歸普通法院，軍中不當管教風險下降"
+    },
+    {
+      "id": "compulsory_12yr_ed",
+      "start_year": 2014,
+      "category": "education",
+      "name": "十二年國教與國中會考",
+      "effect": "取代基測，免試入學擴大；2022年起大學分科測驗取代指考"
+    },
+    {
+      "id": "patient_autonomy_act",
+      "start_year": 2019,
+      "category": "healthcare",
+      "name": "《病人自主權利法》施行",
+      "effect": "解鎖老年期簽署預立醫療決定（拒絕無效插管）選項"
+    },
+    {
+      "id": "same_sex_marriage",
+      "start_year": 2019,
+      "category": "civil_liberty",
+      "name": "同婚專法生效（5/24）",
+      "effect": "亞洲第一，同性伴侶解鎖合法結婚與收養"
+    },
+    {
+      "id": "private_uni_exit_act",
+      "start_year": 2022,
+      "category": "education",
+      "name": "《私校退場條例》公布（5月）",
+      "effect": "少子化下後段私校停招停辦事件啟動"
+    },
+    {
+      "id": "citizen_judges",
+      "start_year": 2023,
+      "category": "justice",
+      "name": "《國民法官法》上路",
+      "effect": "重大刑案導入國民參與審判"
+    },
+    {
+      "id": "youth_mortgage_new",
+      "start_year": 2023,
+      "category": "housing",
+      "name": "新青安房貸上路（8/1）",
+      "effect": "最高1,000萬、40年期、寬限5年；2026年8月推青安3.0"
+    },
+    {
+      "id": "gender_equality_3_acts",
+      "start_year": 2024,
+      "category": "labor",
+      "name": "性平三法修法全面上路（3/8）",
+      "effect": "加重權勢性騷刑責與雇主防治義務"
+    },
+    {
+      "id": "anti_fraud_4_acts",
+      "start_year": 2024,
+      "category": "justice",
+      "name": "打詐新四法通過（7月）",
+      "effect": "重懲高額詐欺、導入科技偵查與人頭帳戶限制"
+    },
+    {
+      "id": "birth_subsidy_100k",
+      "start_year": 2026,
+      "category": "welfare",
+      "name": "好孕三方案生育補助（1/1）",
+      "effect": "每胎生育補助一律10萬元"
+    }
+  ],
+  "conscription_rules_male": [
+    {
+      "period": "pre_1990",
+      "end_year": 1989,
+      "months": [
+        24,
+        36
+      ],
+      "note": "陸軍2年、海空軍與陸戰隊3年；1990年7月統一為2年"
+    },
+    {
+      "period": "1990_1999",
+      "start_year": 1990,
+      "end_year": 1999,
+      "months": [
+        24
+      ],
+      "note": "全軍種統一2年義務役"
+    },
+    {
+      "period": "2000_2007",
+      "start_year": 2000,
+      "end_year": 2007,
+      "months": [
+        14,
+        22
+      ],
+      "note": "2000年縮為1年10月並首徵替代役，2004年起逐年減2個月"
+    },
+    {
+      "period": "2008_2012",
+      "start_year": 2008,
+      "end_year": 2012,
+      "months": [
+        12
+      ],
+      "note": "全軍種統一1年義務役"
+    },
+    {
+      "period": "2013_2023",
+      "birth_year_range": [
+        1994,
+        2004
+      ],
+      "months": [
+        4
+      ],
+      "note": "民國83年次起改4個月軍事訓練役"
+    },
+    {
+      "period": "2024_plus",
+      "birth_year_start": 2005,
+      "start_year": 2024,
+      "months": [
+        12
+      ],
+      "note": "民國94年次起恢復1年義務役，月薪大幅調高近基本工資"
+    }
+  ],
+  "salary_benchmarks_2023_2026": {
+    "annual_total_twd_2024": {
+      "median": 546000,
+      "mean": 732000,
+      "share_below_mean": 0.6875
+    },
+    "by_industry_median_annual_twd_2024": {
+      "金融及保險業": 1106000,
+      "電力及燃氣供應業": 1091000,
+      "電腦電子產品及光學製品製造業": 899000,
+      "半導體業_2025_104": 848000,
+      "製造業整體": 570000,
+      "部分其他服務業": 390000
+    },
+    "by_education_median_annual_twd_2023": {
+      "研究所": 1050000,
+      "大學專科": 560000
+    },
+    "by_age_median_annual_twd_2023": {
+      "under_30": 450000,
+      "40_to_49": 594000
+    },
+    "by_company_size_median_annual_twd_2023": {
+      "500_plus": 779000,
+      "under_4": 386000
+    },
+    "fresh_grad_monthly_median_twd": {
+      "engineering_medical_2021_2023": 37000,
+      "humanities_arts_2021_2023": 32000,
+      "software_it_role": 39000,
+      "tech_software_semi_2026": 40000,
+      "finance_insurance_2026": 39000
+    },
+    "top_non_manager_roles_median_annual_twd": {
+      "醫師_2025": 2118000,
+      "類比IC設計工程師_2024": 1550000,
+      "數位IC設計工程師_2024": 1340000,
+      "半導體工程師_2024": 1081000
+    }
+  }
+}

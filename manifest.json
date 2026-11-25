@@ -1,0 +1,9 @@
+{
+  "name": "生在台灣 · 台灣人生模擬",
+  "short_name": "生在台灣",
+  "description": "基於台灣真實統計與戰後現代史的人生模擬器（六大區 × 1950–2070）",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f1eb",
+  "theme_color": "#8C1D3C"
+}

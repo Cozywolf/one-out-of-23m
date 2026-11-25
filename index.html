@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#8C1D3C" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="生在台灣" />
+<title>生在台灣 v5.2 · 台灣人生模擬（GitHub Pages × 手機響應式優化版）</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&display=swap" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#intro" id="brandHome">生在台灣</a>
+  <nav class="topnav">
+    <button class="navbtn active" data-view="intro">開始</button>
+    <button class="navbtn" data-view="life">人生</button>
+    <button class="navbtn" data-view="end">訃聞</button>
+    <button class="navbtn" data-view="lab">Lab 統計</button>
+    <button class="navbtn" data-view="shelf">書架</button>
+  </nav>
+  <div class="topbar-toggles">
+    <button id="btnEduToggle" class="pill-toggle edu-active" aria-pressed="true" title="切換是否顯示重大惡性社會事件（關閉時僅保留法制與制度改革重點）">📢 重大惡性社會事件：開啟</button>
+    <button id="btnHistoricalToggle" class="pill-toggle hist-active" aria-pressed="false" title="僅於開啟重大惡性社會事件時可啟用：依個性、經歷與地區有機率成為重大事件當事人">⚡ 史實模式：關</button>
+    <button id="btnEnToggle" class="pill-toggle" aria-pressed="false" title="在歷史卡片顯示英文文化註解（Cultural Footnote）">🌐 EN 註解：關</button>
+    <button id="btnThemeTop" class="pill-toggle" title="切換淺色／深色／紙本主題">◐ 主題</button>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- 1. INTRO -->
+  <section id="view-intro" class="view active">
+    <div class="illus-strip" aria-hidden="true">
+      <img src="assets/illus-baby-book.jpg" alt="" loading="lazy">
+      <img src="assets/illus-world-people.jpg" alt="" loading="lazy">
+      <img src="assets/illus-time-seed.jpg" alt="" loading="lazy">
+    </div>
+    <div class="hero">
+      <h1 class="hero-title">
+        <span class="kicker">2 , 3 4 0 萬 分 之 1</span>
+        <span>生在<span class="accent">台</span>灣</span>
+        <span id="eduBadge" class="edu-badge" hidden>已關閉重大惡性社會事件</span><span id="histBadge" class="edu-badge" style="background:#991b1b;color:#fff;border-color:#991b1b;" hidden>🔥 史實模式</span>
+      </h1>
+      <p class="hero-sub">
+        以 1in8b.life 與 born-somewhere 為基底，導入台灣真實生命表、家庭收支五等分位、六大區房價所得比與 1950–2070 戰後現代史。<br/>
+        每一次選擇只改變機率，不鎖死命運——從 0 歲走完一段台灣人生，看見重大事件與法制改革如何塑造今日生活。
+      </p>
+    </div>
+
+    <div class="tw-mode-strip">
+      <div class="tw-mode-strip-left">
+        <strong>事件呈現與風險模式：</strong>
+        可切換「<strong>開啟／關閉重大惡性社會事件</strong>」（關閉時僅呈現制度改革重點，適合教學）；開啟重大惡性社會事件後，可進一步啟用「<strong>史實模式</strong>」，依角色個性、經歷與所在地區，有機率親身成為重大歷史事件之當事人。
+      </div>
+      <div class="tw-mode-strip-btns">
+        <button id="btnIntroMajorToggle" class="pill-toggle edu-active" aria-pressed="true">📢 重大惡性社會事件：開啟</button>
+        <button id="btnIntroHistToggle" class="pill-toggle hist-active" aria-pressed="false">⚡ 史實模式：關</button>
+      </div>
+    </div>
+
+    <div id="eduBannerIntro" class="edu-banner" hidden>
+      <span>🛡 <strong>已關閉重大惡性社會事件（教學友善模式）</strong>：已關閉個人自殺與創傷事件細節，重大社會刑案僅呈現「法制與制度改革重點」，且已鎖定史實模式。</span>
+      <button class="tw-btn-ghost" id="btnDisableEduBanner">開啟重大惡性社會事件</button>
+    </div>
+
+    <div id="histBannerIntro" class="hist-banner" hidden>
+      <span>🔥 <strong>史實模式已啟用</strong>：你將依個性、經歷與地理位置，有機率直接成為台灣重大社會、金融、災難事件之當事人，可能面臨重大經濟甚至生命損失。</span>
+      <button class="tw-btn-ghost" id="btnDisableHistBanner">關閉史實模式</button>
+    </div>
+
+    <div class="tw-intro-grid">
+      <div class="tw-panel">
+        <h3>
+          <span>一、出生地抽籤（台灣六大區域）</span>
+          <span id="regionModeHint" class="muted" style="font-size:14.4px;">隨機抽籤中</span>
+        </h3>
+        <div class="seg" id="regionModeSeg">
+          <button class="seg-btn active" data-rmode="birth_weight">依出生率隨機</button>
+          <button class="seg-btn" data-rmode="pop_weight">依人口比隨機</button>
+          <button class="seg-btn" data-rmode="manual">自選大區</button>
+        </div>
+        <div id="introRegionCards" class="tw-region-cards"></div>
+      </div>
+
+      <div class="tw-panel">
+        <h3>
+          <span>二、出生年代（民國／西元雙軌）</span>
+          <span class="muted" style="font-size:14.4px;">1950–2026</span>
+        </h3>
+        <div class="era-presets" id="eraPresets">
+          <button class="era-chip active" data-year="random">🎲 隨機年代</button>
+          <button class="era-chip" data-year="1955">1955（民國44）</button>
+          <button class="era-chip" data-year="1970">1970（民國59）</button>
+          <button class="era-chip" data-year="1985">1985（民國74）</button>
+          <button class="era-chip" data-year="1995">1995（民國84）</button>
+          <button class="era-chip" data-year="2005">2005（民國94）</button>
+          <button class="era-chip" data-year="2025">2025（此刻）</button>
+        </div>
+        <div class="tw-year-slider-row">
+          <input type="range" id="yearSlider" min="1950" max="2026" value="1990" />
+          <span class="tw-year-display" id="yearSliderDisplay">隨機（1950–2026）</span>
+        </div>
+        <p id="eraPreviewNote" class="muted" style="font-size:15px;margin:10px 0 14px;"></p>
+
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px;">
+          <button id="btnStartLife" class="tw-btn-primary">開始這一段台灣人生 →</button>
+          <button id="btnOpenHelpline" class="tw-btn-ghost">15+ 分級與求助資源</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="helpline-footer-box">
+      <strong>分級與資料聲明（15+）：</strong> 本模擬器依據內政部生命表、主計總處家庭收支調查、衛福部死因統計與教育部公開資料建立，模擬結果為統計演繹而非真實人物或預測。一般模式依真實統計包含天災、金融詐騙與重大社會案件（絕不描寫血腥或自傷細節）；若你或身邊親友正處於情緒低潮、暴力或詐騙壓力，台灣全年無休求助專線：<strong>1925 安心專線</strong> ｜ <strong>1995 生命線</strong> ｜ <strong>113 婦幼保護</strong> ｜ <strong>165 反詐騙</strong>。
+    </div>
+  </section>
+
+  <!-- 2. LIFE -->
+  <section id="view-life" class="view" data-mobile-tab="feed">
+    <header class="life-topbar">
+      <div class="ltb-inner">
+        <div class="ltb-brand">生在台灣</div>
+        <div class="ltb-agebox">
+          <div class="ltb-age" id="lifeAge">0<small>歲</small></div>
+          <div class="ltb-yr">
+            <span class="ltb-yr-text" id="lifeYear">1990（民國79年）</span>
+            <div class="ltb-prog"><i id="lifeBar"></i></div>
+          </div>
+        </div>
+        <div class="ltb-speed">
+          <button class="ltb-pause" id="btnPause" aria-pressed="false" title="暫停／繼續（快捷鍵：空白鍵 Space）">❚❚</button>
+          <button class="ltb-speed-btn active" data-speed="1" aria-pressed="true" title="1×：6 秒／1 歲">1×</button>
+          <button class="ltb-speed-btn" data-speed="2" aria-pressed="false" title="2×：3 秒／1 歲">2×</button>
+          <button class="ltb-speed-btn" data-speed="4" aria-pressed="false" title="4×：1.5 秒／1 歲">4×</button>
+          <button class="ltb-speed-btn" data-speed="8" aria-pressed="false" title="8×：0.75 秒／1 歲">8×</button>
+          <button class="ltb-speed-btn" data-speed="16" aria-pressed="false" title="16×：0.375 秒／1 歲">16×</button>
+          <button class="ltb-more" id="btnStepYear" title="手動前進 1 歲">+1歲</button>
+          <button class="ltb-more" id="btnAuto" aria-pressed="false" title="自動抉擇開關">自動：關</button>
+          <button class="ltb-more" id="btnHukou" title="檢視台灣戶口名簿出生證明">戶口卡</button>
+          <button class="ltb-more" id="btnEndEarly" title="提早結束這段人生" aria-label="提早結束這段人生">💀</button>
+          <button class="ltb-more" id="btnRebirth" title="重新抽籤出生">↺</button>
+        </div>
+      </div>
+      <div class="mobile-mini-hud" id="mobileMiniHud" aria-label="快速狀態摘要">
+        <span id="mobHudLoc">📍 —</span>
+        <span id="mobHudHealth">❤️ —</span>
+        <span id="mobHudHappy">😊 —</span>
+        <span id="mobHudMoney">💰 —</span>
+      </div>
+    </header>
+
+    <div class="life-grid">
+      <!-- Left column: Identity, Status, Institutional Switches -->
+      <div class="life-col life-col-a">
+        <div class="tw-panel" style="margin-bottom:14px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <div id="lifePortrait" style="font-size:38.1px;">👶</div>
+            <div>
+              <div id="lifeName" style="font-family:var(--serif);font-size:24px;font-weight:700;">—</div>
+              <div id="lifeSubMeta" class="muted" style="font-size:15px;">—</div>
+            </div>
+          </div>
+          <div class="cert-meta">
+            <div class="meta-row"><span>居住大區</span><b id="metaRegion">—</b></div>
+            <div class="meta-row"><span>家境等級</span><b id="metaQuintile">—</b></div>
+            <div class="meta-row"><span>個性傾向</span><b id="metaPersonality">—</b></div>
+            <div class="meta-row"><span>學歷／科系</span><b id="metaEdu">—</b></div>
+            <div class="meta-row"><span>職業與產業</span><b id="metaJob">—</b></div>
+            <div class="meta-row"><span>婚姻與子女</span><b id="metaFamily">—</b></div>
+            <div class="meta-row"><span>居住狀態</span><b id="metaHousing">—</b></div>
+            <div class="meta-row"><span>當年存活率</span><b id="metaSurvival">—</b></div>
+          </div>
+          <div id="lifeStatusNote" class="tw-status-banner" hidden></div>
+          <div id="overseasStatusBox" class="tw-overseas-box" hidden>
+            <div class="tw-overseas-head">
+              <span id="ovCountryLabel">✈️ 海外旅居中</span>
+              <span id="ovPrBadge" class="eec-year-badge">—</span>
+            </div>
+            <div id="ovMetaLine" style="margin-bottom:6px;">—</div>
+            <div class="state-row" style="margin:0;">
+              <span class="state-label" style="width:62px;">思鄉羈絆</span>
+              <div class="state-bar"><i id="barHomesick"></i></div>
+              <span class="state-val" id="valHomesick">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="life-stats">
+          <h4>⚖️ 狀態 0–100</h4>
+          <div class="state-row"><span class="state-label">健康</span><div class="state-bar"><i id="barHealth"></i></div><span class="state-val" id="valHealth">—</span></div>
+          <div class="state-row"><span class="state-label">幸福</span><div class="state-bar"><i id="barHappy"></i></div><span class="state-val" id="valHappy">—</span></div>
+          <div class="state-row"><span class="state-label">知識</span><div class="state-bar"><i id="barKnow"></i></div><span class="state-val" id="valKnow">—</span></div>
+          <div class="state-row"><span class="state-label">人際</span><div class="state-bar"><i id="barSocial"></i></div><span class="state-val" id="valSocial">—</span></div>
+          <div class="state-assets">
+            <span>總淨資產（現＋股＋房）</span>
+            <div class="money-dual">
+              <b id="valMoneyNominal">NT$0</b>
+              <span class="money-real" id="valMoneyReal">約合 2025 購買力 NT$0</span>
+            </div>
+          </div>
+          <div id="assetBreakdown" class="asset-breakdown">現金 NT$0 ｜ 台股 NT$0 ｜ 房產淨值 NT$0</div>
+          <div id="marketTickerBadge" class="mkt-badge" hidden>—</div>
+          <div style="margin-top:10px;font-size:14.4px;" class="muted">
+            年度重心：
+            <select id="focusSelect" style="padding:3px 6px;border-radius:6px;border:1px solid var(--line);">
+              <option value="balanced">均衡生活</option>
+              <option value="study">全力學習／進修</option>
+              <option value="work">衝刺工作／加班</option>
+              <option value="save">省吃儉用存錢</option>
+              <option value="health">規律運動養生</option>
+              <option value="family">陪伴家人與社交</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tw-panel" style="margin-top:14px;">
+          <h4 style="margin:0 0 6px;font-size:16.2px;">🏛 當前生效的台灣制度</h4>
+          <div id="activeSwitches" class="switch-pills"></div>
+        </div>
+      </div>
+
+      <!-- Center column: Era Banner, Illustration, Three-Part Educational Feed -->
+      <div class="life-col life-col-b">
+        <div class="tw-panel" style="margin-bottom:12px;">
+          <div id="lifeEraSummary" style="font-size:15.6px;color:var(--ink-2);">—</div>
+          <div id="lifeFlavorLine" style="font-size:16.2px;margin-top:6px;font-weight:600;color:var(--accent);">—</div>
+          <div id="lifeCultureNote" class="muted" style="font-size:14.4px;margin-top:5px;line-height:1.5;">—</div>
+        </div>
+        <div class="life-illus" id="lifeIllus" style="text-align:center;margin-bottom:12px;">
+          <img id="lifeIllusImg" src="assets/illus-baby-book.jpg" alt="" style="max-height:110px;border-radius:10px;">
+        </div>
+        <div class="life-events-feed">
+          <h4>📜 台灣人生與歷史紀錄 <span class="muted">（最新在前 · 歷史現場點擊標題展開 · 空白鍵暫停／繼續）</span></h4>
+          <div id="lifeFeedList"></div>
+        </div>
+      </div>
+
+      <!-- Right column: Taiwan 6-Region Map, 4 Companions, Life Map -->
+      <div class="life-col life-col-c">
+        <div class="tw-map-box">
+          <h4>
+            <span>🗺 台灣六大區域足跡</span>
+            <span id="mapMigrationTag" class="muted" style="font-size:13.8px;">出生地</span>
+          </h4>
+          <svg id="twRegionSvg" class="tw-svg-map" viewBox="0 0 240 310" aria-label="台灣六大區示意地圖">
+            <path class="tw-map-region" data-region="north_taipei" d="M148,18 L186,28 L192,56 L160,64 L138,44 Z" />
+            <text class="tw-map-label" data-label="north_taipei" x="165" y="45">雙北基</text>
+            <path class="tw-map-region" data-region="north_hsinchu" d="M138,44 L160,64 L148,96 L112,92 L116,62 Z" />
+            <text class="tw-map-label" data-label="north_hsinchu" x="134" y="77">桃竹苗</text>
+            <path class="tw-map-region" data-region="central" d="M112,92 L148,96 L154,148 L96,152 L92,118 Z" />
+            <text class="tw-map-label" data-label="central" x="123" y="127">中彰投</text>
+            <path class="tw-map-region" data-region="south_tainan" d="M96,152 L142,148 L138,205 L82,202 L80,174 Z" />
+            <text class="tw-map-label" data-label="south_tainan" x="110" y="180">雲嘉南</text>
+            <path class="tw-map-region" data-region="south_kaohsiung" d="M82,202 L138,205 L142,276 L118,292 L92,250 Z" />
+            <text class="tw-map-label" data-label="south_kaohsiung" x="114" y="242">高屏</text>
+            <path class="tw-map-region" data-region="east_islands" d="M160,64 L192,56 L198,136 L174,238 L142,255 L142,148 L148,96 Z" />
+            <text class="tw-map-label" data-label="east_islands" x="171" y="152">宜花東</text>
+            <rect class="tw-map-region" data-region="east_islands" x="22" y="158" width="38" height="24" rx="6" />
+            <text class="tw-map-label" data-label="east_islands_off" x="41" y="174">離島</text>
+          </svg>
+          <div id="mapRegionStatsCard" class="map-stats-card"></div>
+        </div>
+
+        <div class="tw-panel" style="margin-bottom:14px;">
+          <h4 style="margin:0 0 8px;font-size:16.2px;">👥 同年出生的 4 位台灣同伴</h4>
+          <div id="companionsList" class="comp-list"></div>
+        </div>
+
+        <div class="tw-panel">
+          <h4 style="margin:0 0 4px;font-size:16.2px;">🟩 人生地圖（1 格 = 1 歲）</h4>
+          <div class="muted" style="font-size:13.2px;">綠：度過 ｜ 黃：歷史事件 ｜ 紅：重大抉擇</div>
+          <div id="lifeMapGrid" class="lm-grid"></div>
+        </div>
+
+        <div id="survivalCurveBox" class="chart-panel">
+          <h4><span>📉 存活曲線</span><span id="survCurveSub" class="muted">所屬大區 vs 全台平均</span></h4>
+          <div id="survivalCurveSvgWrap"></div>
+          <div id="survivalCurveCaption" class="chart-caption"></div>
+        </div>
+
+        <div id="trajectoryBox" class="chart-panel">
+          <h4><span>📊 5 面向終身軌跡</span><span class="muted">0 歲 → 至今</span></h4>
+          <div id="trajectorySvgWrap"></div>
+          <div class="chart-legend">
+            <span class="chart-leg-item"><i class="chart-leg-swatch" style="background:#2B7A4E;"></i>健康</span>
+            <span class="chart-leg-item"><i class="chart-leg-swatch" style="background:#d97706;"></i>幸福</span>
+            <span class="chart-leg-item"><i class="chart-leg-swatch" style="background:#2563eb;"></i>知識</span>
+            <span class="chart-leg-item"><i class="chart-leg-swatch" style="background:#9333ea;"></i>人際</span>
+            <span class="chart-leg-item"><i class="chart-leg-swatch" style="background:#8C1D3C;"></i>實質資產</span>
+          </div>
+          <div id="trajectoryCaption" class="chart-caption"></div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="mobile-life-tabs" id="mobileLifeTabs" aria-label="手機版畫面分頁">
+      <button type="button" class="mob-tab-btn active" data-mtab="feed" aria-pressed="true">
+        <span class="mob-tab-ico">📜</span><span>人生與歷史</span>
+      </button>
+      <button type="button" class="mob-tab-btn" data-mtab="stats" aria-pressed="false">
+        <span class="mob-tab-ico">👤</span><span>狀態與資產</span>
+      </button>
+      <button type="button" class="mob-tab-btn" data-mtab="charts" aria-pressed="false">
+        <span class="mob-tab-ico">🗺</span><span>地圖與圖表</span>
+      </button>
+    </nav>
+  </section>
+
+  <!-- 3. END / OBITUARY -->
+  <section id="view-end" class="view">
+    <div class="end-cert">
+      <div class="cert-band">
+        <span class="cert-title">這一段台灣人生走完了。</span>
+        <span class="cert-date" id="endYearsSpan">—</span>
+      </div>
+      <div class="cert-body">
+        <div class="cert-figure" id="endPortrait">🕯️</div>
+        <h2 class="cert-name-main" id="endName">—</h2>
+        <div class="cert-id" id="endSummaryGrid"></div>
+      </div>
+      <div id="endTrajectoryWrap" style="padding:16px 24px;border-top:1px solid var(--line);" hidden></div>
+      <div id="endProtagonistWrap" style="padding:16px 24px;border-top:1px solid var(--line);" hidden></div>
+      <div id="endFinanceWrap" style="padding:16px 24px;border-top:1px solid var(--line);" hidden></div>
+      <div id="endDecisionsWrap" style="padding:16px 24px;border-top:1px solid var(--line);"></div>
+      <div id="endThoughtsWrap" style="padding:16px 24px;border-top:1px solid var(--line);"></div>
+      <div id="endHelplineBox" style="padding:0 24px 16px;"></div>
+      <div style="padding:16px 24px 24px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <button id="btnDownloadCertPng" class="tw-btn-ghost">📥 下載生命證書 PNG</button>
+        <button id="btnEndRebirth" class="tw-btn-primary">再抽一段台灣人生</button>
+        <button id="btnEndBackIntro" class="tw-btn-ghost">回到首頁重選設定</button>
+        <button id="btnEndGoShelf" class="tw-btn-ghost">查看過去人生書架</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. LAB -->
+  <section id="view-lab" class="view">
+    <h2 class="lab-title">Lab · 台灣統計批次實驗室</h2>
+    <p class="lab-sub">一次模擬數百段台灣人生（已嚴格套用選項前置條件），驗證不同大區與不同年代在壽命、升學、收入與買房上的統計落差。</p>
+    <div class="tw-panel">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
+        <label style="font-size:15.6px;">組別 A 大區<br/>
+          <select id="labRegionA" style="padding:6px;border-radius:6px;border:1px solid var(--line);"></select>
+        </label>
+        <label style="font-size:15.6px;">組別 A 出生年<br/>
+          <input type="number" id="labYearA" value="1965" min="1950" max="2026" style="width:92px;padding:6px;border-radius:6px;border:1px solid var(--line);" />
+        </label>
+        <label style="font-size:15.6px;">組別 B 大區<br/>
+          <select id="labRegionB" style="padding:6px;border-radius:6px;border:1px solid var(--line);"></select>
+        </label>
+        <label style="font-size:15.6px;">組別 B 出生年<br/>
+          <input type="number" id="labYearB" value="2025" min="1950" max="2026" style="width:92px;padding:6px;border-radius:6px;border:1px solid var(--line);" />
+        </label>
+        <label style="font-size:15.6px;">每組模擬人數<br/>
+          <select id="labN" style="padding:6px;border-radius:6px;border:1px solid var(--line);">
+            <option value="100">100 人</option>
+            <option value="300" selected>300 人</option>
+            <option value="500">500 人</option>
+          </select>
+        </label>
+        <button id="btnRunLab" class="tw-btn-primary" style="padding:9px 18px;font-size:16.8px;">執行統計對照</button>
+      </div>
+    </div>
+    <div id="labOutput" class="lab-compare-grid"></div>
+  </section>
+
+  <!-- 5. SHELF -->
+  <section id="view-shelf" class="view">
+    <h2 class="shelf-title">過去生命的書架與追思館</h2>
+    <p class="shelf-hint">所有紀錄僅保存在你本機瀏覽器的 localStorage，不上傳任何資料。</p>
+    <div id="shelfList" class="shelf-grid"></div>
+    <div class="memorial-wall" id="memorialWall" style="margin-top:24px;">
+      <img class="memorial-illus" src="assets/illus-memorial-lantern.jpg" alt="" loading="lazy">
+      <h3 class="memorial-title">追思館 · 點一盞燈</h3>
+      <p class="memorial-subtitle">每一段走過的台灣人生，都映照著某個時代真實的身影。點任一書架卡片可重開完整訃聞。</p>
+      <div id="memorialEmpty" style="color:#b8ad96;padding:12px 0;">目前還沒有可追思的人生，完成一段人生後即可在此點燈紀念。</div>
+      <div id="memorialContent" hidden>
+        <div style="display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:8px;">
+          <button id="btnMemPrev" class="tw-mem-btn">‹ 上一段</button>
+          <span id="memorialCounter" style="font-family:var(--mono);color:#d4c4a0;">1 / 1</span>
+          <button id="btnMemNext" class="tw-mem-btn">下一段 ›</button>
+          <button id="btnMemRandom" class="tw-mem-btn">🎲 隨機遇見</button>
+        </div>
+        <div id="memorialCard" class="tw-memorial-card"></div>
+        <div class="tw-mem-actions">
+          <button id="btnMemCandle" class="tw-mem-btn">🕯️ 點一支蠟燭</button>
+          <button id="btnMemHeart" class="tw-mem-btn">🤍 記在心裡</button>
+          <button id="btnMemReopen" class="tw-mem-btn">👁 重開完整訃聞與軌跡</button>
+        </div>
+        <div id="memorialCounters" class="tw-mem-counters"></div>
+      </div>
+      <div style="margin-top:16px;">
+        <button id="btnClearShelf" class="tw-mem-btn" style="font-size:13px;opacity:0.75;">🗑️ 清空本機書架紀錄</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- DECISION MODAL -->
+<div id="decisionModal" class="modal" hidden>
+  <div class="modal-card dec-card">
+    <div class="eec-header">
+      <span id="decBadge" class="eec-cat-badge">人生抉擇</span>
+      <span id="decYearTag" class="eec-year-badge">—</span>
+    </div>
+    <h3 id="decTitle" style="margin:6px 0 8px;font-family:var(--serif);font-size:24px;">—</h3>
+    <p id="decDesc" style="font-size:16.8px;line-height:1.6;margin:0 0 12px;"></p>
+    <div id="decSourceNote" class="muted" style="font-size:14.4px;margin-bottom:12px;"></div>
+    <div id="decOptions" style="display:grid;gap:8px;"></div>
+  </div>
+</div>
+
+<!-- PAUSE REFLECTION MODAL (5/15/30/50/70) -->
+<div id="pauseModal" class="modal" hidden>
+  <div class="modal-card">
+    <span class="eec-cat-badge" id="pauseAgeTag">暫停提問</span>
+    <h3 id="pauseQuestion" style="font-family:var(--serif);margin:10px 0 12px;font-size:22.8px;">—</h3>
+    <textarea id="pauseInput" rows="3" placeholder="留下一句給這個年紀的自己或這位模擬角色的話（可略過，按 Esc 亦可關閉）..." style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);"></textarea>
+    <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:8px;">
+      <button id="btnPauseContinue" class="tw-btn-primary" style="padding:8px 18px;font-size:16.8px;">記下並繼續人生</button>
+    </div>
+  </div>
+</div>
+
+<!-- HUKOU / BIRTH CERTIFICATE MODAL -->
+<div id="hukouModal" class="modal" hidden>
+  <div class="modal-card">
+    <div class="hukou-card" id="hukouBody"></div>
+    <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;">
+      <button id="btnDownloadHukouPng" class="tw-btn-primary" style="padding:8px 16px;font-size:15px;">📥 下載戶口出生卡 PNG</button>
+      <button id="btnCloseHukou" class="tw-btn-ghost">關閉</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELPLINE & RATING MODAL -->
+<div id="helplineModal" class="modal" hidden>
+  <div class="modal-card">
+    <h3 style="margin-top:0;font-family:var(--serif);color:var(--accent);">15+ 分級說明與台灣求助資源</h3>
+    <p style="font-size:16.2px;line-height:1.65;">
+      本模擬器依台灣官方統計呈現生老病死、經濟衰退、天災與重大社會法制事件，絕不描寫暴力或自傷細節。若於課堂教學使用，建議於頂部切換「🛡 重大惡性社會事件：關閉」（或於網址列加上 <code>?edu=1</code>）。
+    </p>
+    <div id="helplineList" style="display:grid;gap:8px;margin:12px 0;"></div>
+    <div style="text-align:right;">
+      <button id="btnCloseHelpline" class="tw-btn-ghost">我知道了</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- HISTORICAL MODE CONFIRMATION MODAL -->
+<div id="historicalConfirmModal" class="modal" hidden>
+  <div class="modal-card">
+    <span class="pec-badge">⚠️ 史實模式風險確認</span>
+    <div class="hist-warn-box">開啟史實模式你將可能會為重大事件之當事人，請審慎考慮</div>
+    <p style="font-size:16.2px;line-height:1.65;margin:0 0 12px;color:var(--ink-2);">
+      開啟後，系統將依據角色的<strong>個性傾向</strong>、<strong>職涯與資產經歷</strong>、以及<strong>所處台灣大區</strong>計算當事人機率。一旦捲入重大歷史事件（如金融吸金倒閉、強震風災、工安意外、疫情或重大社會案件），可能導致<strong>重大經濟損失、房屋損毀、長期傷病、人生軌跡劇變，甚至生命損失</strong>。<br/>
+      （本模式仍嚴格遵循不描寫血腥畫面之教育規範，並附台灣求助資源。）
+    </p>
+    <div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:14px;">
+      <button id="btnHistCancel" class="tw-btn-ghost">取消，維持一般觀察模式</button>
+      <button id="btnHistConfirm" class="tw-btn-primary" style="background:#991b1b;">我已了解，確認開啟史實模式</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- END EARLY CONFIRMATION MODAL -->
+<div id="endEarlyModal" class="modal" hidden>
+  <div class="modal-card">
+    <span class="pec-badge">💀 提早結束確認</span>
+    <h3 style="margin:12px 0 8px;font-family:var(--serif);font-size:22px;">確定要提早結束這一段人生嗎？</h3>
+    <p style="font-size:16.5px;line-height:1.72;margin:0 0 14px;color:var(--ink-2);">
+      按下確認後將立即結束這一段模擬並進入訃聞結算畫面，紀錄將保存於本機書架，無法再繼續前進。
+    </p>
+    <div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:14px;">
+      <button id="btnEndEarlyCancel" class="tw-btn-ghost">取消，繼續這段人生</button>
+      <button id="btnEndEarlyConfirm" class="tw-btn-primary" style="background:#991b1b;">💀 確認提早結束</button>
+    </div>
+  </div>
+</div>
+
+<div id="twToast" class="tw-toast" hidden></div>
+
+<script src="data/tw_bundle.js"></script>
+<script src="js/tw_engine.js"></script>
+<script src="js/tw_ui.js"></script>
+</body>
+</html>

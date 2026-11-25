@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "baseline_decade": "2020s",
+    "model_note": "引擎每年以 base_qx_per_1000 × decade_mortality_multiplier × region_adjustment × health_lifestyle_modifiers 計算當年死亡機率，再依 cause_weights 擲骰死因。",
+    "sources": [
+      "內政部 113–114 年簡易生命表提要",
+      "衛福部 113–114 年死因統計年報與癌症登記報告",
+      "國健署口腔癌風險研究",
+      "交通部與天下雜誌／聯合報整理之事故與自殺統計",
+      "氣象署 1911–2019 侵台颱風統計與地震專家週期估計"
+    ]
+  },
+  "decade_mortality_multipliers": [
+    {
+      "decade": "1950s",
+      "approx_life_expectancy": 58.5,
+      "multiplier": 2.4
+    },
+    {
+      "decade": "1960s",
+      "approx_life_expectancy": 65.0,
+      "multiplier": 1.9
+    },
+    {
+      "decade": "1970s",
+      "approx_life_expectancy": 69.0,
+      "multiplier": 1.6
+    },
+    {
+      "decade": "1980s",
+      "approx_life_expectancy": 72.0,
+      "multiplier": 1.35
+    },
+    {
+      "decade": "1990s",
+      "approx_life_expectancy": 74.5,
+      "multiplier": 1.2
+    },
+    {
+      "decade": "2000s",
+      "approx_life_expectancy": 77.5,
+      "multiplier": 1.1
+    },
+    {
+      "decade": "2010s",
+      "approx_life_expectancy": 80.0,
+      "multiplier": 1.03
+    },
+    {
+      "decade": "2020s",
+      "approx_life_expectancy": 81.27,
+      "multiplier": 1.0
+    }
+  ],
+  "age_bands_2020s": [
+    {
+      "age_min": 0,
+      "age_max": 0,
+      "stage": "嬰兒期（新生兒）",
+      "qx_per_1000_male": 4.3,
+      "qx_per_1000_female": 3.9,
+      "note": "台灣新生兒（出生28天內）死亡率約4.1‰，近20年多為日韓2–3倍；1980年代前倍率可達2.5–6倍",
+      "cause_weights": {
+        "congenital_perinatal": 0.7,
+        "accident_other": 0.3
+      }
+    },
+    {
+      "age_min": 1,
+      "age_max": 14,
+      "stage": "童年期",
+      "qx_per_1000_male": 0.22,
+      "qx_per_1000_female": 0.16,
+      "cause_weights": {
+        "accident": 0.35,
+        "cancer": 0.2,
+        "congenital_neuro_other": 0.45
+      }
+    },
+    {
+      "age_min": 15,
+      "age_max": 24,
+      "stage": "青少年期",
+      "qx_per_1000_male": 0.55,
+      "qx_per_1000_female": 0.25,
+      "note": "機車交通事故為首位；蓄意自我傷害（自殺）為第二（約11.9%）",
+      "cause_weights": {
+        "accident_traffic": 0.45,
+        "suicide": 0.12,
+        "cancer": 0.1,
+        "cardio_other": 0.33
+      }
+    },
+    {
+      "age_min": 25,
+      "age_max": 44,
+      "stage": "青壯年期",
+      "qx_per_1000_male": 1.4,
+      "qx_per_1000_female": 0.65,
+      "note": "自殺率每10萬人約18.5人；癌症（女性乳癌、男性口腔／肝癌）與事故占比高",
+      "cause_weights": {
+        "cancer": 0.28,
+        "accident": 0.18,
+        "suicide": 0.15,
+        "heart_liver": 0.2,
+        "other": 0.19
+      }
+    },
+    {
+      "age_min": 45,
+      "age_max": 64,
+      "stage": "中壯年期",
+      "qx_per_1000_male": 6.2,
+      "qx_per_1000_female": 2.9,
+      "note": "癌症為首要死因；45–64歲族群逾5%自殺通報與債務（尤以詐騙為大宗）相關",
+      "cause_weights": {
+        "cancer": 0.42,
+        "heart_cerebro": 0.22,
+        "liver_diabetes": 0.1,
+        "suicide_accident": 0.08,
+        "other": 0.18
+      }
+    },
+    {
+      "age_min": 65,
+      "age_max": 74,
+      "stage": "初老期",
+      "qx_per_1000_male": 16.0,
+      "qx_per_1000_female": 9.4,
+      "note": "60–74歲平均約12.68‰，男性約為女性1.7倍",
+      "cause_weights": {
+        "cancer": 0.38,
+        "heart_disease": 0.14,
+        "cerebrovascular": 0.08,
+        "pneumonia": 0.07,
+        "diabetes_hypertension": 0.1,
+        "other": 0.23
+      }
+    },
+    {
+      "age_min": 75,
+      "age_max": 89,
+      "stage": "中老期",
+      "qx_per_1000_male": 63.0,
+      "qx_per_1000_female": 44.5,
+      "note": "75–89歲平均約53.78‰，進入長照高需求期",
+      "cause_weights": {
+        "cancer": 0.24,
+        "heart_disease": 0.15,
+        "pneumonia": 0.13,
+        "cerebrovascular": 0.09,
+        "chronic_fall_dementia_other": 0.39
+      }
+    },
+    {
+      "age_min": 90,
+      "age_max": 110,
+      "stage": "高壽期",
+      "qx_per_1000_male": 225.0,
+      "qx_per_1000_female": 195.0,
+      "note": "90歲以上平均約209.34‰，多屬自然衰老與器官衰竭",
+      "cause_weights": {
+        "heart_organ_decline": 0.35,
+        "pneumonia_respiratory": 0.25,
+        "cerebro_hypertension": 0.2,
+        "other": 0.2
+      }
+    }
+  ],
+  "epidemiology_and_hazard_stats": {
+    "cancer": {
+      "top_cause_since_year": 1982,
+      "deaths_2025": 54838,
+      "share_of_all_deaths": 0.3,
+      "new_cases_2023": 138051,
+      "median_onset_age": {
+        "overall": 65,
+        "thyroid": 50,
+        "breast": 57
+      },
+      "betel_nut_oral_cancer_risk_multiplier": 28.0
+    },
+    "traffic_deaths_2024": 2932,
+    "maternal_deaths_2024": 11,
+    "suicide_2025": {
+      "deaths": 3951,
+      "rate_per_100k": 16.9,
+      "age_45_64_debt_related_report_share": 0.05
+    },
+    "natural_hazard_annual_rolls": {
+      "typhoons_per_year_avg": 3.5,
+      "typhoons_range": [
+        0,
+        7
+      ],
+      "peak_months": [
+        8,
+        7,
+        9
+      ],
+      "m7_earthquake_return_period_years": [
+        60,
+        100
+      ]
+    }
+  },
+  "safety_and_help_resources": {
+    "age_rating": "15+",
+    "edu_mode_query_param": "?edu=1",
+    "taiwan_helplines": [
+      {
+        "number": "1925",
+        "name": "衛福部安心專線（24小時心理諮詢與自殺防治）"
+      },
+      {
+        "number": "1995",
+        "name": "生命線協談專線"
+      },
+      {
+        "number": "113",
+        "name": "婦幼保護專線（家暴、性侵、兒少保護）"
+      },
+      {
+        "number": "165",
+        "name": "內政部警政署反詐騙諮詢專線"
+      }
+    ]
+  }
+}

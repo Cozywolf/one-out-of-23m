@@ -1,0 +1,573 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "description": "台灣各個人生時期所處環境的專屬互動事件與能力養成系統（童年、國中升學考、高中/高職五專/學徒分流、大學社團/實驗室/實習/公職備考、職場人脈進修、樂齡退休），所有分支皆受角色屬性與前期抉擇連動影響。",
+    "sources": [
+      "教育部十二年國教、高中職分流、技職證照與大專校院生涯追蹤調查",
+      "台灣聯考（1954–2000）、國中基測（2001–2013）、國中會考（2014+）升學制度演變",
+      "104 人力銀行大學生社團、實習、實驗室專題與初職薪資關聯調查"
+    ]
+  },
+  "hs_exam_system": {
+    "eras": [
+      {
+        "max_year": 1967,
+        "name": "初中／省中聯考",
+        "age": 12,
+        "top_threshold": 68,
+        "hs_threshold": 48
+      },
+      {
+        "min_year": 1968,
+        "max_year": 2000,
+        "name": "高中聯考（北聯／中聯／南聯）",
+        "age": 15,
+        "top_threshold": 70,
+        "hs_threshold": 50
+      },
+      {
+        "min_year": 2001,
+        "max_year": 2013,
+        "name": "國中基本學力測驗（基測）",
+        "age": 15,
+        "top_threshold": 68,
+        "hs_threshold": 46
+      },
+      {
+        "min_year": 2014,
+        "max_year": 2130,
+        "name": "國中教育會考（12年國教免試／特招）",
+        "age": 15,
+        "top_threshold": 66,
+        "hs_threshold": 42
+      }
+    ],
+    "tiers": {
+      "top_hs": {
+        "label": "頂尖明星高中（各地第一志願）",
+        "uni_bonus": 0.22,
+        "knowledge_bonus": 10
+      },
+      "normal_hs": {
+        "label": "普通高中",
+        "uni_bonus": 0.05,
+        "knowledge_bonus": 6
+      },
+      "vocational": {
+        "label": "高職／五專技職體系",
+        "uni_bonus": -0.05,
+        "knowledge_bonus": 4,
+        "skill_bonus": 1.08
+      },
+      "work_early": {
+        "label": "不繼續升學，提早進入職場當學徒",
+        "uni_bonus": -1.0,
+        "knowledge_bonus": -3
+      }
+    }
+  },
+  "stage_events": [
+    {
+      "id": "LS01_childhood_env",
+      "stage": "childhood",
+      "title": "童年課後時光：補習、才藝還是放學野放？",
+      "conditions": {
+        "age_range": [
+          9,
+          13
+        ],
+        "in_taiwan_only": true
+      },
+      "desc": "國小到國中前夕，放學後的安排將悄悄拉開你的基礎學科能力、體能與人際性格，也會影響幾年後的升學考試表現。",
+      "options": [
+        {
+          "key": "cram_study",
+          "label": "上安親班／文理補習班狂寫評量（知識++、升學考加分、幸福-）",
+          "effects": {
+            "knowledge": 11,
+            "happiness": -5,
+            "health": -3,
+            "money_delta_twd_2025": -90000,
+            "flag_set": "childhood_cram",
+            "hs_exam_bonus": 7
+          }
+        },
+        {
+          "key": "sports_arts",
+          "label": "參加學校校隊／音樂美術才藝班（健康+、人際+、幸福+）",
+          "effects": {
+            "health": 7,
+            "social": 8,
+            "happiness": 6,
+            "knowledge": 3,
+            "money_delta_twd_2025": -50000,
+            "flag_set": "childhood_talent"
+          }
+        },
+        {
+          "key": "help_family_play",
+          "label": "放學幫家裡顧店／務農，剩餘時間和鄰居玩耍（省錢、顧家務實）",
+          "effects": {
+            "social": 5,
+            "health": 4,
+            "happiness": 2,
+            "knowledge": -2,
+            "money_delta_twd_2025": 15000,
+            "flag_set": "childhood_family_help"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS02_junior_high_exam_branch",
+      "stage": "junior_high_exam",
+      "title": "升學大考放榜：高中、高職五專還是直接工作？",
+      "conditions": {
+        "special": "hs_exam_year",
+        "in_taiwan_only": true
+      },
+      "desc": "動態生成（依當年代考制與你的知識值、家境與課後準備計算考試落點）",
+      "options": [
+        {
+          "key": "enter_top_hs",
+          "label": "進入頂尖明星高中（各地一中／女中：大學升學率大幅加成）",
+          "requires_exam_tier": "top_hs",
+          "effects": {
+            "track": "top_academic",
+            "knowledge": 10,
+            "happiness": 4,
+            "hs_tier": "top_hs"
+          }
+        },
+        {
+          "key": "enter_normal_hs",
+          "label": "進入普通高中（往一般大學升學邁進）",
+          "requires_exam_tier": "normal_hs_or_above",
+          "effects": {
+            "track": "academic",
+            "knowledge": 7,
+            "money_delta_ratio": -0.05,
+            "hs_tier": "normal_hs"
+          }
+        },
+        {
+          "key": "enter_vocational",
+          "label": "就讀高職或五專（學一技之長、考證照或日後拚統測升科大）",
+          "effects": {
+            "track": "vocational",
+            "knowledge": 4,
+            "early_job_ready": true,
+            "hs_tier": "vocational"
+          }
+        },
+        {
+          "key": "stop_schooling",
+          "label": "不繼續升學，直接進工廠／店面當學徒賺錢貼補家用",
+          "effects": {
+            "track": "labor",
+            "money_delta_ratio": 0.1,
+            "knowledge": -4,
+            "max_edu_cap": "junior_high",
+            "hs_tier": "work_early"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS03_high_school_track",
+      "stage": "high_school",
+      "title": "高中關鍵抉擇：選自然組還是社會組？社團怎麼辦？",
+      "conditions": {
+        "age": 16,
+        "requires_hs_tier": [
+          "top_hs",
+          "normal_hs"
+        ],
+        "in_taiwan_only": true
+      },
+      "desc": "高二面臨文理組分班與社團幹部交接，你的選擇會直接影響 18 歲大學考科優勢與未來科系走向。",
+      "options": [
+        {
+          "key": "science_cram",
+          "label": "選自然組（二／三類）＋全力衝刺補習（知識++、開啟電資工程醫藥優勢）",
+          "effects": {
+            "knowledge": 10,
+            "happiness": -5,
+            "health": -3,
+            "flag_set": "hs_group_science",
+            "uni_admit_bonus": 0.1
+          }
+        },
+        {
+          "key": "humanities_club",
+          "label": "選社會組（一類）＋扛下社團幹部／辦成發（人際++、幸福+、商管人文優勢）",
+          "effects": {
+            "social": 10,
+            "happiness": 6,
+            "knowledge": 4,
+            "flag_set": "hs_group_humanities"
+          }
+        },
+        {
+          "key": "balanced_romance",
+          "label": "課業維持中上，享受社團與青春初戀（幸福++、人際+、有機率早遇伴侶）",
+          "effects": {
+            "happiness": 9,
+            "social": 7,
+            "knowledge": 3,
+            "flag_set": "hs_balanced",
+            "partner_chance": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS04_vocational_path",
+      "stage": "vocational_school",
+      "title": "高職／五專校園抉擇：拚證照競賽、建教實習還是衝科大？",
+      "conditions": {
+        "age": 17,
+        "requires_hs_tier": [
+          "vocational"
+        ],
+        "in_taiwan_only": true
+      },
+      "desc": "身處台灣技職體系，你可以靠全國技藝競賽與乙級證照翻身，或是搶先進入職場累積存款與實務資歷。",
+      "options": [
+        {
+          "key": "skill_cert_competition",
+          "label": "苦練考取乙級技術士證照／拚全國技藝競賽（技能加薪、保送國立科大機會）",
+          "requires_knowledge_min": 45,
+          "effects": {
+            "knowledge": 8,
+            "wage_mult": 1.14,
+            "flag_set": "vocational_elite",
+            "uni_admit_bonus": 0.25
+          }
+        },
+        {
+          "key": "coop_internship",
+          "label": "參加建教合作／提前進工廠與企業實習（存錢快、畢業直接轉正）",
+          "effects": {
+            "money_delta_twd_2025": 160000,
+            "social": 5,
+            "health": -3,
+            "wage_mult": 1.06,
+            "flag_set": "vocational_coop"
+          }
+        },
+        {
+          "key": "aim_tech_uni",
+          "label": "報名補習班專攻統測／插大，目標洗上國立科技大學",
+          "effects": {
+            "knowledge": 9,
+            "happiness": -4,
+            "money_delta_twd_2025": -60000,
+            "uni_admit_bonus": 0.18
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS05_early_apprentice",
+      "stage": "early_work",
+      "title": "少年學徒的十字路口：熬出師還是半工半讀補學歷？",
+      "conditions": {
+        "age": 17,
+        "requires_hs_tier": [
+          "work_early"
+        ],
+        "in_taiwan_only": true
+      },
+      "desc": "提早踏入社會兩年，每天在工廠、工地或店面流汗磨練。接下來的決定會左右你二十歲後的起跑高度。",
+      "options": [
+        {
+          "key": "master_craft",
+          "label": "咬牙熬過三年四個月跟師傅學滿技術（出師後成搶手技藝師傅，收入大幅跳升）",
+          "effects": {
+            "health": -4,
+            "wage_mult": 1.28,
+            "flag_set": "master_craftsman",
+            "knowledge": 4
+          }
+        },
+        {
+          "key": "night_school",
+          "label": "白天工作、晚上念夜校／空中大學補完高職或大學學歷（解除學歷上限！）",
+          "effects": {
+            "knowledge": 10,
+            "health": -5,
+            "happiness": -3,
+            "unlock_night_edu": true,
+            "flag_set": "night_school_grad"
+          }
+        },
+        {
+          "key": "casual_jobs",
+          "label": "換過幾份餐飲與超商打工，維持自由生活步調",
+          "effects": {
+            "happiness": 4,
+            "social": 4,
+            "wage_mult": 0.96
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS06_university_campus_life",
+      "stage": "university",
+      "title": "大學黃金歲月（大一～大二）：玩社團、進實驗室還是打工？",
+      "conditions": {
+        "age_range": [
+          19,
+          20
+        ],
+        "requires_in_uni": true,
+        "in_taiwan_only": true
+      },
+      "desc": "進入自由的大學校園，沒有老師盯早自習了。你把大把課餘時間投入哪裡，將深刻形塑你的能力結構與未來人脈。",
+      "options": [
+        {
+          "key": "join_clubs",
+          "label": "狂玩社團／系學會／辦宿營活動（人際++、戀愛機率↑、解鎖未來職場人脈內推）",
+          "effects": {
+            "social": 14,
+            "happiness": 9,
+            "knowledge": -2,
+            "flag_set": "uni_club_leader",
+            "partner_chance": 0.45
+          }
+        },
+        {
+          "key": "enter_lab",
+          "label": "大二就進教授實驗室做專題／衝書卷獎（知識++、推甄頂大與留學獎學金大加分）",
+          "requires_knowledge_min": 55,
+          "effects": {
+            "knowledge": 14,
+            "happiness": -3,
+            "health": -2,
+            "flag_set": "uni_lab_research",
+            "wage_mult": 1.08
+          }
+        },
+        {
+          "key": "parttime_tutor",
+          "label": "狂接家教與校外打工存生活費（累積存款、減輕學貸、提早社會化）",
+          "effects": {
+            "money_delta_twd_2025": 220000,
+            "social": 5,
+            "health": -4,
+            "flag_set": "uni_parttime"
+          }
+        },
+        {
+          "key": "double_major_coding",
+          "label": "雙主修／輔系或自學程式跨領域（知識+、解鎖科技軟體與遠距職涯資格）",
+          "effects": {
+            "knowledge": 11,
+            "happiness": -4,
+            "flag_set": "uni_cross_coding",
+            "remote_unlock": true,
+            "wage_mult": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS07_university_career_prep",
+      "stage": "university",
+      "title": "大學畢業前夕（大三～大四）：實習卡位、備考公職還是拚研留學？",
+      "conditions": {
+        "age": 21,
+        "requires_in_uni": true,
+        "in_taiwan_only": true
+      },
+      "desc": "眼看就要畢業面對真實社會，身旁同學各自走上不同岔路。你在大三升大四這年決定把火力集中在哪條賽道？",
+      "options": [
+        {
+          "key": "corp_internship",
+          "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給、避開 22K 低薪風險）",
+          "effects": {
+            "wage_mult": 1.16,
+            "social": 6,
+            "knowledge": 5,
+            "flag_set": "uni_internship",
+            "money_delta_twd_2025": 120000
+          }
+        },
+        {
+          "key": "prep_civil_exam",
+          "label": "提早報名補習班備考公職／國營／國家專技證照（知識+、日後公職上榜率翻倍！）",
+          "effects": {
+            "knowledge": 10,
+            "happiness": -6,
+            "social": -4,
+            "money_delta_twd_2025": -70000,
+            "flag_set": "uni_civil_prep"
+          }
+        },
+        {
+          "key": "prep_grad_abroad",
+          "label": "狂刷歷屆考研／托福 GRE 雅思衝刺（大幅提升國內頂大碩士與出國留學契機）",
+          "effects": {
+            "knowledge": 12,
+            "happiness": -5,
+            "flag_set": "uni_grad_abroad_prep"
+          }
+        },
+        {
+          "key": "grad_travel_youth",
+          "label": "趁年輕機車環島、打工換宿與畢業旅行（幸福++、健康+、留下難忘青春）",
+          "effects": {
+            "happiness": 12,
+            "health": 5,
+            "social": 6,
+            "money_delta_twd_2025": -40000
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS08_workplace_levelup",
+      "stage": "career_growth",
+      "title": "職場進階關卡：靠人脈內推、考照升遷還是轉考公職？",
+      "conditions": {
+        "age_range": [
+          27,
+          37
+        ],
+        "requires_working": true,
+        "in_taiwan_only": true
+      },
+      "desc": "出社會打滾幾年後進入第一個職涯高原期。你過往累積的屬性、社團人脈或大學備考基礎，此刻都能派上用場。",
+      "options": [
+        {
+          "key": "network_referral",
+          "label": "動用大學社團／同業人脈內推跳槽外商或大廠（需人際 ≥ 68 或曾任社團幹部）",
+          "requires_social_or_club": true,
+          "effects": {
+            "wage_mult": 1.24,
+            "social": 5,
+            "happiness": 6,
+            "flag_set": "referral_promoted"
+          }
+        },
+        {
+          "key": "exec_cert_study",
+          "label": "利用下班進修專業證照／在職專班（依知識值檢定升遷加薪機率）",
+          "effects": {
+            "knowledge": 8,
+            "health": -4,
+            "money_delta_twd_2025": -120000,
+            "check_knowledge_promotion": true
+          }
+        },
+        {
+          "key": "switch_civil_service",
+          "label": "趁還有體力報考高普考／國營事業（若大學曾備考或知識 ≥ 72 上榜率極高）",
+          "effects": {
+            "attempt_instant_civil_exam": true
+          }
+        },
+        {
+          "key": "steady_balance",
+          "label": "維持現職步調，把心力留給下班生活與健康",
+          "effects": {
+            "health": 5,
+            "happiness": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS09_midlife_community",
+      "stage": "midlife_env",
+      "title": "中年生活圈重心：業界商會、家長會還是專注家庭養生？",
+      "conditions": {
+        "age_range": [
+          43,
+          54
+        ],
+        "in_taiwan_only": true
+      },
+      "desc": "步入不惑之年，你所處的社群與生活圈開始決定你後半生的健康資本與危機支持網。",
+      "options": [
+        {
+          "key": "industry_association",
+          "label": "加入同業公會／扶輪社／獅子會拓展人脈與事業機會（人際++、應酬傷身）",
+          "effects": {
+            "social": 10,
+            "wage_mult": 1.1,
+            "health": -5,
+            "money_delta_twd_2025": -150000
+          }
+        },
+        {
+          "key": "fitness_club",
+          "label": "加入台灣超夯的登山社／單車環島／馬拉松跑團（健康++、大幅降低中壯年病死率）",
+          "effects": {
+            "health": 14,
+            "happiness": 7,
+            "social": 6,
+            "midlife_mortality_mult": 0.8
+          }
+        },
+        {
+          "key": "quiet_home_saving",
+          "label": "減少無效社交，專心陪伴家人並加速累積退休資產",
+          "effects": {
+            "savings_rate_bonus": 0.05,
+            "happiness": 4,
+            "social": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "LS10_retirement_third_life",
+      "stage": "retirement_env",
+      "title": "退休後的第三人生：社區大學、幫忙帶孫還是環台慢活？",
+      "conditions": {
+        "age_range": [
+          63,
+          74
+        ],
+        "requires_retired_or_65": true,
+        "in_taiwan_only": true
+      },
+      "desc": "卸下數十年的職場重擔，台灣超高齡社會下的退休環境充滿多元選擇，這將決定你晚年的身心品質。",
+      "options": [
+        {
+          "key": "community_college",
+          "label": "報名台灣社區大學／樂齡中心學書法攝影並當志工（人際++、健康+、對抗孤老）",
+          "effects": {
+            "social": 12,
+            "happiness": 10,
+            "health": 8,
+            "knowledge": 5,
+            "midlife_mortality_mult": 0.85
+          }
+        },
+        {
+          "key": "help_grandkids",
+          "label": "幫忙子女接送照顧孫子（僅有子女者可選：親情++、體力消耗）",
+          "requires_children": true,
+          "effects": {
+            "social": 10,
+            "happiness": 8,
+            "health": -5
+          }
+        },
+        {
+          "key": "slow_travel_invest",
+          "label": "靠股息年金搭高鐵環台泡溫泉、定期出國賞櫻慢活（幸福++）",
+          "effects": {
+            "happiness": 14,
+            "health": 4,
+            "money_delta_ratio": -0.08
+          }
+        }
+      ]
+    }
+  ]
+}

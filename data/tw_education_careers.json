@@ -1,0 +1,441 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "coverage_years": [
+      1950,
+      2026
+    ],
+    "description": "台灣各年代教育資源、影子教育（補習）、階級城鄉差距，以及跨年代職涯與六大區薪資分布資料集。",
+    "sources": [
+      "教育部歷年教育統計與大專校院升學資料",
+      "主計總處受僱員工薪資調查與家庭收支調查",
+      "104 人力銀行各學門與職務薪資調查報告",
+      "PISA 台灣學生學習表現與社經背景分析"
+    ]
+  },
+  "education_eras": [
+    {
+      "id": "edu_1950_1969",
+      "year_range": [
+        1950,
+        1969
+      ],
+      "label": "聯考窄門與克難求學期（1950–1960s）",
+      "core_system": "國小畢業須考「初中聯考」（1968 年才實施九年國教）；師範公費與軍警校為清寒資優生首選。",
+      "shadow_education": "國小課後「惡性補習」寫測驗卷盛行；外語與家教資源極度稀缺。",
+      "class_regional_gap": "農村與東部家庭常集中資源供長子升學，女孩高機率國小或國中畢業即做工貼補家用。",
+      "cram_school_cost_ratio": 0.04,
+      "female_early_work_prob_q1_q2": 0.45,
+      "flavor_events": [
+        "國小下課後留校寫完滿滿一疊測驗卷，放學天色都黑了。",
+        "同學家裡靠賣菜供哥哥讀省中，姊姊國中畢業就進成衣廠貼補家用。",
+        "鎮上只有幾家書店，考前大家輪流傳抄油印的考古題講義。"
+      ]
+    },
+    {
+      "id": "edu_1970_1989",
+      "year_range": [
+        1970,
+        1989
+      ],
+      "label": "五專盛世與南陽街補習狂潮（1970–1980s）",
+      "core_system": "高中與大學聯考並立；五專（台北工專、高雄工專、明志等）與高職建教合作含金量極高；夜間部與 1986 空中大學盛行。",
+      "shadow_education": "台北南陽街補習街進入全盛期，聚集近十萬重考生與高中衝刺班學生。",
+      "class_regional_gap": "大學錄取率僅 25%–38%，明星高中主導頂大名額，外縣市學生北上重考食宿成本高昂。",
+      "cram_school_cost_ratio": 0.08,
+      "female_early_work_prob_q1_q2": 0.18,
+      "flavor_events": [
+        "每天放學背著沉重書包擠公車去補習街搶前排座位，手裡抓著十元麵包當晚餐。",
+        "考上國立五專讓全家族放鞭炮慶祝，長輩說學一技之長最實在。",
+        "聯考倒數百日，全班在教室後方貼滿紅紙誓師，夜晚路燈下全是背英文單字的身影。"
+      ]
+    },
+    {
+      "id": "edu_1990_2009",
+      "year_range": [
+        1990,
+        2009
+      ],
+      "label": "410 教改、廣設大學與安親美語潮（1990–2000s）",
+      "core_system": "1994 教改後廣設高中大學，2001 基測與 2002 大學多元入學上路，就學貸款普及，錄取率一路逼近九成。",
+      "shadow_education": "立案文理補習班從 1997 年約 1,248 家暴增至 2006 年破 7,000 家，「安親班＋美語／心算」成為雙薪家庭標配。",
+      "class_regional_gap": "學歷膨脹後競爭轉向「公立頂大 vs 後段私校」，Q1–Q2 家庭背負學貸比例顯著上升。",
+      "cram_school_cost_ratio": 0.12,
+      "female_early_work_prob_q1_q2": 0.05,
+      "flavor_events": [
+        "小學放學直接搭安親班娃娃車，接著上兒童美語與珠心算，晚上八點才回家吃飯。",
+        "大學錄取率大幅攀升，長輩開始改口叮嚀「光念大學不夠，還要念國立研究所」。",
+        "推甄申請入學要準備備審資料與才藝證明，家庭資源的落差逐漸顯現。"
+      ]
+    },
+    {
+      "id": "edu_2010_2070",
+      "year_range": [
+        2010,
+        2130
+      ],
+      "label": "108 課綱、補習軍備賽與少子化退場（2010–2020s+）",
+      "core_system": "2014 十二年國教（會考）、2019 年 108 課綱導入學習歷程檔案；實驗教育與雙語私校興起；2022 後私校退場加速。",
+      "shadow_education": "全台補習班突破 18,000 家（數量超越便利商店），衍生學習歷程顧問、程式課、海外營隊等高單價軍備賽。",
+      "class_regional_gap": "偏鄉小學約占 36%，PISA 顯示最富裕與最貧困家庭分數落差顯著；代理教師流動與數位落差並存。",
+      "cram_school_cost_ratio": 0.15,
+      "female_early_work_prob_q1_q2": 0.02,
+      "flavor_events": [
+        "補習班招牌比巷口超商還密集，週末還得趕場寫程式營隊與整理 108 課綱學習歷程檔案。",
+        "雙語私校抽籤與入學考擠破頭，家長群組天天討論學區設籍與雙語教材。",
+        "母校國小今年新生減班，老師感嘆十年前每個年級還有八個班。"
+      ]
+    }
+  ],
+  "careers": [
+    {
+      "id": "car_farmer_fisher",
+      "name": "農漁民／青農",
+      "era_range": [
+        1950,
+        2130
+      ],
+      "salary_mult_min": 0.58,
+      "salary_mult_max": 0.85,
+      "preferred_regions": [
+        "south_tainan",
+        "central",
+        "south_kaohsiung",
+        "east_islands"
+      ],
+      "min_edu_level": 0,
+      "preferred_majors": [],
+      "stability": 0.72,
+      "health_drain": 0.6,
+      "remote_capable": false,
+      "flavor": "看天吃飯，早起巡田或出海，易受颱風與 2002 年 WTO 進口農產衝擊。"
+    },
+    {
+      "id": "car_civil_teacher",
+      "name": "軍公教／國營事業",
+      "era_range": [
+        1950,
+        2130
+      ],
+      "salary_mult_min": 0.98,
+      "salary_mult_max": 1.32,
+      "preferred_regions": [
+        "north_taipei",
+        "east_islands",
+        "central",
+        "south_tainan",
+        "south_kaohsiung"
+      ],
+      "min_edu_level": 3,
+      "preferred_majors": [
+        "public_funded",
+        "humanities_biz"
+      ],
+      "stability": 0.99,
+      "health_drain": 0.1,
+      "remote_capable": false,
+      "flavor": "工作極度穩定，1950–60 年代含實物配給與眷舍，2008 海嘯後更是青年避風港。"
+    },
+    {
+      "id": "car_epz_worker",
+      "name": "加工出口區作業員／紡織成衣員",
+      "era_range": [
+        1960,
+        1995
+      ],
+      "salary_mult_min": 0.7,
+      "salary_mult_max": 0.88,
+      "preferred_regions": [
+        "south_kaohsiung",
+        "central",
+        "north_hsinchu"
+      ],
+      "min_edu_level": 1,
+      "preferred_majors": [],
+      "stability": 0.75,
+      "health_drain": 0.8,
+      "remote_capable": false,
+      "flavor": "1966 高雄加工出口區設立後，成為台灣經濟起飛與女性大量投入職場的縮影。"
+    },
+    {
+      "id": "car_craft_apprentice",
+      "name": "傳統技藝師傅（水電／木工／車床）",
+      "era_range": [
+        1950,
+        2130
+      ],
+      "salary_mult_min": 0.85,
+      "salary_mult_max": 1.35,
+      "preferred_regions": [
+        "central",
+        "south_tainan",
+        "north_taipei",
+        "south_kaohsiung"
+      ],
+      "min_edu_level": 1,
+      "preferred_majors": [],
+      "stability": 0.82,
+      "health_drain": 0.9,
+      "remote_capable": false,
+      "flavor": "熬過學徒出師後憑一技之長立身，近年缺工反讓老師傅身價看漲。"
+    },
+    {
+      "id": "car_export_sales",
+      "name": "外銷貿易業務（一卡皮箱走天下）",
+      "era_range": [
+        1970,
+        2005
+      ],
+      "salary_mult_min": 1.25,
+      "salary_mult_max": 2.1,
+      "preferred_regions": [
+        "north_taipei",
+        "central",
+        "south_kaohsiung"
+      ],
+      "min_edu_level": 3,
+      "preferred_majors": [
+        "humanities_biz"
+      ],
+      "stability": 0.76,
+      "health_drain": 0.6,
+      "remote_capable": false,
+      "flavor": "提著裝滿樣品的一卡皮箱飛往歐美參展接單，撐起台灣外銷奇蹟。"
+    },
+    {
+      "id": "car_sme_boss",
+      "name": "傳產頭家／中小企業廠主",
+      "era_range": [
+        1970,
+        2130
+      ],
+      "salary_mult_min": 0.8,
+      "salary_mult_max": 3.2,
+      "preferred_regions": [
+        "central",
+        "north_hsinchu",
+        "south_kaohsiung",
+        "south_tainan"
+      ],
+      "min_edu_level": 2,
+      "preferred_majors": [],
+      "stability": 0.62,
+      "health_drain": 0.9,
+      "remote_capable": false,
+      "flavor": "從「客廳即工廠」黑手變頭家，順風時買透天、逆風時須扛關稅與軋票壓力。"
+    },
+    {
+      "id": "car_doctor_lawyer",
+      "name": "醫師／律師／會計師（三師）",
+      "era_range": [
+        1955,
+        2130
+      ],
+      "salary_mult_min": 2.3,
+      "salary_mult_max": 3.8,
+      "preferred_regions": [
+        "north_taipei",
+        "central",
+        "south_kaohsiung",
+        "south_tainan"
+      ],
+      "min_edu_level": 4,
+      "preferred_majors": [
+        "stem_med"
+      ],
+      "stability": 0.95,
+      "health_drain": 0.8,
+      "remote_capable": false,
+      "flavor": "門檻極高的頂尖專業，2025 調查醫師年薪中位數逾 211 萬元居各業之冠。"
+    },
+    {
+      "id": "car_finance_broker",
+      "name": "金融銀行／證券營業員／房仲",
+      "era_range": [
+        1980,
+        2130
+      ],
+      "salary_mult_min": 1.35,
+      "salary_mult_max": 2.6,
+      "preferred_regions": [
+        "north_taipei",
+        "central",
+        "south_kaohsiung"
+      ],
+      "min_edu_level": 4,
+      "preferred_majors": [
+        "humanities_biz"
+      ],
+      "stability": 0.78,
+      "health_drain": 0.6,
+      "remote_capable": true,
+      "flavor": "1987–1990 股市狂潮年終豐厚，2024 金融保險業年薪中位數達 110.6 萬元。"
+    },
+    {
+      "id": "car_hsinchu_semi",
+      "name": "半導體／IC 設計／AI 工程師",
+      "era_range": [
+        1987,
+        2130
+      ],
+      "salary_mult_min": 1.75,
+      "salary_mult_max": 3.1,
+      "preferred_regions": [
+        "north_hsinchu",
+        "south_tainan",
+        "central",
+        "south_kaohsiung"
+      ],
+      "min_edu_level": 4,
+      "preferred_majors": [
+        "stem_med"
+      ],
+      "stability": 0.88,
+      "health_drain": 1.1,
+      "remote_capable": true,
+      "flavor": "1990–2007 享股票分紅配股紅利，2020s 乘 AI 出口浪潮成為高薪代表但輪班工時長。"
+    },
+    {
+      "id": "car_cram_service_mgr",
+      "name": "補教老師／連鎖服務業店長",
+      "era_range": [
+        1985,
+        2130
+      ],
+      "salary_mult_min": 0.88,
+      "salary_mult_max": 1.65,
+      "preferred_regions": [
+        "north_taipei",
+        "central",
+        "south_kaohsiung",
+        "north_hsinchu"
+      ],
+      "min_edu_level": 3,
+      "preferred_majors": [
+        "humanities_biz"
+      ],
+      "stability": 0.8,
+      "health_drain": 0.5,
+      "remote_capable": false,
+      "flavor": "伴隨服務業就業破六成與補教熱潮而起，工時多集中晚間與假日。"
+    },
+    {
+      "id": "car_software_remote",
+      "name": "軟體工程師／系統架構師",
+      "era_range": [
+        1998,
+        2130
+      ],
+      "salary_mult_min": 1.25,
+      "salary_mult_max": 2.2,
+      "preferred_regions": [
+        "north_taipei",
+        "north_hsinchu",
+        "central"
+      ],
+      "min_edu_level": 4,
+      "preferred_majors": [
+        "stem_med"
+      ],
+      "stability": 0.84,
+      "health_drain": 0.6,
+      "remote_capable": true,
+      "flavor": "新鮮人起薪居各職務前段，2020 後具備跨國遠距與數位游牧彈性。"
+    },
+    {
+      "id": "car_gig_delivery",
+      "name": "外送員／平台司機（零工經濟）",
+      "era_range": [
+        2016,
+        2130
+      ],
+      "salary_mult_min": 0.72,
+      "salary_mult_max": 1.05,
+      "preferred_regions": [
+        "north_taipei",
+        "north_hsinchu",
+        "central",
+        "south_tainan",
+        "south_kaohsiung"
+      ],
+      "min_edu_level": 2,
+      "preferred_majors": [],
+      "stability": 0.7,
+      "health_drain": 1.0,
+      "remote_capable": false,
+      "flavor": "時間彈性且門檻低，但缺乏職涯累積並承擔較高機車交通與日曬雨淋風險。"
+    },
+    {
+      "id": "car_creator_ecom",
+      "name": "自媒體／電商直播主／斜槓創作者",
+      "era_range": [
+        2014,
+        2130
+      ],
+      "salary_mult_min": 0.45,
+      "salary_mult_max": 2.8,
+      "preferred_regions": [
+        "north_taipei",
+        "central",
+        "south_kaohsiung"
+      ],
+      "min_edu_level": 3,
+      "preferred_majors": [
+        "humanities_biz"
+      ],
+      "stability": 0.55,
+      "health_drain": 0.5,
+      "remote_capable": true,
+      "flavor": "高度 M 型化新興職涯，極少數爆紅致富，多數須面對演算法與流量焦慮。"
+    },
+    {
+      "id": "car_healthcare_ltc",
+      "name": "醫療護理師／長照居服員",
+      "era_range": [
+        1975,
+        2130
+      ],
+      "salary_mult_min": 0.85,
+      "salary_mult_max": 1.25,
+      "preferred_regions": [
+        "north_taipei",
+        "central",
+        "south_kaohsiung",
+        "east_islands",
+        "south_tainan"
+      ],
+      "min_edu_level": 3,
+      "preferred_majors": [
+        "stem_med"
+      ],
+      "stability": 0.94,
+      "health_drain": 1.0,
+      "remote_capable": false,
+      "flavor": "超高齡社會最不可或缺的剛性專業，輪班護病比高但幾乎沒有失業風險。"
+    },
+    {
+      "id": "car_tourism_hospitality",
+      "name": "觀光旅宿／餐飲從業人員",
+      "era_range": [
+        1985,
+        2130
+      ],
+      "salary_mult_min": 0.68,
+      "salary_mult_max": 1.02,
+      "preferred_regions": [
+        "east_islands",
+        "south_tainan",
+        "south_kaohsiung",
+        "north_taipei"
+      ],
+      "min_edu_level": 2,
+      "preferred_majors": [
+        "humanities_biz"
+      ],
+      "stability": 0.72,
+      "health_drain": 0.7,
+      "remote_capable": false,
+      "flavor": "花東離島與古都核心產業，受景氣、地震與 2021 疫情無薪假衝擊最直接。"
+    }
+  ]
+}

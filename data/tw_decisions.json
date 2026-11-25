@@ -1,0 +1,1215 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "total_decisions": 29,
+    "design_principle": "選項僅改變後續機率與參數權重，不保證單一結果；支援一卡多年代變體（era_variants）。"
+  },
+  "pause_questions": [
+    {
+      "age": 5,
+      "question_zh": "如果可以重選，你會希望自己出生在台灣的哪一個縣市、哪一個年代？",
+      "theme": "birth_lottery"
+    },
+    {
+      "age": 15,
+      "question_zh": "你在 15 歲時最煩惱的是升學考試、零用錢，還是家裡的氣氛？",
+      "theme": "adolescence_exams"
+    },
+    {
+      "age": 30,
+      "question_zh": "站在 30 歲這年，你覺得現在過的是自己想要的人生，還是長輩與社會期待的範本？",
+      "theme": "thirty_expectations"
+    },
+    {
+      "age": 50,
+      "question_zh": "當父母漸漸老去、身體開始出現紅字，你現在最想對 20 年前的自己說什麼？",
+      "theme": "sandwich_generation"
+    },
+    {
+      "age": 70,
+      "question_zh": "回望這一生經歷過的台灣變遷，哪一個微小的日常片刻最讓你捨不得放下？",
+      "theme": "life_reflection"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D01_junior_high_track",
+      "stage": "education",
+      "title": "國中畢業分流",
+      "conditions": {
+        "age": 15,
+        "note": "1968年九年國教前改於12歲觸發"
+      },
+      "options": [
+        {
+          "key": "general_high",
+          "label": "念普通高中拚大學",
+          "effects": {
+            "knowledge": 8,
+            "money_delta_ratio": -0.05,
+            "track": "academic"
+          }
+        },
+        {
+          "key": "vocational",
+          "label": "念高職或五專學一技之長",
+          "effects": {
+            "knowledge": 4,
+            "early_job_ready": true,
+            "track": "vocational"
+          }
+        },
+        {
+          "key": "apprentice",
+          "label": "直接進工廠當學徒或打工貼補家用",
+          "effects": {
+            "money_delta_ratio": 0.08,
+            "knowledge": -4,
+            "max_edu_cap": "junior_high",
+            "track": "labor"
+          }
+        }
+      ],
+      "deprecated_by": "LS02_junior_high_exam_branch"
+    },
+    {
+      "id": "D02_university_major",
+      "stage": "education",
+      "title": "大學選系抉擇",
+      "conditions": {
+        "age": 18,
+        "requires": "admitted_to_university"
+      },
+      "options": [
+        {
+          "key": "stem_med",
+          "label": "電資／工程／醫藥衛生學門",
+          "effects": {
+            "starting_pay_mult": 1.13,
+            "unlock_careers": [
+              "tech_semi",
+              "medical"
+            ],
+            "happiness": -3
+          }
+        },
+        {
+          "key": "humanities_biz",
+          "label": "商管／文史／藝術學門",
+          "effects": {
+            "happiness": 4,
+            "starting_pay_mult": 1.0,
+            "private_uni_closure_risk_after_2022": 0.06
+          }
+        },
+        {
+          "key": "public_funded",
+          "label": "軍警校或公費師範體系",
+          "effects": {
+            "tuition_free": true,
+            "unlock_careers": [
+              "civil_servant_teacher_military"
+            ],
+            "job_stability": 0.99
+          }
+        }
+      ]
+    },
+    {
+      "id": "D03_exam_retake",
+      "stage": "education",
+      "title": "落榜或不滿意志願",
+      "conditions": {
+        "age_range": [
+          18,
+          19
+        ],
+        "requires": "missed_target_school"
+      },
+      "options": [
+        {
+          "key": "cram_school",
+          "label": "蹲重考班一年再戰",
+          "effects": {
+            "money_delta_ratio": -0.1,
+            "happiness": -8,
+            "knowledge": 10,
+            "top_uni_prob_bonus": 0.25
+          }
+        },
+        {
+          "key": "transfer_or_grad",
+          "label": "先入學，日後再拚轉學考或洗研究所",
+          "effects": {
+            "knowledge": 3,
+            "happiness": -1
+          }
+        },
+        {
+          "key": "work_or_military",
+          "label": "直接就業或先去當兵",
+          "effects": {
+            "early_work_years": 1,
+            "knowledge": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "D04_military_service",
+      "stage": "education",
+      "title": "男性兵役路徑",
+      "conditions": {
+        "age_range": [
+          19,
+          24
+        ],
+        "sex": "M"
+      },
+      "options": [
+        {
+          "key": "conscription",
+          "label": "一般義務役抽籤入伍",
+          "effects": {
+            "health": 5,
+            "relationship_breakup_prob_if_long": 0.22
+          }
+        },
+        {
+          "key": "rd_substitute",
+          "label": "申請研發替代役或預官（2000年後高學歷解鎖）",
+          "requires_year_min": 2000,
+          "requires_edu": "master_or_stem",
+          "effects": {
+            "career_gap_months": 0,
+            "tech_entry_bonus": 0.3
+          }
+        },
+        {
+          "key": "volunteer_soldier",
+          "label": "簽志願役",
+          "effects": {
+            "starting_pay_mult": 1.2,
+            "savings_rate_bonus": 0.15,
+            "happiness": -4
+          }
+        }
+      ]
+    },
+    {
+      "id": "D05_graduation_crossroads",
+      "stage": "education",
+      "title": "畢業路口：就業或深造",
+      "conditions": {
+        "age": 22,
+        "requires": "university_grad"
+      },
+      "options": [
+        {
+          "key": "domestic_master",
+          "label": "考國內研究所（2年）",
+          "effects": {
+            "income_years_zero": 2,
+            "long_term_wage_mult": 1.45,
+            "knowledge": 10
+          }
+        },
+        {
+          "key": "study_abroad",
+          "label": "出國留學（需Q4–Q5資源或學貸）",
+          "effects": {
+            "money_delta_ratio": -0.45,
+            "unlock_overseas_career": true,
+            "long_term_wage_mult": 1.6
+          }
+        },
+        {
+          "key": "direct_work",
+          "label": "直接進入職場",
+          "effects": {
+            "early_work_years": 2,
+            "era_2009_22k_risk": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "D06_northbound_migration",
+      "stage": "career",
+      "title": "北漂還是留鄉？",
+      "conditions": {
+        "age_range": [
+          22,
+          26
+        ],
+        "region_not_in": [
+          "north_taipei",
+          "north_hsinchu"
+        ]
+      },
+      "options": [
+        {
+          "key": "move_north",
+          "label": "北漂雙北或赴桃竹苗科學園區打拚",
+          "effects": {
+            "migrate_to": [
+              "north_taipei",
+              "north_hsinchu"
+            ],
+            "wage_mult": 1.25,
+            "rent_cost_mult": 2.2,
+            "relationships": -6
+          }
+        },
+        {
+          "key": "stay_home",
+          "label": "留在家鄉工作並住家裡",
+          "effects": {
+            "rent_cost_mult": 0.2,
+            "relationships": 6,
+            "happiness": 4,
+            "career_ceiling_local": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "D07_career_track",
+      "stage": "career",
+      "title": "職涯跑道選擇",
+      "conditions": {
+        "age_range": [
+          24,
+          35
+        ]
+      },
+      "options": [
+        {
+          "key": "tech_finance",
+          "label": "進科技大廠或金融保險業",
+          "effects": {
+            "wage_mult": 1.45,
+            "health": -6,
+            "work_hours_high": true
+          }
+        },
+        {
+          "key": "civil_service",
+          "label": "全職備考高普考／國營事業",
+          "effects": {
+            "exam_prep_years": 1,
+            "pass_prob_base": 0.25,
+            "layoff_prob_if_pass": 0.0
+          }
+        },
+        {
+          "key": "family_biz_startup",
+          "label": "接家業或創業當頭家",
+          "effects": {
+            "wage_variance_high": true,
+            "tariff_wto_exposure": true,
+            "region_bonus": [
+              "central",
+              "south_tainan"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "D08_overseas_assignment",
+      "stage": "career",
+      "title": "跨海工作邀約",
+      "conditions": {
+        "age_range": [
+          26,
+          45
+        ]
+      },
+      "era_variants": [
+        {
+          "variant_id": "china_taigan",
+          "year_range": [
+            1990,
+            2016
+          ],
+          "label_context": "西進中國擔任台幹（2012高峰43萬人）"
+        },
+        {
+          "variant_id": "us_jp_fab",
+          "year_range": [
+            2020,
+            2035
+          ],
+          "label_context": "赴美國亞利桑那或日本熊本廠外派"
+        }
+      ],
+      "options": [
+        {
+          "key": "accept_expat",
+          "label": "接受外派領海外加給",
+          "effects": {
+            "wage_mult": 1.7,
+            "relationships": -10,
+            "marital_strain_prob": 0.2
+          }
+        },
+        {
+          "key": "decline_stay",
+          "label": "婉拒外派留在台灣陪伴家人",
+          "effects": {
+            "relationships": 5,
+            "happiness": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "D09_return_hometown_dilemma",
+      "stage": "career",
+      "title": "北漂十年的返鄉掙扎",
+      "conditions": {
+        "age_range": [
+          32,
+          44
+        ],
+        "requires_flag": "migrated_north"
+      },
+      "options": [
+        {
+          "key": "stay_north",
+          "label": "咬牙留北打拚（保薪資與醫療學區）",
+          "effects": {
+            "happiness": -4,
+            "relationships": -4
+          }
+        },
+        {
+          "key": "return_home",
+          "label": "返鄉就業或轉遠距照顧家人",
+          "effects": {
+            "migrate_to": "birth_region",
+            "wage_mult": 0.8,
+            "rent_cost_mult": 0.4,
+            "happiness": 8,
+            "relationships": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "D10_unpaid_leave",
+      "stage": "career",
+      "title": "景氣寒冬與無薪假",
+      "conditions": {
+        "age_range": [
+          25,
+          55
+        ],
+        "trigger_years": [
+          2009,
+          2020,
+          2021,
+          2025
+        ]
+      },
+      "options": [
+        {
+          "key": "gig_side_job",
+          "label": "配合減班休息＋兼差（如跑外送或接案）",
+          "effects": {
+            "income_retention": 0.75,
+            "health": -8,
+            "happiness": -5
+          }
+        },
+        {
+          "key": "resign_retrain",
+          "label": "離職轉行或參加職訓",
+          "effects": {
+            "income_gap_months": 4,
+            "sector_switch": true
+          }
+        },
+        {
+          "key": "borrow_credit",
+          "label": "刷卡或信貸周轉撐過景氣谷底",
+          "effects": {
+            "debt_added_ratio": 0.35,
+            "debt_trap_flag": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "D11_health_red_flags",
+      "stage": "career",
+      "title": "健檢紅字與職場過勞",
+      "conditions": {
+        "age_range": [
+          35,
+          55
+        ],
+        "health_below": 60
+      },
+      "options": [
+        {
+          "key": "slow_down",
+          "label": "降薪換準時下班、規律運動與定期健檢",
+          "effects": {
+            "wage_mult": 0.8,
+            "health": 18,
+            "midlife_mortality_mult": 0.75
+          }
+        },
+        {
+          "key": "keep_grinding",
+          "label": "趁還能拚繼續加班領分紅",
+          "effects": {
+            "bonus_ratio": 0.15,
+            "health": -12,
+            "midlife_mortality_mult": 1.35
+          }
+        }
+      ]
+    },
+    {
+      "id": "D12_first_pot_of_gold",
+      "stage": "finance",
+      "title": "第一桶金的配置",
+      "conditions": {
+        "age_range": [
+          23,
+          50
+        ],
+        "min_assets_twd_2025": 300000
+      },
+      "options": [
+        {
+          "key": "time_deposit",
+          "label": "銀行定存或儲蓄險（依當年代利率計算）",
+          "effects": {
+            "invest_style": "deposit",
+            "volatility": 0.01
+          }
+        },
+        {
+          "key": "etf_dca",
+          "label": "定期定額台股大盤 ETF（2003年後為 0050）",
+          "effects": {
+            "invest_style": "index_etf",
+            "long_term_return_bonus": 0.07
+          }
+        },
+        {
+          "key": "margin_speculation",
+          "label": "融資槓桿／聽明牌重壓飆股",
+          "effects": {
+            "invest_style": "leverage",
+            "crash_wipeout_prob": 0.65
+          }
+        }
+      ]
+    },
+    {
+      "id": "D13_buying_home",
+      "stage": "finance",
+      "title": "買房的終極算計",
+      "conditions": {
+        "age_range": [
+          27,
+          46
+        ],
+        "not_homeowner": true
+      },
+      "options": [
+        {
+          "key": "buy_core_40yr",
+          "label": "咬牙買蛋黃區（2023後可搭新青安扛40年房貸）",
+          "effects": {
+            "homeowner": true,
+            "mortgage_dti": 0.45,
+            "inflation_hedge": true,
+            "happiness": 6
+          },
+          "requires_home_afford": "core"
+        },
+        {
+          "key": "buy_suburb",
+          "label": "退居蛋白區以通勤換空間",
+          "effects": {
+            "homeowner": true,
+            "mortgage_dti": 0.3,
+            "health": -4
+          },
+          "requires_home_afford": "suburb"
+        },
+        {
+          "key": "rent_and_invest",
+          "label": "堅持租屋、把頭期款投入股市",
+          "effects": {
+            "homeowner": false,
+            "liquid_invest_bonus": true,
+            "elderly_rent_rejection_risk": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "D14_financial_trap",
+      "stage": "finance",
+      "title": "時代金融陷阱（一卡四劇本）",
+      "conditions": {
+        "age_range": [
+          25,
+          65
+        ],
+        "min_assets_twd_2025": 200000
+      },
+      "era_variants": [
+        {
+          "variant_id": "hongyuan_1988",
+          "year_range": [
+            1985,
+            1989
+          ],
+          "title": "親友力推「鴻源機構」月息 4 分",
+          "crash_year": 1990,
+          "source_note": "1990年鴻源倒閉，負債約940億元、16萬人受害"
+        },
+        {
+          "variant_id": "dual_card_2005",
+          "year_range": [
+            2004,
+            2006
+          ],
+          "title": "銀行瘋推「現金卡借錢真輕鬆」",
+          "crash_year": 2006,
+          "source_note": "2005–2006雙卡風暴，約80萬人陷入卡債"
+        },
+        {
+          "variant_id": "lehman_2007",
+          "year_range": [
+            2007,
+            2008
+          ],
+          "title": "理專推薦「保本高息」雷曼連動債",
+          "crash_year": 2008,
+          "source_note": "2008年台灣約10萬名投資人受害，多數僅拿回15%–30%"
+        },
+        {
+          "variant_id": "scam_2024",
+          "year_range": [
+            2022,
+            2026
+          ],
+          "title": "飆股群組／im.B「保本高息」平台邀約",
+          "crash_year": "immediate_or_next_year",
+          "source_note": "2025年詐騙受理16.2萬件，財損近900億元"
+        }
+      ],
+      "options": [
+        {
+          "key": "all_in",
+          "label": "把大半積蓄投進去，甚至借信貸加碼",
+          "effects": {
+            "invest_ratio": 0.75,
+            "loss_prob_on_crash": 0.9,
+            "happiness_on_crash": -35,
+            "suicide_risk_mult_if_debt": 1.8
+          }
+        },
+        {
+          "key": "small_try",
+          "label": "只拿一成閒錢試水溫",
+          "effects": {
+            "invest_ratio": 0.1,
+            "loss_prob_on_crash": 0.9,
+            "happiness_on_crash": -8
+          }
+        },
+        {
+          "key": "reject",
+          "label": "天下沒有白吃的午餐，直接拒絕",
+          "effects": {
+            "happiness": -2,
+            "knowledge": 2
+          }
+        }
+      ],
+      "once_per_era_variant": true
+    },
+    {
+      "id": "D15_stock_crash_panic",
+      "stage": "finance",
+      "title": "台股崩盤大逃殺",
+      "conditions": {
+        "age_range": [
+          22,
+          70
+        ],
+        "has_stock_assets": true,
+        "trigger_years": [
+          1990,
+          1997,
+          2000,
+          2008,
+          2020,
+          2025
+        ]
+      },
+      "options": [
+        {
+          "key": "panic_sell",
+          "label": "恐慌認賠停損出清",
+          "effects": {
+            "realize_loss": true,
+            "happiness": -8
+          }
+        },
+        {
+          "key": "hold_diamond",
+          "label": "刪 App 蓋牌續抱（結果依歷史年份分化）",
+          "effects": {
+            "hold_through_cycle": true
+          }
+        },
+        {
+          "key": "buy_the_dip",
+          "label": "動用預備金進場抄底",
+          "effects": {
+            "buy_dip_ratio": 0.4,
+            "cash_buffer_risk": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "D16_relative_loan_guarantor",
+      "stage": "finance",
+      "title": "親友開口借錢或作保",
+      "conditions": {
+        "age_range": [
+          28,
+          60
+        ]
+      },
+      "options": [
+        {
+          "key": "co_sign",
+          "label": "義氣相挺借出大筆款項或當保人",
+          "effects": {
+            "relationships": 10,
+            "default_bankruptcy_prob": 0.35
+          }
+        },
+        {
+          "key": "small_gift_no_guarantee",
+          "label": "包一筆不用還的小額救急但拒絕作保",
+          "effects": {
+            "money_delta_ratio": -0.05,
+            "relationships": 2
+          }
+        },
+        {
+          "key": "refuse",
+          "label": "斷然拒絕守住防線",
+          "effects": {
+            "relationships": -8
+          }
+        }
+      ]
+    },
+    {
+      "id": "D17_critical_illness_cost",
+      "stage": "finance",
+      "title": "重大傷病的醫療費抉擇",
+      "conditions": {
+        "age_range": [
+          30,
+          75
+        ],
+        "requires": "major_illness_diagnosed"
+      },
+      "options": [
+        {
+          "key": "self_pay_advanced",
+          "label": "動用存款選用自費標靶藥／先進療程（復原最佳、大幅壓低致死與失能風險）",
+          "requires_med_afford": true,
+          "effects": {
+            "cost_ratio_pre_1995": 0.85,
+            "cost_ratio_post_1995": 0.25,
+            "survival_bonus": 0.35
+          }
+        },
+        {
+          "key": "sell_home_for_med",
+          "label": "存款不夠——忍痛賣房變現籌措救命自費療程（僅有房者可選）",
+          "requires_homeowner_for_med": true,
+          "effects": {
+            "sell_home_medical": true,
+            "survival_bonus": 0.3,
+            "happiness": -10
+          }
+        },
+        {
+          "key": "standard_nhi",
+          "label": "無力負擔自費，改採基礎保守治療（1995 前或存款拮据時有殘疾失能與病情惡化早逝風險）",
+          "effects": {
+            "cost_ratio_pre_1995": 0.35,
+            "cost_ratio_post_1995": 0.05,
+            "inadequate_med_risk": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "D18_marriage_choice",
+      "stage": "family",
+      "title": "步入婚姻嗎？",
+      "conditions": {
+        "age_range": [
+          23,
+          40
+        ],
+        "has_partner": true,
+        "note": "2019年5月起同性伴侶解鎖合法結婚"
+      },
+      "options": [
+        {
+          "key": "traditional_wedding",
+          "label": "辦傳統婚禮（聘金、喜餅、宴客）",
+          "effects": {
+            "married": true,
+            "money_delta_twd_2025": -600000,
+            "relationships": 8
+          },
+          "requires_wedding_afford": true
+        },
+        {
+          "key": "simple_registration",
+          "label": "簡單登記不宴客（2010年後普及）",
+          "effects": {
+            "married": true,
+            "money_delta_twd_2025": -50000,
+            "happiness": 4
+          }
+        },
+        {
+          "key": "stay_unmarried",
+          "label": "維持同居或不婚",
+          "effects": {
+            "married": false,
+            "financial_autonomy": true,
+            "old_age_loneliness_risk": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "D19_have_children",
+      "stage": "family",
+      "title": "生不生小孩？",
+      "conditions": {
+        "age_range": [
+          24,
+          42
+        ],
+        "has_partner": true
+      },
+      "options": [
+        {
+          "key": "have_child",
+          "label": "生育下一代（2026年起領每胎10萬補助）",
+          "effects": {
+            "children_delta": 1,
+            "annual_child_cost_years": 22,
+            "subsidy_post_2026_twd": 100000,
+            "old_age_support": 10
+          }
+        },
+        {
+          "key": "dink_pets",
+          "label": "當頂客族／改養毛小孩",
+          "effects": {
+            "savings_rate_bonus": 0.15,
+            "happiness": 5,
+            "old_age_support": -5
+          }
+        }
+      ]
+    },
+    {
+      "id": "D20_marriage_crisis",
+      "stage": "family",
+      "title": "婚姻亮紅燈",
+      "conditions": {
+        "age_range": [
+          30,
+          55
+        ],
+        "married": true
+      },
+      "options": [
+        {
+          "key": "move_out_counseling",
+          "label": "搬離婆家／夫家並做婚姻諮商",
+          "effects": {
+            "rent_cost_added": true,
+            "repair_prob": 0.65
+          }
+        },
+        {
+          "key": "endure_for_kids",
+          "label": "為了孩子與長輩面子硬撐",
+          "effects": {
+            "happiness": -15,
+            "health": -6
+          }
+        },
+        {
+          "key": "divorce",
+          "label": "協議離婚重啟人生",
+          "effects": {
+            "married": false,
+            "asset_split": 0.5,
+            "short_term_happiness": -12,
+            "long_term_happiness": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "D21_child_education_race",
+      "stage": "family",
+      "title": "下一代的教育軍備賽",
+      "conditions": {
+        "age_range": [
+          35,
+          50
+        ],
+        "has_school_age_child": true
+      },
+      "options": [
+        {
+          "key": "private_cram",
+          "label": "送私校、雙語安親與全科補習",
+          "effects": {
+            "annual_expense_mult": 1.35,
+            "child_mobility_bonus": 0.25
+          },
+          "requires_cram_afford": true
+        },
+        {
+          "key": "public_balanced",
+          "label": "念學區公校、適性快樂成長",
+          "effects": {
+            "relationships": 6,
+            "happiness": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "D22_major_disaster",
+      "stage": "late_and_crisis",
+      "title": "重大天災後的去留",
+      "conditions": {
+        "trigger_events": [
+          "EV_1999_921_earthquake",
+          "EV_2008_2009_gfc_22k_morakot",
+          "EV_2024_hualien_quake_housing_peak",
+          "EV_2025_2026_super_aged_ai_tariff"
+        ]
+      },
+      "options": [
+        {
+          "key": "rebuild_local",
+          "label": "申請補助原地重建家園",
+          "effects": {
+            "money_delta_ratio": -0.3,
+            "relationships": 6,
+            "happiness": -8
+          }
+        },
+        {
+          "key": "relocate_region",
+          "label": "舉家遷往其他大區重新開始",
+          "effects": {
+            "migrate_to": "other_region",
+            "money_delta_ratio": -0.2,
+            "relationships": -8
+          }
+        }
+      ]
+    },
+    {
+      "id": "D23_pandemic_dilemma",
+      "stage": "late_and_crisis",
+      "title": "世紀疫情下的兩難",
+      "conditions": {
+        "trigger_years": [
+          2003,
+          2020,
+          2021,
+          2022
+        ]
+      },
+      "options": [
+        {
+          "key": "strict_stay_home",
+          "label": "嚴格居家避險／暫停營業",
+          "effects": {
+            "infection_risk_mult": 0.3,
+            "income_mult": 0.65,
+            "happiness": -5
+          }
+        },
+        {
+          "key": "keep_working",
+          "label": "為了生計照常出門（或醫護留守前線）",
+          "effects": {
+            "infection_risk_mult": 1.8,
+            "income_mult": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "D24_elderly_care_storm",
+      "stage": "late_and_crisis",
+      "title": "三明治世代的長照風暴",
+      "conditions": {
+        "age_range": [
+          42,
+          62
+        ],
+        "has_aging_parents": true
+      },
+      "options": [
+        {
+          "key": "hire_caregiver",
+          "label": "聘外籍看護或送長照機構",
+          "effects": {
+            "monthly_care_cost_twd_2025": 35000,
+            "keep_job": true
+          },
+          "requires_caregiver_afford": true
+        },
+        {
+          "key": "quit_fulltime_care",
+          "label": "辭職回家全職照顧父母",
+          "effects": {
+            "job_lost": true,
+            "health": -12,
+            "happiness": -15,
+            "relationships": 6
+          }
+        },
+        {
+          "key": "share_with_siblings",
+          "label": "與手足輪流＋申請政府長照資源（獨生子女鎖定不可選）",
+          "requires_siblings": true,
+          "effects": {
+            "monthly_care_cost_twd_2025": 12000,
+            "health": -3,
+            "relationships": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "D25_retirement_timing",
+      "stage": "late_and_crisis",
+      "title": "退休時間點抉擇",
+      "conditions": {
+        "age_range": [
+          55,
+          68
+        ]
+      },
+      "options": [
+        {
+          "key": "standard_retire",
+          "label": "屆齡領勞保／勞退（或公教月退）退休",
+          "effects": {
+            "retired": true,
+            "health": 8,
+            "pension_active": true
+          }
+        },
+        {
+          "key": "second_career",
+          "label": "退而不休／二度就業對抗長壽通膨",
+          "effects": {
+            "retired": false,
+            "income_mult": 0.55,
+            "relationships": 5,
+            "health": -2
+          }
+        },
+        {
+          "key": "early_fire",
+          "label": "提早財富自由（FIRE，需淨資產達標）",
+          "requires_fire_assets": true,
+          "effects": {
+            "retired": true,
+            "happiness": 15,
+            "health": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "D26_end_of_life_autonomy",
+      "stage": "late_and_crisis",
+      "title": "人生最後一哩路",
+      "conditions": {
+        "age_range": [
+          70,
+          85
+        ],
+        "requires_year_min": 2019
+      },
+      "options": [
+        {
+          "key": "sign_ad",
+          "label": "簽署《病主法》預立醫療決定（拒絕無效插管）並交代身後事",
+          "effects": {
+            "happiness": 8,
+            "end_of_life_dignity": true,
+            "terminal_cost_mult": 0.4
+          }
+        },
+        {
+          "key": "leave_to_family",
+          "label": "避諱談生死，全權交由醫療與家人決定",
+          "effects": {
+            "terminal_cost_mult": 1.2,
+            "bedridden_risk_mult": 1.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "D28_debt_clearance",
+      "stage": "finance",
+      "title": "負債壓頂：聲請《消債條例》更生重啟人生？",
+      "conditions": {
+        "age_range": [
+          25,
+          72
+        ],
+        "requires_year_min": 2008,
+        "max_assets_twd_2025": -1500000,
+        "note": "2008 年 4 月《消費者債務清理條例》施行後解鎖，為雙卡風暴後台灣平民首度建立之個人破產更生機制"
+      },
+      "options": [
+        {
+          "key": "file_rehab",
+          "label": "依《消債條例》向法院聲請更生（大幅減免債務重啟人生，信用註記數年）",
+          "effects": {
+            "debt_rehab_clear": true,
+            "happiness": 16,
+            "relationships": -2
+          }
+        },
+        {
+          "key": "grind_repay",
+          "label": "咬牙靠自己硬扛還債（保住信用紀錄，但長期承受財務與身心高壓）",
+          "effects": {
+            "happiness": -6,
+            "health": -4,
+            "wage_mult": 1.04
+          }
+        }
+      ]
+    },
+    {
+      "id": "D29_child_study_abroad",
+      "stage": "family",
+      "title": "子女想出國留學：全額資助還是無力負擔？",
+      "conditions": {
+        "age_range": [
+          45,
+          62
+        ],
+        "has_school_age_child": true,
+        "requires_year_min": 1978,
+        "note": "依家庭存款與房產淨值檢定能否負擔子女海外學費與生活費"
+      },
+      "options": [
+        {
+          "key": "fund_abroad_full",
+          "label": "動用存款全額資助子女赴海外留學圓夢（需流動資產達門檻）",
+          "requires_child_abroad_cash": true,
+          "effects": {
+            "fund_child_abroad_cash": true,
+            "happiness": 10,
+            "relationships": 8
+          }
+        },
+        {
+          "key": "mortgage_home_for_child",
+          "label": "增貸或變賣部分房產／退休老本送子女出國（需有足夠房產淨值）",
+          "requires_child_abroad_home": true,
+          "effects": {
+            "fund_child_abroad_mortgage": true,
+            "happiness": 6,
+            "relationships": 8,
+            "health": -4
+          }
+        },
+        {
+          "key": "cannot_afford_abroad",
+          "label": "存款與薪資有限，只能婉拒留學、讓子女留在台灣升學或自行申貸",
+          "effects": {
+            "record_child_abroad_barrier": true,
+            "happiness": -7,
+            "relationships": -3
+          }
+        }
+      ]
+    },
+    {
+      "id": "D30_forced_home_sale",
+      "stage": "finance",
+      "title": "金融風暴與資金斷裂：面臨被迫賣房危機",
+      "conditions": {
+        "special": "forced_home_sale_crisis",
+        "note": "當遇上股市崩盤斷頭、景氣危機失業或背負房貸現金流枯竭時觸發"
+      },
+      "options": [
+        {
+          "key": "sell_home_survive",
+          "label": "忍痛降價賣房清償貸款與債務，退回租屋生活止血",
+          "effects": {
+            "forced_sell_home": true,
+            "happiness": -18,
+            "health": -4
+          }
+        },
+        {
+          "key": "borrow_hold_home",
+          "label": "向親友借錢周轉／申請房貸寬限硬撐不賣房（需人際 ≥ 60 或家境 Q4 以上）",
+          "requires_borrow_rescue": true,
+          "effects": {
+            "borrow_to_keep_home": true,
+            "happiness": -12,
+            "health": -8,
+            "relationships": -6
+          }
+        },
+        {
+          "key": "foreclosure_auction",
+          "label": "無力再繳本息，房屋遭銀行低價法拍（資產大幅折損並留存債務）",
+          "effects": {
+            "home_foreclosed": true,
+            "happiness": -28,
+            "health": -10
+          }
+        }
+      ]
+    }
+  ]
+}

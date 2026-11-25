@@ -1,0 +1,390 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "coverage_years": [
+      1967,
+      2026
+    ],
+    "description": "台灣加權指數（TAIEX）歷年實質史實漲跌幅、盤中最大回撤（融資斷頭依據）、股息殖利率與房價年度漲跌幅。",
+    "default_dividend_yield": 0.036,
+    "post_2026_stock_mean": 0.078,
+    "post_2026_stock_vol": 0.18,
+    "post_2026_housing_mean": 0.018,
+    "sources": [
+      "臺灣證券交易所（TWSE）加權指數歷史統計",
+      "Goodinfo! 台灣股市資訊網加權指數歷年漲跌統計（1986–2026）",
+      "內政部不動產資訊平台與信義／國泰房價長期趨勢整理"
+    ]
+  },
+  "investment_profiles": {
+    "deposit": {
+      "label": "銀行定存／儲蓄險",
+      "beta": 0.0,
+      "margin_call_threshold": null
+    },
+    "index_etf": {
+      "label": "台股大盤指數／0050 ETF",
+      "beta": 1.0,
+      "div_yield": 0.036,
+      "margin_call_threshold": null
+    },
+    "leverage": {
+      "label": "融資槓桿／追高飆股",
+      "beta": 1.75,
+      "div_yield": 0.015,
+      "margin_call_threshold": -0.28
+    }
+  },
+  "financial_thresholds_2025": {
+    "national_median_household_income": 976700,
+    "suburb_price_discount": 0.72,
+    "downpayment_ratio_standard": 0.2,
+    "downpayment_ratio_new_youth_2023": 0.15,
+    "mortgage_max_dti": 0.5,
+    "med_advanced_pre_1995": 2400000,
+    "med_advanced_post_1995": 750000,
+    "child_abroad_full": 2400000,
+    "child_abroad_mortgage_equity": 1600000,
+    "private_cram_min_salary": 720000,
+    "private_cram_min_liquid": 450000,
+    "traditional_wedding_cost": 600000,
+    "caregiver_min_salary": 420000,
+    "caregiver_min_liquid": 350000,
+    "forced_sale_cash_trigger": -350000
+  },
+  "taiex_annual": {
+    "1967": {
+      "price_pct": 0.05,
+      "max_drawdown": -0.08,
+      "housing_pct": 0.06,
+      "note": "加權指數以 100 點為基期開編"
+    },
+    "1968": {
+      "price_pct": 0.06,
+      "max_drawdown": -0.08,
+      "housing_pct": 0.07
+    },
+    "1969": {
+      "price_pct": 0.08,
+      "max_drawdown": -0.09,
+      "housing_pct": 0.07
+    },
+    "1970": {
+      "price_pct": 0.12,
+      "max_drawdown": -0.1,
+      "housing_pct": 0.08
+    },
+    "1971": {
+      "price_pct": 0.08,
+      "max_drawdown": -0.14,
+      "housing_pct": 0.07
+    },
+    "1972": {
+      "price_pct": 0.55,
+      "max_drawdown": -0.1,
+      "housing_pct": 0.12
+    },
+    "1973": {
+      "price_pct": 1.1,
+      "max_drawdown": -0.18,
+      "housing_pct": 0.25,
+      "note": "第一次石油危機前通膨推升股房大漲"
+    },
+    "1974": {
+      "price_pct": -0.6,
+      "max_drawdown": -0.63,
+      "housing_pct": -0.05,
+      "note": "第一次石油危機，台股腰斬暴跌"
+    },
+    "1975": {
+      "price_pct": 0.7,
+      "max_drawdown": -0.15,
+      "housing_pct": 0.05
+    },
+    "1976": {
+      "price_pct": 0.12,
+      "max_drawdown": -0.15,
+      "housing_pct": 0.08
+    },
+    "1977": {
+      "price_pct": 0.2,
+      "max_drawdown": -0.12,
+      "housing_pct": 0.1
+    },
+    "1978": {
+      "price_pct": 0.18,
+      "max_drawdown": -0.18,
+      "housing_pct": 0.14
+    },
+    "1979": {
+      "price_pct": 0.03,
+      "max_drawdown": -0.2,
+      "housing_pct": 0.18,
+      "note": "第二次石油危機與台美斷交衝擊"
+    },
+    "1980": {
+      "price_pct": 0.02,
+      "max_drawdown": -0.18,
+      "housing_pct": 0.15
+    },
+    "1981": {
+      "price_pct": -0.01,
+      "max_drawdown": -0.16,
+      "housing_pct": 0.04
+    },
+    "1982": {
+      "price_pct": -0.19,
+      "max_drawdown": -0.24,
+      "housing_pct": -0.03
+    },
+    "1983": {
+      "price_pct": 0.72,
+      "max_drawdown": -0.1,
+      "housing_pct": 0.03
+    },
+    "1984": {
+      "price_pct": 0.1,
+      "max_drawdown": -0.16,
+      "housing_pct": 0.04
+    },
+    "1985": {
+      "price_pct": -0.01,
+      "max_drawdown": -0.24,
+      "housing_pct": 0.02,
+      "note": "十信風暴低點 636 點，隨後開啟五年狂潮"
+    },
+    "1986": {
+      "price_pct": 0.244,
+      "max_drawdown": -0.1,
+      "housing_pct": 0.15,
+      "note": "台股首度突破 1,000 點，新台幣升值引熱錢湧入"
+    },
+    "1987": {
+      "price_pct": 1.252,
+      "max_drawdown": -0.45,
+      "housing_pct": 0.35,
+      "note": "台灣錢淹腳目，全年大漲 125%（10 月曾隨美股黑色星期一急殺）"
+    },
+    "1988": {
+      "price_pct": 1.188,
+      "max_drawdown": -0.42,
+      "housing_pct": 0.4,
+      "note": "全年狂飆 118.8%（924 證所稅風暴曾連跌 19 天無量跌停）"
+    },
+    "1989": {
+      "price_pct": 0.88,
+      "max_drawdown": -0.18,
+      "housing_pct": 0.32,
+      "note": "加權指數衝破萬點，台北市房價衝上每坪 25.5 萬高峰"
+    },
+    "1990": {
+      "price_pct": -0.529,
+      "max_drawdown": -0.804,
+      "housing_pct": -0.18,
+      "note": "史詩級泡沫破滅：2 月 12,682 點 8 個月崩跌 80% 至 2,485 點，房市隨之修正"
+    },
+    "1991": {
+      "price_pct": 0.016,
+      "max_drawdown": -0.28,
+      "housing_pct": -0.06
+    },
+    "1992": {
+      "price_pct": -0.266,
+      "max_drawdown": -0.36,
+      "housing_pct": -0.04,
+      "note": "泡沫餘波與違約交割潮，收盤跌至 3,377 點"
+    },
+    "1993": {
+      "price_pct": 0.798,
+      "max_drawdown": -0.16,
+      "housing_pct": 0.01
+    },
+    "1994": {
+      "price_pct": 0.174,
+      "max_drawdown": -0.18,
+      "housing_pct": 0.02
+    },
+    "1995": {
+      "price_pct": -0.274,
+      "max_drawdown": -0.37,
+      "housing_pct": -0.03,
+      "note": "台海飛彈危機與彰化四信擠兌，全年大跌 27.4%"
+    },
+    "1996": {
+      "price_pct": 0.34,
+      "max_drawdown": -0.15,
+      "housing_pct": 0.0,
+      "note": "首度總統直選後利空出盡大漲 34%"
+    },
+    "1997": {
+      "price_pct": 0.181,
+      "max_drawdown": -0.31,
+      "housing_pct": 0.01,
+      "note": "電子股衝上萬點後遇亞洲金融風暴急回"
+    },
+    "1998": {
+      "price_pct": -0.216,
+      "max_drawdown": -0.33,
+      "housing_pct": -0.04,
+      "note": "台灣本土型金融風暴，企業跳票頻傳"
+    },
+    "1999": {
+      "price_pct": 0.316,
+      "max_drawdown": -0.18,
+      "housing_pct": -0.05,
+      "note": "921 震後科技股領軍反彈"
+    },
+    "2000": {
+      "price_pct": -0.439,
+      "max_drawdown": -0.55,
+      "housing_pct": -0.04,
+      "note": "全球網路泡沫破滅，台股全年重挫 43.9%"
+    },
+    "2001": {
+      "price_pct": 0.17,
+      "max_drawdown": -0.44,
+      "housing_pct": -0.03,
+      "note": "911 後跌至 3,411 點十年低谷（高點起算 -66.6%），年底反彈"
+    },
+    "2002": {
+      "price_pct": -0.198,
+      "max_drawdown": -0.38,
+      "housing_pct": -0.01
+    },
+    "2003": {
+      "price_pct": 0.323,
+      "max_drawdown": -0.2,
+      "housing_pct": 0.04,
+      "note": "SARS 落底後大漲 32.3%，首檔大盤 ETF 0050 成立、房市起漲"
+    },
+    "2004": {
+      "price_pct": 0.042,
+      "max_drawdown": -0.24,
+      "housing_pct": 0.08
+    },
+    "2005": {
+      "price_pct": 0.067,
+      "max_drawdown": -0.13,
+      "housing_pct": 0.07
+    },
+    "2006": {
+      "price_pct": 0.195,
+      "max_drawdown": -0.16,
+      "housing_pct": 0.09
+    },
+    "2007": {
+      "price_pct": 0.087,
+      "max_drawdown": -0.22,
+      "housing_pct": 0.1
+    },
+    "2008": {
+      "price_pct": -0.46,
+      "max_drawdown": -0.577,
+      "housing_pct": -0.05,
+      "note": "全球金融海嘯與雷曼倒閉，台股重挫 46%（高點起算 -57.7%）"
+    },
+    "2009": {
+      "price_pct": 0.783,
+      "max_drawdown": -0.14,
+      "housing_pct": 0.08,
+      "note": "全球量化寬鬆，台股史詩級大反彈 +78.3%"
+    },
+    "2010": {
+      "price_pct": 0.096,
+      "max_drawdown": -0.16,
+      "housing_pct": 0.12
+    },
+    "2011": {
+      "price_pct": -0.212,
+      "max_drawdown": -0.283,
+      "housing_pct": 0.08,
+      "note": "歐債危機與美債降評，台股下跌 21.2%"
+    },
+    "2012": {
+      "price_pct": 0.089,
+      "max_drawdown": -0.16,
+      "housing_pct": 0.07
+    },
+    "2013": {
+      "price_pct": 0.118,
+      "max_drawdown": -0.1,
+      "housing_pct": 0.09
+    },
+    "2014": {
+      "price_pct": 0.081,
+      "max_drawdown": -0.11,
+      "housing_pct": 0.06
+    },
+    "2015": {
+      "price_pct": -0.104,
+      "max_drawdown": -0.28,
+      "housing_pct": -0.02,
+      "note": "中國股災外溢，台股一度跌破 7,300 點"
+    },
+    "2016": {
+      "price_pct": 0.11,
+      "max_drawdown": -0.1,
+      "housing_pct": -0.02
+    },
+    "2017": {
+      "price_pct": 0.15,
+      "max_drawdown": -0.06,
+      "housing_pct": 0.01,
+      "note": "站穩萬點最長紀錄"
+    },
+    "2018": {
+      "price_pct": -0.086,
+      "max_drawdown": -0.16,
+      "housing_pct": 0.02,
+      "note": "美中貿易戰開打，全年回跌 8.6%"
+    },
+    "2019": {
+      "price_pct": 0.233,
+      "max_drawdown": -0.09,
+      "housing_pct": 0.04,
+      "note": "台商回流，台股大漲 23.3%"
+    },
+    "2020": {
+      "price_pct": 0.228,
+      "max_drawdown": -0.3,
+      "housing_pct": 0.07,
+      "note": "疫情三月崩跌 30% 至 8,523 點後強力 V 轉，全年反漲 22.8%"
+    },
+    "2021": {
+      "price_pct": 0.237,
+      "max_drawdown": -0.14,
+      "housing_pct": 0.11,
+      "note": "航運與半導體狂潮，全年大漲 23.7%"
+    },
+    "2022": {
+      "price_pct": -0.224,
+      "max_drawdown": -0.32,
+      "housing_pct": 0.09,
+      "note": "美國暴力升息與通膨衝擊，全年下跌 22.4%"
+    },
+    "2023": {
+      "price_pct": 0.268,
+      "max_drawdown": -0.09,
+      "housing_pct": 0.07,
+      "note": "AI 浪潮與新青安上路，股房齊揚"
+    },
+    "2024": {
+      "price_pct": 0.285,
+      "max_drawdown": -0.19,
+      "housing_pct": 0.1,
+      "note": "台積電領軍突破 24,000 點，全年大漲 28.5%；全國房價所得比創 10.82 倍高點"
+    },
+    "2025": {
+      "price_pct": 0.257,
+      "max_drawdown": -0.28,
+      "housing_pct": -0.02,
+      "note": "4 月對等關稅急殺後隨 AI 出口狂飆 V 轉，全年大漲 25.7% 至 28,963 點"
+    },
+    "2026": {
+      "price_pct": 0.385,
+      "max_drawdown": -0.2,
+      "housing_pct": 0.01,
+      "note": "AI 超級週期推動盤中逼近 5 萬點（49,968.92），全年收漲 38.5%"
+    }
+  }
+}

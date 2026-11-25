@@ -1,0 +1,744 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "coverage_years": [
+      1955,
+      2070
+    ],
+    "description": "台灣出國留學制度沿革、6 大留學契機管道、6 個主要留學國家年代事件，以及 12 項吸引回國契機與海歸抉擇資料庫。",
+    "sources": [
+      "教育部國際及兩岸教育司 2016–2025 留學簽證人數統計",
+      "IIE Open Doors 2024 台灣赴美留學生報告",
+      "教育部公自費留學考試沿革（1955 恢復公費、1976 廢除自費留考、1984 歐洲公費名額）",
+      "外交部青年度假打工協定沿革（2004 澳洲、2009 日本等）"
+    ]
+  },
+  "institutional_milestones": [
+    {
+      "year": 1955,
+      "name": "恢復辦理公費留學考試",
+      "note": "早期菁英出國主要管道，受出入境與兵役嚴格管制。"
+    },
+    {
+      "year": 1976,
+      "name": "廢除自費留學考試",
+      "note": "大幅降低自費出國門檻，引爆 1970–80 年代赴美留學狂潮。"
+    },
+    {
+      "year": 1984,
+      "name": "增設歐洲公費留學名額",
+      "note": "推動台灣留學生版圖擴展至英、德、法等歐洲國家。"
+    },
+    {
+      "year": 1989,
+      "name": "放寬高中畢業生出國與小留學生潮",
+      "note": "配合新台幣大幅升值，富裕家庭送子女提早赴美加求學。"
+    },
+    {
+      "year": 2004,
+      "name": "台澳打工度假協定生效",
+      "note": "無名額上限、免英檢，開啟非富裕青年赴澳存桶金與轉留學通道。"
+    },
+    {
+      "year": 2009,
+      "name": "台日打工度假協定生效",
+      "note": "帶動青年赴日打工、進修語言與轉職就業風潮。"
+    }
+  ],
+  "pathways": [
+    {
+      "id": "SA01_gov_scholarship",
+      "name": "公費留考／國外全額獎學金線",
+      "year_range": [
+        1958,
+        2070
+      ],
+      "age_range": [
+        22,
+        26
+      ],
+      "min_quintile": 1,
+      "max_quintile": 5,
+      "min_knowledge": 75,
+      "requires_edu_min": 4,
+      "cost_twd_2025": 250000,
+      "study_years": 2,
+      "allowed_countries": [
+        "USA",
+        "JPN",
+        "GBR",
+        "DEU"
+      ],
+      "desc": "憑藉頂尖成績考取教育部公費或拿到國外名校 TA／RA 全額獎學金（「來來來，來台大；去去去，去美國」經典翻身路徑）。",
+      "source_note": "1955 年起恢復公費留考，成為清寒學子跨越階級的重要通道。"
+    },
+    {
+      "id": "SA02_self_funded_grad",
+      "name": "自費出國攻讀碩士（托福／GRE／雅思）",
+      "year_range": [
+        1976,
+        2070
+      ],
+      "age_range": [
+        22,
+        27
+      ],
+      "min_quintile": 3,
+      "max_quintile": 5,
+      "min_knowledge": 55,
+      "requires_edu_min": 4,
+      "cost_twd_2025": 2200000,
+      "study_years": 2,
+      "allowed_countries": [
+        "USA",
+        "GBR",
+        "JPN",
+        "AUS",
+        "CAN",
+        "DEU"
+      ],
+      "desc": "1976 年廢除自費留考後最普遍的留學路徑：在補習班苦讀托福／雅思，搭配家庭資助或留學貸款赴海外深造。",
+      "source_note": "2024 年台灣留學生約 6.3 萬人，美、日、澳、英、加為前五大熱門國家。"
+    },
+    {
+      "id": "SA03_young_student",
+      "name": "小留學生（中學／大學提早出國）",
+      "year_range": [
+        1989,
+        2070
+      ],
+      "age_range": [
+        15,
+        18
+      ],
+      "min_quintile": 4,
+      "max_quintile": 5,
+      "min_knowledge": 45,
+      "requires_edu_min": 2,
+      "cost_twd_2025": 3500000,
+      "study_years": 4,
+      "allowed_countries": [
+        "USA",
+        "CAN",
+        "AUS",
+        "GBR"
+      ],
+      "desc": "父母趁新台幣升值或為避開台灣高壓聯考，決定送你提早赴美加澳英當小留學生。",
+      "source_note": "1989 年後放寬出國留學限制，溫哥華、加州與雪梨成為熱門小留學生據點。"
+    },
+    {
+      "id": "SA04_exchange_dual",
+      "name": "大學交換學生／雙聯學位轉留學",
+      "year_range": [
+        2005,
+        2070
+      ],
+      "age_range": [
+        20,
+        22
+      ],
+      "min_quintile": 2,
+      "max_quintile": 5,
+      "min_knowledge": 62,
+      "requires_edu_min": 4,
+      "cost_twd_2025": 650000,
+      "study_years": 1,
+      "allowed_countries": [
+        "JPN",
+        "DEU",
+        "USA",
+        "GBR",
+        "CAN"
+      ],
+      "desc": "申請教育部學海飛颺或校際交換計畫赴海外體驗一年，順勢銜接當地碩士或實習。",
+      "source_note": "2000 年代後期台灣大學國際化普及，交換生大幅降低出國門檻。"
+    },
+    {
+      "id": "SA05_working_holiday",
+      "name": "海外打工度假（存桶金轉留學／移民）",
+      "year_range": [
+        2004,
+        2070
+      ],
+      "age_range": [
+        21,
+        30
+      ],
+      "min_quintile": 1,
+      "max_quintile": 4,
+      "min_knowledge": 30,
+      "requires_edu_min": 3,
+      "cost_twd_2025": 150000,
+      "study_years": 1,
+      "allowed_countries": [
+        "AUS",
+        "JPN",
+        "GBR",
+        "CAN"
+      ],
+      "desc": "不靠家裡資助，先赴澳、日、英、加打工度假賺取高時薪，再視情況轉讀當地語言或技職學校。",
+      "source_note": "2004 台澳與 2009 台日打工度假協定生效，改變台灣年輕世代的海外流動方式。"
+    },
+    {
+      "id": "SA06_midcareer_pivot",
+      "name": "工作數年後出國轉碼 CS／攻讀 MBA",
+      "year_range": [
+        2010,
+        2070
+      ],
+      "age_range": [
+        26,
+        34
+      ],
+      "min_quintile": 2,
+      "max_quintile": 5,
+      "min_knowledge": 60,
+      "requires_edu_min": 4,
+      "cost_twd_2025": 2400000,
+      "study_years": 2,
+      "allowed_countries": [
+        "USA",
+        "GBR",
+        "CAN",
+        "DEU",
+        "AUS"
+      ],
+      "desc": "工作幾年後遇見台灣薪資天花板，決定拿出積蓄與留學貸款出國攻讀資工碩士或 MBA 博翻身。",
+      "source_note": "2010 年代後台灣文組轉碼與職場中段出國比例顯著增加。"
+    }
+  ],
+  "countries": [
+    {
+      "id": "USA",
+      "flag": "🇺🇸",
+      "name_zh": "美國",
+      "name_en": "United States",
+      "salary_mult_vs_tw": 2.35,
+      "living_cost_mult_vs_tw": 1.95,
+      "healthcare_wait_risk": 0.14,
+      "pr_difficulty": 0.65,
+      "summary": "台灣人最經典的留學首選（2024 逾 2.3 萬人）；薪資天花板最高，但面臨昂貴醫療與 H-1B 簽證抽籤壓力。",
+      "era_events": [
+        {
+          "id": "AB_USA_1971_1979",
+          "year_start": 1971,
+          "year_end": 1979,
+          "title": "美國校園反戰、保釣運動與 1979 台美斷交衝擊",
+          "summary": "越戰反戰浪潮與保釣運動撕裂海外華人社群；1979 年美台斷交消息傳來，留學生對身分與台灣前途充滿焦慮。",
+          "impact_note": "許多理工留學生選擇先在美扎根，日後成為 1980s 回台建立竹科與半導體產業的關鍵世代。",
+          "cultural_footnote_en": "The 1971 Diaoyutai movement and 1979 US-ROC diplomatic break deeply shook Taiwanese students in America; many later returned to build Taiwan's Hsinchu Science Park.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.05,
+          "happiness_delta": -5,
+          "money_mult": 1.0
+        },
+        {
+          "id": "AB_USA_1985_1999",
+          "year_start": 1985,
+          "year_end": 1999,
+          "title": "矽谷電腦與網路起飛黃金期",
+          "summary": "美國個人電腦與網際網路產業狂飆，理工與商管留學生畢業即獲科技大廠搶才，申請綠卡相對順遂。",
+          "impact_note": "造就大批美籍台裔科技中產家庭，也形成台灣與矽谷緊密的人才雙向走廊。",
+          "cultural_footnote_en": "Taiwanese engineers became a vital backbone of Silicon Valley during the 1980s–90s PC and internet booms.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.02,
+          "happiness_delta": 6,
+          "money_mult": 1.18
+        },
+        {
+          "id": "AB_USA_2001_2009",
+          "year_start": 2001,
+          "year_end": 2009,
+          "title": "911 後簽證審查趨嚴與 2008 華爾街金融海嘯",
+          "summary": "2001 年 911 事件後美國大幅收緊外籍生與入境審查；2008 年雷曼破產引爆金融海嘯，畢業生求職凍結。",
+          "impact_note": "外籍畢業生留下難度大增，部分台灣留學生提前回流亞洲金融與科技中心。",
+          "cultural_footnote_en": "Post-9/11 visa vetting and the 2008 financial crisis made securing US work sponsorship far harder for Taiwanese graduates.",
+          "sensitive": true,
+          "visa_crisis_prob": 0.16,
+          "happiness_delta": -6,
+          "money_mult": 0.88
+        },
+        {
+          "id": "AB_USA_2014_2019",
+          "year_start": 2014,
+          "year_end": 2019,
+          "title": "H-1B 工作簽證抽籤大戰",
+          "summary": "赴美留學生與科技申請暴增，H-1B 工作簽證中籤率大幅下滑，STEM 專業靠 3 年 OPT 苦撐抽籤。",
+          "impact_note": "身分不確定性成為留美台灣青年最大的心理與職涯風險。",
+          "cultural_footnote_en": "Plummeting H-1B visa lottery odds turned post-graduation immigration into a nerve-wracking gamble for Taiwanese students in the US.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.22,
+          "happiness_delta": -4,
+          "money_mult": 1.05
+        },
+        {
+          "id": "AB_USA_2020_2026",
+          "year_start": 2020,
+          "year_end": 2026,
+          "title": "疫情反亞裔歧視、矽谷裁員潮與 AI 晶片設廠潮",
+          "summary": "2020 年疫情封城伴隨反亞裔仇恨事件；2022–2024 科技大廠輪番裁員引爆 60 天寬限期離境危機；2024 後 AI 與台積電亞利桑那廠再度帶動需求。",
+          "impact_note": "高薪與身分／治安風險強烈並存，讓不少旅美台灣人重新評估回台或轉往亞洲。",
+          "cultural_footnote_en": "From 2020 pandemic isolation and 2022–24 tech layoffs (60-day visa grace period) to TSMC's Arizona fabs, life in the US swung dramatically.",
+          "sensitive": true,
+          "visa_crisis_prob": 0.18,
+          "happiness_delta": -3,
+          "money_mult": 1.1
+        }
+      ]
+    },
+    {
+      "id": "JPN",
+      "flag": "🇯🇵",
+      "name_zh": "日本",
+      "name_en": "Japan",
+      "salary_mult_vs_tw": 1.3,
+      "living_cost_mult_vs_tw": 1.35,
+      "healthcare_wait_risk": 0.05,
+      "pr_difficulty": 0.4,
+      "summary": "文化親近、地緣最近的留學與就業大國；生活安全整潔，但受職場年功序列與匯率波動影響顯著。",
+      "era_events": [
+        {
+          "id": "AB_JPN_1980_1991",
+          "year_start": 1980,
+          "year_end": 1991,
+          "title": "日本泡沫經濟頂峰與日圓急升",
+          "summary": "廣場協議後日圓大幅升值，東京地價與消費驚人，但留學生打工時薪折合台幣極為可觀。",
+          "impact_note": "許多台灣留學生半工半讀撐過高昂東京房租，見證亞洲第一經濟體的黃金時代。",
+          "cultural_footnote_en": "During Japan's 1980s bubble economy, surging yen wages rewarded part-time student workers despite sky-high Tokyo rents.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.04,
+          "happiness_delta": 3,
+          "money_mult": 1.15
+        },
+        {
+          "id": "AB_JPN_1992_2008",
+          "year_start": 1992,
+          "year_end": 2008,
+          "title": "失落的十年、就職冰河期與 1995 阪神大地震",
+          "summary": "泡沫破滅後日本企業緊縮徵才進入就職冰河期，外國留學生進大手企業門檻驟升；1995 年關西遭阪神強震重創。",
+          "impact_note": "日本嚴格的新卒一括採用制度，使不少留日畢業生選擇返台發展。",
+          "cultural_footnote_en": "Japan's post-bubble 'employment ice age' made corporate hiring fiercely competitive for foreign graduates.",
+          "sensitive": true,
+          "visa_crisis_prob": 0.14,
+          "happiness_delta": -5,
+          "money_mult": 0.9
+        },
+        {
+          "id": "AB_JPN_2011_2019",
+          "year_start": 2011,
+          "year_end": 2019,
+          "title": "311 東日本大地震後的台日深厚情誼與觀光熱潮",
+          "summary": "2011 年 311 強震與福島核災震撼日本，台灣民間巨額捐款促成強烈台日友好；後續訪日觀光暴增，懂中文與日文的台灣人才炙手可熱。",
+          "impact_note": "在日台灣人明顯感受到當地社會的友善與感謝，觀光與跨國職缺大開。",
+          "cultural_footnote_en": "Taiwan's massive grassroots donations after Japan's 2011 Tohoku earthquake forged enduring warmth toward Taiwanese residents in Japan.",
+          "sensitive": true,
+          "visa_crisis_prob": 0.05,
+          "happiness_delta": 4,
+          "money_mult": 1.02
+        },
+        {
+          "id": "AB_JPN_2020_2026",
+          "year_start": 2020,
+          "year_end": 2026,
+          "title": "疫情鎖國、日圓大貶與台積電熊本設廠潮",
+          "summary": "2020–2021 日本邊境嚴格管制致留學生苦等入境；2022–2026 日圓創數十年新低讓學費變親民，卻壓低留日薪資折合台幣吸引力；同時台積電熊本廠與日本高度人才簽證大舉招手。",
+          "impact_note": "日圓貶值與台灣科技薪資上漲形成對比，留日逐漸由「賺高薪」轉為「追求生活品質」。",
+          "cultural_footnote_en": "Historic yen depreciation in 2022–26 lowered tuition costs but narrowed Japan's wage edge over Taiwan, even as TSMC's Kumamoto fabs drew Taiwanese engineers.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.04,
+          "happiness_delta": 1,
+          "money_mult": 0.88
+        }
+      ]
+    },
+    {
+      "id": "AUS",
+      "flag": "🇦🇺",
+      "name_zh": "澳洲",
+      "name_en": "Australia",
+      "salary_mult_vs_tw": 1.75,
+      "living_cost_mult_vs_tw": 1.55,
+      "healthcare_wait_risk": 0.09,
+      "pr_difficulty": 0.45,
+      "summary": "留學移民與打工度假第一重鎮；高法定時薪與工作生活平衡極具魅力，但近年面臨大城市租屋荒與簽證收緊。",
+      "era_events": [
+        {
+          "id": "AB_AUS_2004_2018",
+          "year_start": 2004,
+          "year_end": 2018,
+          "title": "台澳打工度假熱潮與礦業高時薪時代",
+          "summary": "2004 年台澳打工度假上路後，大批台灣青年赴澳農場、肉廠與餐飲業存下第一桶金，也掀起台灣社會對低薪與「台勞」的熱議。",
+          "impact_note": "許多青年藉由打工度假累積存款與英語力，進一步轉讀護理、廚藝或會計申請技術移民。",
+          "cultural_footnote_en": "The 2004 Taiwan-Australia Working Holiday pact sparked a massive wave of Taiwanese youth working farms and hospitality for high Australian wages.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.06,
+          "happiness_delta": 4,
+          "money_mult": 1.15
+        },
+        {
+          "id": "AB_AUS_2019_2022",
+          "year_start": 2019,
+          "year_end": 2022,
+          "title": "世紀森林大火與近兩年最嚴格邊境封鎖",
+          "summary": "2019 跨年野火籠罩東岸城市；2020–2021 澳洲封鎖國境近兩年，海外生被迫滯留當地或遠距苦讀。",
+          "impact_note": "孤立感與不能返家探親的焦慮讓思鄉值飆升。",
+          "cultural_footnote_en": "Australia's nearly two-year COVID border closure left many Taiwanese students stranded abroad unable to visit home.",
+          "sensitive": true,
+          "visa_crisis_prob": 0.12,
+          "happiness_delta": -7,
+          "money_mult": 0.92
+        },
+        {
+          "id": "AB_AUS_2023_2026",
+          "year_start": 2023,
+          "year_end": 2026,
+          "title": "高法定最低時薪（AU$24.95）與大城市租屋荒",
+          "summary": "澳洲最低時薪持續調漲，但雪梨與墨爾本爆發嚴重租屋荒與房租暴漲，政府亦提高學生簽證與畢業生工簽門檻。",
+          "impact_note": "名目時薪亮眼，但居住成本與技術移民積分競爭大幅拉高。",
+          "cultural_footnote_en": "Despite world-leading minimum wages (AU$24.95/hr), an acute housing shortage and tighter visa rules reshaped life for Taiwanese in Australia.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.15,
+          "happiness_delta": -2,
+          "money_mult": 1.02
+        }
+      ]
+    },
+    {
+      "id": "GBR",
+      "flag": "🇬🇧",
+      "name_zh": "英國",
+      "name_en": "United Kingdom",
+      "salary_mult_vs_tw": 1.65,
+      "living_cost_mult_vs_tw": 1.65,
+      "healthcare_wait_risk": 0.16,
+      "pr_difficulty": 0.58,
+      "summary": "精簡「一年制碩士」最受台灣商管、設計與傳播學生青睞；但畢業後工作簽證政策歷經多次劇烈搖擺。",
+      "era_events": [
+        {
+          "id": "AB_GBR_1990_2011",
+          "year_start": 1990,
+          "year_end": 2011,
+          "title": "一年制碩士黃金期與倫敦創意金融磁吸",
+          "summary": "學制緊湊、省下一年學費與機會成本的英國碩士大受台灣學生歡迎，設計、傳播與金融領域累積豐富國際人脈。",
+          "impact_note": "成為台灣文商設計科系最熱門的歐洲深造據點。",
+          "cultural_footnote_en": "The UK's intensive one-year master's degree became the top European choice for Taiwanese business, media, and design students.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.08,
+          "happiness_delta": 4,
+          "money_mult": 1.05
+        },
+        {
+          "id": "AB_GBR_2012_2019",
+          "year_start": 2012,
+          "year_end": 2019,
+          "title": "取消 PSW 畢業工簽（2012）與英國脫歐公投（2016）",
+          "summary": "2012 年 4 月英國取消 2 年畢業生工作簽證（PSW），多數留學生畢業即被迫返台；2016 脫歐公投引發英鎊重貶與歐洲流動受阻。",
+          "impact_note": "政策緊縮讓這世代留英台灣人以「拿學位返台發展」為絕對大宗。",
+          "cultural_footnote_en": "Abolishing the Post-Study Work visa in 2012 and the 2016 Brexit vote forced most Taiwanese UK graduates to return home immediately.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.35,
+          "happiness_delta": -5,
+          "money_mult": 0.9
+        },
+        {
+          "id": "AB_GBR_2021_2026",
+          "year_start": 2021,
+          "year_end": 2026,
+          "title": "重啟 2 年畢業生簽證、高通膨與 2024 工簽薪資門檻大漲",
+          "summary": "2021 年英國重啟 Graduate Route 2 年工簽吸引台灣留學潮回溫；但 2023–2025 面臨高通膨、NHS 看診漫長排隊，以及 2024 年技術工簽年薪門檻大幅拉高。",
+          "impact_note": "兩年緩衝期雖好找實習，但轉長期贊助工作簽證的門檻再次變高。",
+          "cultural_footnote_en": "The 2021 Graduate Route reopened UK careers, though inflation, long NHS waits, and steeper 2024 Skilled Worker salary thresholds tested newcomers.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.2,
+          "happiness_delta": -2,
+          "money_mult": 0.96
+        }
+      ]
+    },
+    {
+      "id": "CAN",
+      "flag": "🇨🇦",
+      "name_zh": "加拿大",
+      "name_en": "Canada",
+      "salary_mult_vs_tw": 1.68,
+      "living_cost_mult_vs_tw": 1.55,
+      "healthcare_wait_risk": 0.15,
+      "pr_difficulty": 0.42,
+      "summary": "溫哥華與多倫多長期為台灣家庭移民與留學熱門基地；多元友善，但近年面臨高房價與學簽配額縮減。",
+      "era_events": [
+        {
+          "id": "AB_CAN_1990_2005",
+          "year_start": 1990,
+          "year_end": 2005,
+          "title": "「太空人家庭」與溫哥華台灣新移民潮",
+          "summary": "1990 年代大量台灣與香港中產家庭赴溫哥華、多倫多置產送子女求學，常見父親留台賺錢、母子留加的「太空人家庭」。",
+          "impact_note": "台式珍珠奶茶與牛肉麵在溫哥華遍地開花，但也伴隨跨洋家庭聚少離多的考驗。",
+          "cultural_footnote_en": "In the 1990s, 'astronaut families'—with one parent commuting back to Taiwan for work while children studied in Vancouver or Toronto—became a distinct diaspora pattern.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.04,
+          "happiness_delta": 2,
+          "money_mult": 1.05
+        },
+        {
+          "id": "AB_CAN_2010_2022",
+          "year_start": 2010,
+          "year_end": 2022,
+          "title": "寬鬆畢業工簽（PGWP）與 Express Entry 留學移民熱",
+          "summary": "加拿大推出最長 3 年畢業工簽與快速通道移民，吸引不少台灣青年透過公立學院（College）實現留學兼移民。",
+          "impact_note": "成為美國 H-1B 抽籤落榜後最常見的北美替代方案。",
+          "cultural_footnote_en": "Canada's generous Post-Graduation Work Permit (PGWP) and Express Entry drew many Taiwanese seeking a clearer path to residency than the US.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.06,
+          "happiness_delta": 4,
+          "money_mult": 1.04
+        },
+        {
+          "id": "AB_CAN_2023_2026",
+          "year_start": 2023,
+          "year_end": 2026,
+          "title": "大城市房價失控與聯邦大砍國際學生配額",
+          "summary": "溫哥華與多倫多房租高漲、家庭醫師一號難求；加拿大聯邦政府自 2024 起大幅削減留學生配額並收緊配偶工簽與永居分數。",
+          "impact_note": "留學移民難度明顯上升，部分青年重新比較返台與留加的生活品質。",
+          "cultural_footnote_en": "Soaring housing costs and healthcare backlogs led Canada in 2024–26 to cap international student permits and tighten residency paths.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.16,
+          "happiness_delta": -3,
+          "money_mult": 0.95
+        }
+      ]
+    },
+    {
+      "id": "DEU",
+      "flag": "🇩🇪",
+      "name_zh": "德國",
+      "name_en": "Germany",
+      "salary_mult_vs_tw": 1.62,
+      "living_cost_mult_vs_tw": 1.38,
+      "healthcare_wait_risk": 0.08,
+      "pr_difficulty": 0.42,
+      "summary": "公立大學多數免學費的歐陸高 CP 值首選；工程、製造與設計實力雄厚，畢業享 18 個月求職簽證。",
+      "era_events": [
+        {
+          "id": "AB_DEU_1984_2005",
+          "year_start": 1984,
+          "year_end": 2005,
+          "title": "歐洲公費拓荒、柏林圍牆倒塌（1989）與歐元上路（2002）",
+          "summary": "1984 年台灣增設歐洲公費名額，留德學生見證 1989 柏林圍牆倒塌、兩德統一與 2002 歐元啟用的歷史巨變。",
+          "impact_note": "歐陸人文與精密工程思維帶回台灣，豐富高教與產業視野。",
+          "cultural_footnote_en": "After Taiwan expanded European scholarships in 1984, Taiwanese students in Germany witnessed the 1989 fall of the Berlin Wall and 2002 Euro launch.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.06,
+          "happiness_delta": 3,
+          "money_mult": 1.0
+        },
+        {
+          "id": "AB_DEU_2012_2026",
+          "year_start": 2012,
+          "year_end": 2026,
+          "title": "英語碩士免學費潮、能源通膨與歐陸車電轉型",
+          "summary": "德國公立大學免學費與 18 個月求職簽證吸引台灣理工與設計系精打細算深造；2022 俄烏戰爭後經歷能源通膨與工業轉型，但工作生活平衡與年假制度仍深具魅力。",
+          "impact_note": "德語門檻與冬日漫長陰暗是留德台灣人最常面對的適應關卡。",
+          "cultural_footnote_en": "Tuition-free German public universities and an 18-month job-seeker visa made Germany a top value destination for Taiwanese STEM and design students.",
+          "sensitive": false,
+          "visa_crisis_prob": 0.08,
+          "happiness_delta": 2,
+          "money_mult": 1.02
+        }
+      ]
+    }
+  ],
+  "return_triggers": [
+    {
+      "id": "RT01_aging_parents",
+      "category": "family_care",
+      "title": "父母年邁生病，越洋電話裡的嘆息",
+      "desc": "視訊裡父母的頭髮全白了，最近進出醫院次數變多卻總說「沒事，你專心在國外打拚」。思鄉與虧欠感湧上心頭。",
+      "condition_type": "parents_aging",
+      "age_range": [
+        34,
+        58
+      ],
+      "homesickness_delta": 25,
+      "cultural_footnote_en": "Filial piety and aging parents are the #1 emotional pull bringing overseas Taiwanese back home."
+    },
+    {
+      "id": "RT02_parent_passing",
+      "category": "family_care",
+      "title": "長輩病危奔喪：來不及見最後一面的震撼",
+      "desc": "緊急訂下十幾小時後的紅眼機票飛回桃園機場，這場生離死別讓你重新思考：自己的人生究竟想陪在誰身邊？",
+      "condition_type": "parent_passed_recently",
+      "age_range": [
+        35,
+        65
+      ],
+      "homesickness_delta": 35,
+      "cultural_footnote_en": "Missing a parent's final days across time zones is a defining turning point for many Taiwanese expatriates."
+    },
+    {
+      "id": "RT03_childbirth_postpartum",
+      "category": "family_care",
+      "title": "迎接新生命：海外天價托育 vs 回台坐月子與父母後援",
+      "desc": "異鄉育兒沒有親友幫手、托育費高昂，你開始認真考慮回台灣坐月子、讓孩子在阿公阿嬤身邊長大。",
+      "condition_type": "has_partner_childbearing",
+      "age_range": [
+        28,
+        42
+      ],
+      "homesickness_delta": 20,
+      "cultural_footnote_en": "High childcare costs abroad and Taiwan's postpartum care ('zuo yuezi') + grandparent support draw young families home."
+    },
+    {
+      "id": "RT04_martial_law_blacklist",
+      "category": "national_reform_election",
+      "title": "1987 解嚴與 1992 刑法 100 條修正：自由的故鄉在呼喚",
+      "desc": "台灣解除長達 38 年戒嚴、黑名單逐步解凍，海外台灣人終於能自由返鄉參與民主化與公民社會建設。",
+      "condition_type": "year_window",
+      "years": [
+        1987,
+        1988,
+        1992
+      ],
+      "homesickness_delta": 22,
+      "cultural_footnote_en": "The 1987 lifting of Martial Law and 1992 abolition of political blacklists sparked a wave of overseas Taiwanese returning home."
+    },
+    {
+      "id": "RT05_democratic_elections",
+      "category": "national_reform_election",
+      "title": "台灣歷史性總統大選與政黨輪替（1996／2000）",
+      "desc": "看到台灣頂著壓力完成首次總統直選與和平政黨輪替，海外同鄉會熱淚盈眶，你動念想買張機票回家投下一票、甚至回台工作。",
+      "condition_type": "year_window",
+      "years": [
+        1996,
+        2000
+      ],
+      "homesickness_delta": 20,
+      "cultural_footnote_en": "Taiwan's first direct presidential election (1996) and peaceful transfer of power (2000) stirred deep pride among the overseas diaspora."
+    },
+    {
+      "id": "RT06_sunflower_voting_wave",
+      "category": "national_reform_election",
+      "title": "公民覺醒與海外返鄉投票潮（2014／2016／2020／2024）",
+      "desc": "滑著社群媒體看見台灣年輕世代為公共議題發聲、海外留學生集資包機返鄉投票，你感受到自己與這座島嶼無法切割的連結。",
+      "condition_type": "year_window",
+      "years": [
+        2014,
+        2016,
+        2020,
+        2024
+      ],
+      "homesickness_delta": 18,
+      "cultural_footnote_en": "Overseas Taiwanese frequently fly thousands of miles home to cast ballots in Taiwan's high-stakes elections (absentee voting is not permitted)."
+    },
+    {
+      "id": "RT07_same_sex_marriage",
+      "category": "national_reform_election",
+      "title": "2019 同婚專法生效：亞洲第一的自由與歸屬感",
+      "desc": "台灣成為亞洲首個同性婚姻合法化國家，在國際新聞版面綻放光芒，讓你更渴望回到這片多元包容的土地生活。",
+      "condition_type": "year_window",
+      "years": [
+        2019
+      ],
+      "homesickness_delta": 16,
+      "cultural_footnote_en": "Becoming Asia's first country to legalize same-sex marriage in 2019 strengthened Taiwan's appeal as an open, progressive home."
+    },
+    {
+      "id": "RT08_hsinchu_tech_boom",
+      "category": "industry_visa",
+      "title": "竹科起飛與海歸創業潮（1984–1998）",
+      "desc": "工研院與新竹科學園區大舉向海外學人招手，開出高階職位、股票分紅與創業育成資源，不少矽谷學長姐已經打包回台。",
+      "condition_type": "year_window",
+      "years": [
+        1984,
+        1987,
+        1990,
+        1994,
+        1997
+      ],
+      "homesickness_delta": 15,
+      "cultural_footnote_en": "Returning Silicon Valley engineers founded and scaled many of Hsinchu Science Park's flagship semiconductor and PC firms."
+    },
+    {
+      "id": "RT09_visa_layoff_crisis",
+      "category": "industry_visa",
+      "title": "海外簽證受阻或科技裁員寬限期危機",
+      "desc": "工作簽證抽籤落榜、政策驟變或公司縮編，讓你在異鄉面臨身分倒數計時，必須決定死磕轉軌或帶著國際資歷返台。",
+      "condition_type": "visa_crisis",
+      "homesickness_delta": 18,
+      "cultural_footnote_en": "Visa lotteries, sudden policy shifts (e.g., UK PSW repeal), and layoff grace periods regularly push overseas Taiwanese to reconsider returning."
+    },
+    {
+      "id": "RT10_ai_semi_return",
+      "category": "industry_visa",
+      "title": "2022–2026 台灣 AI 半導體高薪回流潮",
+      "desc": "台灣半導體與 AI 供應鏈成為全球焦點，高階工程師與跨國管理職開出直逼海外、且稅率更低的薪資條件向你招手。",
+      "condition_type": "year_window",
+      "years": [
+        2022,
+        2023,
+        2025,
+        2026
+      ],
+      "homesickness_delta": 15,
+      "cultural_footnote_en": "Taiwan's AI hardware boom and lower effective tax rates narrowed the net-income gap with overseas hubs in 2022–26."
+    },
+    {
+      "id": "RT11_healthcare_nhi_contrast",
+      "category": "healthcare_safety",
+      "title": "異鄉生病排隊與天價帳單：無比想念台灣健保",
+      "desc": "在國外看專科醫師要排隊兩個月、急診帳單更是嚇人，對比台灣 1995 年開辦後便宜又即時的全民健保，回家的念頭更加強烈。",
+      "condition_type": "health_below_overseas",
+      "min_year": 1996,
+      "homesickness_delta": 24,
+      "cultural_footnote_en": "Taiwan's affordable, fast National Health Insurance (NHI, launched 1995) is consistently cited as a top draw for returning expatriates."
+    },
+    {
+      "id": "RT12_covid_safe_haven",
+      "category": "healthcare_safety",
+      "title": "2020–2021 全球疫情封城 vs 台灣正常生活的強烈對比",
+      "desc": "身處歐美澳嚴格封城與物資搶購之中，看著台灣親友在國內正常上班逛夜市、戴口罩零確診，你思考是否該直接搬回台灣。",
+      "condition_type": "year_window",
+      "years": [
+        2020,
+        2021
+      ],
+      "homesickness_delta": 28,
+      "cultural_footnote_en": "During 2020–21, Taiwan's early pandemic success triggered a notable reverse-migration wave of overseas Taiwanese moving back."
+    }
+  ],
+  "return_decision_template": {
+    "id": "D27_return_to_taiwan",
+    "title": "跨海的十字路口：回台灣，還是留在海外？",
+    "options": [
+      {
+        "key": "return_taiwan",
+        "label": "打包返台發展（海歸線：享海歸加給、健保與家人陪伴）",
+        "effects": {
+          "return_home": true,
+          "relationships": 14,
+          "happiness": 10
+        }
+      },
+      {
+        "key": "stay_abroad",
+        "label": "留在當地扎根（移民／永居線：維持海外高薪與居留身分）",
+        "effects": {
+          "stay_abroad": true,
+          "relationships": -6,
+          "pr_progress": 1
+        }
+      },
+      {
+        "key": "commuter_nomad",
+        "label": "成為「空中飛人／遠距跨國族」（半年海外、半年回台陪家人）",
+        "requires_year_min": 2015,
+        "requires_remote_or_senior": true,
+        "effects": {
+          "commuter_mode": true,
+          "relationships": 6,
+          "happiness": 6,
+          "annual_travel_cost_twd_2025": 220000
+        }
+      }
+    ]
+  }
+}

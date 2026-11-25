@@ -1,0 +1,1530 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "coverage_years": [
+      1979,
+      2026
+    ],
+    "educational_structure": "三段式結構：summary（事實）→ institutional_aftermath（制度與社會餘波）→ gameplay_impact（遊戲影響）",
+    "region_codes_ref": [
+      "ALL",
+      "north_taipei",
+      "north_hsinchu",
+      "central",
+      "south_tainan",
+      "south_kaohsiung",
+      "east_islands"
+    ]
+  },
+  "events": [
+    {
+      "id": "EV_1979_yucheng",
+      "year": 1979,
+      "year_end": 1979,
+      "category": "society_food_safety",
+      "regions": [
+        "central"
+      ],
+      "title": "米糠油多氯聯苯中毒案（油症事件）",
+      "summary": "彰化油脂公司生產的米糠油遭多氯聯苯污染，造成台中、彰化約2,000餘人中毒，毒素長期累積甚至遺傳至下一代。",
+      "institutional_aftermath": "台灣首起大規模工業化學食安悲劇；歷經36年倡議，立法院於2015年三讀通過《油症患者健康照護服務條例》提供照護與撫慰金。",
+      "gameplay_impact": {
+        "trigger_prob_in_region": 0.002,
+        "health_permanent_delta": -15,
+        "follow_up_year": 2015
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "Taiwan's first mass industrial food-poisoning disaster (PCB-contaminated rice bran oil), eventually leading to a dedicated victim healthcare law in 2015.",
+      "sources": [
+        "衛福部油症專區",
+        "立法院法律沿革"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.06,
+        "regions": [
+          "central"
+        ],
+        "age_range": [
+          0,
+          75
+        ],
+        "trait_mult": {
+          "family_first": 1.3
+        },
+        "exp_tags": [],
+        "outcomes": [
+          {
+            "weight": 0.75,
+            "severity": "health_trajectory",
+            "narrative": "家中長期食用的米糠油遭多氯聯苯污染，你與家人出現皮膚病變與慢性疲倦，此後數十年奔走醫療與求償，直到 2015 年專法通過才獲國家照護。",
+            "health_delta": -24,
+            "happiness_delta": -18,
+            "money_ratio_delta": -0.15,
+            "set_flag": "yucheng_affected"
+          },
+          {
+            "weight": 0.25,
+            "severity": "economic_minor",
+            "narrative": "家裡買到同批問題油所幸食用量少，但親戚中毒嚴重，全家投入協助照護與長期醫藥支出。",
+            "health_delta": -8,
+            "happiness_delta": -10,
+            "money_ratio_delta": -0.12
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_1979_kaohsiung_incident",
+      "year": 1979,
+      "year_end": 1980,
+      "category": "politics_society",
+      "regions": [
+        "south_kaohsiung",
+        "ALL"
+      ],
+      "title": "美麗島事件",
+      "summary": "黨外人士於高雄舉辦世界人權日集會引發警民衝突，當局展開全島大逮捕並以軍法大審判處8名核心人物重刑。",
+      "institutional_aftermath": "引發海內外聲援與美國國會關切，催化台灣本土民主意識與黨外律師世代崛起，成為走向民主化的關鍵轉捩點。",
+      "gameplay_impact": {
+        "narrative_tag": "martial_law_caution",
+        "happiness_delta": -2
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "A 1979 pro-democracy rally in Kaohsiung crushed under Martial Law; the resulting military trials catalyzed Taiwan's democratization movement.",
+      "sources": [
+        "國家人權博物館史料"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.08,
+        "regions": [
+          "south_kaohsiung",
+          "north_taipei"
+        ],
+        "age_range": [
+          18,
+          55
+        ],
+        "trait_mult": {
+          "civic_minded": 2.8,
+          "cautious": 0.25,
+          "sensitive_introvert": 0.4
+        },
+        "exp_tags": [
+          "higher_ed"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.7,
+            "severity": "trajectory",
+            "narrative": "你因關心民主集會出現在高雄人權日現場，事後遭情治單位約談並被原公司解僱，職涯被迫轉向民間自營或日後投入台灣公民改革。",
+            "happiness_delta": -12,
+            "knowledge_delta": 10,
+            "job_lost": true,
+            "money_ratio_delta": -0.2
+          },
+          {
+            "weight": 0.3,
+            "severity": "trajectory_heavy",
+            "narrative": "你因參與現場聲援捲入戒嚴軍法偵辦，經歷數年牢獄與監視才於解嚴前獲釋，整個人生軌跡徹底改寫。",
+            "health_delta": -15,
+            "happiness_delta": -20,
+            "knowledge_delta": 12,
+            "job_lost": true,
+            "money_ratio_delta": -0.45
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_1982_li_shike_wang_yingxian",
+      "year": 1982,
+      "year_end": 1982,
+      "category": "crime_justice",
+      "regions": [
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "李師科搶案與王迎先冤死案",
+      "summary": "退伍老兵李師科持槍搶劫土地銀行古亭分行，為台灣治安史首起持槍搶銀行案；辦案期間無辜計程車司機王迎先遭刑求後跳河身亡。",
+      "institutional_aftermath": "促成《刑事訴訟法》第27條修正（「王迎先條款」），確立偵查中被告得隨時選任辯護人以防刑求；並催生民眾進銀行須脫安全帽與口罩的規範。",
+      "gameplay_impact": {
+        "unlock_daily_flavor": "bank_remove_helmet",
+        "justice_index_delta": 5
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "Taiwan's first armed bank robbery led to a wrongful police torture death, prompting the 1982 'Wang Ying-hsien Clause' granting suspects the right to counsel during interrogation—and the rule to remove helmets in banks.",
+      "sources": [
+        "司法院與刑事訴訟法修法沿革"
+      ]
+    },
+    {
+      "id": "EV_1984_henry_liu",
+      "year": 1984,
+      "year_end": 1985,
+      "category": "crime_politics",
+      "regions": [
+        "ALL"
+      ],
+      "title": "江南案",
+      "summary": "旅美作家劉宜良（筆名江南）在加州遭台灣情治人員指使黑幫暗殺，引發美台關係劇烈震盪。",
+      "institutional_aftermath": "重創威權體制國際形象並終結蔣家接班可能，直接加速1987年解嚴、1988年開放報禁與1992年《刑法》第100條修正。",
+      "gameplay_impact": {
+        "narrative_only": true,
+        "precursor_to": "EV_1987_martial_law_lifted"
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "The 1984 assassination of Taiwanese-American writer Henry Liu in California severely strained US-Taiwan ties and accelerated the end of Martial Law.",
+      "sources": [
+        "國史館史料"
+      ]
+    },
+    {
+      "id": "EV_1985_tenth_credit",
+      "year": 1985,
+      "year_end": 1985,
+      "category": "finance",
+      "regions": [
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "十信案（台北第十信用合作社弊案）",
+      "summary": "蔡辰洲涉違規超貸掏空十信並引爆擠兌風暴，受害人數逾10萬人，震撼政商界。",
+      "institutional_aftermath": "台灣史上首起震撼全國的大型金融弊案；促成政府擴大金檢、1989年修正《銀行法》並開放民營新銀行設立，開啟現代金融監理。",
+      "gameplay_impact": {
+        "bank_run_prob_north_taipei": 0.04,
+        "savings_loss_if_hit": 0.25
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "A massive 1985 credit-cooperative embezzlement scandal affecting over 100,000 depositors, triggering Taiwan's modern banking deregulation and oversight reforms.",
+      "sources": [
+        "財政部與金融監督管理史料"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.12,
+        "regions": [
+          "north_taipei"
+        ],
+        "age_range": [
+          22,
+          70
+        ],
+        "trait_mult": {
+          "risk_taker": 2.0,
+          "cautious": 0.5
+        },
+        "exp_tags": [
+          "has_savings",
+          "finance_sector"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.7,
+            "severity": "economic_major",
+            "narrative": "你將大半積蓄存放在台北十信體系貪圖較高利息，弊案爆發後遭遇擠兌與關係企業跳票，畢生存款蒸發逾半。",
+            "money_ratio_delta": -0.55,
+            "happiness_delta": -20
+          },
+          {
+            "weight": 0.3,
+            "severity": "economic_severe",
+            "narrative": "你任職於十信關聯商號且存款全數押入，擠兌風暴導致失業與嚴重負債，家庭生活陷入谷底。",
+            "money_ratio_delta": -0.75,
+            "happiness_delta": -28,
+            "job_lost": true,
+            "heavy_debt": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_1985_1990_bubble_boom",
+      "year": 1985,
+      "year_end": 1990,
+      "category": "economy_finance",
+      "regions": [
+        "ALL"
+      ],
+      "title": "「台灣錢淹腳目」股房狂飆期",
+      "summary": "新台幣從40.6升值至25.56，台股從636點飆漲20倍至1990年2月12,682點，台北市房價飆至每坪25.5萬元高峰。",
+      "institutional_aftermath": "奠定台灣一代人的財富想像，但也埋下泡沫破滅與投機文化的歷史教訓。",
+      "gameplay_impact": {
+        "asset_growth_mult": 1.35,
+        "housing_cost_mult": 1.8
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "Known as 'Taiwan money flooding the ankles,' currency appreciation fueled a 20x stock rally and 10x property boom in the late 1980s.",
+      "sources": [
+        "工商時報",
+        "理財周刊"
+      ]
+    },
+    {
+      "id": "EV_1986_industrial_peak",
+      "year": 1986,
+      "year_end": 1986,
+      "category": "economy_politics",
+      "regions": [
+        "ALL"
+      ],
+      "title": "台灣工業化頂峰與民進黨成立",
+      "summary": "工業占GDP 47.11%、製造業39.35%皆達歷史最高峰；同年民主進步黨於圓山大飯店宣布成立。",
+      "institutional_aftermath": "台灣開始由製造業主導邁向服務業（1989年破50%），並踏入政黨競爭時代。",
+      "gameplay_impact": {
+        "parent_factory_job_weight": 0.45
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "Taiwan's manufacturing share of GDP peaked in 1986—the same year the opposition Democratic Progressive Party (DPP) was founded despite Martial Law.",
+      "sources": [
+        "遠景基金會季刊",
+        "遠見大事紀"
+      ]
+    },
+    {
+      "id": "EV_1987_martial_law_lifted",
+      "year": 1987,
+      "year_end": 1988,
+      "category": "politics_economy",
+      "regions": [
+        "ALL"
+      ],
+      "title": "解嚴、台積電成立與開放探親報禁",
+      "summary": "1987年2月台積電成立、7月15日宣布解除長達38年戒嚴、11月開放赴大陸探親；1988年元旦開放報禁並爆發520農民運動。",
+      "institutional_aftermath": "政治全面解凍、台商西進序幕拉開，同時埋下日後台灣成為全球半導體核心的種子。",
+      "gameplay_impact": {
+        "unlock_switch": "lift_martial_law",
+        "happiness_delta": 4
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "1987 was a watershed year: TSMC was founded in February, 38 years of Martial Law ended in July, and family visits to mainland China opened in November.",
+      "sources": [
+        "遠見大事紀",
+        "關鍵評論網"
+      ]
+    },
+    {
+      "id": "EV_1990_crash_hongyuan",
+      "year": 1990,
+      "year_end": 1990,
+      "category": "finance",
+      "regions": [
+        "ALL"
+      ],
+      "title": "台股萬二崩盤與鴻源吸金倒閉案",
+      "summary": "台股8個月內從12,682點暴跌80%至2,485點（歷時30年才突破），台北市房價回跌30%；同年以月息4分吸金的鴻源機構倒閉，留下約940億元負債與16萬名債權人。",
+      "institutional_aftermath": "促使政府嚴查地下投資公司並修法重罰非法吸金，無數台灣家庭一夕致負債。",
+      "gameplay_impact": {
+        "stock_return": -0.8,
+        "resolve_decision_flag": "trapped_in_high_yield"
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "Taiwan's stock market plunged 80% in eight months in 1990—taking 30 years to recover its peak—just as the NT$94B Hongyuan Ponzi scheme collapsed.",
+      "sources": [
+        "EBC台股股災回顧",
+        "股感",
+        "理財周刊"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.14,
+        "regions": [
+          "ALL"
+        ],
+        "age_range": [
+          22,
+          70
+        ],
+        "trait_mult": {
+          "risk_taker": 2.6,
+          "cautious": 0.25,
+          "sociable": 1.3
+        },
+        "exp_tags": [
+          "has_savings",
+          "has_stocks"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.65,
+            "severity": "economic_major",
+            "narrative": "台股從 12,682 點崩盤加上鴻源倒閉，你融資追高與跟親友投入的資金慘遭斷頭，資產暴跌七成、從此背上多年債務。",
+            "money_ratio_delta": -0.7,
+            "stock_ratio_delta": -0.85,
+            "happiness_delta": -26,
+            "heavy_debt": true
+          },
+          {
+            "weight": 0.35,
+            "severity": "economic_severe",
+            "narrative": "你把房產拿去二胎抵押投入鴻源與台股高檔，1990 泡沫破滅後房屋遭法拍，被迫租屋重頭來過。",
+            "money_ratio_delta": -0.85,
+            "stock_ratio_delta": -0.95,
+            "lose_home": true,
+            "happiness_delta": -32,
+            "heavy_debt": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_1991_su_jianhe",
+      "year": 1991,
+      "year_end": 2012,
+      "category": "crime_justice",
+      "regions": [
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "蘇建和案（纏訟21年的司法轉折）",
+      "summary": "蘇建和、劉秉郎、莊林勳三人涉汐止命案遭判死刑定讞，但因刑求自白與科學鑑識爭議纏訟21年，終在2012年8月無罪定讞。",
+      "institutional_aftermath": "推動台灣刑事司法改革，促成2003年《刑事訴訟法》強化無罪推定與不正自白排除，並催生2010年《刑事妥速審判法》。",
+      "gameplay_impact": {
+        "narrative_tag": "judicial_reform",
+        "knowledge_delta_law_track": 3
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "A landmark wrongful-conviction case lasting 21 years before final acquittal in 2012, driving Taiwan's adoption of the Speedy Trial Act and stricter confession rules.",
+      "sources": [
+        "司法院判決紀錄",
+        "民間司改會史料"
+      ]
+    },
+    {
+      "id": "EV_1992_health_kindergarten",
+      "year": 1992,
+      "year_end": 1992,
+      "category": "society_safety",
+      "regions": [
+        "north_taipei",
+        "north_hsinchu",
+        "ALL"
+      ],
+      "title": "健康幼稚園火燒車事件",
+      "summary": "台北健康幼稚園校外教學遊覽車於桃園平鎮起火，因安全門卡死釀成23人死亡（含捨身救童的林靖娟老師）、9人輕重傷。",
+      "institutional_aftermath": "催生靖娟兒童安全文教基金會，全面翻修遊覽車安全門法規與校外教學幼童交通安全規範。",
+      "gameplay_impact": {
+        "child_accident_risk_mult_after": 0.9,
+        "unlock_daily_flavor": "school_bus_safety_drill"
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "A tragic 1992 kindergarten bus fire that killed 23, sparking strict tour-bus emergency exit laws and Taiwan's leading child-safety foundation.",
+      "sources": [
+        "靖娟兒童安全文教基金會史料"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.05,
+        "regions": [
+          "north_taipei",
+          "north_hsinchu"
+        ],
+        "age_range": [
+          25,
+          42
+        ],
+        "trait_mult": {
+          "family_first": 1.3
+        },
+        "exp_tags": [
+          "has_children"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.8,
+            "severity": "trauma_trajectory",
+            "narrative": "你的孩子搭上出遊遊覽車經歷驚魂火警所幸及時獲救，但全家歷經深刻心理創傷，此後你積極投入兒童交通安全倡議。",
+            "happiness_delta": -20,
+            "social_delta": 8
+          },
+          {
+            "weight": 0.2,
+            "severity": "fatal_family",
+            "narrative": "你的親友在這場遊覽車逃生門卡死悲劇中罹難，巨大悲痛徹底改變你對生命與公共安全的看法。",
+            "happiness_delta": -35,
+            "health_delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_1994_410_edu_reform",
+      "year": 1994,
+      "year_end": 1994,
+      "category": "education_society",
+      "regions": [
+        "ALL"
+      ],
+      "title": "410 教改大遊行與廣設高中大學",
+      "summary": "1994年大學錄取率僅44%，民間發起「410教改遊行」訴求廣設高中大學與減輕升學壓力。",
+      "institutional_aftermath": "大專校院從1994年130所暴增至2011年163所，錄取率一路攀升至2019年近100%，徹底改變世代升學結構，也埋下日後少子化退場伏筆。",
+      "gameplay_impact": {
+        "uni_admission_rate_trend": "rapid_increase"
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "The 1994 education reform movement demanded wider university access, pushing admission rates from 44% to nearly 100% within two decades.",
+      "sources": [
+        "關鍵評論網",
+        "聯合報專題",
+        "教育部"
+      ]
+    },
+    {
+      "id": "EV_1995_welcome_fire",
+      "year": 1995,
+      "year_end": 1995,
+      "category": "society_safety",
+      "regions": [
+        "central",
+        "ALL"
+      ],
+      "title": "台中衛爾康西餐廳大火",
+      "summary": "台中市衛爾康西餐廳瓦斯外洩引燃易燃裝潢且逃生門遭封死，奪走64條人命，為台灣單一建築物死亡人數最多的火災。",
+      "institutional_aftermath": "促成《消防法》與《建築法》大幅修法、強制公共場所使用防焰材料，並建立消防設備師／士國家專技證照制度。",
+      "gameplay_impact": {
+        "public_fire_accident_mult_after": 0.75
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "Taiwan's deadliest single-building fire (64 deaths in Taichung) led to sweeping fire-code overhauls and mandatory flame-retardant standards.",
+      "sources": [
+        "內政部消防署法制沿革"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.07,
+        "regions": [
+          "central"
+        ],
+        "age_range": [
+          16,
+          65
+        ],
+        "trait_mult": {
+          "sociable": 2.3,
+          "sensitive_introvert": 0.35,
+          "cautious": 0.6
+        },
+        "exp_tags": [],
+        "outcomes": [
+          {
+            "weight": 0.72,
+            "severity": "injury_trauma",
+            "narrative": "案發當晚你正在衛爾康西餐廳聚餐，火勢瞬間吞噬裝潢，你奮力破窗逃生但嚴重嗆傷住院，康復後長期畏懼密閉空間。",
+            "health_delta": -25,
+            "happiness_delta": -22,
+            "money_ratio_delta": -0.15
+          },
+          {
+            "weight": 0.28,
+            "severity": "fatal",
+            "narrative": "你在台中衛爾康西餐廳聚餐時遭遇瓦斯外洩引發的大火，因逃生通道受阻不幸罹難。",
+            "fatal": true,
+            "death_cause": "1995 年台中衛爾康西餐廳大火（公共安全事故）"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_1996_1997_three_major_crimes",
+      "year": 1996,
+      "year_end": 1997,
+      "category": "crime_society",
+      "regions": [
+        "north_hsinchu",
+        "south_kaohsiung",
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "1996–1997 三大命案震撼（劉邦友、彭婉如、白曉燕案）",
+      "summary": "半年間接連爆發桃園縣長官邸血案、婦運領袖彭婉如搭計程車遇害，以及白曉燕綁架撕票案，引爆「五〇四為台灣而走」大遊行。",
+      "institutional_aftermath": "彭婉如案火速催生《性侵害犯罪防治法》（1997）與計程車管理改革；白曉燕案迫使內閣總辭，並引發台灣對SNG現場直播媒體倫理的深刻反省。",
+      "gameplay_impact": {
+        "happiness_delta": -4,
+        "social_anxiety_flag": true
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "Three shocking crimes in 1996–97 triggered mass protests, toppled the cabinet, enacted Taiwan's Sexual Assault Crime Prevention Act, and reshaped TV news ethics.",
+      "sources": [
+        "立法院法制沿革",
+        "台灣新聞倫理史料"
+      ]
+    },
+    {
+      "id": "EV_1997_1998_asian_local_crisis",
+      "year": 1997,
+      "year_end": 1998,
+      "category": "finance",
+      "regions": [
+        "ALL"
+      ],
+      "title": "亞洲金融風暴與台灣本土型金融風暴",
+      "summary": "1997年台股受亞洲金融風暴重挫39.7%；1998下半年再爆本土財團交叉持股超貸與企業跳票，銀行逾放比飆升。",
+      "institutional_aftermath": "促使政府推動金融改革、打消呆帳與銀行整併，並於2004年成立金融監督管理委員會（金管會）。",
+      "gameplay_impact": {
+        "stock_return_1997": -0.397,
+        "sme_layoff_risk_mult": 1.4
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "Spillovers from the 1997 Asian Financial Crisis exposed domestic corporate over-leveraging, culminating in banking consolidation and the 2004 creation of Taiwan's FSC.",
+      "sources": [
+        "科技新報",
+        "金管會史料"
+      ]
+    },
+    {
+      "id": "EV_1999_921_earthquake",
+      "year": 1999,
+      "year_end": 1999,
+      "category": "disaster",
+      "regions": [
+        "central",
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "921 集集大地震（規模 7.3）",
+      "summary": "9月21日凌晨發生規模7.3強震，造成2,415人死亡、29人失蹤、11,305人受傷，房屋全倒51,711間、半倒53,768間；台北東星大樓87人罹難。",
+      "institutional_aftermath": "政府於2000年通過《災害防救法》，定9月21日為國家防災日，並全面大幅提高新建物耐震設計標準。",
+      "gameplay_impact": {
+        "trigger_decision": "D22_major_disaster",
+        "central_home_damage_prob": 0.12
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "The M7.3 Jiji earthquake killed over 2,400 people, leading to Taiwan's Disaster Prevention and Protection Act and far stricter seismic building codes.",
+      "sources": [
+        "風傳媒",
+        "NOWnews"
+      ],
+      "impact_regions": [
+        "central",
+        "north_taipei"
+      ],
+      "disaster_year": 1999,
+      "protagonist_involvement": {
+        "base_prob": 0.16,
+        "regions": [
+          "central",
+          "north_taipei"
+        ],
+        "age_range": [
+          0,
+          90
+        ],
+        "trait_mult": {
+          "family_first": 1.2
+        },
+        "exp_tags": [
+          "homeowner"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.55,
+            "severity": "economic_housing",
+            "narrative": "921 凌晨天搖地動，你居住的房屋結構嚴重受損判定全倒，全家住進組合屋並背負舊房貸與重建壓力，人生被迫重來。",
+            "lose_home": true,
+            "money_ratio_delta": -0.45,
+            "happiness_delta": -24,
+            "health_delta": -8
+          },
+          {
+            "weight": 0.3,
+            "severity": "injury_relocate",
+            "narrative": "強震中你被倒塌家具壓傷獲救，歷經漫長復健後舉家遷離震央區展開新生活。",
+            "lose_home": true,
+            "health_delta": -22,
+            "happiness_delta": -20,
+            "money_ratio_delta": -0.35,
+            "force_relocate": true
+          },
+          {
+            "weight": 0.15,
+            "severity": "fatal",
+            "narrative": "921 規模 7.3 強震深夜襲擊，你所在的建物於劇烈搖晃中倒塌，不幸於震災中罹難。",
+            "fatal": true,
+            "death_cause": "1999 年 921 集集大地震（建物倒塌）"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2000_dotcom_bubble",
+      "year": 2000,
+      "year_end": 2001,
+      "category": "finance",
+      "regions": [
+        "ALL"
+      ],
+      "title": "網路泡沫與製造業外移低谷",
+      "summary": "全球網路泡沫破滅使台股大跌66.6%，2001年台灣製造業占GDP降至28.89%低點，企業加速外移。",
+      "institutional_aftermath": "科技業歷經洗牌，台商大舉西進中國設廠成為下一世代職場主旋律。",
+      "gameplay_impact": {
+        "stock_return": -0.666,
+        "tech_layoff_risk_mult": 1.3
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "The dot-com crash wiped out 66.6% of Taiwan's stock index while accelerating manufacturing offshoring to mainland China.",
+      "sources": [
+        "科技新報",
+        "工商時報"
+      ]
+    },
+    {
+      "id": "EV_2002_wto_accession",
+      "year": 2002,
+      "year_end": 2002,
+      "category": "economy",
+      "regions": [
+        "south_tainan",
+        "central",
+        "south_kaohsiung",
+        "east_islands"
+      ],
+      "title": "台灣加入世界貿易組織（WTO）",
+      "summary": "2002年1月1日正式入會；農委會估計入會首年農業產值減少6.8%，影響1.8萬至2.7萬名農民。",
+      "institutional_aftermath": "進口農產品衝擊傳統農業，加速農村轉型精緻農業與農村青年外移都市。",
+      "gameplay_impact": {
+        "farmer_income_mult": 0.88
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "Taiwan's 2002 WTO entry opened domestic agricultural markets, pressuring small family farms and accelerating rural-to-urban migration.",
+      "sources": [
+        "遠見雜誌"
+      ]
+    },
+    {
+      "id": "EV_2003_sars_and_0050",
+      "year": 2003,
+      "year_end": 2003,
+      "category": "epidemic_finance",
+      "regions": [
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "SARS 和平醫院封院與 0050 ETF 成立",
+      "summary": "SARS期間全台通報668例、181例死亡、逾15萬人居家隔離；4月24日台北和平醫院封院釀醫護與院內民眾重大傷亡。同年台灣首檔指數ETF「0050」成立。",
+      "institutional_aftermath": "SARS重創促成台灣建立中央流行疫情指揮中心與負壓隔離醫療體系，成為2020年COVID-19初期防堵成功的關鍵經驗。",
+      "gameplay_impact": {
+        "trigger_decision": "D23_pandemic_dilemma",
+        "unlock_investment": "etf_0050"
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "The traumatic 2003 SARS lockdown of Taipei's Heping Hospital forged the public-health command system that later guided Taiwan's COVID-19 response.",
+      "sources": [
+        "IJID",
+        "公視新聞",
+        "經濟日報"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.08,
+        "regions": [
+          "north_taipei"
+        ],
+        "age_range": [
+          18,
+          78
+        ],
+        "trait_mult": {
+          "workaholic": 1.8,
+          "civic_minded": 1.4,
+          "cautious": 0.5
+        },
+        "exp_tags": [
+          "healthcare_sector"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.65,
+            "severity": "health_trauma",
+            "narrative": "你因就醫或執勤碰上和平醫院無預警封院，歷經高壓隔離與感染風險，雖平安康復卻留下深刻的創傷記憶。",
+            "health_delta": -16,
+            "happiness_delta": -18,
+            "money_ratio_delta": -0.1
+          },
+          {
+            "weight": 0.2,
+            "severity": "severe_recovery",
+            "narrative": "你在 SARS 疫情期間確診重症住進負壓隔離病房，與死神拔河數週後倖存，但肺功能永久受損。",
+            "health_delta": -32,
+            "happiness_delta": -20,
+            "money_ratio_delta": -0.2
+          },
+          {
+            "weight": 0.15,
+            "severity": "fatal",
+            "narrative": "你在 2003 年 SARS 院內感染風暴中確診引發嚴重急性呼吸窘迫，不幸病逝。",
+            "fatal": true,
+            "death_cause": "2003 年 SARS 嚴重急性呼吸道症候群"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2004_procomp_scandal",
+      "year": 2004,
+      "year_end": 2004,
+      "category": "finance",
+      "regions": [
+        "ALL"
+      ],
+      "title": "博達科技掏空案",
+      "summary": "明星科技股博達無預警聲請重整，揭發長期虛列60億元假應收帳款作假帳掏空案，投保中心受理逾萬名投資人求償逾58億元。",
+      "institutional_aftermath": "成為台灣公司治理轉捩點，強化財報不實之會計師與董監責任，並全面推動獨立董事制度與投資人集體求償機制。",
+      "gameplay_impact": {
+        "individual_stock_fraud_prob": 0.03
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "A NT$6B accounting fraud at star tech firm Procomp shocked retail investors and ushered in Taiwan's independent-director corporate governance rules.",
+      "sources": [
+        "投保中心與金管會公開資料"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.1,
+        "regions": [
+          "ALL"
+        ],
+        "age_range": [
+          24,
+          70
+        ],
+        "trait_mult": {
+          "risk_taker": 2.5,
+          "cautious": 0.3
+        },
+        "exp_tags": [
+          "has_stocks"
+        ],
+        "outcomes": [
+          {
+            "weight": 1.0,
+            "severity": "economic_major",
+            "narrative": "你深信財報亮眼的明星科技股博達而重壓大半股票資產，無預警重整後股價連吞跌停淪為壁紙，多年積蓄重創。",
+            "stock_ratio_delta": -0.75,
+            "money_ratio_delta": -0.2,
+            "happiness_delta": -20
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2005_2006_credit_card_crisis",
+      "year": 2005,
+      "year_end": 2006,
+      "category": "finance_society",
+      "regions": [
+        "ALL"
+      ],
+      "title": "雙卡風暴（卡奴危機）",
+      "summary": "銀行浮濫發行信用卡與現金卡、循環利率近20%，導致逼近80萬人陷入卡債，其中約52萬人連6個月最低應繳都付不出；2006年底協商22萬餘件、平均每件144萬元。",
+      "institutional_aftermath": "促成立法院於2007年三讀、2008年4月施行《消費者債務清理條例》，首度建立平民「更生／清算」的個人破產重啟機制。",
+      "gameplay_impact": {
+        "trigger_decision": "D14_financial_trap",
+        "unlock_switch_2008": "consumer_debt_clearance"
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "Predatory credit and cash cards trapped nearly 800,000 Taiwanese in high-interest debt, resulting in Taiwan's first personal bankruptcy/debt-clearance law in 2008.",
+      "sources": [
+        "公視新聞",
+        "台大論文"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.12,
+        "regions": [
+          "ALL"
+        ],
+        "age_range": [
+          20,
+          50
+        ],
+        "trait_mult": {
+          "risk_taker": 2.2,
+          "sociable": 1.5,
+          "cautious": 0.2
+        },
+        "exp_tags": [
+          "low_quintile"
+        ],
+        "outcomes": [
+          {
+            "weight": 1.0,
+            "severity": "economic_severe",
+            "narrative": "你為周轉生活費辦了多張現金卡與信用卡以卡養卡，近 20% 循環利息滾成百萬卡債陷入「卡奴」困境，直到 2008 消債條例上路才得以更生。",
+            "money_ratio_delta": -0.8,
+            "extra_debt_2025": 1100000,
+            "happiness_delta": -28,
+            "heavy_debt": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2007_rebar_scandal",
+      "year": 2007,
+      "year_end": 2007,
+      "category": "finance",
+      "regions": [
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "力霸東森掏空案",
+      "summary": "王又曾家族涉長期掏空詐貸集團旗下事業（檢方偵辦起訴規模逾700億元、法院認定逾320億元），引爆中華商銀擠兌風暴，王家7名子女判刑定讞。",
+      "institutional_aftermath": "暴露跨業集團交叉持股與監理漏洞，促使金管會強化大股東適格性審查、關係人交易揭露與實質受益人規範。",
+      "gameplay_impact": {
+        "narrative_only": true,
+        "financial_trust_delta": -3
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "The collapse of the Rebar conglomerate sparked a bank run at Chinese Bank and tightened oversight of conglomerate cross-holdings in Taiwan.",
+      "sources": [
+        "司法院判決與金管會史料"
+      ]
+    },
+    {
+      "id": "EV_2008_2009_gfc_22k_morakot",
+      "year": 2008,
+      "year_end": 2009,
+      "category": "finance_disaster",
+      "regions": [
+        "ALL",
+        "south_kaohsiung",
+        "south_tainan"
+      ],
+      "title": "金融海嘯、22K 方案與莫拉克八八風災",
+      "summary": "2008年雷曼連動債釀台灣約10萬人受害、台股跌57.7%；2009年失業率飆至5.85%（8月達6.13%歷史新高）、政府推月薪22K實習方案；同年8月莫拉克颱風釀681死、小林村滅村。",
+      "institutional_aftermath": "22K成為世代低薪代名詞；八八風災大幅推動原鄉防災撤離與土石流警戒系統升級。",
+      "gameplay_impact": {
+        "stock_return_2008": -0.577,
+        "trigger_decision_job": "D10_unpaid_leave",
+        "trigger_decision_south": "D22_major_disaster"
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "A brutal double hit: the 2008–09 financial crisis anchored fresh-grad pay around NT$22K ('22K generation'), while Typhoon Morakot buried Xiaolin Village in southern Taiwan.",
+      "sources": [
+        "今周刊",
+        "中央銀行年報",
+        "遠見",
+        "聯合報",
+        "監察院"
+      ],
+      "impact_regions": [
+        "south_kaohsiung",
+        "south_tainan"
+      ],
+      "disaster_year": 2009,
+      "protagonist_involvement": {
+        "base_prob": 0.13,
+        "regions": [
+          "south_kaohsiung",
+          "south_tainan",
+          "ALL"
+        ],
+        "age_range": [
+          18,
+          75
+        ],
+        "trait_mult": {
+          "risk_taker": 1.8,
+          "family_first": 1.3
+        },
+        "exp_tags": [
+          "has_savings",
+          "homeowner"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.62,
+            "severity": "economic_major",
+            "narrative": "銀行理專推銷的雷曼連動債一夕歸零加上金融海嘯裁員，你的退休金與積蓄腰斬，被迫大幅縮衣節食。",
+            "money_ratio_delta": -0.55,
+            "stock_ratio_delta": -0.55,
+            "job_lost": true,
+            "happiness_delta": -24
+          },
+          {
+            "weight": 0.26,
+            "severity": "disaster_relocate",
+            "narrative": "莫拉克八八風災三天降下整年雨量，南台灣家園遭洪水與土石流沖毀，你成為災民被迫異地安置重建。",
+            "lose_home": true,
+            "money_ratio_delta": -0.45,
+            "happiness_delta": -26,
+            "force_relocate": true
+          },
+          {
+            "weight": 0.12,
+            "severity": "fatal",
+            "narrative": "莫拉克颱風引發大規模山崩與土石流深夜沖毀家園，你在八八風災中不幸罹難。",
+            "fatal": true,
+            "death_cause": "2009 年莫拉克颱風（八八風災土石流）"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2011_2014_food_safety_storms",
+      "year": 2011,
+      "year_end": 2014,
+      "category": "society_food_safety",
+      "regions": [
+        "ALL"
+      ],
+      "title": "塑化劑、毒澱粉與黑心油食安連環爆",
+      "summary": "2011年爆發起雲劑違法添加塑化劑，接續2013年毒澱粉與2014年劣質餿水油／飼料油風暴，波及全台飲食供應鏈。",
+      "institutional_aftermath": "立法院多次大修《食品安全衛生管理法》重罰刑責、建立食品雲與追溯追蹤系統，並於2014年底成立行政院食品安全辦公室。",
+      "gameplay_impact": {
+        "health_delta": -2,
+        "happiness_delta": -3,
+        "food_traceability_improved_after": true
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "Successive scandals involving plasticizers (2011) and gutter oil (2014) led to strict food-traceability laws and harsh criminal penalties.",
+      "sources": [
+        "衛福部食藥署法制沿革"
+      ]
+    },
+    {
+      "id": "EV_2013_hung_chungchiu",
+      "year": 2013,
+      "year_end": 2013,
+      "category": "crime_society",
+      "regions": [
+        "north_hsinchu",
+        "ALL"
+      ],
+      "title": "洪仲丘事件與白衫軍運動",
+      "summary": "義務役下士洪仲丘於退伍前夕疑遭不當禁閉操練致死，引發25萬名民眾走上凱道抗議。",
+      "institutional_aftermath": "促成《軍事審判法》歷史性修法，承平時期現役軍人涉案全面回歸普通法院依《刑事訴訟法》審理，終結承平軍法黑箱。",
+      "gameplay_impact": {
+        "unlock_switch": "military_trial_reform",
+        "military_abuse_risk_mult_after": 0.3
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "The 2013 death of conscript Hung Chung-chiu sparked a 250,000-person protest that abolished peacetime military courts in Taiwan.",
+      "sources": [
+        "立法院軍事審判法修法紀錄"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.08,
+        "regions": [
+          "ALL"
+        ],
+        "age_range": [
+          19,
+          25
+        ],
+        "trait_mult": {
+          "civic_minded": 2.4,
+          "workaholic": 1.3
+        },
+        "exp_tags": [
+          "in_military"
+        ],
+        "outcomes": [
+          {
+            "weight": 1.0,
+            "severity": "trajectory",
+            "narrative": "你服役期間親身見證軍中不當管教文化，退伍後毅然站上凱道加入 25 萬人白衫軍運動，促成《軍事審判法》修法成為人生重要轉折。",
+            "happiness_delta": -4,
+            "knowledge_delta": 8,
+            "social_delta": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2014_kaohsiung_gas_explosion",
+      "year": 2014,
+      "year_end": 2014,
+      "category": "society_safety",
+      "regions": [
+        "south_kaohsiung"
+      ],
+      "title": "高雄前鎮苓雅氣爆事故",
+      "summary": "7月31日深夜高雄市地下丙烯管線外洩引發6公里連環爆炸，造成32人罹難、逾300人輕重傷。",
+      "institutional_aftermath": "揭開重工業城市地下石化管線與住宅區共生的歷史共業，促成高雄訂定既有工業管線自治條例並加速城市產業轉型。",
+      "gameplay_impact": {
+        "happiness_delta_region": -5,
+        "narrative_tag": "kaohsiung_industrial_transition"
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "Underground petrochemical pipelines exploded across 6 km of residential streets in Kaohsiung, forcing strict industrial-pipeline regulation and urban renewal.",
+      "sources": [
+        "高雄市政府與監察院調查報告"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.1,
+        "regions": [
+          "south_kaohsiung"
+        ],
+        "age_range": [
+          12,
+          80
+        ],
+        "trait_mult": {
+          "sociable": 1.5,
+          "workaholic": 1.4
+        },
+        "exp_tags": [],
+        "outcomes": [
+          {
+            "weight": 0.65,
+            "severity": "economic_injury",
+            "narrative": "深夜前鎮苓雅地下丙烯管線連環氣爆就在住家與通勤幹道旁，你遭氣浪波及受傷、房屋與交通工具全毀，災後重建耗盡積蓄。",
+            "health_delta": -22,
+            "money_ratio_delta": -0.35,
+            "happiness_delta": -22
+          },
+          {
+            "weight": 0.22,
+            "severity": "trauma",
+            "narrative": "你剛騎車經過凱旋三路幾分鐘後路面就轟然炸開，與死神擦肩而過讓你久久難以平復。",
+            "happiness_delta": -16
+          },
+          {
+            "weight": 0.13,
+            "severity": "fatal",
+            "narrative": "深夜行經高雄氣爆路段時遭遇地下石化管線連環爆炸，不幸罹難。",
+            "fatal": true,
+            "death_cause": "2014 年高雄地下丙烯管線氣爆事故"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2014_2016_random_attacks_safety_net",
+      "year": 2014,
+      "year_end": 2016,
+      "category": "crime_society",
+      "regions": [
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "台北捷運隨機殺人案（2014）與內湖小燈泡命案（2016）",
+      "summary": "2014年北捷板南線隨機襲擊釀4死20餘傷；2016年內湖4歲女童遇害，引發全台對無差別暴力與精神衛生資源的高度焦慮。",
+      "institutional_aftermath": "強化大眾運輸安全機制，並促使政府啟動跨部會「強化社會安全網」計畫（衛政結合社政追蹤高風險個案），深化被害人保護與司法對話。",
+      "gameplay_impact": {
+        "happiness_delta_north_taipei": -3,
+        "social_safety_net_level": 1
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "High-profile random attacks in 2014 and 2016 prompted Taiwan's cross-ministry 'Strengthening the Social Safety Net' mental-health and social-work initiative.",
+      "sources": [
+        "衛福部強化社會安全網計畫"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.06,
+        "regions": [
+          "north_taipei"
+        ],
+        "age_range": [
+          15,
+          65
+        ],
+        "trait_mult": {
+          "workaholic": 1.3,
+          "sociable": 1.3,
+          "sensitive_introvert": 1.4
+        },
+        "exp_tags": [],
+        "outcomes": [
+          {
+            "weight": 0.85,
+            "severity": "trauma",
+            "narrative": "你搭乘板南線捷運時恰巧身處相鄰車廂，經歷人群驚慌逃散的驚魂瞬間，此後長期搭車保持高度戒備並更加關注台灣社會安全網議題。",
+            "happiness_delta": -18,
+            "health_delta": -6
+          },
+          {
+            "weight": 0.15,
+            "severity": "injury_trauma",
+            "narrative": "你在雙北公共空間突發無差別暴力事件中受波及受傷，歷經醫療與心理諮商才逐步重返日常。",
+            "health_delta": -24,
+            "happiness_delta": -25,
+            "money_ratio_delta": -0.1
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2015_transasia_formosa_fun_coast",
+      "year": 2015,
+      "year_end": 2015,
+      "category": "accident",
+      "regions": [
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "復興航空 235 空難與八仙樂園粉塵爆炸",
+      "summary": "2015年2月復興航空班機墜入基隆河釀43死；6月八仙樂園彩色派對粉塵爆炸釀15死、484人燒燙傷，為921後傷者最多的單一意外。",
+      "institutional_aftermath": "全面禁止大型活動使用可燃性微細粉末，並大幅提升大型燒燙傷急救跨院調度能力。",
+      "gameplay_impact": {
+        "youth_accident_alert_2015": true
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "The 2015 Formosa Fun Coast color-powder explosion injured 484 young people, leading to a nationwide ban on flammable powder at public events.",
+      "sources": [
+        "三立新聞",
+        "鏡週刊"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.08,
+        "regions": [
+          "north_taipei",
+          "north_hsinchu"
+        ],
+        "age_range": [
+          16,
+          30
+        ],
+        "trait_mult": {
+          "sociable": 2.6,
+          "risk_taker": 1.5,
+          "sensitive_introvert": 0.25,
+          "cautious": 0.4
+        },
+        "exp_tags": [],
+        "outcomes": [
+          {
+            "weight": 0.8,
+            "severity": "injury_trajectory",
+            "narrative": "你在八仙樂園參加夏日派對時遭遇粉塵爆燃，大面積燒燙傷讓你住院與穿壓力衣復健長達數年，學業與職涯徹底被迫改道。",
+            "health_delta": -32,
+            "happiness_delta": -26,
+            "money_ratio_delta": -0.3,
+            "job_lost": true
+          },
+          {
+            "weight": 0.2,
+            "severity": "fatal",
+            "narrative": "你在八仙樂園粉塵爆炸事故中遭受大面積嚴重燒燙傷，經數週搶救仍不幸離世。",
+            "fatal": true,
+            "death_cause": "2015 年八仙樂園粉塵爆炸意外"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2016_mega_bank_aml",
+      "year": 2016,
+      "year_end": 2016,
+      "category": "finance",
+      "regions": [
+        "ALL"
+      ],
+      "title": "兆豐銀行紐約分行洗錢防制裁罰案",
+      "summary": "公股兆豐銀行紐約分行因違反美國反洗錢申報規範，遭美方重罰1.8億美元（約新台幣57億元）。",
+      "institutional_aftermath": "迫使台灣大幅翻修《洗錢防制法》並全面收緊銀行KYC審查，助台灣於2018年通過APG國際評鑑；從此一般民眾開戶與匯款盤查顯著趨嚴。",
+      "gameplay_impact": {
+        "unlock_daily_flavor": "strict_bank_kyc_questions"
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "A US$180M anti-money-laundering fine against Mega Bank in NY triggered strict banking KYC checks that Taiwanese residents encounter at every bank counter today.",
+      "sources": [
+        "法務部與金管會洗錢防制修法資料"
+      ]
+    },
+    {
+      "id": "EV_2019_same_sex_marriage",
+      "year": 2019,
+      "year_end": 2019,
+      "category": "politics_society",
+      "regions": [
+        "ALL"
+      ],
+      "title": "同性婚姻專法生效（亞洲第一）",
+      "summary": "2019年5月24日《司法院釋字第七四八號解釋施行法》正式生效，台灣成為亞洲第一個同性婚姻合法化國家。",
+      "institutional_aftermath": "保障同性伴侶結婚、財產繼承與後續收養權益，成為台灣人權指標里程碑。",
+      "gameplay_impact": {
+        "unlock_switch": "same_sex_marriage",
+        "happiness_delta": 2
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "On May 24, 2019, Taiwan became the first country in Asia to legalize same-sex marriage.",
+      "sources": [
+        "報導者"
+      ]
+    },
+    {
+      "id": "EV_2020_2022_covid19",
+      "year": 2020,
+      "year_end": 2022,
+      "category": "epidemic_economy",
+      "regions": [
+        "ALL"
+      ],
+      "title": "COVID-19 世紀疫情",
+      "summary": "2020年台股一度跌30%後V轉、定存破1%；2021年三級警戒無薪假達31,980人（餐飲住宿最多）；2022年共存浪潮累計確診逾半數國人，2022年死亡14,667人使平均壽命減1.02歲。",
+      "institutional_aftermath": "加速遠距辦公、數位轉型與外送經濟普及，也突顯台灣半導體在全球供應鏈的關鍵地位。",
+      "gameplay_impact": {
+        "trigger_decision": "D23_pandemic_dilemma",
+        "elderly_mortality_mult_2022": 1.15
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "Taiwan kept COVID-19 largely at bay through 2020–21 before a major Omicron wave in 2022 temporarily lowered national life expectancy by 1.02 years.",
+      "sources": [
+        "數位時代",
+        "台灣英文新聞",
+        "鏡週刊",
+        "中央社"
+      ]
+    },
+    {
+      "id": "EV_2021_taroko_408",
+      "year": 2021,
+      "year_end": 2024,
+      "category": "society_safety",
+      "regions": [
+        "east_islands",
+        "ALL"
+      ],
+      "title": "台鐵太魯閣號 408 車次出軌事故",
+      "summary": "2021年4月2日清明連假返鄉列車於花蓮清水隧道口撞上滑落邊坡工程車，造成49人罹難、逾200人輕重傷。",
+      "institutional_aftermath": "打破長年改革阻力，促成台鐵於2024年1月正式掛牌「台鐵公司化」，並全面建置邊坡預警監測系統。",
+      "gameplay_impact": {
+        "happiness_delta_east": -6,
+        "narrative_tag": "safe_way_home_east"
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "A 2021 train derailment in Hualien killed 49 holiday travelers, finally pushing Taiwan Railways to corporatize in January 2024 to overhaul safety.",
+      "sources": [
+        "運安會調查報告",
+        "交通部台鐵公司化資料"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.11,
+        "regions": [
+          "east_islands",
+          "north_taipei"
+        ],
+        "age_range": [
+          16,
+          70
+        ],
+        "trait_mult": {
+          "family_first": 2.2,
+          "sociable": 1.4
+        },
+        "exp_tags": [
+          "east_origin_or_resident"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.78,
+            "severity": "injury_trauma",
+            "narrative": "清明連假你搭上返鄉的台鐵太魯閣號 408 車次，在清水隧道口劇烈撞擊中受傷倖存，深刻體會東部人「一條安全回家路」的沉痛渴望。",
+            "health_delta": -24,
+            "happiness_delta": -24,
+            "money_ratio_delta": -0.1
+          },
+          {
+            "weight": 0.22,
+            "severity": "fatal",
+            "narrative": "清明連假返鄉途中搭乘太魯閣號 408 車次，於花蓮清水隧道口撞擊工程車出軌事故中不幸罹難。",
+            "fatal": true,
+            "death_cause": "2021 年台鐵太魯閣號 408 車次出軌事故"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2022_2025_scam_wave_and_imb",
+      "year": 2022,
+      "year_end": 2025,
+      "category": "crime_finance",
+      "regions": [
+        "ALL"
+      ],
+      "title": "數位投資詐騙浪潮、台版柬埔寨案與 im.B 吸金案",
+      "summary": "跨國假求職與假投資詐騙氾濫，爆發台版柬埔寨人頭戶拘禁案與2023年im.B假債權吸金逾25億元（逾5,000人受害）；2025年全台詐騙受理16.2萬件、財損近900億元。",
+      "institutional_aftermath": "立法院於2024年7月三讀通過「打詐新四法」，重懲高額詐欺、強化科技偵查並限制人頭帳戶金融權限。",
+      "gameplay_impact": {
+        "trigger_decision": "D14_financial_trap",
+        "unlock_switch_2024": "anti_fraud_4_acts"
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "Annual scam losses nearing NT$90B prompted Taiwan's 2024 'Four Anti-Fraud Acts,' dramatically raising penalties and bank withdrawal verifications.",
+      "sources": [
+        "股感",
+        "TVBS",
+        "法務部打詐新四法"
+      ],
+      "protagonist_involvement": {
+        "base_prob": 0.14,
+        "regions": [
+          "ALL"
+        ],
+        "age_range": [
+          22,
+          78
+        ],
+        "trait_mult": {
+          "risk_taker": 2.5,
+          "cautious": 0.25,
+          "sensitive_introvert": 1.3
+        },
+        "exp_tags": [
+          "has_savings"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.7,
+            "severity": "economic_severe",
+            "narrative": "你落入精密設計的假投資平台／im.B 假債權陷阱，甚至聽信專員借信貸加碼，驚覺無法出金報案 165 時，大半輩子積蓄已遭詐騙集團洗劫一空。",
+            "money_ratio_delta": -0.78,
+            "extra_debt_2025": 800000,
+            "happiness_delta": -32,
+            "heavy_debt": true
+          },
+          {
+            "weight": 0.3,
+            "severity": "economic_major",
+            "narrative": "你在 LINE 飆股群組投入一筆退休預備金遭到詐騙，雖在行員關懷提問下及時攔阻第二筆匯款，仍蒙受重大財損。",
+            "money_ratio_delta": -0.35,
+            "happiness_delta": -18
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2023_metoo_taiwan",
+      "year": 2023,
+      "year_end": 2024,
+      "category": "society_rights",
+      "regions": [
+        "ALL"
+      ],
+      "title": "台灣 #MeToo 浪潮與性平三法修法",
+      "summary": "2023年中起由政壇延燒至演藝、媒體、學界與職場的集體性騷擾揭露運動，打破多年職場沉默文化。",
+      "institutional_aftermath": "立法院於2023年7月火速修訂「性平三法」並於2024年3月8日全面上路，加重權勢性騷刑責與雇主防治義務。",
+      "gameplay_impact": {
+        "unlock_switch_2024": "gender_equality_3_acts",
+        "workplace_harassment_protection": true
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "Taiwan's 2023 #MeToo wave swept politics, media, and workplaces, prompting sweeping amendments to three gender-equality laws effective March 2024.",
+      "sources": [
+        "勞動部與衛福部性平三法專區"
+      ]
+    },
+    {
+      "id": "EV_2023_2025_kaikai_case",
+      "year": 2023,
+      "year_end": 2025,
+      "category": "crime_society",
+      "regions": [
+        "north_taipei",
+        "ALL"
+      ],
+      "title": "剴剴虐童案與《刑法》修法",
+      "summary": "2023年底台北1歲男童在出養等待期間遭保母凌虐致死，暴露跨縣市社福訪視斷裂；2025年5月國民法官法庭判處主嫌無期徒刑。",
+      "institutional_aftermath": "引發大規模公民檢討托育社安網；立法院於2025年7月18日三讀通過「剴剴條款」（增訂刑法第272條之1、修正第286條），明定凌虐未滿7歲幼童致死最重可判死刑。",
+      "gameplay_impact": {
+        "childcare_anxiety_delta": 3,
+        "narrative_tag": "citizen_judges_era"
+      },
+      "sensitive": true,
+      "cultural_footnote_en": "A fatal child-abuse case tried under Taiwan's new Citizen Judges system led to 2025 penal code amendments imposing severe penalties for lethal child abuse.",
+      "sources": [
+        "司法院國民法官判決",
+        "立法院刑法修法紀錄"
+      ]
+    },
+    {
+      "id": "EV_2024_hualien_quake_housing_peak",
+      "year": 2024,
+      "year_end": 2024,
+      "category": "disaster_economy",
+      "regions": [
+        "east_islands",
+        "ALL"
+      ],
+      "title": "0403 花蓮規模 7.2 強震與房價所得比創高",
+      "summary": "4月3日花蓮發生規模7.2強震（當日至少9死963傷、重創東部觀光與太魯閣）；同年第三季全國房價所得比達10.82倍歷史高點。",
+      "institutional_aftermath": "展現921後建築耐震升級的減災成效，同時凸顯居住負擔與東部交通韌性課題。",
+      "gameplay_impact": {
+        "trigger_decision_east": "D22_major_disaster",
+        "housing_burden_peak": true
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "An M7.2 quake struck Hualien in April 2024—causing far fewer deaths than 1999 thanks to upgraded building codes—while housing affordability hit a record low.",
+      "sources": [
+        "上報",
+        "自由時報"
+      ],
+      "impact_regions": [
+        "east_islands"
+      ],
+      "disaster_year": 2024,
+      "protagonist_involvement": {
+        "base_prob": 0.14,
+        "regions": [
+          "east_islands"
+        ],
+        "age_range": [
+          0,
+          90
+        ],
+        "trait_mult": {
+          "family_first": 1.2
+        },
+        "exp_tags": [
+          "homeowner",
+          "tourism_sector"
+        ],
+        "outcomes": [
+          {
+            "weight": 0.75,
+            "severity": "economic_housing",
+            "narrative": "0403 花蓮 7.2 強震震毀你的住家或任職旅宿，蘇花與太魯閣中斷讓東部觀光重挫，你面臨無薪假與紅單危樓重建雙重打擊。",
+            "lose_home": true,
+            "money_ratio_delta": -0.35,
+            "job_lost": true,
+            "happiness_delta": -20
+          },
+          {
+            "weight": 0.18,
+            "severity": "injury",
+            "narrative": "強震發生時你在東部山區通勤遭落石擦傷，所幸獲救但留下長期陰影。",
+            "health_delta": -18,
+            "happiness_delta": -16
+          },
+          {
+            "weight": 0.07,
+            "severity": "fatal",
+            "narrative": "0403 花蓮規模 7.2 強震襲擊時行經落石路段，不幸於強震中罹難。",
+            "fatal": true,
+            "death_cause": "2024 年 0403 花蓮規模 7.2 強震"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EV_2025_2026_super_aged_ai_tariff",
+      "year": 2025,
+      "year_end": 2026,
+      "category": "economy_society_disaster",
+      "regions": [
+        "ALL",
+        "central",
+        "east_islands"
+      ],
+      "title": "超高齡社會、AI 出口狂潮、對等關稅與光復洪災",
+      "summary": "2025年台灣65+人口達20.06%正式進入超高齡社會、總生育率跌至0.695；8月美對台20%關稅致傳產無薪假8,543人（2026年1月降為15%），9月樺加沙颱風致花蓮光復鄉19死；但AI帶動2025經濟成長7.37%，2026年10月台股逼近5萬點（49,968.92點），中華大學於2026年停招。",
+      "institutional_aftermath": "形成科技業財富效應與傳產減班、少子高齡化並存的「K型台灣」時代面貌。",
+      "gameplay_impact": {
+        "tech_wage_bonus": 1.15,
+        "trad_mfg_unpaid_leave_prob": 0.08,
+        "elderly_care_trigger_mult": 1.5,
+        "private_uni_closure_prob": 0.05
+      },
+      "sensitive": false,
+      "cultural_footnote_en": "By 2025–26, Taiwan entered a 'super-aged' society (over 20% aged 65+) with the world's lowest fertility, even as an AI semiconductor boom drove stocks near 50,000 points.",
+      "sources": [
+        "聯合報",
+        "公視新聞",
+        "天下雜誌",
+        "科技新報",
+        "優分析",
+        "關鍵評論網",
+        "遠見",
+        "工商時報"
+      ],
+      "impact_regions": [
+        "east_islands"
+      ],
+      "disaster_year": 2025
+    }
+  ]
+}

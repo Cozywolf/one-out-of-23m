@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "coverage_years": [
+      1950,
+      2026
+    ],
+    "description": "台灣各年代家庭觀念、性別角色、理財習俗、社會氛圍與跨海通訊載體語料庫。",
+    "sources": [
+      "台灣戰後社會史與民俗研究公開整理",
+      "內政部初婚與生育統計演變",
+      "主計總處與媒體整理之台灣社會記憶紀事"
+    ]
+  },
+  "era_atmospheres": [
+    {
+      "id": "cult_1950_1969",
+      "year_range": [
+        1950,
+        1969
+      ],
+      "label": "克難大家庭與戒嚴秩序期（1950–1960s）",
+      "family_gender_norm": "三代同堂大家庭為主，重男輕女與養兒防老觀念深，多靠媒人相親結婚（初婚約 20–24 歲）。",
+      "money_culture": "民間標會（互助會）盛行，美援麵粉袋改衣褲，生活克勤克儉。",
+      "social_atmosphere": "戒嚴高壓（「小心匪諜就在你身邊」）、鄰里守望相助、守著收音機聽廣播劇與愛國獎券開獎。",
+      "typical_first_marriage_age": 22,
+      "overseas_comm_channel": "航空家書與昂貴的越洋接線長途電話",
+      "daily_vignettes": [
+        "家裡把美援麵粉袋洗淨車成短褲與內衣，左鄰右舍的孩子都穿一樣的布料。",
+        "巷口雜貨店響起愛國獎券開獎廣播，大人們屏息核對手中泛黃的獎券。",
+        "母親參加鄰里的民間互助會（標會），每月省吃儉用存錢幫家裡添購腳踏車。"
+      ]
+    },
+    {
+      "id": "cult_1970_1989",
+      "year_range": [
+        1970,
+        1989
+      ],
+      "label": "經濟起飛、投機狂潮與解嚴甦醒（1970–1980s）",
+      "family_gender_norm": "工業化帶動小家庭增加，仍重婆媳同住與傳宗接代；「客廳即工廠」全家趕工組裝代工品。",
+      "money_culture": "「台灣錢淹腳目」投機熱：大家樂、六合彩求明牌，券商號子擠滿菜籃族。",
+      "social_atmosphere": "「愛拚才會贏」的經濟自信、校園民歌、錄影帶出租店，以及 1987 解嚴後百花齊放的公民社會。",
+      "typical_first_marriage_age": 25,
+      "overseas_comm_channel": "航空郵簡、越洋電話卡與傳真機",
+      "daily_vignettes": [
+        "晚飯後全家圍在客廳趕工組裝聖誕燈泡與塑膠花，電視正播著三台八點檔連續劇。",
+        "鄰居阿伯熱衷大家樂求明牌，巷口證券號子一早開門就擠滿看盤的菜籃族。",
+        "收音機裡傳來校園民歌與《愛拚才會贏》，街頭偶爾可見解嚴後熱烈的社會運動布條。"
+      ]
+    },
+    {
+      "id": "cult_1990_2009",
+      "year_range": [
+        1990,
+        2009
+      ],
+      "label": "民主深化、網路萌芽與雙薪轉折（1990–2000s）",
+      "family_gender_norm": "雙薪核心家庭成主流，女性高教比例追上男性，開始挑戰聘金與過年回娘家習俗；2006 年離婚率達高峰。",
+      "money_culture": "雙卡消費風潮與 2005 卡債危機、2008 雷曼連動債教訓，2003 SARS 後房價展開長多頭。",
+      "social_atmosphere": "1996 首次總統直選、2000 首次政黨輪替；BBS／PTT、無名小站、漫畫王與網咖成為青春記憶。",
+      "typical_first_marriage_age": 29,
+      "overseas_comm_channel": "BBS／PTT 看板、MSN 即時通與 Skype 網路電話",
+      "daily_vignettes": [
+        "下班或下課後掛在 BBS／PTT 與 MSN 上聊天，同學間互相幫對方的無名小站衝人氣。",
+        "選舉前夕造勢晚會旗海飄揚，電視政論節目每晚熱烈辯論台灣的前途。",
+        "房仲傳單越貼越密，身邊剛出社會的朋友開始感嘆薪水停在 22K 追不上房價。"
+      ]
+    },
+    {
+      "id": "cult_2010_2070",
+      "year_range": [
+        2010,
+        2130
+      ],
+      "label": "平權覺醒、少子高齡與全民存股時代（2010–2020s+）",
+      "family_gender_norm": "晚婚與不婚不生成常態（2024 初婚男 33.1、女 31.1 歲）；2019 同婚合法化；養毛小孩與獨生子女長照壓力並存。",
+      "money_culture": "全民定期定額存股與 ETF（0050、高股息）、新青安 40 年房貸、FIRE 思潮與提防投資詐騙。",
+      "social_atmosphere": "公民運動與 #MeToo 性平覺醒、24 小時便利商店與外送文化、AI 浪潮與高齡孤獨交織。",
+      "typical_first_marriage_age": 32,
+      "overseas_comm_channel": "LINE 家族群組、即時視訊與台灣社群媒體",
+      "daily_vignettes": [
+        "午休時同事聚在一起滑手機看 0050 與台股大盤，手裡各拿一杯半糖去冰的手搖飲。",
+        "家族 LINE 群組每天早上湧入長輩圖，還有親友轉傳的防詐騙提醒與旅遊照片。",
+        "身邊越來越多朋友選擇不婚不生、領養貓狗作伴，週末逛文創市集與露營。"
+      ]
+    }
+  ],
+  "taiwan_customs": [
+    {
+      "id": "cust_exam_temple",
+      "stage": "childhood_exam",
+      "age_range": [
+        14,
+        18
+      ],
+      "text": "大考前夕，家人帶著你的准考證影本與蔥、芹菜、包子粽子（「包中」）前往文昌廟祈福。",
+      "homesickness_boost": 4,
+      "happiness_delta": 2,
+      "social_delta": 2,
+      "cultural_footnote_en": "Before major exams, Taiwanese families pray to Wenchang Dijun (God of Culture) with scallions (smartness) and buns/zongzi (pun for 'passing')."
+    },
+    {
+      "id": "cust_lny_adult",
+      "stage": "lunar_new_year",
+      "age_range": [
+        23,
+        45
+      ],
+      "text": "農曆除夕圍爐，你從領紅包變成包紅包給父母與晚輩，餐桌上免不了被親戚輪流關心「何時結婚、薪水多少」。",
+      "homesickness_boost": 8,
+      "happiness_delta": 1,
+      "social_delta": 3,
+      "cultural_footnote_en": "Once employed, Taiwanese adults switch from receiving to giving Lunar New Year red envelopes—while dodging relatives' classic questions about marriage and salary."
+    },
+    {
+      "id": "cust_qingming_ghost",
+      "stage": "lunar_new_year",
+      "age_range": [
+        20,
+        75
+      ],
+      "text": "清明連假塞在國道返鄉掃墓，中元節公司門口擺滿綠色乖乖與普渡供品祈求系統平安順遂。",
+      "homesickness_boost": 6,
+      "happiness_delta": 1,
+      "social_delta": 2,
+      "cultural_footnote_en": "Green 'Kuai Kuai' (meaning 'behave well') coconut snacks are famously placed on servers, hospital machines, and semiconductor fabs in Taiwan to prevent glitches."
+    },
+    {
+      "id": "cust_postpartum",
+      "stage": "postpartum_care",
+      "age_range": [
+        26,
+        42
+      ],
+      "text": "迎接新生命後，家中安排「坐月子」（麻油雞補身或入住產後護理之家），成為雙薪家庭重要的育兒起點。",
+      "homesickness_boost": 12,
+      "happiness_delta": 4,
+      "social_delta": 4,
+      "cultural_footnote_en": "Taiwan's 'zuo yuezi' (postpartum confinement) centers offer 30 days of specialized nursing care and herbal meals, often a major reason overseas Taiwanese consider giving birth back home."
+    },
+    {
+      "id": "cust_wedding_red_envelope",
+      "stage": "marriage_family",
+      "age_range": [
+        25,
+        45
+      ],
+      "text": "收到好幾張「紅色炸彈」（喜帖），忙著翻出禮金簿核對當年包多少、盤算回禮行情。",
+      "homesickness_boost": 5,
+      "happiness_delta": 1,
+      "social_delta": 3,
+      "cultural_footnote_en": "Wedding invitations are jokingly called 'red bombs'; guests give even-numbered cash gifts in red envelopes, carefully tracked in family ledgers for reciprocation."
+    }
+  ],
+  "personality_traits": [
+    {
+      "id": "cautious",
+      "name": "謹慎保守",
+      "name_en": "Cautious & Conservative",
+      "desc": "重視安全與儲蓄，對高利誘惑與高風險場合保持戒心。",
+      "init_bonus": {
+        "knowledge": 3,
+        "happiness": -1
+      }
+    },
+    {
+      "id": "risk_taker",
+      "name": "冒險投機",
+      "name_en": "Risk-Taking & Speculative",
+      "desc": "勇於承擔風險追求高報酬，但也較容易捲入各年代的金融泡沫與吸金風暴。",
+      "init_bonus": {
+        "happiness": 3,
+        "knowledge": 1
+      }
+    },
+    {
+      "id": "civic_minded",
+      "name": "熱心正義",
+      "name_en": "Civic-Minded & Justice-Driven",
+      "desc": "關心台灣社會與公共議題，在歷史轉折點容易站出來發聲或參與公民行動。",
+      "init_bonus": {
+        "social": 4,
+        "knowledge": 3
+      }
+    },
+    {
+      "id": "workaholic",
+      "name": "拼命三郎",
+      "name_en": "Driven Workaholic",
+      "desc": "工作投入度高、收入成長快，但健康與過勞風險也相對提高。",
+      "init_bonus": {
+        "knowledge": 4,
+        "health": -3
+      }
+    },
+    {
+      "id": "sociable",
+      "name": "愛湊熱鬧",
+      "name_en": "Outgoing & Event-Loving",
+      "desc": "熱愛社交、派對、夜市與連假旅行，人脈豐富但也較常出沒於人潮聚集場合。",
+      "init_bonus": {
+        "social": 6,
+        "happiness": 4
+      }
+    },
+    {
+      "id": "family_first",
+      "name": "顧家重情",
+      "name_en": "Family-First & Loyal",
+      "desc": "凡事以家人親友為重，連假必返鄉、樂於幫親友周轉，牽絆深厚。",
+      "init_bonus": {
+        "social": 5,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "sensitive_introvert",
+      "name": "細膩內向",
+      "name_en": "Sensitive & Introverted",
+      "desc": "生活規律低調、少涉險境，但面對社會巨變與職場高壓時心理感受較深。",
+      "init_bonus": {
+        "knowledge": 4,
+        "social": -4
+      }
+    }
+  ]
+}

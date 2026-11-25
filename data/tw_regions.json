@@ -1,0 +1,506 @@
+{
+  "meta": {
+    "schema_version": "1.0.0",
+    "scope": "Taiwan 6 Macro-Regions (MVP)",
+    "baseline_year": 2025,
+    "national_baselines": {
+      "life_expectancy_2025": 81.27,
+      "life_expectancy_2024": 80.77,
+      "life_expectancy_male_2025": 77.93,
+      "life_expectancy_female_2025": 84.75,
+      "household_disposable_income_avg_twd_2024": 1165000,
+      "household_disposable_income_median_twd_2025": 976700,
+      "house_price_to_income_ratio_2026q1": 9.47,
+      "house_price_to_income_ratio_peak_2024q3": 10.82,
+      "median_house_price_twd_2025q1": 10000000
+    },
+    "sources": [
+      "內政部 2025 年（114 年）底人口統計與簡易生命表",
+      "內政部 2024 年簡易生命表（台北市 83.40 歲最高、台東縣 75.97 歲最低）",
+      "主計總處 2024 年（113 年）家庭收支調查",
+      "內政部不動產資訊平台 2025 Q1–2026 Q1 房價負擔能力統計",
+      "104 玩數據百萬畢業生跨區就業與北漂返鄉調查"
+    ]
+  },
+  "regions": [
+    {
+      "id": "north_taipei",
+      "name_zh": "雙北基",
+      "name_en": "Greater Taipei & Keelung",
+      "counties": [
+        "台北市",
+        "新北市",
+        "基隆市"
+      ],
+      "population_share_2025": 0.293,
+      "birth_weight_estimate": 0.285,
+      "urbanization": "metropolitan",
+      "life_expectancy": {
+        "regional_avg": 82.3,
+        "offset_from_national": 1.0,
+        "notable_counties": {
+          "台北市": 83.98,
+          "新北市": 81.54
+        }
+      },
+      "income_multiplier": 1.15,
+      "notable_household_income_twd": {
+        "台北市": 1485000
+      },
+      "house_price_to_income_ratio": {
+        "regional_avg": 13.0,
+        "by_county": {
+          "台北市": 14.72,
+          "新北市": 12.63,
+          "基隆市": 5.7
+        },
+        "historical_note_2025q1": {
+          "台北市": 15.57,
+          "新北市": 13.17
+        }
+      },
+      "sector_weights": {
+        "agriculture": 0.01,
+        "industry_tech": 0.22,
+        "services": 0.77
+      },
+      "key_industries": [
+        "金融保險",
+        "資訊軟體",
+        "媒體文創",
+        "公教行政",
+        "商業服務"
+      ],
+      "flavor_tags": {
+        "commute": [
+          "捷運（1996年木柵線通車後成型）",
+          "公車",
+          "雙北跨橋機車潮"
+        ],
+        "housing": [
+          "高房租",
+          "頂樓加蓋／分租雅房",
+          "老公寓無電梯",
+          "蛋白區重劃大樓"
+        ],
+        "climate": [
+          "冬季濕冷多雨",
+          "盆地夏季悶熱"
+        ],
+        "lifestyle": [
+          "醫療與補教資源最密集",
+          "步調緊湊",
+          "居住成本易擠壓幸福感"
+        ]
+      },
+      "out_migration_rates": {
+        "to_central": 0.061,
+        "to_south": 0.043
+      }
+    },
+    {
+      "id": "north_hsinchu",
+      "name_zh": "桃竹苗",
+      "name_en": "Taoyuan, Hsinchu & Miaoli",
+      "counties": [
+        "桃園市",
+        "新竹市",
+        "新竹縣",
+        "苗栗縣"
+      ],
+      "population_share_2025": 0.168,
+      "birth_weight_estimate": 0.195,
+      "urbanization": "tech_suburban",
+      "life_expectancy": {
+        "regional_avg": 81.3,
+        "offset_from_national": 0.0,
+        "notable_counties": {
+          "新竹市": 82.13,
+          "桃園市": 81.03
+        }
+      },
+      "income_multiplier": 1.18,
+      "notable_household_income_twd": {
+        "新竹市": 1503000,
+        "新竹縣": 1481000
+      },
+      "house_price_to_income_ratio": {
+        "regional_avg": 8.5,
+        "by_county": {
+          "新竹縣": 9.21,
+          "桃園市": 8.43,
+          "新竹市": 8.43
+        }
+      },
+      "sector_weights": {
+        "agriculture": 0.02,
+        "industry_tech": 0.46,
+        "services": 0.52
+      },
+      "key_industries": [
+        "半導體",
+        "IC設計",
+        "電子代工",
+        "航空物流"
+      ],
+      "flavor_tags": {
+        "commute": [
+          "園區上下班塞車",
+          "機捷／高鐵跨區通勤",
+          "汽機車代步"
+        ],
+        "housing": [
+          "竹北／青埔重劃區",
+          "明星學區總量管制擠破頭"
+        ],
+        "climate": [
+          "新竹九降風強勁"
+        ],
+        "lifestyle": [
+          "全台幼年人口比與出生率最高",
+          "高薪高工時工程師文化",
+          "桃園多元移工與航空城",
+          "苗栗客庄聚落"
+        ]
+      },
+      "out_migration_rates": {
+        "to_central": 0.061,
+        "to_south": 0.043
+      }
+    },
+    {
+      "id": "central",
+      "name_zh": "中彰投",
+      "name_en": "Taichung, Changhua & Nantou",
+      "counties": [
+        "台中市",
+        "彰化縣",
+        "南投縣"
+      ],
+      "population_share_2025": 0.196,
+      "birth_weight_estimate": 0.205,
+      "urbanization": "mixed_industrial",
+      "life_expectancy": {
+        "regional_avg": 80.7,
+        "offset_from_national": -0.5,
+        "notable_counties": {
+          "台中市": 81.05
+        }
+      },
+      "income_multiplier": 0.98,
+      "notable_household_income_twd": {
+        "台中市": 1172000
+      },
+      "house_price_to_income_ratio": {
+        "regional_avg": 10.2,
+        "by_county": {
+          "台中市": 11.35,
+          "南投縣": 8.47,
+          "彰化縣": 8.23
+        }
+      },
+      "sector_weights": {
+        "agriculture": 0.06,
+        "industry_tech": 0.41,
+        "services": 0.53
+      },
+      "key_industries": [
+        "精密機械",
+        "金屬機電傳產",
+        "中小企業製造",
+        "中部科學園區"
+      ],
+      "flavor_tags": {
+        "commute": [
+          "汽機車為主",
+          "中捷綠線"
+        ],
+        "housing": [
+          "傳統透天厝與新興重劃區大樓並存"
+        ],
+        "climate": [
+          "氣候晴朗宜人",
+          "冬季中南部空品PM2.5微調風險"
+        ],
+        "lifestyle": [
+          "黑手變頭家與家族工廠文化",
+          "易受2000年代西進與2025關稅衝擊",
+          "南投為1999年921震央核心"
+        ]
+      },
+      "out_migration_rates": {
+        "to_north": 0.277
+      }
+    },
+    {
+      "id": "south_tainan",
+      "name_zh": "雲嘉南",
+      "name_en": "Yunlin, Chiayi & Tainan",
+      "counties": [
+        "雲林縣",
+        "嘉義市",
+        "嘉義縣",
+        "台南市"
+      ],
+      "population_share_2025": 0.14,
+      "birth_weight_estimate": 0.13,
+      "urbanization": "agro_tech_mix",
+      "life_expectancy": {
+        "regional_avg": 79.8,
+        "offset_from_national": -1.4,
+        "notable_counties": {
+          "台南市": 80.29
+        }
+      },
+      "income_multiplier": 0.88,
+      "notable_household_income_twd": {
+        "嘉義市": 1213000
+      },
+      "house_price_to_income_ratio": {
+        "regional_avg": 8.0,
+        "by_county": {
+          "台南市": 8.76,
+          "嘉義市": 7.51,
+          "雲林縣": 7.17,
+          "嘉義縣": 6.67
+        }
+      },
+      "sector_weights": {
+        "agriculture": 0.12,
+        "industry_tech": 0.34,
+        "services": 0.54
+      },
+      "key_industries": [
+        "農業畜牧",
+        "南部科學園區",
+        "傳統製造加工",
+        "在地觀光餐飲"
+      ],
+      "flavor_tags": {
+        "commute": [
+          "高度依賴機車"
+        ],
+        "housing": [
+          "南科擴張推升善化／新市房價形成世代落差",
+          "鄉鎮老屋透天"
+        ],
+        "climate": [
+          "日照充足",
+          "夏季高溫午後雷陣雨"
+        ],
+        "lifestyle": [
+          "農業與高齡化並存（嘉義縣65+占比全台最高）",
+          "2002年WTO衝擊農家",
+          "濃厚宗族廟會與飲食文化"
+        ]
+      },
+      "out_migration_rates": {
+        "to_north": 0.23
+      }
+    },
+    {
+      "id": "south_kaohsiung",
+      "name_zh": "高屏",
+      "name_en": "Kaohsiung & Pingtung",
+      "counties": [
+        "高雄市",
+        "屏東縣"
+      ],
+      "population_share_2025": 0.15,
+      "birth_weight_estimate": 0.138,
+      "urbanization": "industrial_port",
+      "life_expectancy": {
+        "regional_avg": 79.3,
+        "offset_from_national": -1.9,
+        "notable_counties": {
+          "高雄市": 79.8,
+          "屏東縣": 77.79
+        }
+      },
+      "income_multiplier": 0.92,
+      "notable_household_income_twd": {},
+      "house_price_to_income_ratio": {
+        "regional_avg": 8.8,
+        "by_county": {
+          "高雄市": 9.35,
+          "屏東縣": 7.08
+        }
+      },
+      "sector_weights": {
+        "agriculture": 0.07,
+        "industry_tech": 0.35,
+        "services": 0.58
+      },
+      "key_industries": [
+        "鋼鐵石化",
+        "造船海運",
+        "半導體設廠轉型",
+        "觀光展演"
+      ],
+      "flavor_tags": {
+        "commute": [
+          "機車為主",
+          "高雄捷運與輕軌"
+        ],
+        "housing": [
+          "舊市區公寓與北高雄科技廊帶新屋"
+        ],
+        "climate": [
+          "夏季酷熱",
+          "颱風登陸首當其衝（如2009莫拉克）"
+        ],
+        "lifestyle": [
+          "1980–90年代重工業火車頭",
+          "2000年代產業轉型低潮",
+          "近年台積電進駐與演唱會經濟回溫",
+          "屏東偏鄉就醫距離較遠"
+        ]
+      },
+      "out_migration_rates": {
+        "to_north": 0.23
+      }
+    },
+    {
+      "id": "east_islands",
+      "name_zh": "宜花東與離島",
+      "name_en": "Yilan, Hualien, Taitung & Offshore Islands",
+      "counties": [
+        "宜蘭縣",
+        "花蓮縣",
+        "台東縣",
+        "澎湖縣",
+        "金門縣",
+        "連江縣"
+      ],
+      "population_share_2025": 0.053,
+      "birth_weight_estimate": 0.047,
+      "urbanization": "rural_coastal",
+      "life_expectancy": {
+        "regional_avg": 78.2,
+        "offset_from_national": -3.1,
+        "notable_counties": {
+          "花蓮縣": 77.09,
+          "台東縣": 76.49,
+          "台東男性": 72.3
+        }
+      },
+      "income_multiplier": 0.82,
+      "notable_household_income_twd": {},
+      "house_price_to_income_ratio": {
+        "regional_avg": 7.9,
+        "by_county": {
+          "金門縣": 8.38,
+          "花蓮縣": 8.31,
+          "台東縣": 8.15,
+          "宜蘭縣": 7.33
+        }
+      },
+      "sector_weights": {
+        "agriculture": 0.14,
+        "industry_tech": 0.2,
+        "services": 0.66
+      },
+      "key_industries": [
+        "觀光旅宿",
+        "農漁林業",
+        "軍公教"
+      ],
+      "flavor_tags": {
+        "commute": [
+          "台鐵花東線搶票",
+          "蘇花公路／蘇花改",
+          "宜蘭2006年雪隧通車納入台北圈",
+          "離島船機交通"
+        ],
+        "housing": [
+          "透天農舍與民宿經濟"
+        ],
+        "climate": [
+          "颱風登陸與豪雨土石流高風險",
+          "地震帶高風險"
+        ],
+        "lifestyle": [
+          "原住民族文化多元",
+          "離島就醫後送與觀光淡旺季",
+          "金門地方福利特殊",
+          "男性平均壽命與全台落差最大"
+        ]
+      },
+      "out_migration_rates": {
+        "to_west_metro": 0.45
+      }
+    }
+  ],
+  "migration_dynamics": {
+    "key_ages": [
+      18,
+      22,
+      25
+    ],
+    "midlife_return_dilemma": {
+      "age_range": [
+        30,
+        45
+      ],
+      "want_to_return_ratio": 0.686,
+      "top_reasons_to_return": {
+        "care_for_family": 0.491,
+        "weather": 0.474
+      },
+      "high_struggle_ratio": 0.714,
+      "top_barriers": {
+        "fear_no_job": 0.683,
+        "fear_pay_cut": 0.676
+      },
+      "pay_cut_multiplier_on_return": 0.8
+    }
+  },
+  "income_quintiles": {
+    "baseline_year": 2024,
+    "top_vs_bottom_ratio": 6.14,
+    "q5_avg_disposable_income_twd": 2357000,
+    "q1_avg_disposable_income_twd": 384000,
+    "tiers": [
+      {
+        "quintile": 1,
+        "label": "最底層 20%",
+        "share": 0.2,
+        "resource_multiplier": 0.33,
+        "youth_effects": "較高機率就讀高職／半工半讀、需辦學貸、初始知識值偏低",
+        "adult_effects": "買房完全靠自己、對失業與重大醫療支出耐受度低"
+      },
+      {
+        "quintile": 2,
+        "label": "中下層 20%",
+        "share": 0.2,
+        "resource_multiplier": 0.65,
+        "youth_effects": "多就讀公私立大學、部分需辦學貸",
+        "adult_effects": "頭期款累積期長，常選擇蛋白區或租屋"
+      },
+      {
+        "quintile": 3,
+        "label": "中產基準 20%",
+        "share": 0.2,
+        "resource_multiplier": 0.95,
+        "youth_effects": "一般補習、正常升學路徑",
+        "adult_effects": "家庭可能小額贊助婚嫁或購屋頭期款"
+      },
+      {
+        "quintile": 4,
+        "label": "中上層 20%",
+        "share": 0.2,
+        "resource_multiplier": 1.35,
+        "youth_effects": "教育資源充足、較高機率進頂大或攻讀研究所",
+        "adult_effects": "父母可協助部分頭期款、較早接觸股市或ETF投資"
+      },
+      {
+        "quintile": 5,
+        "label": "頂層 20%",
+        "share": 0.2,
+        "resource_multiplier": 2.02,
+        "youth_effects": "高機率進頂大、解鎖出國留學選項",
+        "adult_effects": "較高機率繼承房產、免背40年房貸、人生容錯率極高"
+      }
+    ]
+  }
+}
