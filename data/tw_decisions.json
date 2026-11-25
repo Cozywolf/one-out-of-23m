@@ -993,6 +993,8 @@
       "title": "重大天災後的去留",
       "conditions": {
         "trigger_events": [
+          "EV_1963_gloria_typhoon_shihmen",
+          "EV_1959_87_flood",
           "EV_1999_921_earthquake",
           "EV_2008_2009_gfc_22k_morakot",
           "EV_2024_hualien_quake_housing_peak",

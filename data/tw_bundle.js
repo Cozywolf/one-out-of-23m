@@ -526,6 +526,17 @@ window.TW_DATA = {
     },
     "anchor_years": [
       {
+        "year": 1950,
+        "cpi_index_2025_base": 0.075,
+        "avg_monthly_wage_twd": 420,
+        "min_wage_twd": 200,
+        "unemployment_rate": 0.045,
+        "uni_admission_rate": 0.16,
+        "tfr": 6.03,
+        "deposit_rate_1yr": 0.24,
+        "era_summary": "戰後重建初期、韓戰美援重啟、勞保開辦與農業為主的克難社會"
+      },
+      {
         "year": 1955,
         "cpi_index_2025_base": 0.1,
         "avg_monthly_wage_twd": 700,
@@ -537,6 +548,17 @@ window.TW_DATA = {
         "era_summary": "農村社會、美援、高通膨與高生育（1956年首訂基本工資300元）"
       },
       {
+        "year": 1960,
+        "cpi_index_2025_base": 0.145,
+        "avg_monthly_wage_twd": 980,
+        "min_wage_twd": 300,
+        "unemployment_rate": 0.036,
+        "uni_admission_rate": 0.22,
+        "tfr": 5.75,
+        "deposit_rate_1yr": 0.17,
+        "era_summary": "八七水災後重建、中橫通車、人口紅利起飛與輕工業萌芽"
+      },
+      {
         "year": 1965,
         "cpi_index_2025_base": 0.18,
         "avg_monthly_wage_twd": 1300,
@@ -546,6 +568,17 @@ window.TW_DATA = {
         "tfr": 4.8,
         "deposit_rate_1yr": 0.108,
         "era_summary": "加工出口區設立、客廳即工廠起步"
+      },
+      {
+        "year": 1970,
+        "cpi_index_2025_base": 0.23,
+        "avg_monthly_wage_twd": 2250,
+        "min_wage_twd": 600,
+        "unemployment_rate": 0.017,
+        "uni_admission_rate": 0.27,
+        "tfr": 4.0,
+        "deposit_rate_1yr": 0.097,
+        "era_summary": "九年國教初上路、加工出口區熱潮、家庭工廠與外銷高速起飛"
       },
       {
         "year": 1975,
@@ -827,9 +860,80 @@ window.TW_DATA = {
         "taiex_intraday_high_oct": 49968.92,
         "tsmc_share_price_oct_twd": 2590,
         "etf_0050_holders_jul": 3563000
+      },
+      "1953": {
+        "note": "實施耕者有其田，農村自耕農比例大增"
+      },
+      "1958": {
+        "note": "八二三砲戰爆發，台海進入長期軍事對峙"
+      },
+      "1959": {
+        "note": "八七水災重創中南部，農工產值受損"
+      },
+      "1966": {
+        "note": "高雄加工出口區成立，女工外銷經濟起飛"
+      },
+      "1968": {
+        "note": "實施九年國民義務教育，國中就學率躍升"
+      },
+      "1971": {
+        "note": "退出聯合國，引發外交與移民焦慮"
+      },
+      "1973": {
+        "note": "第一次石油危機爆發，國際油價暴漲"
+      },
+      "1974": {
+        "stock_crash_pct": -0.57,
+        "cpi_inflation_pct": 0.475,
+        "note": "石油危機衝擊，台灣 CPI 暴漲 47.5%、台股重挫"
+      },
+      "1978": {
+        "note": "中山高速公路全線通車，年底美國宣布斷交"
       }
     },
     "institutional_switches": [
+      {
+        "id": "labor_insurance_1950",
+        "start_year": 1950,
+        "category": "welfare",
+        "name": "勞工保險開辦",
+        "effect": "台灣最早的社會保險制度，保障受僱勞工傷病與老年給付"
+      },
+      {
+        "id": "land_to_tiller_1953",
+        "start_year": 1953,
+        "category": "economy",
+        "name": "耕者有其田條例",
+        "effect": "農村自耕農大幅增加，改善農戶所得與子女升學條件"
+      },
+      {
+        "id": "joint_uni_exam_1954",
+        "start_year": 1954,
+        "category": "education",
+        "name": "大專聯考制度開辦",
+        "effect": "匿名統一閱卷，確立長達 48 年的聯考窄門時代"
+      },
+      {
+        "id": "min_wage_1956",
+        "start_year": 1956,
+        "category": "labor",
+        "name": "首訂基本工資（300元）",
+        "effect": "台灣首度建立法定最低工資基準"
+      },
+      {
+        "id": "twse_launch_1962",
+        "start_year": 1962,
+        "category": "finance",
+        "name": "臺灣證券交易所開業",
+        "effect": "開啟台灣集中股市與公開資本市場時代"
+      },
+      {
+        "id": "kaohsiung_epz_1966",
+        "start_year": 1966,
+        "category": "economy",
+        "name": "高雄加工出口區成立",
+        "effect": "全球首座加工出口區，帶動外銷工業與女性就業潮"
+      },
       {
         "id": "compulsory_9yr_ed",
         "start_year": 1968,
@@ -837,6 +941,20 @@ window.TW_DATA = {
         "category": "education",
         "name": "九年國民義務教育",
         "effect": "免考初中聯考，國中就學率躍升近100%"
+      },
+      {
+        "id": "ten_major_projects_1974",
+        "start_year": 1974,
+        "category": "economy",
+        "name": "十大建設啟動",
+        "effect": "高速公路、鐵路電氣化與重工業奠定現代經濟骨幹"
+      },
+      {
+        "id": "abolish_self_study_exam_1976",
+        "start_year": 1976,
+        "category": "education",
+        "name": "廢除自費留學考試",
+        "effect": "大幅降低自費出國門檻，引爆赴美留學熱潮"
       },
       {
         "id": "outbound_tourism",
@@ -1305,64 +1423,435 @@ window.TW_DATA = {
         "south_tainan",
         "south_kaohsiung",
         "east_islands"
-      ]
+      ],
+      "coverage": "1950–2026（共 56 起重大歷史、社會、金融、災難與法制事件）"
     },
     "events": [
       {
-        "id": "EV_1979_yucheng",
-        "year": 1979,
-        "year_end": 1979,
-        "category": "society_food_safety",
+        "id": "EV_1950_us_aid_local_elections",
+        "year": 1950,
+        "year_end": 1951,
+        "category": "economy_politics",
         "regions": [
-          "central"
+          "ALL"
         ],
-        "title": "米糠油多氯聯苯中毒案（油症事件）",
-        "summary": "彰化油脂公司生產的米糠油遭多氯聯苯污染，造成台中、彰化約2,000餘人中毒，毒素長期累積甚至遺傳至下一代。",
-        "institutional_aftermath": "台灣首起大規模工業化學食安悲劇；歷經36年倡議，立法院於2015年三讀通過《油症患者健康照護服務條例》提供照護與撫慰金。",
+        "title": "韓戰爆發、美援重啟與首度縣市地方自治選舉",
+        "summary": "1950 年 6 月韓戰爆發後美國重啟對台經濟與軍事援助（至 1965 年累計約 14.8 億美元），穩定戰後物價與電力交通建設；同年起台灣各縣市首度開辦縣市長與縣市議員直接民選，開啟地方自治實踐。",
+        "institutional_aftermath": "美援麵粉與基礎建設支撐了戰後初期民生與外匯穩定，「麵粉袋改衣褲」成為一整代台灣人的共同記憶；地方自治選舉也培養出本土政治參與基礎。",
         "gameplay_impact": {
-          "trigger_prob_in_region": 0.002,
-          "health_permanent_delta": -15,
-          "follow_up_year": 2015
+          "happiness_delta": 2
         },
         "sensitive": false,
-        "cultural_footnote_en": "Taiwan's first mass industrial food-poisoning disaster (PCB-contaminated rice bran oil), eventually leading to a dedicated victim healthcare law in 2015.",
+        "cultural_footnote_en": "Following the 1950 Korean War outbreak, U.S. economic aid resumed (~$1.48B through 1965), stabilizing postwar Taiwan while local county and city elections began.",
         "sources": [
-          "衛福部油症專區",
-          "立法院法律沿革"
+          "國史館美援史料",
+          "中選會台灣地方自治選舉沿革"
+        ]
+      },
+      {
+        "id": "EV_1953_land_to_tiller",
+        "year": 1953,
+        "year_end": 1953,
+        "category": "economy_society",
+        "regions": [
+          "ALL"
         ],
-        "protagonist_involvement": {
-          "base_prob": 0.14,
-          "regions": [
-            "central"
-          ],
-          "age_range": [
-            0,
-            75
-          ],
-          "trait_mult": {
-            "family_first": 1.3
-          },
-          "exp_tags": [],
-          "outcomes": [
-            {
-              "weight": 0.75,
-              "severity": "health_trajectory",
-              "narrative": "家中長期食用的米糠油遭多氯聯苯污染，你與家人出現皮膚病變與慢性疲倦，此後數十年奔走醫療與求償，直到 2015 年專法通過才獲國家照護。",
-              "health_delta": -24,
-              "happiness_delta": -18,
-              "money_ratio_delta": -0.15,
-              "set_flag": "yucheng_affected"
-            },
-            {
-              "weight": 0.25,
-              "severity": "economic_minor",
-              "narrative": "家裡買到同批問題油所幸食用量少，但親戚中毒嚴重，全家投入協助照護與長期醫藥支出。",
-              "health_delta": -8,
-              "happiness_delta": -10,
-              "money_ratio_delta": -0.12
-            }
-          ]
-        }
+        "title": "土地改革與《實施耕者有其田條例》",
+        "summary": "繼三七五減租與公地放領後，政府於 1953 年公布實施《耕者有其田條例》，徵收地主超額出租耕地轉放領給佃農，並以四大公營公司（台泥、台紙、農林、工礦）股票與實物土地債券補償地主。",
+        "institutional_aftermath": "台灣農村自耕農比例大幅躍升，農業生產力與農民子女就學意願顯著提高，同時引導部分地主資本轉向工商業，為後續工業化奠定基礎。",
+        "gameplay_impact": {
+          "happiness_delta": 3,
+          "farmer_income_mult": 1.15
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Taiwan's 1953 Land-to-the-Tiller reform redistributed farmland to tenant farmers and compensated landlords with industrial shares, boosting rural incomes and early industrialization.",
+        "sources": [
+          "國史館土地改革檔案",
+          "農委會戰後農業史"
+        ]
+      },
+      {
+        "id": "EV_1954_first_joint_uni_exam",
+        "year": 1954,
+        "year_end": 1954,
+        "category": "education_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "首屆大專聯考開辦（台灣聯考時代揭幕）",
+        "summary": "1954 年台灣首度將台灣大學、師範學院、農學院、工學院等四所公立大專校院合併辦理「大專聯合招生考試」，以公平匿名閱卷取代各校單獨招生。",
+        "institutional_aftermath": "大專聯考延續 48 年直到 2002 年才改為多元入學，雖大幅強化清寒子弟透過考試翻身的公平性，也深刻塑造了台灣「一試定終身」與補習文化。",
+        "gameplay_impact": {
+          "happiness_delta": 1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Launched in 1954, Taiwan's Joint University Entrance Examination established a meritocratic yet hyper-competitive exam culture lasting 48 years.",
+        "sources": [
+          "教育部高教司史料",
+          "大學聯招會沿革"
+        ]
+      },
+      {
+        "id": "EV_1956_min_wage_cross_island",
+        "year": 1956,
+        "year_end": 1956,
+        "category": "economy_infra",
+        "regions": [
+          "ALL",
+          "central",
+          "east_islands"
+        ],
+        "title": "首訂基本工資（300 元）與中部橫貫公路動工",
+        "summary": "1956 年政府首度訂定台灣基本工資為每月新台幣 300 元（約合當時基層工廠學徒與勞工生活基準）；同年 7 月中部橫貫公路開工，大批榮民與工程人員以簡陋工具徒手開鑿中央山脈峭壁。",
+        "institutional_aftermath": "確立台灣法定最低工資保障起點；中橫於 1960 年通車後首度串聯台中與花蓮，但也付出逾 200 名開路人員殉職的沉痛代價。",
+        "gameplay_impact": {
+          "happiness_delta": 1,
+          "happiness_delta_east": 3
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 1956, Taiwan set its first minimum wage (NT$300/month) and began building the Central Cross-Island Highway linking central and eastern Taiwan through rugged mountains.",
+        "sources": [
+          "勞動部基本工資沿革",
+          "公路局中橫公路史料"
+        ]
+      },
+      {
+        "id": "EV_1958_823_artillery",
+        "year": 1958,
+        "year_end": 1958,
+        "category": "politics_military",
+        "regions": [
+          "ALL",
+          "east_islands"
+        ],
+        "title": "八二三砲戰（第二次台海危機）",
+        "summary": "1958 年 8 月 23 日金門遭解放軍密集砲擊，44 天內落彈逾 47 萬發，前線軍民與運補官兵承受極高傷亡，隨後演變為長達二十年的「單打雙不打」隔日砲擊常態。",
+        "institutional_aftermath": "台海進入長期軍事對峙格局，義務役期維持 2 至 3 年高強度徵兵，抽中赴外島服役的「金馬獎」成為戰後兩代台灣青年最深刻的集體記憶。",
+        "gameplay_impact": {
+          "happiness_delta": -5,
+          "happiness_delta_east": -6
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The 1958 Second Taiwan Strait Crisis (823 Artillery Battle) saw over 470,000 shells hit Kinmen in 44 days, cementing decades of multi-year male military conscription.",
+        "sources": [
+          "國防部史政編譯局",
+          "國史館八二三戰役史料"
+        ]
+      },
+      {
+        "id": "EV_1959_87_flood",
+        "year": 1959,
+        "year_end": 1959,
+        "category": "disaster",
+        "regions": [
+          "ALL",
+          "central",
+          "south_tainan"
+        ],
+        "impact_regions": [
+          "central",
+          "south_tainan"
+        ],
+        "disaster_year": 1959,
+        "title": "八七水災（戰後台灣最慘重水患）",
+        "summary": "1959 年 8 月 7 日至 9 日熱帶性低氣壓引進強烈西南氣流，中南部連降破紀錄特大豪雨，造成 667 人罹難、408 人失蹤、逾 30 萬人無家可歸，農田與鐵公路幾乎全面沖毀，損失約占當年國民所得逾一成。",
+        "institutional_aftermath": "政府發動軍民總動員搶修並開徵重建附加稅，推動河川堤防與水利防洪現代化，成為台灣戰後重大災後治理與氣象預警改革的起點。",
+        "gameplay_impact": {
+          "happiness_delta": -4,
+          "happiness_delta_region": -10,
+          "health_delta": -2
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The August 7 Flood of 1959 devastated central and southern Taiwan with over 1,000 dead or missing and 300,000 displaced, sparking nationwide flood-control modernization.",
+        "sources": [
+          "中央氣象署災害天氣紀錄",
+          "水利署八七水災史料"
+        ]
+      },
+      {
+        "id": "EV_1960_free_china_lei_chen",
+        "year": 1960,
+        "year_end": 1960,
+        "category": "rights_politics",
+        "regions": [
+          "ALL"
+        ],
+        "title": "《自由中國》案與戒嚴言論管制",
+        "summary": "1960 年《自由中國》半月刊創辦人雷震籌組反對黨「中國民主黨」，遭當局以涉嫌叛亂逮捕並判刑十年，刊物停刊，展現戒嚴體制下黨禁、報禁與言論審查的高壓現實。",
+        "institutional_aftermath": "威權時期在野結社受挫，但也留下台灣戰後自由主義與憲政人權論述火種，深刻影響日後 1970–80 年代黨外民主運動。",
+        "gameplay_impact": {
+          "happiness_delta": -2
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 1960, publisher Lei Chen of Free China magazine was jailed for attempting to form an opposition party, highlighting martial-law censorship while inspiring later democracy advocates.",
+        "sources": [
+          "國家人權博物館",
+          "國史館雷震案史料"
+        ]
+      },
+      {
+        "id": "EV_1962_twse_and_ttv",
+        "year": 1962,
+        "year_end": 1962,
+        "category": "economy_culture",
+        "regions": [
+          "ALL",
+          "north_taipei"
+        ],
+        "title": "臺灣證券交易所開業與台視開播",
+        "summary": "1962 年 2 月臺灣證券交易所正式開業，台灣首度建立集中公開交易市場；同年 10 月台灣電視公司（台視）開播，黑白電視機開始出現在街頭電器行與雜貨店，改變常民娛樂生活。",
+        "institutional_aftermath": "開啟台灣企業透過資本市場直接籌資的時代，也標誌大眾電視媒體進入台灣家庭，日後更成為全島共同收看少棒與布袋戲的集體記憶載體。",
+        "gameplay_impact": {
+          "happiness_delta": 3
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "1962 marked two milestones of modern Taiwan: the opening of the Taiwan Stock Exchange and the launch of Taiwan's first television station, TTV.",
+        "sources": [
+          "臺灣證券交易所沿革",
+          "文化部台灣大百科全書"
+        ]
+      },
+      {
+        "id": "EV_1963_gloria_typhoon_shihmen",
+        "year": 1963,
+        "year_end": 1963,
+        "category": "disaster",
+        "regions": [
+          "ALL",
+          "north_taipei",
+          "north_hsinchu"
+        ],
+        "impact_regions": [
+          "north_taipei",
+          "north_hsinchu"
+        ],
+        "disaster_year": 1963,
+        "title": "葛樂禮颱風重創北台灣與石門水庫蓄水防洪",
+        "summary": "1963 年 9 月強烈颱風葛樂禮帶來驚人雨量，大台北盆地泡水多日、全台逾 220 人罹難，新建成的石門水庫承受首次極端洩洪考驗，凸顯都會區排水與防洪規劃迫切性。",
+        "institutional_aftermath": "促成政府啟動長達數十年的「台北地區防洪計畫」（含後續二重疏洪道與高堤系統），奠定今日雙北防洪安全骨幹。",
+        "gameplay_impact": {
+          "happiness_delta": -2,
+          "happiness_delta_north_taipei": -8
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Super Typhoon Gloria inundated the Taipei Basin in 1963, prompting the decades-long Taipei Flood Control Project that protects the metro area today.",
+        "sources": [
+          "中央氣象署百年侵台颱風資料",
+          "水利署台北防洪計畫沿革"
+        ]
+      },
+      {
+        "id": "EV_1965_us_aid_ends",
+        "year": 1965,
+        "year_end": 1965,
+        "category": "economy",
+        "regions": [
+          "ALL"
+        ],
+        "title": "15 年美援正式終止：台灣邁向經濟自立與出口導向",
+        "summary": "1965 年 6 月美國評估台灣經濟已具自立能力，正式終止一般經濟援助。面對外匯缺口，台灣全面從進口替代轉向鼓勵外資與外銷加工，經濟成長率逆勢連年突破 9%。",
+        "institutional_aftermath": "美援終止未造成衰退，反而加速台灣融入全球貿易供應鏈，開啟長達三十年的「台灣經濟奇蹟」高速成長期。",
+        "gameplay_impact": {
+          "happiness_delta": 2
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "U.S. economic aid ended in 1965 as Taiwan achieved self-sufficiency, accelerating its pivot to export-oriented manufacturing and decades of rapid growth.",
+        "sources": [
+          "國發會台灣經濟發展史",
+          "美援會檔案"
+        ]
+      },
+      {
+        "id": "EV_1966_kaohsiung_epz",
+        "year": 1966,
+        "year_end": 1966,
+        "category": "economy_society",
+        "regions": [
+          "ALL",
+          "south_kaohsiung"
+        ],
+        "title": "高雄加工出口區成立：女工浪潮與外銷起飛",
+        "summary": "1966 年 12 月全球首座「加工出口區」於高雄前鎮正式啟用，結合免稅與單一窗口吸引美日電子、成衣與塑膠大廠設廠，帶動大批農村年輕女性離鄉成為電子廠作業員。",
+        "institutional_aftermath": "高雄加工出口區成為開發中國家爭相取經的經濟典範，數十萬名年輕女工用加班薪資支撐起家庭生計與弟妹學費，改寫台灣女性勞動參與史。",
+        "gameplay_impact": {
+          "happiness_delta": 3,
+          "happiness_delta_region": 4
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Opened in 1966 in Kaohsiung, the world's first Export Processing Zone drew hundreds of thousands of young women from rural areas into electronics and garment assembly.",
+        "sources": [
+          "經濟部產業園區管理局史料",
+          "高雄市歷史博物館"
+        ]
+      },
+      {
+        "id": "EV_1968_9yr_compulsory_ed",
+        "year": 1968,
+        "year_end": 1968,
+        "category": "education_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "九年國民義務教育正式實施與紅葉少棒旋風",
+        "summary": "1968 年 9 月台灣正式將義務教育從六年延長為九年，全面廢除國小畢業考初中聯考，國中就學率由約 62% 躍升至近 100%；同年台東紅葉少棒隊擊敗來訪日本明星隊，點燃全台棒球熱潮。",
+        "institutional_aftermath": "九年國教大幅減輕兒童惡性補習並顯著提升戰後世代（尤其是女童與農村子女）整體受教水準，為 1970–80 年代台灣產業升級提供龐大高素質技術勞動力。",
+        "gameplay_impact": {
+          "happiness_delta": 5
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 1968, Taiwan extended compulsory education from 6 to 9 years, abolishing junior high entrance exams and dramatically boosting secondary schooling—especially for girls.",
+        "sources": [
+          "教育部九年國民教育實施史料",
+          "國史館台灣棒球史"
+        ]
+      },
+      {
+        "id": "EV_1969_golden_dragon_baseball",
+        "year": 1969,
+        "year_end": 1969,
+        "category": "culture_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "金龍少棒勇奪威廉波特世界冠軍",
+        "summary": "1969 年 8 月台中金龍少棒隊遠征美國威廉波特奪下世界少棒冠軍，全島民眾半夜圍在黑白電視與收音機前同步加油，奪冠瞬間大街小巷鞭炮齊鳴。",
+        "institutional_aftermath": "開啟台灣長達十餘年的「三級棒球全盛期」，在國際外交艱難的 1970 年代成為凝聚全台民心最重要的共同文化象徵。",
+        "gameplay_impact": {
+          "happiness_delta": 4
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Taichung's Golden Dragon Little League team won the 1969 World Series in Williamsport, launching a golden era of late-night nationwide baseball broadcasts.",
+        "sources": [
+          "台灣棒球維基館史料",
+          "文化部國家文化記憶庫"
+        ]
+      },
+      {
+        "id": "EV_1971_un_withdrawal",
+        "year": 1971,
+        "year_end": 1971,
+        "category": "politics_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "退出聯合國（聯大第 2758 號決議）",
+        "summary": "1971 年 10 月中華民國退出聯合國，隨後多國相繼斷交，引發台灣戰後首波嚴重外交衝擊與社會不安，部分富裕家庭與留學生開始興起海外移民與綠卡焦慮。",
+        "institutional_aftermath": "外交孤立反而促使台灣社會將目光轉回本土，激發 1970 年代鄉土文學論戰、校園民歌運動與對政治本土化、民主化的深層反思。",
+        "gameplay_impact": {
+          "happiness_delta": -5
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Taiwan's 1971 withdrawal from the United Nations triggered diplomatic isolation and emigration anxiety, while sparking a cultural turn toward local Taiwanese identity.",
+        "sources": [
+          "外交部史料",
+          "國史館現代史紀事"
+        ]
+      },
+      {
+        "id": "EV_1973_oil_crisis_inflation",
+        "year": 1973,
+        "year_end": 1974,
+        "category": "economy_finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "第一次石油危機與 47.5% 惡性通膨衝擊",
+        "summary": "1973 年底中東戰爭引爆全球第一次石油危機，國際油價暴漲四倍。高度仰賴能源進口的台灣在 1974 年消費者物價指數（CPI）年增率狂飆至 47.5%，民生物資搶購頻傳、台股腰斬近六成。",
+        "institutional_aftermath": "政府推出「穩定當前經濟措施方案」大幅調升利率與油電價一次反映，並加快能源多元與重化工業自主腳步，僅一年便成功壓回通膨。",
+        "gameplay_impact": {
+          "happiness_delta": -5
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The 1973–74 oil shock sent Taiwan's annual inflation soaring to 47.5% and halved stock prices, prompting sharp interest-rate hikes and rapid economic stabilization.",
+        "sources": [
+          "主計總處歷年消費者物價指數",
+          "中央銀行經濟金融史"
+        ]
+      },
+      {
+        "id": "EV_1974_ten_major_projects",
+        "year": 1974,
+        "year_end": 1978,
+        "category": "economy_infra",
+        "regions": [
+          "ALL"
+        ],
+        "title": "十大建設全面啟動：重工業與現代交通骨幹成形",
+        "summary": "面對石油危機景氣低谷，政府自 1974 年起大手筆推動「十大建設」，涵蓋中山高速公路、西部鐵路電氣化、北迴鐵路、中正國際機場、台中港、蘇澳港、中鋼、中船、石化與核能發電廠。",
+        "institutional_aftermath": "大幅擴大內需就業抵銷全球衰退，更在 1970 年代末完成台灣現代化交通與基礎重工業網路，為 1980 年代高科技起飛打下關鍵底座。",
+        "gameplay_impact": {
+          "happiness_delta": 4
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Launched in 1974 amid global recession, the Ten Major Construction Projects built Taiwan's first freeway, international airport, steelworks, and electrified rail backbone.",
+        "sources": [
+          "國發會十大建設檔案",
+          "交通部台灣交通史"
+        ]
+      },
+      {
+        "id": "EV_1976_abolish_self_study_folk_song",
+        "year": 1976,
+        "year_end": 1976,
+        "category": "education_culture",
+        "regions": [
+          "ALL"
+        ],
+        "title": "廢除自費留學考試與校園民歌運動興起",
+        "summary": "1976 年教育部正式廢除實施近二十年的「自費留學考試」，大幅降低大學生自費出國門檻，配合經濟起飛引爆赴美留學熱潮；同時大學校園掀起「唱自己的歌」民歌浪潮，〈龍的傳人〉、〈橄欖樹〉傳唱全台。",
+        "institutional_aftermath": "自費留學普及培養出日後 1980–90 年代回台創立竹科與半導體產業的海歸工程師世代；校園民歌則催生台灣華語流行音樂的黃金產業基礎。",
+        "gameplay_impact": {
+          "happiness_delta": 3
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 1976, abolishing the self-funded study-abroad exam fueled a wave of Taiwanese students heading to the U.S., while campus folk songs laid the groundwork for Mandopop.",
+        "sources": [
+          "教育部國際及兩岸教育司沿革",
+          "文化部台灣流行音樂史"
+        ]
+      },
+      {
+        "id": "EV_1977_zhongli_incident",
+        "year": 1977,
+        "year_end": 1977,
+        "category": "rights_politics",
+        "regions": [
+          "ALL",
+          "north_hsinchu"
+        ],
+        "title": "中壢事件（戒嚴時期首次大規模選舉抗議）",
+        "summary": "1977 年 11 月桃園縣長選舉投票日，中壢國小投開票所爆發作票爭議，引爆逾萬民眾包圍警局抗議衝突，最終無黨籍候選人許信良高票當選。",
+        "institutional_aftermath": "中壢事件震撼戒嚴體制，象徵戰後成長的台灣中產與青年世代開始積極走上街頭捍衛選票公平，揭開 1970 年代末黨外運動高潮。",
+        "gameplay_impact": {
+          "happiness_delta": -1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The 1977 Zhongli Incident over alleged ballot tampering became Taiwan's first major street protest under martial law, energizing the grassroots democracy movement.",
+        "sources": [
+          "國史館中壢事件史料",
+          "台灣大百科全書"
+        ]
+      },
+      {
+        "id": "EV_1978_highway1_us_break",
+        "year": 1978,
+        "year_end": 1978,
+        "category": "economy_politics",
+        "regions": [
+          "ALL"
+        ],
+        "title": "中山高速公路全線通車與台美斷交宣告",
+        "summary": "1978 年 10 月台灣首條高速公路「中山高（國道一號）」基隆至高雄全線通車，南北車程縮短至四個多小時；僅兩個月後（12 月 16 日）美國宣布與中華民國斷交，全台陷入震驚與自強愛國捐款潮。",
+        "institutional_aftermath": "中山高徹底改寫西部走廊物流與城鄉流動；台美斷交則促使美國國會於隔年通過《台灣關係法》，並加速台灣推動產業升級與科技自主（新竹科學園區籌設）。",
+        "gameplay_impact": {
+          "happiness_delta": -3
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In late 1978, Taiwan celebrated the completion of its first north-south freeway just weeks before the U.S. announced diplomatic severance, prompting rapid industrial and tech self-reliance.",
+        "sources": [
+          "高公局中山高通車史料",
+          "外交部台美關係檔案"
+        ]
       },
       {
         "id": "EV_1979_kaohsiung_incident",
@@ -1427,6 +1916,62 @@ window.TW_DATA = {
         }
       },
       {
+        "id": "EV_1979_yucheng",
+        "year": 1979,
+        "year_end": 1979,
+        "category": "society_food_safety",
+        "regions": [
+          "central"
+        ],
+        "title": "米糠油多氯聯苯中毒案（油症事件）",
+        "summary": "彰化油脂公司生產的米糠油遭多氯聯苯污染，造成台中、彰化約2,000餘人中毒，毒素長期累積甚至遺傳至下一代。",
+        "institutional_aftermath": "台灣首起大規模工業化學食安悲劇；歷經36年倡議，立法院於2015年三讀通過《油症患者健康照護服務條例》提供照護與撫慰金。",
+        "gameplay_impact": {
+          "trigger_prob_in_region": 0.002,
+          "health_permanent_delta": -15,
+          "follow_up_year": 2015
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Taiwan's first mass industrial food-poisoning disaster (PCB-contaminated rice bran oil), eventually leading to a dedicated victim healthcare law in 2015.",
+        "sources": [
+          "衛福部油症專區",
+          "立法院法律沿革"
+        ],
+        "protagonist_involvement": {
+          "base_prob": 0.14,
+          "regions": [
+            "central"
+          ],
+          "age_range": [
+            0,
+            75
+          ],
+          "trait_mult": {
+            "family_first": 1.3
+          },
+          "exp_tags": [],
+          "outcomes": [
+            {
+              "weight": 0.75,
+              "severity": "health_trajectory",
+              "narrative": "家中長期食用的米糠油遭多氯聯苯污染，你與家人出現皮膚病變與慢性疲倦，此後數十年奔走醫療與求償，直到 2015 年專法通過才獲國家照護。",
+              "health_delta": -24,
+              "happiness_delta": -18,
+              "money_ratio_delta": -0.15,
+              "set_flag": "yucheng_affected"
+            },
+            {
+              "weight": 0.25,
+              "severity": "economic_minor",
+              "narrative": "家裡買到同批問題油所幸食用量少，但親戚中毒嚴重，全家投入協助照護與長期醫藥支出。",
+              "health_delta": -8,
+              "happiness_delta": -10,
+              "money_ratio_delta": -0.12
+            }
+          ]
+        }
+      },
+      {
         "id": "EV_1982_li_shike_wang_yingxian",
         "year": 1982,
         "year_end": 1982,
@@ -1467,6 +2012,28 @@ window.TW_DATA = {
         "cultural_footnote_en": "The 1984 assassination of Taiwanese-American writer Henry Liu in California severely strained US-Taiwan ties and accelerated the end of Martial Law.",
         "sources": [
           "國史館史料"
+        ]
+      },
+      {
+        "id": "EV_1985_1990_bubble_boom",
+        "year": 1985,
+        "year_end": 1990,
+        "category": "economy_finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "「台灣錢淹腳目」股房狂飆期",
+        "summary": "新台幣從40.6升值至25.56，台股從636點飆漲20倍至1990年2月12,682點，台北市房價飆至每坪25.5萬元高峰。",
+        "institutional_aftermath": "奠定台灣一代人的財富想像，但也埋下泡沫破滅與投機文化的歷史教訓。",
+        "gameplay_impact": {
+          "asset_growth_mult": 1.35,
+          "housing_cost_mult": 1.8
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Known as 'Taiwan money flooding the ankles,' currency appreciation fueled a 20x stock rally and 10x property boom in the late 1980s.",
+        "sources": [
+          "工商時報",
+          "理財周刊"
         ]
       },
       {
@@ -1526,28 +2093,6 @@ window.TW_DATA = {
             }
           ]
         }
-      },
-      {
-        "id": "EV_1985_1990_bubble_boom",
-        "year": 1985,
-        "year_end": 1990,
-        "category": "economy_finance",
-        "regions": [
-          "ALL"
-        ],
-        "title": "「台灣錢淹腳目」股房狂飆期",
-        "summary": "新台幣從40.6升值至25.56，台股從636點飆漲20倍至1990年2月12,682點，台北市房價飆至每坪25.5萬元高峰。",
-        "institutional_aftermath": "奠定台灣一代人的財富想像，但也埋下泡沫破滅與投機文化的歷史教訓。",
-        "gameplay_impact": {
-          "asset_growth_mult": 1.35,
-          "housing_cost_mult": 1.8
-        },
-        "sensitive": false,
-        "cultural_footnote_en": "Known as 'Taiwan money flooding the ankles,' currency appreciation fueled a 20x stock rally and 10x property boom in the late 1980s.",
-        "sources": [
-          "工商時報",
-          "理財周刊"
-        ]
       },
       {
         "id": "EV_1986_industrial_peak",
@@ -2315,6 +2860,61 @@ window.TW_DATA = {
         }
       },
       {
+        "id": "EV_2014_2016_random_attacks_safety_net",
+        "year": 2014,
+        "year_end": 2016,
+        "category": "crime_society",
+        "regions": [
+          "north_taipei",
+          "ALL"
+        ],
+        "title": "台北捷運隨機殺人案（2014）與內湖小燈泡命案（2016）",
+        "summary": "2014年北捷板南線隨機襲擊釀4死20餘傷；2016年內湖4歲女童遇害，引發全台對無差別暴力與精神衛生資源的高度焦慮。",
+        "institutional_aftermath": "強化大眾運輸安全機制，並促使政府啟動跨部會「強化社會安全網」計畫（衛政結合社政追蹤高風險個案），深化被害人保護與司法對話。",
+        "gameplay_impact": {
+          "happiness_delta_north_taipei": -3,
+          "social_safety_net_level": 1
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "High-profile random attacks in 2014 and 2016 prompted Taiwan's cross-ministry 'Strengthening the Social Safety Net' mental-health and social-work initiative.",
+        "sources": [
+          "衛福部強化社會安全網計畫"
+        ],
+        "protagonist_involvement": {
+          "base_prob": 0.06,
+          "regions": [
+            "north_taipei"
+          ],
+          "age_range": [
+            15,
+            65
+          ],
+          "trait_mult": {
+            "workaholic": 1.3,
+            "sociable": 1.3,
+            "sensitive_introvert": 1.4
+          },
+          "exp_tags": [],
+          "outcomes": [
+            {
+              "weight": 0.85,
+              "severity": "trauma",
+              "narrative": "你搭乘板南線捷運時恰巧身處相鄰車廂，經歷人群驚慌逃散的驚魂瞬間，此後長期搭車保持高度戒備並更加關注台灣社會安全網議題。",
+              "happiness_delta": -18,
+              "health_delta": -6
+            },
+            {
+              "weight": 0.15,
+              "severity": "injury_trauma",
+              "narrative": "你在雙北公共空間突發無差別暴力事件中受波及受傷，歷經醫療與心理諮商才逐步重返日常。",
+              "health_delta": -24,
+              "happiness_delta": -25,
+              "money_ratio_delta": -0.1
+            }
+          ]
+        }
+      },
+      {
         "id": "EV_2014_kaohsiung_gas_explosion",
         "year": 2014,
         "year_end": 2014,
@@ -2369,61 +2969,6 @@ window.TW_DATA = {
               "narrative": "深夜行經高雄氣爆路段時遭遇地下石化管線連環爆炸，不幸罹難。",
               "fatal": true,
               "death_cause": "2014 年高雄地下丙烯管線氣爆事故"
-            }
-          ]
-        }
-      },
-      {
-        "id": "EV_2014_2016_random_attacks_safety_net",
-        "year": 2014,
-        "year_end": 2016,
-        "category": "crime_society",
-        "regions": [
-          "north_taipei",
-          "ALL"
-        ],
-        "title": "台北捷運隨機殺人案（2014）與內湖小燈泡命案（2016）",
-        "summary": "2014年北捷板南線隨機襲擊釀4死20餘傷；2016年內湖4歲女童遇害，引發全台對無差別暴力與精神衛生資源的高度焦慮。",
-        "institutional_aftermath": "強化大眾運輸安全機制，並促使政府啟動跨部會「強化社會安全網」計畫（衛政結合社政追蹤高風險個案），深化被害人保護與司法對話。",
-        "gameplay_impact": {
-          "happiness_delta_north_taipei": -3,
-          "social_safety_net_level": 1
-        },
-        "sensitive": true,
-        "cultural_footnote_en": "High-profile random attacks in 2014 and 2016 prompted Taiwan's cross-ministry 'Strengthening the Social Safety Net' mental-health and social-work initiative.",
-        "sources": [
-          "衛福部強化社會安全網計畫"
-        ],
-        "protagonist_involvement": {
-          "base_prob": 0.06,
-          "regions": [
-            "north_taipei"
-          ],
-          "age_range": [
-            15,
-            65
-          ],
-          "trait_mult": {
-            "workaholic": 1.3,
-            "sociable": 1.3,
-            "sensitive_introvert": 1.4
-          },
-          "exp_tags": [],
-          "outcomes": [
-            {
-              "weight": 0.85,
-              "severity": "trauma",
-              "narrative": "你搭乘板南線捷運時恰巧身處相鄰車廂，經歷人群驚慌逃散的驚魂瞬間，此後長期搭車保持高度戒備並更加關注台灣社會安全網議題。",
-              "happiness_delta": -18,
-              "health_delta": -6
-            },
-            {
-              "weight": 0.15,
-              "severity": "injury_trauma",
-              "narrative": "你在雙北公共空間突發無差別暴力事件中受波及受傷，歷經醫療與心理諮商才逐步重返日常。",
-              "health_delta": -24,
-              "happiness_delta": -25,
-              "money_ratio_delta": -0.1
             }
           ]
         }
@@ -2669,27 +3214,6 @@ window.TW_DATA = {
         }
       },
       {
-        "id": "EV_2023_metoo_taiwan",
-        "year": 2023,
-        "year_end": 2024,
-        "category": "society_rights",
-        "regions": [
-          "ALL"
-        ],
-        "title": "台灣 #MeToo 浪潮與性平三法修法",
-        "summary": "2023年中起由政壇延燒至演藝、媒體、學界與職場的集體性騷擾揭露運動，打破多年職場沉默文化。",
-        "institutional_aftermath": "立法院於2023年7月火速修訂「性平三法」並於2024年3月8日全面上路，加重權勢性騷刑責與雇主防治義務。",
-        "gameplay_impact": {
-          "unlock_switch_2024": "gender_equality_3_acts",
-          "workplace_harassment_protection": true
-        },
-        "sensitive": true,
-        "cultural_footnote_en": "Taiwan's 2023 #MeToo wave swept politics, media, and workplaces, prompting sweeping amendments to three gender-equality laws effective March 2024.",
-        "sources": [
-          "勞動部與衛福部性平三法專區"
-        ]
-      },
-      {
         "id": "EV_2023_2025_kaikai_case",
         "year": 2023,
         "year_end": 2025,
@@ -2710,6 +3234,27 @@ window.TW_DATA = {
         "sources": [
           "司法院國民法官判決",
           "立法院刑法修法紀錄"
+        ]
+      },
+      {
+        "id": "EV_2023_metoo_taiwan",
+        "year": 2023,
+        "year_end": 2024,
+        "category": "society_rights",
+        "regions": [
+          "ALL"
+        ],
+        "title": "台灣 #MeToo 浪潮與性平三法修法",
+        "summary": "2023年中起由政壇延燒至演藝、媒體、學界與職場的集體性騷擾揭露運動，打破多年職場沉默文化。",
+        "institutional_aftermath": "立法院於2023年7月火速修訂「性平三法」並於2024年3月8日全面上路，加重權勢性騷刑責與雇主防治義務。",
+        "gameplay_impact": {
+          "unlock_switch_2024": "gender_equality_3_acts",
+          "workplace_harassment_protection": true
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "Taiwan's 2023 #MeToo wave swept politics, media, and workplaces, prompting sweeping amendments to three gender-equality laws effective March 2024.",
+        "sources": [
+          "勞動部與衛福部性平三法專區"
         ]
       },
       {
@@ -3814,6 +4359,8 @@ window.TW_DATA = {
         "title": "重大天災後的去留",
         "conditions": {
           "trigger_events": [
+            "EV_1963_gloria_typhoon_shihmen",
+            "EV_1959_87_flood",
             "EV_1999_921_earthquake",
             "EV_2008_2009_gfc_22k_morakot",
             "EV_2024_hualien_quake_housing_peak",
@@ -6406,19 +6953,20 @@ window.TW_DATA = {
     "meta": {
       "schema_version": "1.0.0",
       "coverage_years": [
-        1967,
+        1962,
         2026
       ],
       "description": "台灣加權指數（TAIEX）歷年實質史實漲跌幅、盤中最大回撤（融資斷頭依據）、股息殖利率與房價年度漲跌幅。",
       "default_dividend_yield": 0.036,
-      "post_2026_stock_mean": 0.078,
-      "post_2026_stock_vol": 0.18,
-      "post_2026_housing_mean": 0.018,
+      "post_2026_stock_mean": 0.032,
+      "post_2026_stock_vol": 0.16,
+      "post_2026_housing_mean": 0.015,
       "sources": [
         "臺灣證券交易所（TWSE）加權指數歷史統計",
         "Goodinfo! 台灣股市資訊網加權指數歷年漲跌統計（1986–2026）",
         "內政部不動產資訊平台與信義／國泰房價長期趨勢整理"
-      ]
+      ],
+      "post_2026_div_yield": 0.03
     },
     "investment_profiles": {
       "deposit": {
@@ -6457,6 +7005,41 @@ window.TW_DATA = {
       "forced_sale_cash_trigger": -350000
     },
     "taiex_annual": {
+      "1962": {
+        "price_pct": 0.08,
+        "max_drawdown": -0.1,
+        "div_yield": 0.05,
+        "housing_pct": 0.04,
+        "note": "臺灣證券交易所正式開業，市場草創成交清淡"
+      },
+      "1963": {
+        "price_pct": 0.22,
+        "max_drawdown": -0.12,
+        "div_yield": 0.05,
+        "housing_pct": 0.05,
+        "note": "台糖與水泥股領漲，早期散戶開始認識股票"
+      },
+      "1964": {
+        "price_pct": 0.35,
+        "max_drawdown": -0.25,
+        "div_yield": 0.05,
+        "housing_pct": 0.06,
+        "note": "台糖股價暴漲後急挫，首度出現早期散戶套牢風波"
+      },
+      "1965": {
+        "price_pct": -0.18,
+        "max_drawdown": -0.28,
+        "div_yield": 0.05,
+        "housing_pct": 0.05,
+        "note": "美援終止與台糖股回檔，股市歷經整理"
+      },
+      "1966": {
+        "price_pct": 0.12,
+        "max_drawdown": -0.12,
+        "div_yield": 0.05,
+        "housing_pct": 0.06,
+        "note": "加工出口區啟用，工業股逐步穩健回溫"
+      },
       "1967": {
         "price_pct": 0.05,
         "max_drawdown": -0.08,
@@ -6813,6 +7396,20 @@ window.TW_DATA = {
         "historical_note": "九年國民義務教育尚未實施前，台灣國小畢業生升學率僅約五至六成，女童中斷升學比例顯著高於男童。"
       },
       {
+        "id": "AP_1953_land_reform_classmate",
+        "year_range": [
+          1953,
+          1958
+        ],
+        "age_range": [
+          7,
+          16
+        ],
+        "relation": "隔壁村的同學",
+        "text": "家裡世世代代租田耕作的同學，這個月突然高興地說，他父親透過耕者有其田終於領到了屬於自己家的田契。放學路上他笑著說，以後收成不用再交一半給地主，家裡終於買得起新書包了。",
+        "historical_note": "土地改革後，台灣農村自耕農比例大幅提升，許多農家子弟首度有餘力完成小學甚至升學。"
+      },
+      {
         "id": "AP_1964_radio_baseball",
         "year_range": [
           1955,
@@ -6825,6 +7422,34 @@ window.TW_DATA = {
         "relation": "巷口雜貨店鄰居",
         "text": "夏夜吃完晚飯，整條巷子的大人小孩都會搬小板凳擠在雜貨店唯一的黑白電視機與收音機前。只要少棒隊敲出安打，巷口就會爆出一整排歡呼與鞭炮聲。",
         "historical_note": ""
+      },
+      {
+        "id": "AP_1958_kinmen_neighbor_bro",
+        "year_range": [
+          1958,
+          1966
+        ],
+        "age_range": [
+          8,
+          25
+        ],
+        "relation": "巷尾鄰居大哥哥",
+        "text": "巷尾的阿明哥入伍抽中金門前線，臨行前全巷鄰居在火車站月台紅著眼眶送行。這兩年他每隔幾週才寄回一封薄薄的家書，信紙上總是反覆寫著「一切平安，勿念」。",
+        "historical_note": "八二三砲戰後台海長期對峙，義務役期長達二至三年，外島前線服役成為整代家庭的牽掛。"
+      },
+      {
+        "id": "AP_1962_first_tv_shop",
+        "year_range": [
+          1962,
+          1968
+        ],
+        "age_range": [
+          6,
+          20
+        ],
+        "relation": "街口電器行老闆",
+        "text": "台視開播那年，整條街只有電器行門口擺著一台黑白電視機。每天傍晚吃飽飯，大人小孩就自己搬板凳擠在騎樓下看歌仔戲與布袋戲，連巷口的烤番薯攤生意都跟著變好。",
+        "historical_note": "1962 年台視開播初期電視機價格等同一般受薪族數月薪水，全巷共看一台電視成為戰後台灣獨有風景。"
       },
       {
         "id": "AP_1968_epz_sister",
@@ -6855,6 +7480,20 @@ window.TW_DATA = {
         "historical_note": ""
       },
       {
+        "id": "AP_1971_emigrate_doctor_family",
+        "year_range": [
+          1971,
+          1978
+        ],
+        "age_range": [
+          12,
+          35
+        ],
+        "relation": "鎮上診所醫師一家",
+        "text": "從小幫你看感冒的診所老醫師，悄悄把房子盤讓給學弟，打算帶著全家移民去美國投靠早年留學的大兒子。大人們在客廳低聲嘆氣，說這幾年局勢動盪，有辦法的人都在替孩子找退路。",
+        "historical_note": "1971 年退出聯合國後，台灣出現戰後首波專業中產與留學生海外定居潮。"
+      },
+      {
         "id": "AP_1981_ee_to_nursing",
         "year_range": [
           1972,
@@ -6869,6 +7508,20 @@ window.TW_DATA = {
         "historical_note": "台灣大專校院工程類科女性比例長期偏低（不足 10%），性別刻板分工深刻左右升學與職涯選擇。"
       },
       {
+        "id": "AP_1974_oil_crisis_hoarding",
+        "year_range": [
+          1974,
+          1975
+        ],
+        "age_range": [
+          10,
+          50
+        ],
+        "relation": "菜市場熟識的伯母",
+        "text": "物價一天一個價，你看見市場的伯母一次扛了三大袋米和一整箱肥皂衛生紙回家。她一邊喘氣一邊說，沙拉油跟醬油昨天才漲兩成，不先囤一點，下個月薪水根本追不上漲價的速度。",
+        "historical_note": "第一次石油危機衝擊下，1974 年台灣物價年增率飆升至 47.5%，為戰後最劇烈的單年通膨。"
+      },
+      {
         "id": "AP_1985_living_room_factory",
         "year_range": [
           1975,
@@ -6880,6 +7533,20 @@ window.TW_DATA = {
         ],
         "relation": "樓下鄰居一家",
         "text": "樓下鄰居的客廳每晚九點還亮著日光燈，全家老小圍著長桌趕裝聖誕燈泡與塑膠零件。鄰居媽媽笑著說，多趕完兩箱外銷單，下個月就能替孩子買一台新腳踏車。",
+        "historical_note": ""
+      },
+      {
+        "id": "AP_1976_campus_folk_senior",
+        "year_range": [
+          1976,
+          1982
+        ],
+        "age_range": [
+          16,
+          24
+        ],
+        "relation": "社團吉他學長",
+        "text": "總是背著一把木吉他在草地上彈唱的學長，最近不再只翻唱西洋熱門金曲，開始把新詩譜成中文民歌。他說既然出國留學變容易了，更應該先唱出屬於這塊土地自己的聲音。",
         "historical_note": ""
       },
       {
@@ -6897,20 +7564,6 @@ window.TW_DATA = {
         "historical_note": "大學聯考窄門時期錄取率僅約三至四成，「重考一年」是無數青年的共同青春記憶。"
       },
       {
-        "id": "AP_1990_stock_crash_aunt",
-        "year_range": [
-          1990,
-          1992
-        ],
-        "age_range": [
-          15,
-          65
-        ],
-        "relation": "菜市場熟識的阿姨",
-        "text": "前兩年天天在市場聊明牌、號稱早晚要退休的阿姨，這個月默默把透天厝貼上出售紅紙。大人們壓低聲音說，她在台股萬二崩盤時被斷頭，十幾年的積蓄一夕蒸發。",
-        "historical_note": "1990 年台灣加權指數自 12,682 點暴跌 80%，引發全台資產大洗牌與無數家庭負債。"
-      },
-      {
         "id": "AP_1994_island_military",
         "year_range": [
           1980,
@@ -6923,6 +7576,20 @@ window.TW_DATA = {
         "relation": "大學死黨",
         "text": "抽中金馬獎去外島當兩年兵的死黨放返台假時，一個人在泡沫紅茶店坐了整個下午。他說營區打投幣電話要排一小時、寫信往返要兩週，最後還是沒熬過這場遠距離。",
         "historical_note": ""
+      },
+      {
+        "id": "AP_1990_stock_crash_aunt",
+        "year_range": [
+          1990,
+          1992
+        ],
+        "age_range": [
+          15,
+          65
+        ],
+        "relation": "菜市場熟識的阿姨",
+        "text": "前兩年天天在市場聊明牌、號稱早晚要退休的阿姨，這個月默默把透天厝貼上出售紅紙。大人們壓低聲音說，她在台股萬二崩盤時被斷頭，十幾年的積蓄一夕蒸發。",
+        "historical_note": "1990 年台灣加權指數自 12,682 點暴跌 80%，引發全台資產大洗牌與無數家庭負債。"
       },
       {
         "id": "AP_2002_westbound_cousin",
@@ -6953,20 +7620,6 @@ window.TW_DATA = {
         "historical_note": "雙卡風暴席捲全台，數十萬名持卡人深陷 20% 高利循環卡債困境。"
       },
       {
-        "id": "AP_2009_22k_roommate",
-        "year_range": [
-          2009,
-          2012
-        ],
-        "age_range": [
-          22,
-          29
-        ],
-        "relation": "大學室友",
-        "text": "大學室友畢業後投了六十封履歷，最後領著剛好兩萬二的起薪，在台北租了一間沒對外窗的頂樓加蓋。他在 MSN 上苦笑說，扣完房租和學貸，連感冒都不敢請病假。",
-        "historical_note": "2009 年金融海嘯期間台灣失業率達 5.85%，企業實習 22K 方案意外形成青年起薪定錨效應。"
-      },
-      {
         "id": "AP_2014_civil_exam_friend",
         "year_range": [
           2008,
@@ -6979,6 +7632,20 @@ window.TW_DATA = {
         "relation": "前同事",
         "text": "辭職全職準備高普考兩年的前同事，今年放榜又差了零點八分落榜。他在電話裡沉默很久才問你：「如果再考一年還是沒上，我三十歲回民間企業還找得到工作嗎？」",
         "historical_note": ""
+      },
+      {
+        "id": "AP_2009_22k_roommate",
+        "year_range": [
+          2009,
+          2012
+        ],
+        "age_range": [
+          22,
+          29
+        ],
+        "relation": "大學室友",
+        "text": "大學室友畢業後投了六十封履歷，最後領著剛好兩萬二的起薪，在台北租了一間沒對外窗的頂樓加蓋。他在 MSN 上苦笑說，扣完房租和學貸，連感冒都不敢請病假。",
+        "historical_note": "2009 年金融海嘯期間台灣失業率達 5.85%，企業實習 22K 方案意外形成青年起薪定錨效應。"
       },
       {
         "id": "AP_2017_australia_friend",
@@ -6995,20 +7662,6 @@ window.TW_DATA = {
         "historical_note": "2004 年台澳打工度假開放後，累計逾二十萬名台灣青年赴澳工作存第一桶金。"
       },
       {
-        "id": "AP_2019_equal_marriage",
-        "year_range": [
-          2019,
-          2028
-        ],
-        "age_range": [
-          22,
-          55
-        ],
-        "relation": "多年摯友",
-        "text": "相伴十年的大學好友終於和伴侶去戶政事務所登記結婚了。婚宴只請了幾桌最親近的親友，交換誓詞時，你看見她原本沉默反對多年的父親偷偷拭去眼角的淚。",
-        "historical_note": "2019 年 5 月台灣同性婚姻專法正式施行，成為亞洲第一個同性婚姻合法化國家。"
-      },
-      {
         "id": "AP_2022_return_home_friend",
         "year_range": [
           2016,
@@ -7021,6 +7674,20 @@ window.TW_DATA = {
         "relation": "同鄉北漂好友",
         "text": "和你一起北上打拚十年的同鄉好友決定搬回南部老家了。他說在北部租了十年房依舊追不上頭期款，回去薪水少兩成，但至少下班騎車十分鐘就能吃到家裡的熱湯。",
         "historical_note": "人力銀行調查顯示，約 68.6% 北漂族曾動念返鄉，但有 67.6% 因顧慮薪資打折而反覆掙扎。"
+      },
+      {
+        "id": "AP_2019_equal_marriage",
+        "year_range": [
+          2019,
+          2028
+        ],
+        "age_range": [
+          22,
+          55
+        ],
+        "relation": "多年摯友",
+        "text": "相伴十年的大學好友終於和伴侶去戶政事務所登記結婚了。婚宴只請了幾桌最親近的親友，交換誓詞時，你看見她原本沉默反對多年的父親偷偷拭去眼角的淚。",
+        "historical_note": "2019 年 5 月台灣同性婚姻專法正式施行，成為亞洲第一個同性婚姻合法化國家。"
       },
       {
         "id": "AP_2024_uni_closed_friend",

@@ -2,19 +2,20 @@
   "meta": {
     "schema_version": "1.0.0",
     "coverage_years": [
-      1967,
+      1962,
       2026
     ],
     "description": "台灣加權指數（TAIEX）歷年實質史實漲跌幅、盤中最大回撤（融資斷頭依據）、股息殖利率與房價年度漲跌幅。",
     "default_dividend_yield": 0.036,
-    "post_2026_stock_mean": 0.078,
-    "post_2026_stock_vol": 0.18,
-    "post_2026_housing_mean": 0.018,
+    "post_2026_stock_mean": 0.032,
+    "post_2026_stock_vol": 0.16,
+    "post_2026_housing_mean": 0.015,
     "sources": [
       "臺灣證券交易所（TWSE）加權指數歷史統計",
       "Goodinfo! 台灣股市資訊網加權指數歷年漲跌統計（1986–2026）",
       "內政部不動產資訊平台與信義／國泰房價長期趨勢整理"
-    ]
+    ],
+    "post_2026_div_yield": 0.03
   },
   "investment_profiles": {
     "deposit": {
@@ -53,6 +54,41 @@
     "forced_sale_cash_trigger": -350000
   },
   "taiex_annual": {
+    "1962": {
+      "price_pct": 0.08,
+      "max_drawdown": -0.1,
+      "div_yield": 0.05,
+      "housing_pct": 0.04,
+      "note": "臺灣證券交易所正式開業，市場草創成交清淡"
+    },
+    "1963": {
+      "price_pct": 0.22,
+      "max_drawdown": -0.12,
+      "div_yield": 0.05,
+      "housing_pct": 0.05,
+      "note": "台糖與水泥股領漲，早期散戶開始認識股票"
+    },
+    "1964": {
+      "price_pct": 0.35,
+      "max_drawdown": -0.25,
+      "div_yield": 0.05,
+      "housing_pct": 0.06,
+      "note": "台糖股價暴漲後急挫，首度出現早期散戶套牢風波"
+    },
+    "1965": {
+      "price_pct": -0.18,
+      "max_drawdown": -0.28,
+      "div_yield": 0.05,
+      "housing_pct": 0.05,
+      "note": "美援終止與台糖股回檔，股市歷經整理"
+    },
+    "1966": {
+      "price_pct": 0.12,
+      "max_drawdown": -0.12,
+      "div_yield": 0.05,
+      "housing_pct": 0.06,
+      "note": "加工出口區啟用，工業股逐步穩健回溫"
+    },
     "1967": {
       "price_pct": 0.05,
       "max_drawdown": -0.08,

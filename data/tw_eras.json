@@ -18,6 +18,17 @@
   },
   "anchor_years": [
     {
+      "year": 1950,
+      "cpi_index_2025_base": 0.075,
+      "avg_monthly_wage_twd": 420,
+      "min_wage_twd": 200,
+      "unemployment_rate": 0.045,
+      "uni_admission_rate": 0.16,
+      "tfr": 6.03,
+      "deposit_rate_1yr": 0.24,
+      "era_summary": "戰後重建初期、韓戰美援重啟、勞保開辦與農業為主的克難社會"
+    },
+    {
       "year": 1955,
       "cpi_index_2025_base": 0.1,
       "avg_monthly_wage_twd": 700,
@@ -29,6 +40,17 @@
       "era_summary": "農村社會、美援、高通膨與高生育（1956年首訂基本工資300元）"
     },
     {
+      "year": 1960,
+      "cpi_index_2025_base": 0.145,
+      "avg_monthly_wage_twd": 980,
+      "min_wage_twd": 300,
+      "unemployment_rate": 0.036,
+      "uni_admission_rate": 0.22,
+      "tfr": 5.75,
+      "deposit_rate_1yr": 0.17,
+      "era_summary": "八七水災後重建、中橫通車、人口紅利起飛與輕工業萌芽"
+    },
+    {
       "year": 1965,
       "cpi_index_2025_base": 0.18,
       "avg_monthly_wage_twd": 1300,
@@ -38,6 +60,17 @@
       "tfr": 4.8,
       "deposit_rate_1yr": 0.108,
       "era_summary": "加工出口區設立、客廳即工廠起步"
+    },
+    {
+      "year": 1970,
+      "cpi_index_2025_base": 0.23,
+      "avg_monthly_wage_twd": 2250,
+      "min_wage_twd": 600,
+      "unemployment_rate": 0.017,
+      "uni_admission_rate": 0.27,
+      "tfr": 4.0,
+      "deposit_rate_1yr": 0.097,
+      "era_summary": "九年國教初上路、加工出口區熱潮、家庭工廠與外銷高速起飛"
     },
     {
       "year": 1975,
@@ -319,9 +352,80 @@
       "taiex_intraday_high_oct": 49968.92,
       "tsmc_share_price_oct_twd": 2590,
       "etf_0050_holders_jul": 3563000
+    },
+    "1953": {
+      "note": "實施耕者有其田，農村自耕農比例大增"
+    },
+    "1958": {
+      "note": "八二三砲戰爆發，台海進入長期軍事對峙"
+    },
+    "1959": {
+      "note": "八七水災重創中南部，農工產值受損"
+    },
+    "1966": {
+      "note": "高雄加工出口區成立，女工外銷經濟起飛"
+    },
+    "1968": {
+      "note": "實施九年國民義務教育，國中就學率躍升"
+    },
+    "1971": {
+      "note": "退出聯合國，引發外交與移民焦慮"
+    },
+    "1973": {
+      "note": "第一次石油危機爆發，國際油價暴漲"
+    },
+    "1974": {
+      "stock_crash_pct": -0.57,
+      "cpi_inflation_pct": 0.475,
+      "note": "石油危機衝擊，台灣 CPI 暴漲 47.5%、台股重挫"
+    },
+    "1978": {
+      "note": "中山高速公路全線通車，年底美國宣布斷交"
     }
   },
   "institutional_switches": [
+    {
+      "id": "labor_insurance_1950",
+      "start_year": 1950,
+      "category": "welfare",
+      "name": "勞工保險開辦",
+      "effect": "台灣最早的社會保險制度，保障受僱勞工傷病與老年給付"
+    },
+    {
+      "id": "land_to_tiller_1953",
+      "start_year": 1953,
+      "category": "economy",
+      "name": "耕者有其田條例",
+      "effect": "農村自耕農大幅增加，改善農戶所得與子女升學條件"
+    },
+    {
+      "id": "joint_uni_exam_1954",
+      "start_year": 1954,
+      "category": "education",
+      "name": "大專聯考制度開辦",
+      "effect": "匿名統一閱卷，確立長達 48 年的聯考窄門時代"
+    },
+    {
+      "id": "min_wage_1956",
+      "start_year": 1956,
+      "category": "labor",
+      "name": "首訂基本工資（300元）",
+      "effect": "台灣首度建立法定最低工資基準"
+    },
+    {
+      "id": "twse_launch_1962",
+      "start_year": 1962,
+      "category": "finance",
+      "name": "臺灣證券交易所開業",
+      "effect": "開啟台灣集中股市與公開資本市場時代"
+    },
+    {
+      "id": "kaohsiung_epz_1966",
+      "start_year": 1966,
+      "category": "economy",
+      "name": "高雄加工出口區成立",
+      "effect": "全球首座加工出口區，帶動外銷工業與女性就業潮"
+    },
     {
       "id": "compulsory_9yr_ed",
       "start_year": 1968,
@@ -329,6 +433,20 @@
       "category": "education",
       "name": "九年國民義務教育",
       "effect": "免考初中聯考，國中就學率躍升近100%"
+    },
+    {
+      "id": "ten_major_projects_1974",
+      "start_year": 1974,
+      "category": "economy",
+      "name": "十大建設啟動",
+      "effect": "高速公路、鐵路電氣化與重工業奠定現代經濟骨幹"
+    },
+    {
+      "id": "abolish_self_study_exam_1976",
+      "start_year": 1976,
+      "category": "education",
+      "name": "廢除自費留學考試",
+      "effect": "大幅降低自費出國門檻，引爆赴美留學熱潮"
     },
     {
       "id": "outbound_tourism",

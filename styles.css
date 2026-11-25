@@ -3649,3 +3649,20 @@ body.theme-dark .ff-impacts {
 .eec-aftermath.is-future-aftermath {
   border-left-color: #0e9fa8;
 }
+
+
+/* === v5.5 Decision Modal Social Trend & Statistics Box === */
+.dec-trend-box {
+  margin: 0 0 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 14.4px;
+  line-height: 1.62;
+  background: rgba(63, 91, 216, 0.07);
+  border-left: 3px solid #3f5bd8;
+  color: var(--ink);
+}
+body.theme-dark .dec-trend-box {
+  background: rgba(110, 140, 255, 0.14);
+  border-left-color: #82a0ff;
+}

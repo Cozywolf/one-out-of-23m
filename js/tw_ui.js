@@ -1241,6 +1241,12 @@
     $("decYearTag").textContent = `${state.life.currentYear}（${era.roc}）· ${state.life.age} 歲`;
     $("decTitle").textContent = dec.resolvedTitle;
     $("decDesc").textContent = dec.resolvedDesc;
+    const trendText = state.engine.getDecisionSocialTrend(state.life, dec, era);
+    const trendEl = $("decTrendBox");
+    if (trendEl) {
+      if (trendText) { trendEl.textContent = trendText; trendEl.hidden = false; }
+      else { trendEl.hidden = true; }
+    }
     $("decSourceNote").textContent = dec.resolvedSource ? `參考脈絡：${dec.resolvedSource}` : "";
 
     const wrap = $("decOptions");

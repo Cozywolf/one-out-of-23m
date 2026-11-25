@@ -78,16 +78,20 @@
       if (year < 1967) {
         return { price_pct: 0.06, div_yield: 0.03, max_drawdown: -0.08, housing_pct: 0.05, note: "", isHistorical: false };
       }
-      // Post-2026 stochastic projection
-      const vol = mh.meta.post_2026_stock_vol || 0.18;
-      const mean = mh.meta.post_2026_stock_mean || 0.078;
-      const pct = +(mean + (Math.random() - 0.48) * vol * 2.1).toFixed(3);
+      // Post-2026 stochastic projection (calibrated ~6.2% nominal total return + ~10% cyclical bear pullback)
+      const vol = mh.meta.post_2026_stock_vol || 0.16;
+      const mean = mh.meta.post_2026_stock_mean != null ? mh.meta.post_2026_stock_mean : 0.032;
+      const isBearCycle = Math.random() < 0.10;
+      const rawPct = isBearCycle
+        ? -(0.18 + Math.random() * 0.14)
+        : (mean + (Math.random() - 0.5) * vol * 1.9);
+      const pct = +clamp(rawPct, -0.35, 0.28).toFixed(3);
       return {
-        price_pct: clamp(pct, -0.38, 0.42),
-        div_yield: mh.meta.default_dividend_yield || 0.036,
-        max_drawdown: pct < 0 ? clamp(pct - 0.08, -0.45, 0) : -0.09,
-        housing_pct: +(mh.meta.post_2026_housing_mean + (Math.random() - 0.5) * 0.05).toFixed(3),
-        note: "",
+        price_pct: pct,
+        div_yield: mh.meta.post_2026_div_yield != null ? mh.meta.post_2026_div_yield : 0.030,
+        max_drawdown: pct < 0 ? clamp(pct - 0.08, -0.45, 0) : -0.08,
+        housing_pct: +((mh.meta.post_2026_housing_mean != null ? mh.meta.post_2026_housing_mean : 0.015) + (Math.random() - 0.5) * 0.04).toFixed(3),
+        note: isBearCycle ? "全球景氣循環回檔，台股進入修正期" : "",
         isHistorical: false
       };
     }
@@ -105,17 +109,18 @@
       const th = (this.data.marketHistory && this.data.marketHistory.financial_thresholds_2025) || {};
       const reg = this.getRegion(life.regionId);
       const ratio = reg.house_price_to_income_ratio.regional_avg || 9.5;
-      const baseHH = th.national_median_household_income || 976700;
+      // Anchor household income to contemporary era average wage (1.45x avg annual wage ≈ dual/1.5-earner household)
+      const eraHH = Math.round((era.avg_monthly_wage_twd || 48000) * 12 * 1.45);
       const tierMult = tier === "suburb" ? (th.suburb_price_discount || 0.72) : 1.0;
-      // Reflect historical Taiwan house price era curve (cheaper relative to income before 1987 & 1995-2004, peak 2024)
+      // Reflect historical Taiwan house-price-to-income curve (4-6x before 1986, surge 1987-90, dip 1991-03, peak 2016+)
       let eraRatioScale = 1.0;
-      if (life.currentYear < 1986) eraRatioScale = 0.52;
-      else if (life.currentYear <= 1990) eraRatioScale = 0.85;
-      else if (life.currentYear <= 2003) eraRatioScale = 0.65;
-      else if (life.currentYear <= 2015) eraRatioScale = 0.85;
+      if (life.currentYear < 1986) eraRatioScale = 0.48;
+      else if (life.currentYear <= 1990) eraRatioScale = 0.82;
+      else if (life.currentYear <= 2003) eraRatioScale = 0.66;
+      else if (life.currentYear <= 2015) eraRatioScale = 0.86;
       else eraRatioScale = 1.0;
 
-      const totalPrice = Math.round(baseHH * ratio * eraRatioScale * tierMult * era.cpi);
+      const totalPrice = Math.round(eraHH * ratio * eraRatioScale * tierMult);
       const dpRate = life.currentYear >= 2023 ? (th.downpayment_ratio_new_youth_2023 || 0.15) : (th.downpayment_ratio_standard || 0.20);
       const downpayment = Math.round(totalPrice * dpRate);
       // Q4/Q5 parental downpayment support
@@ -485,6 +490,174 @@
       return weightedPick(list, (r) => r[key]);
     }
 
+    // Dynamic Era- & Context-Aware Statistics / Social Trends shown on EVERY decision modal (anti-spoiler)
+    getDecisionSocialTrend(life, dec, era) {
+      if (!dec || !life) return "";
+      const y = life.currentYear;
+      const reg = this.getRegion(life.regionId);
+      const uniPct = Math.round((era.uni_admission_rate || 0.5) * 100);
+      const isF = life.sex === "F";
+
+      // Study Abroad departure cards (SA01-SA06)
+      if (dec.isStudyAbroadCard) {
+        if (y < 1976) return "📊 時代趨勢：此時期出國須通過嚴格公／自費留學考試，全台每年留學生僅約兩至三千人，超過八成前往美國深造。";
+        if (y < 1995) return "📊 時代趨勢：廢除自費留考後出國門檻大降，每年約 6,000–15,000 名台灣學子赴海外深造，美國占比仍逾七成，且早期學成歸國比例不到三成。";
+        if (y < 2010) return "📊 時代趨勢：台灣留學版圖逐步擴展至美、英、日、澳、加，加上打工度假與交換生興起，海外歷練不再是極少數家庭專利。";
+        return "📊 時代趨勢：近年台灣海外留學生約維持 6 萬餘人，前五大去向為美、日、澳、英、加，約半數以上留學生傾向先於當地累積工作年資再評估返台。";
+      }
+
+      switch (dec.id) {
+        case "D01_junior_high_track":
+        case "LS02_junior_high_exam_branch":
+          if (y < 1968) return `📊 時代趨勢：此時尚未實施九年國教，全台國小畢業生僅約 55%–62% 繼續升學初中${isF ? "（女童升學比例更顯著低於男童）" : ""}，逾三成學童畢業即投入農工貼補家用。`;
+          if (y < 2000) return "📊 時代趨勢：九年國教後國中升學率躍升至 85%–94%，但台灣長期採高中職 3：7 政策，約 70% 升學青年就讀高職與五專，僅約 30% 進入普通高中。";
+          if (y < 2014) return "📊 時代趨勢：基測時期全台國中畢業升學率達 95%–98%，高中與高職／五專就讀比例逐步拉近至約 5：5。";
+          return "📊 時代趨勢：十二年國教會考時期，全台國中畢業升學率高達 99.7%，普通高中與技術型高中比例約 52% vs 48%。";
+
+        case "D02_university_major":
+          if (y < 1990) return `📊 時代趨勢：此年代大學錄取率僅約 ${uniPct}%；女性大學生中約 78%–85% 選擇人文、商管、教育或護理領域，工程類科女性比例長期低於 10%。`;
+          if (y < 2010) return `📊 時代趨勢：此年代大學錄取率約 ${uniPct}%；約 68%–74% 女性與 46% 男性選填商管文史領域，電資理工則由男性占近八成。`;
+          return `📊 時代趨勢：此年代大學錄取率約 ${uniPct}%；女性選擇文商與醫護約占 68%，電資工程女性比例緩步升至約 18%–22%；電資起薪平均高於文組約 13%–20%。`;
+
+        case "D03_exam_retake":
+          if (y < 1996) return `📊 時代趨勢：聯考錄取率僅約 ${uniPct}% 的窄門年代，約三成以上落榜考生選擇進重考班再戰一年，台北南陽街高峰期聚集數萬名重考生。`;
+          return `📊 時代趨勢：多元入學時期大學錄取率已達 ${uniPct}%，整體重考比例下降，但鎖定頂大電資與醫學系的考生中仍有約 10%–15% 選擇重考衝刺。`;
+
+        case "D04_military_service": {
+          const mo = this.getConscriptionMonths(life.birthYear, y);
+          if (y < 2000) return `📊 時代趨勢：此時期役男一般義務役長達 ${mo} 個月，逾九成男性須中斷學業或職涯入伍，大專以上學歷中約一至兩成報考預官。`;
+          if (y < 2013) return `📊 時代趨勢：此時期役期縮為約 ${mo} 個月並開辦替代役／國防研發役，理工碩士以上約有 20%–30% 爭取科技研發替代役無縫銜接職場。`;
+          return `📊 時代趨勢：役男現行役期為 ${mo} 個月，多數青年選擇服完義務役即投入職場，僅約 10%–15% 因穩定薪資考量轉簽志願役。`;
+        }
+
+        case "D05_graduation_crossroads":
+          if (y < 1995) return "📊 時代趨勢：此時期台灣研究所名額稀少，逾八成大學畢業生選擇直接就業或服役，具學士學位即屬職場前段稀缺人才。";
+          if (y < 2010) return "📊 時代趨勢：大學學歷普及後，約 25%–32% 畢業生選擇繼續報考國內研究所或出國深造，以拉開與大學起薪的差距。";
+          return "📊 時代趨勢：統計顯示台灣碩士學歷者年薪中位數較大學畢業生高出逾四成，約 28%–35% 理工與商管畢業生選擇先念研究所再入職場。";
+
+        case "D06_northbound_migration":
+          return "📊 時代趨勢：跨區就業統計顯示，中彰投畢業生約 27.7%、雲嘉南與高屏約 23.0%、宜花東與離島更高達 40%–50% 選擇北漂或赴西部都會區工作。";
+
+        case "D07_career_track":
+          if (y < 1985) return "📊 時代趨勢：加工製造與中小企業出口鼎盛期，逾四成勞動力投入製造業與家族工廠，軍公教則以穩定配給與退休保障吸引近一成青壯年。";
+          if (y < 2008) return "📊 時代趨勢：台灣服務業與電子代工並進，科技業股票分紅吸引大量理工人才，中小企業創業家比例居亞洲前段。";
+          return "📊 時代趨勢：景氣與薪資呈現明顯產業分化，科技與金融業年薪中位數居各業之冠；同時每年仍有數十萬青年報考公職國營尋求穩定。";
+
+        case "D08_overseas_assignment":
+          if (y < 2000) return "📊 時代趨勢：台幣升值與工資上揚促使傳統製造業大舉外移東南亞與中國大陸，第一代台幹常須忍受長期與家人分隔兩地。";
+          return "📊 時代趨勢：高峰期約有逾 40 萬名台灣人長期外派海外（含中國大陸、東南亞與歐美據點），外派薪資普遍高出台灣本薪 1.4–1.8 倍。";
+
+        case "D09_return_hometown_dilemma":
+          return "📊 時代趨勢：人力銀行調查顯示，68.6% 北漂族曾動念返鄉（主因照顧家人 49.1%），但高達 71.4% 陷入掙扎，其中 67.6% 最擔憂返鄉後薪資打折。";
+
+        case "D10_unpaid_leave":
+          return `📊 時代趨勢：景氣寒冬時期（當年失業率約 ${(era.unemployment_rate * 100).toFixed(1)}%），約六成遭遇減班休息的勞工選擇咬牙撐過並兼差補貼，約兩至三成選擇趁機轉職或參訓。`;
+
+        case "D11_health_red_flags":
+          return "📊 時代趨勢：台灣受僱者年總工時長期名列前段，中壯年健檢出現三高紅字比例逾四成，但僅約三成上班族願意為健康主動減班或降薪換工時。";
+
+        case "D12_first_pot_of_gold":
+          if (y < 1985) return `📊 時代趨勢：銀行一年期定存利率高達 ${(era.deposit_rate_1yr * 100).toFixed(1)}%，超過七成台灣家庭將積蓄存放銀行定存或參與民間標會，股市參與率仍偏低。`;
+          if (y < 2003) return `📊 時代趨勢：台股開戶數快速突破百萬戶，定存利率約 ${(era.deposit_rate_1yr * 100).toFixed(1)}%；約半數民眾仍偏好保守定存，但投身股市個股與融資炒作比例顯著攀升。`;
+          return `📊 時代趨勢：低利率時代（定存約 ${(era.deposit_rate_1yr * 100).toFixed(1)}%），台灣股民與 ETF 定期定額人數屢創新高，越來越多上班族以大盤指數對抗通膨。`;
+
+        case "D13_buying_home":
+          if (y < 1990) return `📊 時代趨勢：${reg.name_zh}自有住宅率已逾七成，房貸利率雖偏高但房價所得比相對可控，多數雙薪家庭工作 5–8 年仍有機會籌出頭期款。`;
+          if (y < 2015) return `📊 時代趨勢：${reg.name_zh}房價所得比逐步攀升，約四成首購族選擇退居蛋白區以通勤換空間，亦有愈來愈多青年仰賴長輩贊助頭期款。`;
+          return `📊 時代趨勢：${reg.name_zh}平均房價所得比約 ${reg.house_price_to_income_ratio.regional_avg} 倍，首購族逾半數須拉長房貸期數或退居蛋白區，約三成無房青年選擇先租屋並將資金投入股市。`;
+
+        case "D14_financial_trap":
+          if (y < 1995) return "📊 時代趨勢：民間游資充沛但合法理財管道有限，高息地下投資公司與民間互助會蔚為風潮，許多中產家庭誤信親友口碑而將積蓄全數投入。";
+          if (y < 2010) return "📊 時代趨勢：金融商品快速推陳出新，超過三成散戶過度信賴理專話術或高循環利率現金卡，低估了市場反轉時的槓桿殺傷力。";
+          return "📊 時代趨勢：網路假投資群組與高息話術盛行，受害族群橫跨上班族與退休長者，超過六成受騙者最初都是從「小額試水溫」逐步加碼。";
+
+        case "D15_stock_crash_panic":
+          return "📊 時代趨勢：歷次台股重挫期間，統計顯示逾六成散戶在恐慌低點選擇停損殺出或從此退出市場，僅約一至兩成能紀律持有或逢低分批加碼。";
+
+        case "D16_relative_loan_guarantor":
+          return "📊 時代趨勢：台灣傳統人情社會重視親戚互助，但金融糾紛統計顯示，民間連帶保證人最終被迫代償違約的比例高達約三成，常連帶拖垮自家財務。";
+
+        case "D17_critical_illness_cost":
+          if (y < 1995) return "📊 時代趨勢：尚未開辦全民健保時期，重大傷病住院與手術常耗盡一般家庭大半積蓄，約有四成中低所得家庭因此陷入「因病而貧」或被迫中斷治療。";
+          return "📊 時代趨勢：全民健保覆蓋絕大多數基礎醫療，但癌症標靶與新式自費療程動輒數十萬至百萬元，有無商業保險與流動存款仍明顯影響預後品質。";
+
+        case "D18_marriage_choice":
+          if (y < 1985) return "📊 時代趨勢：此年代台灣 30 歲前已婚比例逾八成五，傳統聘金、喜餅與盛大宴客幾乎是必經禮俗，不婚比例極低。";
+          if (y < 2010) return "📊 時代趨勢：台灣初婚年齡逐步延後至 28–31 歲，約六成新人仍辦傳統婚宴，但公證與簡約婚禮開始被都會雙薪族接受。";
+          return "📊 時代趨勢：晚婚與不婚趨勢顯著（平均初婚年齡突破 31–33 歲），逾四成新人選擇簡單登記不辦大宴客，把預算轉作居住或生活基金。";
+
+        case "D19_have_children":
+          return `📊 時代趨勢：台灣此時總生育率約為每位婦女 ${era.tfr.toFixed(2)} 名子女${era.tfr < 1.2 ? "，高房價與育兒成本使約三至四成伴侶選擇少生或不生（頂客族）" : era.tfr < 2.2 ? "，雙薪小家庭多以生育 1–2 胎為主" : "，多子多孫仍是普遍家庭觀念"}。`;
+
+        case "D20_marriage_crisis":
+          if (y < 1990) return "📊 時代趨勢：社會觀念仍高度強調「勸合不勸離」，多數夫妻面臨婆媳或經濟摩擦時選擇隱忍維繫，離婚率相對偏低。";
+          return "📊 時代趨勢：台灣粗離婚率居亞洲前段，面臨婚姻危機的伴侶約有四成選擇協議離婚重整人生，另有約六成嘗試搬離婆家或透過諮商磨合。";
+
+        case "D21_child_education_race":
+          if (y < 1995) return "📊 時代趨勢：聯考競爭白熱化，雙北與都會區逾六成中產家庭送孩子進課後補習班衝刺升學，教育支出占家戶可支配所得比例持續攀升。";
+          return "📊 時代趨勢：全台補習班家數已逾 1.8 萬家（超越超商），約七成都會家庭讓孩子參加安親、美語或學科補習，經濟富裕家庭更傾向私校雙語路線。";
+
+        case "D22_major_disaster":
+          return "📊 時代趨勢：台灣歷次重大水患與強震後，追蹤調查顯示約 65%–75% 受災家庭選擇原地重建或於同縣市安頓，另有約 25%–35% 因地質安全、產業流失或創傷而決定舉家搬離原鄉。";
+
+        case "D23_pandemic_dilemma":
+          return "📊 時代趨勢：疫情衝擊期間，約 40% 白領與科技業得以切換遠距辦公保住收入，但餐飲、旅遊與第一線服務業逾半數面臨減班或染疫暴露兩難。";
+
+        case "D24_elderly_care_storm":
+          return "📊 時代趨勢：長照調查顯示，台灣約有 20%–25% 家庭照顧者曾因長輩失能被迫離職或留停（平均照護期長達 7–9 年），其餘多仰賴外籍看護、日照機構或手足輪流分擔。";
+
+        case "D25_retirement_timing":
+          return "📊 時代趨勢：台灣勞工實際平均退休年齡約 61–63 歲，逾五成上班族因通膨與長壽風險擔憂退休金不足，選擇延後退休或退而不休從事二度就業。";
+
+        case "D26_end_of_life_autonomy":
+          return "📊 時代趨勢：近年台灣簽署預立安寧緩和醫療與醫療決定人數持續攀升，越來越多長者傾向提早與家人溝通善終意願，減少家屬臨終決策煎熬。";
+
+        case "D27_return_to_taiwan":
+          return "📊 時代趨勢：海外台灣人社群調查顯示，父母年邁照護、健保醫療可近性與故鄉人情是返台三大主因；留居海外者則多考量薪資天花板與子女教育環境。";
+
+        case "D28_debt_clearance":
+          return "📊 時代趨勢：《消費者債務清理條例》施行後，歷年累計已有逾數萬名陷入卡債或事業失敗的民眾透過法院更生方案減免債務、重回正常經濟生活。";
+
+        case "D29_child_study_abroad":
+          return "📊 時代趨勢：海外留學一年學費加生活費動輒 NT$150–250 萬元，逾七成自費留學生仍須仰賴家庭存款贊助或房屋增貸，僅約兩成能靠全額獎學金或留學貸款獨立完成。";
+
+        case "D30_forced_home_sale":
+          return "📊 時代趨勢：金融風暴與景氣急凍期，高房貸比家庭一旦遭遇失業或斷頭，約半數選擇提前降價急售止血保住剩餘淨值，硬撐未果者則面臨遭銀行低價法拍風險。";
+
+        case "LS01_childhood_env":
+          if (y < 1990) return "📊 時代趨勢：此時期多數孩子放學後在戶外玩耍或回家幫忙家務農事，僅約 25%–35% 都會家庭額外送孩子上才藝或課後補習。";
+          return "📊 時代趨勢：雙薪家庭普及後，全台國小學童課後進安親班、美語或才藝補習的比例已超過 65%，城鄉與家境落差在此階段開始浮現。";
+
+        case "LS03_high_school_track":
+          return `📊 時代趨勢：台灣普通高中應屆升學率高達 95% 以上；選組趨勢上${isF ? "，女性約 60%–70% 傾向社會組（一類組），約 30%–40% 選擇自然組" : "，男性約 60%–65% 選擇自然組（二／三類組），約 35%–40% 選擇社會組"}。`;
+
+        case "LS04_vocational_path":
+          if (y < 2000) return "📊 時代趨勢：此時期高職與五專為台灣產業骨幹，約六至七成技職生畢業即直接進入工廠或企業就業，擁有一技之長起薪不亞於大學生。";
+          return "📊 時代趨勢：技專校院廣設後，高職應屆升學率大幅攀升至逾 81%，多數學生選擇拚統測升科大，約兩成則專攻乙級證照與建教合作提早入行。";
+
+        case "LS05_early_apprentice":
+          return "📊 時代趨勢：提早進入社會的少年學徒中，約三成堅持熬過三至五年出師成為獨當一面師傅，約兩成利用下班念夜校或空大補齊學歷，翻轉職涯天花板。";
+
+        case "LS06_university_campus_life":
+          return "📊 時代趨勢：勞動部調查顯示，台灣大二學生約 45.0% 具課餘打工經驗；另有約三至四成投入社團系學會累積人脈，約一至兩成提前進入教授實驗室做專題。";
+
+        case "LS07_university_career_prep":
+          return "📊 時代趨勢：調查顯示近七成大學高年級生將企業實習視為畢業轉正跳板；同時約有 15%–20% 文商與法政學生在大三、大四便提前報名補習班備考公職或研究所。";
+
+        case "LS08_workplace_levelup":
+          return "📊 時代趨勢：台灣職場 30–40 歲是薪資拉開差距的關鍵期，約 35% 透過人脈內推跳槽加薪，約 25% 考取高階證照或轉考公職，其餘則選擇在原職尋求工作生活平衡。";
+
+        case "LS09_midlife_community":
+          return "📊 時代趨勢：40–55 歲三明治世代工時與家庭壓力雙重夾擊，規律維持運動社群者中壯年慢性病風險顯著偏低，但多數人因忙碌而縮減了社交圈。";
+
+        case "LS10_retirement_third_life":
+          return "📊 時代趨勢：退休族研究顯示，持續參與社區大學、志工或運動社團的長者，認知退化與孤獨憂鬱比例較純待在家中者低逾三成；另有約三成五長輩協助照顧孫輩。";
+
+        default:
+          return `📊 時代背景參考：${y} 年（${era.roc}）全國失業率約 ${(era.unemployment_rate * 100).toFixed(1)}%、大學錄取率約 ${uniPct}%、一年期定存利率約 ${(era.deposit_rate_1yr * 100).toFixed(1)}%。`;
+      }
+    }
+
     // Era-scoped option label resolver & future-year anti-spoiler guard
     resolveEraLabel(opt, currentYear) {
       if (!opt) return "";
@@ -554,6 +727,9 @@
         baseLiving2025 *= (cObj ? cObj.living_cost_mult_vs_tw : 1.5);
       }
 
+      // Scale contemporary living standards (base living, rent, childcare) by era real-wage ratio so 1950-1985 cohorts pay era-appropriate costs
+      const realWageRatio = clamp(((era.avg_monthly_wage_twd || 48000) / Math.max(0.07, era.cpi)) / 62500, 0.25, 1.15);
+
       let housingNom = 0;
       if (life.homeowner && life.mortgageBalanceNominal > 0) {
         housingNom = Math.min(
@@ -563,22 +739,35 @@
       } else if (!life.homeowner) {
         if (life.location !== "TAIWAN" && life.abroad) {
           const cObj = this.getAbroadCountry(life.abroad.countryId);
-          housingNom = Math.round(160000 * (cObj ? cObj.living_cost_mult_vs_tw : 1.5) * era.cpi);
+          housingNom = Math.round(160000 * (cObj ? cObj.living_cost_mult_vs_tw : 1.5) * realWageRatio * era.cpi);
         } else if (life.flags.stay_home || (life.age < 22 && life.education.includes("在學"))) {
-          housingNom = isWorking ? Math.round(48000 * era.cpi) : 0;
+          housingNom = isWorking ? Math.round(48000 * realWageRatio * era.cpi) : 0;
         } else {
           const rentBase = reg.id === "north_taipei" ? 168000 : reg.id === "north_hsinchu" ? 132000 : 96000;
           const rentMult = (life.flags.rent_cost_mult || 1.0) * (life.flags.future_rent_mult || 1.0);
-          housingNom = Math.round(rentBase * rentMult * era.cpi);
+          housingNom = Math.round(rentBase * rentMult * realWageRatio * era.cpi);
         }
       }
 
-      const childNom = Math.round(life.children * (life.flags.private_cram_kids ? 185000 : 125000) * era.cpi);
+      const childNom = Math.round(life.children * (life.flags.private_cram_kids ? 185000 : 125000) * realWageRatio * era.cpi);
       const careBase2025 = (life.flags.monthly_care_cost_twd_2025 || 0) * (life.flags.future_care_cost_mult || 1.0);
-      const careNom = (careBase2025 > 0 && life.family.parentsAlive) ? Math.round(careBase2025 * 12 * era.cpi) : 0;
+      const careNom = (careBase2025 > 0 && life.family.parentsAlive) ? Math.round(careBase2025 * 12 * realWageRatio * era.cpi) : 0;
       const commuterNom = (life.abroad && life.abroad.commuterMode) ? Math.round(220000 * era.cpi) : 0;
 
-      return Math.max(0, Math.round(baseLiving2025 * era.cpi) + housingNom + childNom + careNom + commuterNom);
+      // Income-linked taxes, labor/NHI premiums & middle-class lifestyle creep (scales with contemporary wage)
+      const lifestyleRate = life.focus === "save" ? 0.14 : 0.22;
+      const taxAndLifestyleNom = (isWorking && life.annualSalaryNominal > 0)
+        ? Math.round(life.annualSalaryNominal * lifestyleRate)
+        : 0;
+      // Retirees with accumulated liquid wealth gradually spend on travel, health & quality of life (2.2%/yr cap)
+      const liqWealth = Math.max(0, (life.moneyNominal || 0) + (life.stockNominal || 0));
+      const retireeSpendNom = life.flags.retired
+        ? Math.min(Math.round(550000 * era.cpi), Math.round(liqWealth * 0.022))
+        : 0;
+
+      const scaledBaseNom = Math.round(baseLiving2025 * realWageRatio * era.cpi);
+
+      return Math.max(0, scaledBaseNom + housingNom + childNom + careNom + commuterNom + taxAndLifestyleNom + retireeSpendNom);
     }
 
     computeCurrentAnnualSalaryNominal(life, era, reg) {
@@ -761,8 +950,10 @@
       if (!candidates.length) return false;
 
       const picked = pick(candidates);
-      const prob = picked.probability != null ? picked.probability : 0.32;
-      if (Math.random() > prob) return false;
+      const gapYrs = life.age - (fw.lastForecastAge != null ? fw.lastForecastAge : -10);
+      const baseProb = picked.probability != null ? picked.probability : 0.34;
+      const effProb = gapYrs >= 6 ? Math.min(0.85, baseProb + 0.35) : baseProb;
+      if (Math.random() > effProb) return false;
 
       fw.triggered[picked.id] = life.currentYear;
       fw.lastForecastAge = life.age;
