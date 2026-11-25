@@ -27,9 +27,24 @@
       "cram_school_cost_ratio": 0.04,
       "female_early_work_prob_q1_q2": 0.45,
       "flavor_events": [
-        "國小下課後留校寫完滿滿一疊測驗卷，放學天色都黑了。",
-        "同學家裡靠賣菜供哥哥讀省中，姊姊國中畢業就進成衣廠貼補家用。",
-        "鎮上只有幾家書店，考前大家輪流傳抄油印的考古題講義。"
+        {
+          "text": "國小下課後留校寫完滿滿一疊測驗卷，放學天色都黑了。",
+          "min_age": 7,
+          "max_age": 12,
+          "requires_student": true
+        },
+        {
+          "text": "同學家裡靠賣菜供哥哥讀省中，姊姊國中畢業就進成衣廠貼補家用。",
+          "min_age": 10,
+          "max_age": 17,
+          "requires_student": true
+        },
+        {
+          "text": "鎮上只有幾家書店，考前大家輪流傳抄油印的考古題講義。",
+          "min_age": 10,
+          "max_age": 18,
+          "requires_student": true
+        }
       ]
     },
     {
@@ -45,9 +60,24 @@
       "cram_school_cost_ratio": 0.08,
       "female_early_work_prob_q1_q2": 0.18,
       "flavor_events": [
-        "每天放學背著沉重書包擠公車去補習街搶前排座位，手裡抓著十元麵包當晚餐。",
-        "考上國立五專讓全家族放鞭炮慶祝，長輩說學一技之長最實在。",
-        "聯考倒數百日，全班在教室後方貼滿紅紙誓師，夜晚路燈下全是背英文單字的身影。"
+        {
+          "text": "每天放學背著沉重書包擠公車去補習街搶前排座位，手裡抓著十元麵包當晚餐。",
+          "min_age": 13,
+          "max_age": 18,
+          "requires_student": true
+        },
+        {
+          "text": "考上國立五專讓全家族放鞭炮慶祝，長輩說學一技之長最實在。",
+          "min_age": 14,
+          "max_age": 16,
+          "requires_student": true
+        },
+        {
+          "text": "聯考倒數百日，全班在教室後方貼滿紅紙誓師，夜晚路燈下全是背英文單字的身影。",
+          "min_age": 15,
+          "max_age": 18,
+          "requires_student": true
+        }
       ]
     },
     {
@@ -63,9 +93,26 @@
       "cram_school_cost_ratio": 0.12,
       "female_early_work_prob_q1_q2": 0.05,
       "flavor_events": [
-        "小學放學直接搭安親班娃娃車，接著上兒童美語與珠心算，晚上八點才回家吃飯。",
-        "大學錄取率大幅攀升，長輩開始改口叮嚀「光念大學不夠，還要念國立研究所」。",
-        "推甄申請入學要準備備審資料與才藝證明，家庭資源的落差逐漸顯現。"
+        {
+          "text": "小學放學直接搭安親班娃娃車，接著上兒童美語與珠心算，晚上八點才回家吃飯。",
+          "min_age": 7,
+          "max_age": 12,
+          "requires_student": true
+        },
+        {
+          "text": "大學錄取率大幅攀升，長輩開始改口叮嚀「光念大學不夠，還要念國立研究所」。",
+          "min_age": 16,
+          "max_age": 22,
+          "min_year": 1999,
+          "requires_student": true
+        },
+        {
+          "text": "推甄申請入學要準備備審資料與才藝證明，家庭資源的落差逐漸顯現。",
+          "min_age": 16,
+          "max_age": 18,
+          "min_year": 1998,
+          "requires_student": true
+        }
       ]
     },
     {
@@ -84,14 +131,33 @@
         {
           "text": "十二年國教會考上路後，補習班招牌仍比巷口超商密集，考前模擬考一場接一場。",
           "min_year": 2014,
-          "max_year": 2026
+          "max_year": 2026,
+          "min_age": 13,
+          "max_age": 15,
+          "requires_student": true
         },
         {
           "text": "補習班招牌比巷口超商還密集，週末還得趕場寫程式營隊與整理 108 課綱學習歷程檔案。",
-          "min_year": 2019
+          "min_year": 2019,
+          "min_age": 13,
+          "max_age": 18,
+          "max_year": 2035,
+          "requires_student": true
         },
-        "雙語私校抽籤與入學考擠破頭，家長群組天天討論學區設籍與雙語教材。",
-        "母校國小今年新生減班，老師感嘆十年前每個年級還有八個班。"
+        {
+          "text": "雙語私校抽籤與入學考擠破頭，家長群組天天討論學區設籍與雙語教材。",
+          "min_age": 6,
+          "max_age": 12,
+          "min_year": 2012,
+          "max_year": 2030,
+          "requires_student": true
+        },
+        {
+          "text": "母校國小今年新生減班，老師感嘆十年前每個年級還有八個班。",
+          "min_age": 9,
+          "max_age": 18,
+          "requires_student": true
+        }
       ]
     }
   ],

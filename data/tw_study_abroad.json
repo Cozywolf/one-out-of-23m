@@ -74,7 +74,7 @@
     },
     {
       "id": "SA02_self_funded_grad",
-      "name": "自費出國攻讀碩士（托福／GRE／雅思）",
+      "name": "自費出國攻讀碩士",
       "year_range": [
         1976,
         2070
@@ -97,8 +97,8 @@
         "CAN",
         "DEU"
       ],
-      "desc": "1976 年廢除自費留考後最普遍的留學路徑：在補習班苦讀托福／雅思，搭配家庭資助或留學貸款赴海外深造。",
-      "source_note": "2024 年台灣留學生約 6.3 萬人，美、日、澳、英、加為前五大熱門國家。"
+      "desc": "在補習班苦讀英文檢定，搭配家庭資助或留學貸款赴海外深造。",
+      "source_note": "自費留考廢除後最普遍的留學路徑，花費高低與家庭資源關係密切。"
     },
     {
       "id": "SA03_young_student",
@@ -222,10 +222,10 @@
         {
           "id": "AB_USA_1971_1979",
           "year_start": 1971,
-          "year_end": 1979,
-          "title": "美國校園反戰、保釣運動與 1979 台美斷交衝擊",
-          "summary": "越戰反戰浪潮與保釣運動撕裂海外華人社群；1979 年美台斷交消息傳來，留學生對身分與台灣前途充滿焦慮。",
-          "impact_note": "許多理工留學生選擇先在美扎根，日後成為 1980s 回台建立竹科與半導體產業的關鍵世代。",
+          "year_end": 1976,
+          "title": "美國校園反戰與保釣運動",
+          "summary": "越戰反戰浪潮與保釣運動撕裂海外華人社群，留學生對身分與台灣前途充滿焦慮。",
+          "impact_note": "許多理工留學生選擇先在美扎根，觀望台灣局勢再決定去留。",
           "cultural_footnote_en": "The 1971 Diaoyutai movement and 1979 US-ROC diplomatic break deeply shook Taiwanese students in America; many later returned to build Taiwan's Hsinchu Science Park.",
           "sensitive": false,
           "visa_crisis_prob": 0.05,
@@ -233,11 +233,24 @@
           "money_mult": 1.0
         },
         {
+          "id": "AB_USA_1978_1980",
+          "year_start": 1978,
+          "year_end": 1980,
+          "title": "台美斷交衝擊",
+          "summary": "1978 年底美國宣布與中華民國斷交，留學生對身分與返鄉去留充滿焦慮。",
+          "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+          "happiness_delta": -1,
+          "money_mult": 1.0,
+          "visa_crisis_prob": 0,
+          "cultural_footnote_en": "台美斷交衝擊",
+          "sensitive": false
+        },
+        {
           "id": "AB_USA_1985_1999",
           "year_start": 1985,
           "year_end": 1999,
-          "title": "矽谷電腦與網路起飛黃金期",
-          "summary": "美國個人電腦與網際網路產業狂飆，理工與商管留學生畢業即獲科技大廠搶才，申請綠卡相對順遂。",
+          "title": "矽谷電腦產業黃金期",
+          "summary": "美國個人電腦產業狂飆，理工與商管留學生畢業即獲科技大廠搶才，申請綠卡相對順遂。",
           "impact_note": "造就大批美籍台裔科技中產家庭，也形成台灣與矽谷緊密的人才雙向走廊。",
           "cultural_footnote_en": "Taiwanese engineers became a vital backbone of Silicon Valley during the 1980s–90s PC and internet booms.",
           "sensitive": false,
@@ -248,15 +261,28 @@
         {
           "id": "AB_USA_2001_2009",
           "year_start": 2001,
-          "year_end": 2009,
-          "title": "911 後簽證審查趨嚴與 2008 華爾街金融海嘯",
-          "summary": "2001 年 911 事件後美國大幅收緊外籍生與入境審查；2008 年雷曼破產引爆金融海嘯，畢業生求職凍結。",
+          "year_end": 2007,
+          "title": "911 後簽證審查趨嚴",
+          "summary": "2001 年 911 事件後美國大幅收緊外籍生與入境審查，簽證面談等待期拉長。",
           "impact_note": "外籍畢業生留下難度大增，部分台灣留學生提前回流亞洲金融與科技中心。",
           "cultural_footnote_en": "Post-9/11 visa vetting and the 2008 financial crisis made securing US work sponsorship far harder for Taiwanese graduates.",
           "sensitive": true,
           "visa_crisis_prob": 0.16,
           "happiness_delta": -6,
           "money_mult": 0.88
+        },
+        {
+          "id": "AB_USA_2008_2010",
+          "year_start": 2008,
+          "year_end": 2010,
+          "title": "華爾街金融海嘯",
+          "summary": "2008 年雷曼破產引爆金融海嘯，畢業生求職凍結。",
+          "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+          "happiness_delta": -1,
+          "money_mult": 1.0,
+          "visa_crisis_prob": 0.3,
+          "cultural_footnote_en": "華爾街金融海嘯",
+          "sensitive": false
         },
         {
           "id": "AB_USA_2014_2019",
@@ -274,15 +300,28 @@
         {
           "id": "AB_USA_2020_2026",
           "year_start": 2020,
-          "year_end": 2026,
-          "title": "疫情反亞裔歧視、矽谷裁員潮與 AI 晶片設廠潮",
-          "summary": "2020 年疫情封城伴隨反亞裔仇恨事件；2022–2024 科技大廠輪番裁員引爆 60 天寬限期離境危機；2024 後 AI 與台積電亞利桑那廠再度帶動需求。",
+          "year_end": 2021,
+          "title": "疫情封城與反亞裔歧視",
+          "summary": "疫情封城伴隨反亞裔仇恨事件，課程全面轉為線上。",
           "impact_note": "高薪與身分／治安風險強烈並存，讓不少旅美台灣人重新評估回台或轉往亞洲。",
           "cultural_footnote_en": "From 2020 pandemic isolation and 2022–24 tech layoffs (60-day visa grace period) to TSMC's Arizona fabs, life in the US swung dramatically.",
           "sensitive": true,
           "visa_crisis_prob": 0.18,
           "happiness_delta": -3,
           "money_mult": 1.1
+        },
+        {
+          "id": "AB_USA_2022_2024",
+          "year_start": 2022,
+          "year_end": 2024,
+          "title": "矽谷裁員潮",
+          "summary": "科技大廠輪番裁員，工作簽證持有人面臨 60 天寬限期離境危機。",
+          "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+          "happiness_delta": -1,
+          "money_mult": 1.0,
+          "visa_crisis_prob": 0.3,
+          "cultural_footnote_en": "矽谷裁員潮",
+          "sensitive": false
         }
       ]
     },
@@ -313,9 +352,9 @@
         {
           "id": "AB_JPN_1992_2008",
           "year_start": 1992,
-          "year_end": 2008,
-          "title": "失落的十年、就職冰河期與 1995 阪神大地震",
-          "summary": "泡沫破滅後日本企業緊縮徵才進入就職冰河期，外國留學生進大手企業門檻驟升；1995 年關西遭阪神強震重創。",
+          "year_end": 2004,
+          "title": "泡沫破滅與就職冰河期",
+          "summary": "泡沫破滅後日本企業緊縮徵才進入就職冰河期，外國留學生進大手企業門檻驟升。",
           "impact_note": "日本嚴格的新卒一括採用制度，使不少留日畢業生選擇返台發展。",
           "cultural_footnote_en": "Japan's post-bubble 'employment ice age' made corporate hiring fiercely competitive for foreign graduates.",
           "sensitive": true,
@@ -339,15 +378,28 @@
         {
           "id": "AB_JPN_2020_2026",
           "year_start": 2020,
-          "year_end": 2026,
-          "title": "疫情鎖國、日圓大貶與台積電熊本設廠潮",
-          "summary": "2020–2021 日本邊境嚴格管制致留學生苦等入境；2022–2026 日圓創數十年新低讓學費變親民，卻壓低留日薪資折合台幣吸引力；同時台積電熊本廠與日本高度人才簽證大舉招手。",
+          "year_end": 2021,
+          "title": "疫情邊境管制",
+          "summary": "日本邊境嚴格管制，許多留學生苦等入境。",
           "impact_note": "日圓貶值與台灣科技薪資上漲形成對比，留日逐漸由「賺高薪」轉為「追求生活品質」。",
           "cultural_footnote_en": "Historic yen depreciation in 2022–26 lowered tuition costs but narrowed Japan's wage edge over Taiwan, even as TSMC's Kumamoto fabs drew Taiwanese engineers.",
           "sensitive": false,
           "visa_crisis_prob": 0.04,
           "happiness_delta": 1,
           "money_mult": 0.88
+        },
+        {
+          "id": "AB_JPN_2022_2026",
+          "year_start": 2022,
+          "year_end": 2026,
+          "title": "日圓大貶與熊本設廠潮",
+          "summary": "日圓走貶讓學費變親民，卻壓低薪資折合台幣的吸引力；熊本半導體聚落向台灣人才招手。",
+          "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+          "happiness_delta": -1,
+          "money_mult": 1.0,
+          "visa_crisis_prob": 0,
+          "cultural_footnote_en": "日圓大貶與熊本設廠潮",
+          "sensitive": false
         }
       ]
     },
@@ -378,9 +430,9 @@
         {
           "id": "AB_AUS_2019_2022",
           "year_start": 2019,
-          "year_end": 2022,
-          "title": "世紀森林大火與近兩年最嚴格邊境封鎖",
-          "summary": "2019 跨年野火籠罩東岸城市；2020–2021 澳洲封鎖國境近兩年，海外生被迫滯留當地或遠距苦讀。",
+          "year_end": 2021,
+          "title": "世紀森林大火與邊境封鎖",
+          "summary": "野火籠罩東岸城市，隨後的疫情封鎖讓海外生滯留當地或遠距苦讀。",
           "impact_note": "孤立感與不能返家探親的焦慮讓思鄉值飆升。",
           "cultural_footnote_en": "Australia's nearly two-year COVID border closure left many Taiwanese students stranded abroad unable to visit home.",
           "sensitive": true,
@@ -430,9 +482,9 @@
         {
           "id": "AB_GBR_2012_2019",
           "year_start": 2012,
-          "year_end": 2019,
-          "title": "取消 PSW 畢業工簽（2012）與英國脫歐公投（2016）",
-          "summary": "2012 年 4 月英國取消 2 年畢業生工作簽證（PSW），多數留學生畢業即被迫返台；2016 脫歐公投引發英鎊重貶與歐洲流動受阻。",
+          "year_end": 2015,
+          "title": "取消 PSW 畢業工簽",
+          "summary": "2012 年 4 月英國取消 2 年畢業生工作簽證（PSW），多數留學生畢業即被迫返台。",
           "impact_note": "政策緊縮讓這世代留英台灣人以「拿學位返台發展」為絕對大宗。",
           "cultural_footnote_en": "Abolishing the Post-Study Work visa in 2012 and the 2016 Brexit vote forced most Taiwanese UK graduates to return home immediately.",
           "sensitive": false,
@@ -441,17 +493,43 @@
           "money_mult": 0.9
         },
         {
+          "id": "AB_GBR_2016_2019",
+          "year_start": 2016,
+          "year_end": 2019,
+          "title": "英國脫歐公投",
+          "summary": "2016 脫歐公投引發英鎊重貶與歐洲流動受阻。",
+          "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+          "happiness_delta": -1,
+          "money_mult": 1.0,
+          "visa_crisis_prob": 0.1,
+          "cultural_footnote_en": "英國脫歐公投",
+          "sensitive": false
+        },
+        {
           "id": "AB_GBR_2021_2026",
           "year_start": 2021,
-          "year_end": 2026,
-          "title": "重啟 2 年畢業生簽證、高通膨與 2024 工簽薪資門檻大漲",
-          "summary": "2021 年英國重啟 Graduate Route 2 年工簽吸引台灣留學潮回溫；但 2023–2025 面臨高通膨、NHS 看診漫長排隊，以及 2024 年技術工簽年薪門檻大幅拉高。",
+          "year_end": 2022,
+          "title": "重啟 2 年畢業生簽證",
+          "summary": "英國重啟 Graduate Route 2 年工簽，吸引台灣留學潮回溫。",
           "impact_note": "兩年緩衝期雖好找實習，但轉長期贊助工作簽證的門檻再次變高。",
           "cultural_footnote_en": "The 2021 Graduate Route reopened UK careers, though inflation, long NHS waits, and steeper 2024 Skilled Worker salary thresholds tested newcomers.",
           "sensitive": false,
           "visa_crisis_prob": 0.2,
           "happiness_delta": -2,
           "money_mult": 0.96
+        },
+        {
+          "id": "AB_GBR_2023_2026",
+          "year_start": 2024,
+          "year_end": 2026,
+          "title": "高通膨與工簽門檻提高",
+          "summary": "生活費高漲、看診排隊漫長，技術工簽年薪門檻大幅拉高。",
+          "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+          "happiness_delta": -1,
+          "money_mult": 1.0,
+          "visa_crisis_prob": 0.25,
+          "cultural_footnote_en": "高通膨與工簽門檻提高",
+          "sensitive": false
         }
       ]
     },
@@ -495,9 +573,9 @@
         {
           "id": "AB_CAN_2023_2026",
           "year_start": 2023,
-          "year_end": 2026,
-          "title": "大城市房價失控與聯邦大砍國際學生配額",
-          "summary": "溫哥華與多倫多房租高漲、家庭醫師一號難求；加拿大聯邦政府自 2024 起大幅削減留學生配額並收緊配偶工簽與永居分數。",
+          "year_end": 2024,
+          "title": "房價失控與國際學生配額縮減",
+          "summary": "溫哥華與多倫多房租高漲、家庭醫師一號難求，聯邦政府開始收緊國際學生配額。",
           "impact_note": "留學移民難度明顯上升，部分青年重新比較返台與留加的生活品質。",
           "cultural_footnote_en": "Soaring housing costs and healthcare backlogs led Canada in 2024–26 to cap international student permits and tighten residency paths.",
           "sensitive": false,
@@ -521,9 +599,9 @@
         {
           "id": "AB_DEU_1984_2005",
           "year_start": 1984,
-          "year_end": 2005,
-          "title": "歐洲公費拓荒、柏林圍牆倒塌（1989）與歐元上路（2002）",
-          "summary": "1984 年台灣增設歐洲公費名額，留德學生見證 1989 柏林圍牆倒塌、兩德統一與 2002 歐元啟用的歷史巨變。",
+          "year_end": 1992,
+          "title": "歐洲公費拓荒與冷戰尾聲",
+          "summary": "台灣增設歐洲公費名額，留德學生見證歐洲劇變的年代。",
           "impact_note": "歐陸人文與精密工程思維帶回台灣，豐富高教與產業視野。",
           "cultural_footnote_en": "After Taiwan expanded European scholarships in 1984, Taiwanese students in Germany witnessed the 1989 fall of the Berlin Wall and 2002 Euro launch.",
           "sensitive": false,
@@ -534,15 +612,28 @@
         {
           "id": "AB_DEU_2012_2026",
           "year_start": 2012,
-          "year_end": 2026,
-          "title": "英語碩士免學費潮、能源通膨與歐陸車電轉型",
-          "summary": "德國公立大學免學費與 18 個月求職簽證吸引台灣理工與設計系精打細算深造；2022 俄烏戰爭後經歷能源通膨與工業轉型，但工作生活平衡與年假制度仍深具魅力。",
+          "year_end": 2019,
+          "title": "英語碩士免學費潮",
+          "summary": "德國公立大學免學費與 18 個月求職簽證吸引台灣理工與設計系精打細算深造。",
           "impact_note": "德語門檻與冬日漫長陰暗是留德台灣人最常面對的適應關卡。",
           "cultural_footnote_en": "Tuition-free German public universities and an 18-month job-seeker visa made Germany a top value destination for Taiwanese STEM and design students.",
           "sensitive": false,
           "visa_crisis_prob": 0.08,
           "happiness_delta": 2,
           "money_mult": 1.02
+        },
+        {
+          "id": "AB_DEU_2022_2024",
+          "year_start": 2022,
+          "year_end": 2024,
+          "title": "俄烏戰爭與能源通膨",
+          "summary": "俄烏戰爭後能源價格飆升，但工作生活平衡與年假制度仍深具魅力。",
+          "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+          "happiness_delta": -1,
+          "money_mult": 1.0,
+          "visa_crisis_prob": 0,
+          "cultural_footnote_en": "俄烏戰爭與能源通膨",
+          "sensitive": false
         }
       ]
     }
@@ -716,7 +807,17 @@
           "return_home": true,
           "relationships": 14,
           "happiness": 10
-        }
+        },
+        "era_labels": [
+          {
+            "max_year": 1994,
+            "label": "打包返台發展（海歸學人待遇與家人陪伴）"
+          },
+          {
+            "min_year": 1995,
+            "label": "打包返台發展（海歸線：享海歸加給、健保與家人陪伴）"
+          }
+        ]
       },
       {
         "key": "stay_abroad",

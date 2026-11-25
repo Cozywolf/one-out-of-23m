@@ -127,6 +127,49 @@
       return Math.round((life.moneyNominal || 0) + (life.stockNominal || 0) + homeEq + vehVal + valVal);
     }
 
+    isPlaceholderJob(job) {
+      return !job || job === "無（學齡前）" || job === "學生" || job.includes("求職") || job.includes("待業");
+    }
+
+    isSelfEmployed(life) {
+      return ["car_farmer_fisher", "car_sme_boss", "car_craft_apprentice", "car_creator_ecom", "car_gig_delivery"].includes(life.careerId);
+    }
+
+    isStudentNow(life) {
+      if (life.flags.hs_tier === "work_early" && !life.education.includes("在學")) return false;
+      if (life.education.includes("在學") || life.flags.in_grad_school_years > 0 || life.flags.retaking_exam) return true;
+      return life.age >= 15 && life.age < 18 && ["top_hs", "normal_hs", "vocational"].includes(life.flags.hs_tier);
+    }
+
+    // Career label group used to keep decision wording consistent with what the protagonist actually does
+    getCareerWordingGroup(life) {
+      const id = life.careerId;
+      if (["car_hsinchu_semi", "car_software_remote"].includes(id)) return "tech";
+      if (id === "car_farmer_fisher") return "farm";
+      if (id === "car_civil_teacher") return "civil";
+      if (["car_sme_boss", "car_craft_apprentice", "car_creator_ecom", "car_gig_delivery"].includes(id)) return "self";
+      return "default";
+    }
+
+    // Only reveal the parts of an event's aftermath that have already happened in the player's timeline
+    visibleAftermath(text, currentYear) {
+      if (!text) return "";
+      const parts = String(text).split(/(?<=[；。])/);
+      const kept = parts.filter((p) => !(p.match(/(?:19[5-9]\d|20\d\d|21[0-4]\d)(?=\s?年|[）)、，])/g) || []).some((y) => Number(y) > currentYear));
+      const hidden = kept.length < parts.length;
+      const body = kept.join("").replace(/；$/, "。");
+      return body + (hidden ? (body ? "（其餘影響，要等時間揭曉）" : "這件事的影響，要等時間揭曉。") : "");
+    }
+
+    resumeCareer(life) {
+      const cars = (this.data.educationCareers && this.data.educationCareers.careers) || [];
+      const c = cars.find((x) => x.id === life.careerId);
+      if (!c) return false;
+      life.sector = life.sector || this.getCareerDisplayName(c, life.currentYear);
+      life.job = life.flags.rank_title || life.sector;
+      return true;
+    }
+
     getLiquidNominal(life) {
       return Math.round((life.moneyNominal || 0) + (life.stockNominal || 0));
     }
@@ -459,6 +502,8 @@
             if (item.max_age != null && life.age > item.max_age) continue;
             if (item.requires_working && !isWorking && (life.workYears || 0) < 1) continue;
             if (item.requires_parents_alive && !(life.family && life.family.parentsAlive)) continue;
+            if (item.requires_student && !this.isStudentNow(life)) continue;
+            if (item.requires_renter && (life.homeowner || life.flags.stay_home || life.flags.lives_with_parents)) continue;
           }
           out.push(item.text);
         }
@@ -498,7 +543,8 @@
       life.sector = dispName;
       life.job = dispName;
       life.careerSalaryMult = +(career.salary_mult_min + Math.random() * (career.salary_mult_max - career.salary_mult_min)).toFixed(2);
-      life.flags.job_stability = Math.max(life.flags.job_stability || 0, career.stability);
+      life.flags.job_stability = career.stability;
+      life.flags.rank_title = null;
       life.flags.career_health_drain = career.health_drain || 0.5;
       life.flags.remote_capable = Boolean(career.remote_capable);
     }
@@ -637,12 +683,12 @@
         case "D01_junior_high_track":
         case "LS02_junior_high_exam_branch":
           if (y < 1968) return `📊 時代趨勢：此時尚未實施九年國教，全台國小畢業生僅約 55%–62% 繼續升學初中${isF ? "（女童升學比例更顯著低於男童）" : ""}，逾三成學童畢業即投入農工貼補家用。`;
-          if (y < 2000) return "📊 時代趨勢：九年國教後國中升學率躍升至 85%–94%，但台灣長期採高中職 3：7 政策，約 70% 升學青年就讀高職與五專，僅約 30% 進入普通高中。";
+          if (y < 2001) return "📊 時代趨勢：九年國教後國中升學率躍升至 85%–94%，但台灣長期採高中職 3：7 政策，約 70% 升學青年就讀高職與五專，僅約 30% 進入普通高中。";
           if (y < 2014) return "📊 時代趨勢：基測時期全台國中畢業升學率達 95%–98%，高中與高職／五專就讀比例逐步拉近至約 5：5。";
           return "📊 時代趨勢：十二年國教會考時期，全台國中畢業升學率高達 99.7%，普通高中與技術型高中比例約 52% vs 48%。";
 
         case "D01B_youth_parttime_request":
-          if (y < 1984) return "📊 時代趨勢：此時《勞基法》尚未全面上路，15 歲起常見青少年在工廠、餐飲店半工半讀貼補家用，但升學家庭多半仍嚴禁孩子課餘打工。";
+          if (y < 1984) return "📊 時代趨勢：此時工廠與店家雇用少年工相當普遍，15 歲起常見青少年在工廠、餐飲店半工半讀貼補家用，但升學家庭多半仍嚴禁孩子課餘打工。";
           return "📊 時代趨勢：依《勞動基準法》規範，滿 15 歲未滿 16 歲屬童工、16–17 歲須經法定代理人同意方可受僱；台灣高中職在學學生約一至兩成有課餘工讀經驗。";
 
         case "D02_university_major":
@@ -668,6 +714,7 @@
           return "📊 時代趨勢：統計顯示台灣碩士學歷者年薪中位數較大學畢業生高出逾四成，約 28%–35% 理工與商管畢業生選擇先念研究所再入職場。";
 
         case "D06_northbound_migration":
+          if (y < 1990) return "📊 時代趨勢：工廠與公司行號集中在北部，中南部與東部的年輕人畢業後離鄉找頭路十分常見，過年返鄉車票一票難求。";
           return "📊 時代趨勢：跨區就業統計顯示，中彰投畢業生約 27.7%、雲嘉南與高屏約 23.0%、宜花東與離島更高達 40%–50% 選擇北漂或赴西部都會區工作。";
 
         case "D07_career_track":
@@ -685,6 +732,8 @@
           return "📊 時代趨勢：高峰期約有逾 40 萬名台灣人長期外派海外（含中國大陸、東南亞與歐美據點），外派薪資普遍高出台灣本薪 1.4–1.8 倍。";
 
         case "D09_return_hometown_dilemma":
+          if (y < 1997) return "📊 時代趨勢：離鄉打拚多年的中壯年，常在父母年邁、孩子就學與老家工作機會之間掙扎。";
+          if (y < 2012) return "📊 時代趨勢：中南部薪資與職缺仍低於北部，多數離鄉者一面想照顧父母，一面擔心返鄉後收入打折。";
           return "📊 時代趨勢：人力銀行調查顯示，68.6% 北漂族曾動念返鄉（主因照顧家人 49.1%），但高達 71.4% 陷入掙扎，其中 67.6% 最擔憂返鄉後薪資打折。";
 
         case "D10_unpaid_leave":
@@ -721,7 +770,8 @@
           return "📊 時代趨勢：台灣傳統人情社會重視親戚互助，但金融糾紛統計顯示，民間連帶保證人最終被迫代償違約的比例高達約三成，常連帶拖垮自家財務。";
 
         case "D17_critical_illness_cost":
-          if (y < 1995) return "📊 時代趨勢：尚未開辦全民健保時期，重大傷病住院與手術常耗盡一般家庭大半積蓄，約有四成中低所得家庭因此陷入「因病而貧」或被迫中斷治療。";
+          if (y < 1995) return "📊 時代趨勢：除公保、勞保外多數家屬沒有醫療保險，重大傷病住院與手術常耗盡一般家庭大半積蓄，約有四成中低所得家庭因此陷入「因病而貧」或被迫中斷治療。";
+          if (y < 2003) return "📊 時代趨勢：全民健保開辦後大幅減輕住院與手術負擔，但進口特效藥與部分新療法仍須自費。";
           return "📊 時代趨勢：全民健保覆蓋絕大多數基礎醫療，但癌症標靶與新式自費療程動輒數十萬至百萬元，有無商業保險與流動存款仍明顯影響預後品質。";
 
         case "D17B_romance_encounter":
@@ -759,12 +809,14 @@
           return "📊 時代趨勢：長照調查顯示，台灣約有 20%–25% 家庭照顧者曾因長輩失能被迫離職或留停（平均照護期長達 7–9 年），其餘多仰賴外籍看護、政府長照或手足分擔。";
 
         case "D25_retirement_timing":
+          if (y < 2009) return "📊 時代趨勢：此時勞工退休多以一次領取老年給付與退休金為主，晚年生活常仰賴積蓄與子女奉養；軍公教則可月領退休俸。";
           return "📊 時代趨勢：台灣勞工實際平均退休年齡約 61–63 歲，逾五成上班族因通膨與長壽風險擔憂退休金不足，選擇延後退休或退而不休從事二度就業。";
 
         case "D26_end_of_life_autonomy":
           return "📊 時代趨勢：近年台灣簽署預立安寧緩和醫療與醫療決定人數持續攀升，越來越多長者傾向提早與家人溝通善終意願，減少家屬臨終決策煎熬。";
 
         case "D27_return_to_taiwan":
+          if (y < 1995) return "📊 時代趨勢：此時期留學生學成後多數留在海外就業，返台者常因父母年邁、學術職缺或國內產業起飛而動念。";
           return "📊 時代趨勢：海外台灣人社群調查顯示，父母年邁照護、健保醫療可近性與故鄉人情是返台三大主因；留居海外者則多考量薪資天花板與子女教育環境。";
 
         case "D28_debt_clearance":
@@ -788,20 +840,22 @@
           return `📊 時代趨勢：台灣普通高中應屆升學率高達 95% 以上；選組趨勢上${isF ? "，女性約 60%–70% 傾向社會組（一類組），約 30%–40% 選擇自然組" : "，男性約 60%–65% 選擇自然組（二／三類組），約 35%–40% 選擇社會組"}。`;
 
         case "LS04_vocational_path":
-          if (y < 2000) return "📊 時代趨勢：此時期高職與五專為台灣產業骨幹，約六至七成技職生畢業即直接進入工廠或企業就業，擁有一技之長起薪不亞於大學生。";
+          if (y < 2001) return "📊 時代趨勢：此時期高職與五專為台灣產業骨幹，約六至七成技職生畢業即直接進入工廠或企業就業，擁有一技之長起薪不亞於大學生。";
           return "📊 時代趨勢：技專校院廣設後，高職應屆升學率大幅攀升至逾 81%，多數學生選擇拚統測升科大，約兩成則專攻乙級證照與建教合作提早入行。";
 
         case "LS05_early_apprentice":
-          return "📊 時代趨勢：提早進入社會的少年學徒中，約三成堅持熬過三至五年出師成為獨當一面師傅，約兩成利用下班念夜校或空大補齊學歷，翻轉職涯天花板。";
+          return "📊 時代趨勢：提早進入社會的少年學徒中，約三成堅持熬過三至五年出師成為獨當一面師傅，約兩成利用下班念夜校補齊學歷，翻轉職涯天花板。";
 
         case "LS06_university_campus_life":
+          if (y < 1995) return "📊 時代趨勢：此時大學生是少數，家教是最熱門的打工，社團、舞會與郊遊聯誼是主要的校園社交。";
           return "📊 時代趨勢：勞動部調查顯示，台灣大二學生約 45.0% 具課餘打工經驗；另有約三至四成投入社團系學會累積人脈，約一至兩成提前進入教授實驗室做專題。";
 
         case "LS07_university_career_prep":
+          if (y < 1995) return "📊 時代趨勢：大學畢業生仍屬稀少，多數在畢業前後決定就業、服役、報考研究所、公職或申請出國留學。";
           return "📊 時代趨勢：調查顯示近七成大學高年級生將企業實習視為畢業轉正跳板；同時約有 15%–20% 文商與法政學生在大三、大四便提前報名補習班備考公職或研究所。";
 
         case "LS08_workplace_levelup":
-          return "📊 時代趨勢：台灣職場 30–40 歲是薪資拉開差距的關鍵期，約 35% 透過人脈內推跳槽加薪，約 25% 考取高階證照或轉考公職，其餘則選擇在原職尋求工作生活平衡。";
+          return "📊 時代趨勢：台灣職場 30–40 歲是薪資拉開差距的關鍵期，約三成透過人脈介紹跳槽加薪，約四分之一考取證照或轉考公職，其餘則選擇在原職尋求工作生活平衡。";
 
         case "LS09_midlife_community":
           return "📊 時代趨勢：40–55 歲三明治世代工時與家庭壓力雙重夾擊，規律維持運動社群者中壯年慢性病風險顯著偏低，但多數人因忙碌而縮減了社交圈。";
@@ -1079,6 +1133,7 @@
         if (v.min_edu_level && life.eduLevel < v.min_edu_level) return false;
         if (v.requires_working && (life.workYears || 0) < 1) return false;
         if (v.requires_flag && !(life.flags && life.flags[v.requires_flag])) return false;
+        if (v.requires_hs && !["top_hs", "normal_hs"].includes(life.flags.hs_tier)) return false;
         return true;
       });
       if (!pool.length) return false;
@@ -1264,6 +1319,9 @@
         if (opt.requires_exam_tier === "normal_hs_or_above" && !(tier === "top_hs" || tier === "normal_hs")) {
           return { eligible: false, reason: `本次升學考分數未達普通高中門檻（分數 ${life.flags.hs_exam_score || 0}），建議改選高職／五專或提早就業` };
         }
+      }
+      if (opt.requires_edu_min && life.eduLevel < opt.requires_edu_min) {
+        return { eligible: false, reason: "須具高中職以上學歷方可報考" };
       }
       if (opt.requires_knowledge_min && life.stats.knowledge < opt.requires_knowledge_min) {
         return { eligible: false, reason: `需知識屬性達 ${opt.requires_knowledge_min} 以上（目前 ${life.stats.knowledge}）` };
@@ -1676,7 +1734,7 @@
         major: null,
         careerId: null,
         careerSalaryMult: 1.0,
-        job: "無（年幼）",
+        job: "無（學齡前）",
         sector: null,
         annualSalaryNominal: 0,
         workYears: 0,
@@ -2263,7 +2321,7 @@
 
       // 3. Education milestones (Taiwan or Overseas)
       if (life.location === "TAIWAN") {
-        if (life.age === 6) { life.education = "國小在學"; life.eduLevel = 1; }
+        if (life.age === 6) { life.education = "國小在學"; life.eduLevel = 1; life.job = "學生"; }
         if (life.age === 12 && this.hasSwitch(life.currentYear, "compulsory_9yr_ed")) {
           life.education = "國中在學"; life.eduLevel = 2;
         } else if (life.age === 13 && life.education === "國小在學") {
@@ -2340,7 +2398,7 @@
           life.stats.happiness -= 7;
           life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: `景氣波動（當年失業率 ${(era.unemployment_rate * 100).toFixed(1)}%），你遭遇非自願裁員，花了一段時間重新求職。` });
         } else {
-          if (life.location === "TAIWAN" && (!life.careerId || life.job === "無（年幼）" || life.job.includes("求職"))) {
+          if (life.location === "TAIWAN" && !life.careerId) {
             this.assignCareer(life, this.pickEraCareer(life));
           }
           life.workYears += 1;
@@ -2436,14 +2494,16 @@
         const beforeStock = life.stockNominal;
         let totalRet;
         if (life.investStyle === "leverage") {
-          const hitMarginCall = mkt.price_pct <= -0.22 || mkt.max_drawdown <= -0.32;
+          const hitMarginCall = mkt.price_pct <= -0.22 ||
+            (mkt.max_drawdown <= -0.32 && (mkt.price_pct < 0 || Math.random() < 0.22));
           if (hitMarginCall) {
             const wipeRatio = clamp(Math.abs(mkt.max_drawdown) * 1.45, 0.72, 0.94);
             life.stockNominal = Math.max(0, Math.round(beforeStock * (1 - wipeRatio)));
             const marginDebt = Math.round(beforeStock * 0.15);
             life.moneyNominal -= marginDebt;
             life.flags.margin_called_this_year = true;
-            life.flags.heavy_debt = true;
+            life.flags.heavy_debt = life.moneyNominal < 0;
+            life.investStyle = "deposit"; // 斷頭後退出融資，不再年年重複斷頭
             life.stats.happiness -= 22;
             const lostAmt = beforeStock - life.stockNominal + marginDebt;
             const isMarginEra = life.currentYear >= 1980;
@@ -2624,9 +2684,11 @@
           if (cu.min_year && life.currentYear < cu.min_year) return false;
           if (cu.max_year && life.currentYear > cu.max_year) return false;
           if (cu.requires_working && !(life.annualSalaryNominal > 0 && !life.flags.retired)) return false;
+          if (cu.career_in && !cu.career_in.includes(life.careerId)) return false;
+          if (cu.requires_student && !this.isStudentNow(life)) return false;
           if (life.age < cu.age_range[0] || life.age > cu.age_range[1]) return false;
           if (cu.stage === "postpartum_care" && !(life.childrenBirthYears || []).some((by) => life.currentYear - by >= 0 && life.currentYear - by <= 1)) return false;
-          if (cu.id === "cust_exam_temple" && !(life.education.includes("在學") || (life.eduLevel >= 2 && life.flags.max_edu_cap !== "junior_high"))) return false;
+          if (cu.id === "cust_exam_temple" && !(life.age === 14 || life.age === 15 || life.age === 18 || life.age === 17)) return false;
           if (cu.id === "cust_lny_adult" && !(life.annualSalaryNominal > 0 && !life.married && life.family.parentsAlive)) return false;
           return Math.random() < 0.14;
         });
@@ -2814,6 +2876,7 @@
         if (c.requires_hs_tier && !c.requires_hs_tier.includes(life.flags.hs_tier)) continue;
         if (c.requires_in_uni && !(life.eduLevel === 4 && life.education.includes("在學"))) continue;
         if (c.requires_working && !(life.age >= 25 && !life.flags.retired && !life.flags.unemployed && !life.education.includes("在學"))) continue;
+        if (c.career_not_in && c.career_not_in.includes(life.careerId)) continue;
         if (c.requires_retired_or_65 && !(life.flags.retired || life.age >= 65)) continue;
 
         // Probability pacing for multi-year windows (LS06 guaranteed at age 20 so every uni student experiences it)
@@ -2883,6 +2946,8 @@
           if (!inUniNow && life.age < 20) continue;
         }
         if (c.region_not_in && c.region_not_in.includes(life.regionId)) continue;
+        if (c.career_in && !c.career_in.includes(life.careerId)) continue;
+        if (c.career_not_in && c.career_not_in.includes(life.careerId)) continue;
         if (c.trigger_years && !c.trigger_years.includes(life.currentYear)) continue;
         if (c.health_below && life.stats.health >= c.health_below) continue;
         if (c.not_homeowner && life.homeowner) continue;
@@ -2982,7 +3047,8 @@
         const randPassProb = randPassMap[d.id] != null ? randPassMap[d.id] : 0.36;
         if (c.age_range && !exemptSkip && !c.trigger_years && !c.trigger_events && Math.random() > randPassProb) continue;
 
-        let resolvedTitle = (activeVariant && activeVariant.title) || d.title;
+        const eraTitle = (d.era_titles || []).find((t) => life.currentYear >= (t.min_year != null ? t.min_year : -Infinity) && life.currentYear <= (t.max_year != null ? t.max_year : Infinity));
+        let resolvedTitle = (activeVariant && activeVariant.title) || (eraTitle && eraTitle.label) || d.title;
         let resolvedDesc = (activeVariant && (activeVariant.desc || activeVariant.label_context)) || `你在 ${life.currentYear} 年（${era.roc}）面臨這項人生關鍵抉擇：`;
         let resolvedSource = (activeVariant && activeVariant.source_note) || (c.note || "");
 
@@ -3013,9 +3079,9 @@
           const medNeed = this.getMedicalSelfPayNominal(life, era);
           const liq = this.getLiquidNominal(life);
           resolvedDesc = hasNHI
-            ? `你在 ${life.currentYear} 年確診重大傷病！雖有全民健保提供基礎醫療保障，但先進標靶自費療程仍須約 NT$${Math.round(medNeed / 10000).toLocaleString()} 萬（目前流動資產約 NT$${Math.round(Math.max(0, liq) / 10000).toLocaleString()} 萬）。若無力負擔恐面臨病情惡化或失能風險。`
-            : `你在 ${life.currentYear} 年確診重大傷病！此時台灣尚無全民強制醫療保險制度，完整自費治療須高達約 NT$${Math.round(medNeed / 10000).toLocaleString()} 萬（目前流動資產約 NT$${Math.round(Math.max(0, liq) / 10000).toLocaleString()} 萬），無力負擔恐致殘疾或早逝。`;
-          resolvedSource = hasNHI ? "全民健保大幅減輕基礎醫療費，但自費標靶與經濟落差仍攸關預後" : "缺乏公辦全民醫療保險時期，積蓄不足常導致延誤治療、失能甚至因病而貧";
+            ? `你在 ${life.currentYear} 年確診重大傷病！雖有全民健保提供基礎醫療保障，但${life.currentYear >= 2003 ? "先進標靶" : "進口特效藥與新式"}自費療程仍須約 NT$${Math.round(medNeed / 10000).toLocaleString()} 萬（目前流動資產約 NT$${Math.round(Math.max(0, liq) / 10000).toLocaleString()} 萬）。若無力負擔恐面臨病情惡化或失能風險。`
+            : `你在 ${life.currentYear} 年確診重大傷病！家裡的保險有限，完整自費治療須高達約 NT$${Math.round(medNeed / 10000).toLocaleString()} 萬（目前流動資產約 NT$${Math.round(Math.max(0, liq) / 10000).toLocaleString()} 萬），無力負擔恐致殘疾或早逝。`;
+          resolvedSource = hasNHI ? "全民健保大幅減輕基礎醫療費，但自費療程與經濟落差仍攸關預後" : "積蓄不足常導致延誤治療、失能甚至因病而貧";
         } else if (d.id === "D29_child_study_abroad") {
           const need = Math.round(((this.data.marketHistory && this.data.marketHistory.financial_thresholds_2025.child_abroad_full) || 2400000) * era.cpi);
           const liq = this.getLiquidNominal(life);
@@ -3058,6 +3124,28 @@
             }
             return o;
           });
+        }
+        if (d.id === "D20_marriage_crisis" && life.sex === "M") {
+          resolvedOptions = resolvedOptions.map((o) => (o.era_labels_male ? { ...o, era_labels: o.era_labels_male } : o));
+        }
+        if (d.id === "D11_health_red_flags" && d.career_labels) {
+          const lb = d.career_labels[this.getCareerWordingGroup(life)] || d.career_labels.default;
+          resolvedOptions = resolvedOptions.map((o, oi) => ({ ...o, label: lb[oi] || o.label, era_labels: null }));
+        }
+        if (d.id === "D10_unpaid_leave" && d.self_employed_variant && this.isSelfEmployed(life)) {
+          resolvedTitle = d.self_employed_variant.title;
+          resolvedOptions = resolvedOptions.map((o) => ({ ...o, label: d.self_employed_variant.labels[o.key] || o.label, era_labels: null }));
+        }
+        if (d.id === "D12B_vehicle_purchase" && d.transit_year_by_region) {
+          const mrtYear = d.transit_year_by_region[life.regionId];
+          const hasMrt = mrtYear && life.currentYear >= mrtYear;
+          resolvedOptions = resolvedOptions.map((o) => o.key === "public_transit"
+            ? { ...o, era_labels: null, label: `不買車，靠${hasMrt ? "捷運、公車與鐵路" : "公車、客運、火車或腳踏車"}通勤（省下購車與養車費）` }
+            : o);
+        }
+        if (d.id === "D31_cashflow_debt_crisis" || d.id === "D17_critical_illness_cost") {
+          const usable = resolvedOptions.filter((o) => !((o.requires_vehicle || o.requires_valuables || o.requires_homeowner || o.requires_homeowner_for_med) && !this.isOptionEligible(life, o, era).eligible));
+          if (usable.length) resolvedOptions = usable;
         }
         if (d.id === "D20_marriage_crisis" && life.children <= 0) {
           resolvedOptions = resolvedOptions.map((o) =>
@@ -3217,6 +3305,7 @@
       if (ef.happiness) life.stats.happiness += ef.happiness;
       if (ef.health) life.stats.health += ef.health;
       if (ef.relationships) life.stats.social += ef.relationships;
+      if (ef.social) life.stats.social += ef.social;
       if (ef.wage_mult && decision.id !== "D08_overseas_assignment") life.flags.wage_mult = (life.flags.wage_mult || 1.0) * ef.wage_mult;
       if (decision.id === "D08_overseas_assignment" && opt.key === "accept_expat") {
         life.flags.expat_years_left = 5;
@@ -3224,7 +3313,7 @@
         if (life.married && Math.random() < (ef.marital_strain_prob || 0.2)) {
           life.stats.happiness -= 6;
           life.stats.social -= 3;
-          extraLog += "（長期遠距離外派造成夫妻與親子磨合壓力增高）";
+          extraLog += "（長期分隔兩地，夫妻與親子相處壓力升高）";
         } else {
           extraLog += "（啟動 5 年海外外派任期並享 1.45× 外派津貼，期滿返台保留管理資歷加給）";
         }
@@ -3615,7 +3704,7 @@
           extraLog = "（雙方協議財產對半分割，開始重整人生）";
         } else if (opt.key === "move_out_counseling") {
           life.flags.stay_home = false;
-          if (Math.random() < (ef.repair_prob || 0.65)) { life.stats.happiness += 6; life.stats.social += 6; extraLog = "（透過搬離原住處與諮商，伴侶關係顯著修復）"; }
+          if (Math.random() < (ef.repair_prob || 0.65)) { life.stats.happiness += 6; life.stats.social += 6; extraLog = life.currentYear < 1990 ? "（搬出去自組小家庭、親友居中協調後，夫妻感情慢慢回溫）" : "（透過搬離原住處與諮商，伴侶關係顯著修復）"; }
           else { life.stats.happiness -= 5; extraLog = "（雙方仍在磨合中，關係壓力尚未完全解除）"; }
         }
       }

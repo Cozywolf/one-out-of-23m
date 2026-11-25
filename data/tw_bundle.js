@@ -80,7 +80,7 @@ window.TW_DATA = {
               "max_year": 1995
             },
             {
-              "text": "捷運（1996年木柵線通車後成型）",
+              "text": "搭捷運轉公車上下班、上下課",
               "min_year": 1996
             },
             "公車",
@@ -100,11 +100,26 @@ window.TW_DATA = {
             "盆地夏季悶熱"
           ],
           "lifestyle": [
-            "醫療與補教資源最密集",
-            "步調緊湊",
             {
-              "text": "居住成本易擠壓幸福感",
-              "min_age": 18
+              "text": "補習街的招牌一路亮到晚上十點，街上都是背書包的學生",
+              "min_age": 13,
+              "max_age": 19,
+              "min_year": 1970
+            },
+            {
+              "text": "診所和大醫院都在公車幾站內，看病不必跑遠",
+              "min_age": 8
+            },
+            {
+              "text": "走在路上總覺得大家腳步特別快",
+              "min_age": 8,
+              "min_year": 1970
+            },
+            {
+              "text": "每個月發薪水，先扣掉房租才算自己的錢",
+              "min_age": 20,
+              "requires_working": true,
+              "requires_renter": true
             }
           ]
         },
@@ -166,7 +181,7 @@ window.TW_DATA = {
             },
             {
               "text": "園區上下班塞車",
-              "min_year": 1985,
+              "min_year": 1990,
               "min_age": 18,
               "requires_working": true
             },
@@ -174,7 +189,11 @@ window.TW_DATA = {
               "text": "機捷／高鐵跨區通勤",
               "min_year": 2017
             },
-            "汽機車代步"
+            {
+              "text": "騎機車或開車代步",
+              "min_age": 18,
+              "min_year": 1980
+            }
           ],
           "housing": [
             "竹北／青埔重劃區",
@@ -184,17 +203,31 @@ window.TW_DATA = {
             "新竹九降風強勁"
           ],
           "lifestyle": [
-            "全台幼年人口比與出生率最高",
             {
-              "text": "高薪高工時工程師文化",
-              "min_year": 1985,
-              "min_age": 18
+              "text": "九降風一吹，曬衣架上的衣服半天就乾了",
+              "min_age": 4
             },
             {
-              "text": "桃園多元移工與航空城",
-              "min_year": 1992
+              "text": "鄰居多是年輕爸媽，社區遊樂場週末總是排隊",
+              "min_age": 3,
+              "min_year": 2005
             },
-            "苗栗客庄聚落"
+            {
+              "text": "聚餐時身邊有人聊股票分紅，有人忙著處理產線異常",
+              "min_year": 1996,
+              "max_year": 2007,
+              "min_age": 22,
+              "requires_working": true
+            },
+            {
+              "text": "假日車站前有各國移工聚會，小吃店飄著東南亞香料味",
+              "min_year": 1995,
+              "min_age": 6
+            },
+            {
+              "text": "過年過節吃粄條、客家小炒，長輩說著客語",
+              "min_age": 4
+            }
           ]
         },
         "out_migration_rates": {
@@ -246,7 +279,11 @@ window.TW_DATA = {
         ],
         "flavor_tags": {
           "commute": [
-            "汽機車為主",
+            {
+              "text": "騎機車或開車上班，停車位最難找",
+              "min_age": 18,
+              "min_year": 1985
+            },
             {
               "text": "中捷綠線",
               "min_year": 2021
@@ -260,15 +297,27 @@ window.TW_DATA = {
             "冬季中南部空品PM2.5微調風險"
           ],
           "lifestyle": [
-            "黑手變頭家與家族工廠文化",
             {
-              "text": "易受2000年代西進與2025關稅衝擊",
-              "min_year": 2000,
-              "min_age": 18
+              "text": "巷子裡機器聲從早響到晚，好幾戶一樓都是小工廠",
+              "min_age": 4,
+              "min_year": 1970,
+              "max_year": 2010
             },
             {
-              "text": "南投為1999年921震央核心",
-              "min_year": 1999
+              "text": "認識的頭家說訂單少了一半，考慮收廠或西進",
+              "min_year": 2000,
+              "max_year": 2005,
+              "min_age": 20
+            },
+            {
+              "text": "經過山區還看得到地震後的空地與組合屋",
+              "min_year": 2000,
+              "max_year": 2006,
+              "min_age": 5
+            },
+            {
+              "text": "晴天多、雨天少，出門很少需要帶傘",
+              "min_age": 6
             }
           ]
         },
@@ -322,7 +371,11 @@ window.TW_DATA = {
         ],
         "flavor_tags": {
           "commute": [
-            "高度依賴機車"
+            {
+              "text": "沒有機車幾乎出不了門",
+              "min_age": 18,
+              "min_year": 1978
+            }
           ],
           "housing": [
             "南科擴張推升善化／新市房價形成世代落差",
@@ -334,15 +387,25 @@ window.TW_DATA = {
           ],
           "lifestyle": [
             {
-              "text": "農業與高齡化並存（嘉義縣65+占比全台最高）",
-              "min_year": 2005
+              "text": "廟口酬神辦桌，全村大小都來看布袋戲",
+              "min_age": 3
             },
             {
-              "text": "2002年WTO衝擊農家",
-              "min_year": 2002,
-              "min_age": 14
+              "text": "村裡年輕人多半在外地，平日只剩阿公阿嬤在田邊聊天",
+              "min_year": 2000,
+              "min_age": 8
             },
-            "濃厚宗族廟會與飲食文化"
+            {
+              "text": "早餐從一碗熱牛肉湯開始",
+              "min_age": 8,
+              "min_year": 1975
+            },
+            {
+              "text": "鄰居阿伯說開放進口後，蒜頭、稻米價格愈來愈難看",
+              "min_year": 2002,
+              "max_year": 2008,
+              "min_age": 14
+            }
           ]
         },
         "out_migration_rates": {
@@ -390,7 +453,11 @@ window.TW_DATA = {
         ],
         "flavor_tags": {
           "commute": [
-            "機車為主",
+            {
+              "text": "騎機車穿過大馬路，夏天等紅燈像烤箱",
+              "min_age": 18,
+              "min_year": 1978
+            },
             {
               "text": "高雄捷運與輕軌",
               "min_year": 2008
@@ -405,21 +472,27 @@ window.TW_DATA = {
           ],
           "lifestyle": [
             {
-              "text": "1980–90年代重工業火車頭",
-              "min_year": 1980,
-              "max_year": 1999
+              "text": "上下班時間工廠交通車一輛接一輛，空氣裡有石化廠的味道",
+              "min_year": 1975,
+              "max_year": 2005,
+              "min_age": 6
             },
             {
-              "text": "2000年代產業轉型低潮",
+              "text": "同學畢業後一個個往北部找工作",
               "min_year": 2000,
-              "max_year": 2018
+              "max_year": 2018,
+              "min_age": 18,
+              "max_age": 35
             },
             {
-              "text": "近年台積電進駐與演唱會經濟回溫",
+              "text": "演唱會散場人潮擠滿捷運站，夜市生意跟著好起來",
               "min_year": 2022,
-              "min_age": 14
+              "min_age": 12
             },
-            "屏東偏鄉就醫距離較遠"
+            {
+              "text": "住屏東山邊的親戚看專科要坐一個多小時的車",
+              "min_age": 8
+            }
           ]
         },
         "out_migration_rates": {
@@ -483,7 +556,7 @@ window.TW_DATA = {
               "min_year": 2020
             },
             {
-              "text": "宜蘭2006年雪隧通車納入台北圈",
+              "text": "雪隧通車後，週末國道塞滿往宜蘭的車潮",
               "min_year": 2006
             },
             "離島船機交通"
@@ -496,10 +569,23 @@ window.TW_DATA = {
             "地震帶高風險"
           ],
           "lifestyle": [
-            "原住民族文化多元",
-            "離島就醫後送與觀光淡旺季",
-            "金門地方福利特殊",
-            "男性平均壽命與全台落差最大"
+            {
+              "text": "豐年祭的歌聲從部落廣場傳來，親友從外地趕回來",
+              "min_age": 4
+            },
+            {
+              "text": "離島的朋友說冬天風浪大，船停開就只能等",
+              "min_age": 8
+            },
+            {
+              "text": "颱風前家家戶戶用木板釘窗、準備乾糧",
+              "min_age": 4,
+              "max_year": 2000
+            },
+            {
+              "text": "要看大醫院的專科，得搭火車或轉診到外縣市",
+              "min_age": 8
+            }
           ]
         },
         "out_migration_rates": {
@@ -1498,19 +1584,19 @@ window.TW_DATA = {
         "south_kaohsiung",
         "east_islands"
       ],
-      "coverage": "1950–2026（共 66 起重大歷史、制度、金融、災難與法制事件）"
+      "coverage": "1950–2026（共 85 起重大歷史、制度、金融、災難與法制事件，全部為單一年度卡片）"
     },
     "events": [
       {
         "id": "EV_1950_us_aid_local_elections",
         "year": 1950,
-        "year_end": 1951,
+        "year_end": 1950,
         "category": "economy_politics",
         "regions": [
           "ALL"
         ],
         "title": "韓戰爆發、美援重啟與首度縣市地方自治選舉",
-        "summary": "1950 年 6 月韓戰爆發後美國重啟對台經濟與軍事援助（至 1965 年累計約 14.8 億美元），穩定戰後物價與電力交通建設；同年起台灣各縣市首度開辦縣市長與縣市議員直接民選，開啟地方自治實踐。",
+        "summary": "1950 年 6 月韓戰爆發後美國重啟對台經濟與軍事援助，穩定戰後物價與電力交通建設；同年起台灣各縣市首度開辦縣市長與縣市議員直接民選，開啟地方自治實踐。",
         "institutional_aftermath": "美援麵粉與基礎建設支撐了戰後初期民生與外匯穩定，「麵粉袋改衣褲」成為一整代台灣人的共同記憶；地方自治選舉也培養出本土政治參與基礎。",
         "gameplay_impact": {
           "happiness_delta": 2
@@ -1640,7 +1726,12 @@ window.TW_DATA = {
         "sources": [
           "中央氣象署災害天氣紀錄",
           "水利署八七水災史料"
-        ]
+        ],
+        "impact_prob": {
+          "central": 0.12,
+          "south_tainan": 0.08
+        },
+        "disaster_name": "八七水災"
       },
       {
         "id": "EV_1960_free_china_lei_chen",
@@ -1712,7 +1803,12 @@ window.TW_DATA = {
         "sources": [
           "中央氣象署百年侵台颱風資料",
           "水利署台北防洪計畫沿革"
-        ]
+        ],
+        "impact_prob": {
+          "north_taipei": 0.15,
+          "north_hsinchu": 0.06
+        },
+        "disaster_name": "葛樂禮颱風"
       },
       {
         "id": "EV_1965_us_aid_ends",
@@ -1824,19 +1920,19 @@ window.TW_DATA = {
       {
         "id": "EV_1973_oil_crisis_inflation",
         "year": 1973,
-        "year_end": 1974,
+        "year_end": 1973,
         "category": "economy_finance",
         "regions": [
           "ALL"
         ],
-        "title": "第一次石油危機與 47.5% 惡性通膨衝擊",
-        "summary": "1973 年底中東戰爭引爆全球第一次石油危機，國際油價暴漲四倍。高度仰賴能源進口的台灣在 1974 年消費者物價指數（CPI）年增率狂飆至 47.5%，民生物資搶購頻傳、台股腰斬近六成。",
-        "institutional_aftermath": "政府推出「穩定當前經濟措施方案」大幅調升利率與油電價一次反映，並加快能源多元與重化工業自主腳步，僅一年便成功壓回通膨。",
+        "title": "第一次石油危機爆發",
+        "summary": "1973 年底中東戰爭引爆全球第一次石油危機，國際油價暴漲。高度仰賴能源進口的台灣物價開始飛漲，米、油、衛生紙等民生物資出現搶購潮。",
+        "institutional_aftermath": "迫使台灣重新檢討能源依賴與產業結構，並加快重化工業與能源多元化的腳步。",
         "gameplay_impact": {
-          "happiness_delta": -5
+          "happiness_delta": -2
         },
         "sensitive": false,
-        "cultural_footnote_en": "The 1973–74 oil shock sent Taiwan's annual inflation soaring to 47.5% and halved stock prices, prompting sharp interest-rate hikes and rapid economic stabilization.",
+        "cultural_footnote_en": "The 1973 oil shock hit import-dependent Taiwan with soaring prices and panic buying.",
         "sources": [
           "主計總處歷年消費者物價指數",
           "中央銀行經濟金融史"
@@ -1845,7 +1941,7 @@ window.TW_DATA = {
       {
         "id": "EV_1974_ten_major_projects",
         "year": 1974,
-        "year_end": 1978,
+        "year_end": 1974,
         "category": "economy_infra",
         "regions": [
           "ALL"
@@ -1864,6 +1960,27 @@ window.TW_DATA = {
         ]
       },
       {
+        "id": "EV_1974_stagflation",
+        "year": 1974,
+        "year_end": 1974,
+        "category": "economy_finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "47.5% 惡性通膨與「穩定當前經濟措施方案」",
+        "summary": "1974 年 1 月政府宣布「穩定當前經濟措施方案」，一次大幅調升利率與油電價格；全年消費者物價年增率達 47.5%，台股重挫近六成，許多家庭的存款購買力瞬間縮水。",
+        "institutional_aftermath": "重手段壓下通膨預期，物價在次年迅速回穩，也讓一整代人留下囤貨的記憶。",
+        "gameplay_impact": {
+          "happiness_delta": -4
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "Taiwan's 1974 CPI rose 47.5%; a one-shot hike in rates and utility prices restored stability within a year.",
+        "sources": [
+          "主計總處歷年消費者物價指數",
+          "中央銀行經濟金融史"
+        ]
+      },
+      {
         "id": "EV_1976_abolish_self_study_folk_song",
         "year": 1976,
         "year_end": 1976,
@@ -1872,7 +1989,7 @@ window.TW_DATA = {
           "ALL"
         ],
         "title": "廢除自費留學考試與校園民歌運動興起",
-        "summary": "1976 年教育部正式廢除實施近二十年的「自費留學考試」，大幅降低大學生自費出國門檻，配合經濟起飛引爆赴美留學熱潮；同時大學校園掀起「唱自己的歌」民歌浪潮，〈龍的傳人〉、〈橄欖樹〉傳唱全台。",
+        "summary": "1976 年教育部正式廢除「自費留學考試」，大幅降低大學生自費出國門檻；同時繼 1975 年楊弦民謠演唱會之後，大學校園「唱自己的歌」的民歌風氣持續升溫，學生背著吉他把新詩譜成歌。",
         "institutional_aftermath": "自費留學普及培養出日後 1980–90 年代回台創立竹科與半導體產業的海歸工程師世代；校園民歌則催生台灣華語流行音樂的黃金產業基礎。",
         "gameplay_impact": {
           "happiness_delta": 3
@@ -1930,14 +2047,14 @@ window.TW_DATA = {
       {
         "id": "EV_1979_kaohsiung_incident",
         "year": 1979,
-        "year_end": 1980,
+        "year_end": 1979,
         "category": "politics_society",
         "regions": [
           "south_kaohsiung",
           "ALL"
         ],
         "title": "美麗島事件",
-        "summary": "黨外人士於高雄舉辦世界人權日集會引發警民衝突，當局展開全島大逮捕並以軍法大審判處8名核心人物重刑。",
+        "summary": "1979 年 12 月 10 日世界人權日，黨外人士於高雄集會遊行引發警民衝突，當局隨後在全島展開大逮捕。",
         "institutional_aftermath": "引發海內外聲援與美國國會關切，催化台灣本土民主意識與黨外律師世代崛起，成為走向民主化的關鍵轉捩點。",
         "gameplay_impact": {
           "narrative_tag": "martial_law_caution",
@@ -1970,7 +2087,7 @@ window.TW_DATA = {
             {
               "weight": 0.7,
               "severity": "trajectory",
-              "narrative": "你因關心民主集會出現在高雄人權日現場，事後遭情治單位約談並被原公司解僱，職涯被迫轉向民間自營或日後投入台灣公民改革。",
+              "narrative": "你因關心民主集會出現在高雄人權日現場，事後遭情治單位約談並被原公司解僱，職涯被迫轉向民間自營。",
               "happiness_delta": -12,
               "knowledge_delta": 10,
               "job_lost": true,
@@ -1979,7 +2096,7 @@ window.TW_DATA = {
             {
               "weight": 0.3,
               "severity": "trajectory_heavy",
-              "narrative": "你因參與現場聲援捲入戒嚴軍法偵辦，經歷數年牢獄與監視才於解嚴前獲釋，整個人生軌跡徹底改寫。",
+              "narrative": "你因參與現場聲援捲入戒嚴軍法偵辦，遭判刑入獄，整個人生軌跡徹底改寫。",
               "health_delta": -15,
               "happiness_delta": -20,
               "knowledge_delta": 12,
@@ -2003,8 +2120,7 @@ window.TW_DATA = {
         "institutional_aftermath": "台灣首起大規模工業化學食安悲劇；歷經36年倡議，立法院於2015年三讀通過《油症患者健康照護服務條例》提供照護與撫慰金。",
         "gameplay_impact": {
           "trigger_prob_in_region": 0.002,
-          "health_permanent_delta": -15,
-          "follow_up_year": 2015
+          "health_permanent_delta": -15
         },
         "sensitive": false,
         "cultural_footnote_en": "Taiwan's first mass industrial food-poisoning disaster (PCB-contaminated rice bran oil), eventually leading to a dedicated victim healthcare law in 2015.",
@@ -2070,6 +2186,26 @@ window.TW_DATA = {
         ]
       },
       {
+        "id": "EV_1980_formosa_trial",
+        "year": 1980,
+        "year_end": 1980,
+        "category": "politics_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "美麗島軍法大審與林宅血案",
+        "summary": "1980 年 2 月 28 日被告林義雄家中發生滅門血案，震驚社會；3 月美麗島案進行公開軍法審判，八名主要被告分別被判處重刑，報紙罕見大篇幅刊登法庭答辯。",
+        "institutional_aftermath": "公開審判讓社會聽見黨外主張，辯護律師團與家屬日後成為民主運動的重要力量。",
+        "gameplay_impact": {
+          "happiness_delta": -2
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "The 1980 public court-martial of the Formosa defendants, following the murders at Lin Yi-hsiung's home, shocked Taiwan.",
+        "sources": [
+          "國家人權博物館史料"
+        ]
+      },
+      {
         "id": "EV_1982_li_shike_wang_yingxian",
         "year": 1982,
         "year_end": 1982,
@@ -2082,8 +2218,7 @@ window.TW_DATA = {
         "summary": "退伍老兵李師科持槍搶劫土地銀行古亭分行，為台灣治安史首起持槍搶銀行案；辦案期間無辜計程車司機王迎先遭刑求後跳河身亡。",
         "institutional_aftermath": "促成《刑事訴訟法》第27條修正（「王迎先條款」），確立偵查中被告得隨時選任辯護人以防刑求；並催生民眾進銀行須脫安全帽與口罩的規範。",
         "gameplay_impact": {
-          "unlock_daily_flavor": "bank_remove_helmet",
-          "justice_index_delta": 5
+          "unlock_daily_flavor": "bank_remove_helmet"
         },
         "sensitive": true,
         "cultural_footnote_en": "Taiwan's first armed bank robbery led to a wrongful police torture death, prompting the 1982 'Wang Ying-hsien Clause' granting suspects the right to counsel during interrogation—and the rule to remove helmets in banks.",
@@ -2094,18 +2229,15 @@ window.TW_DATA = {
       {
         "id": "EV_1984_henry_liu",
         "year": 1984,
-        "year_end": 1985,
+        "year_end": 1984,
         "category": "crime_politics",
         "regions": [
           "ALL"
         ],
         "title": "江南案",
         "summary": "旅美作家劉宜良（筆名江南）在加州遭台灣情治人員指使黑幫暗殺，引發美台關係劇烈震盪。",
-        "institutional_aftermath": "重創威權體制國際形象並終結蔣家接班可能，直接加速1987年解嚴、1988年開放報禁與1992年《刑法》第100條修正。",
-        "gameplay_impact": {
-          "narrative_only": true,
-          "precursor_to": "EV_1987_martial_law_lifted"
-        },
+        "institutional_aftermath": "重創威權體制的國際形象，促成情治體系檢討；1987年解嚴與1992年《刑法》第100條修正都在這股壓力下推進。",
+        "gameplay_impact": {},
         "sensitive": false,
         "cultural_footnote_en": "The 1984 assassination of Taiwanese-American writer Henry Liu in California severely strained US-Taiwan ties and accelerated the end of Martial Law.",
         "sources": [
@@ -2134,28 +2266,6 @@ window.TW_DATA = {
         ]
       },
       {
-        "id": "EV_1985_1990_bubble_boom",
-        "year": 1985,
-        "year_end": 1990,
-        "category": "economy_finance",
-        "regions": [
-          "ALL"
-        ],
-        "title": "「台灣錢淹腳目」股房狂飆期",
-        "summary": "新台幣從40.6升值至25.56，台股從636點飆漲20倍至1990年2月12,682點，台北市房價飆至每坪25.5萬元高峰。",
-        "institutional_aftermath": "奠定台灣一代人的財富想像，但也埋下泡沫破滅與投機文化的歷史教訓。",
-        "gameplay_impact": {
-          "asset_growth_mult": 1.35,
-          "housing_cost_mult": 1.8
-        },
-        "sensitive": false,
-        "cultural_footnote_en": "Known as 'Taiwan money flooding the ankles,' currency appreciation fueled a 20x stock rally and 10x property boom in the late 1980s.",
-        "sources": [
-          "工商時報",
-          "理財周刊"
-        ]
-      },
-      {
         "id": "EV_1985_tenth_credit",
         "year": 1985,
         "year_end": 1985,
@@ -2177,7 +2287,7 @@ window.TW_DATA = {
           "財政部與金融監督管理史料"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.06,
+          "base_prob": 0.03,
           "regions": [
             "north_taipei"
           ],
@@ -2225,9 +2335,7 @@ window.TW_DATA = {
         "title": "台灣工業化頂峰與民進黨成立",
         "summary": "工業占GDP 47.11%、製造業39.35%皆達歷史最高峰；同年民主進步黨於圓山大飯店宣布成立。",
         "institutional_aftermath": "台灣開始由製造業主導邁向服務業（1989年破50%），並踏入政黨競爭時代。",
-        "gameplay_impact": {
-          "parent_factory_job_weight": 0.45
-        },
+        "gameplay_impact": {},
         "sensitive": false,
         "cultural_footnote_en": "Taiwan's manufacturing share of GDP peaked in 1986—the same year the opposition Democratic Progressive Party (DPP) was founded despite Martial Law.",
         "sources": [
@@ -2236,18 +2344,37 @@ window.TW_DATA = {
         ]
       },
       {
+        "id": "EV_1986_taiex_1000",
+        "year": 1986,
+        "year_end": 1986,
+        "category": "economy_finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "台股首度突破千點，游資湧入",
+        "summary": "1986 年 10 月台股加權指數首度站上 1,000 點。新台幣升值預期吸引熱錢湧入，證券行號子開始擠滿看盤的上班族與家庭主婦。",
+        "institutional_aftermath": "民間游資轉向股市與房市，開啟往後數年「台灣錢淹腳目」的投機熱潮。",
+        "gameplay_impact": {
+          "happiness_delta": 1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The TAIEX crossed 1,000 for the first time in October 1986 as appreciation expectations drew hot money into Taiwan.",
+        "sources": [
+          "臺灣證券交易所統計"
+        ]
+      },
+      {
         "id": "EV_1987_martial_law_lifted",
         "year": 1987,
-        "year_end": 1988,
+        "year_end": 1987,
         "category": "politics_economy",
         "regions": [
           "ALL"
         ],
-        "title": "解嚴、台積電成立與開放探親報禁",
-        "summary": "1987年2月台積電成立、7月15日宣布解除長達38年戒嚴、11月開放赴大陸探親；1988年元旦開放報禁並爆發520農民運動。",
+        "title": "解嚴、台積電成立與開放探親",
+        "summary": "1987年2月台積電成立、7月15日宣布解除長達38年戒嚴、11月開放民眾赴大陸探親，許多老兵第一次踏上返鄉路。",
         "institutional_aftermath": "政治全面解凍、台商西進序幕拉開，同時埋下日後台灣成為全球半導體核心的種子。",
         "gameplay_impact": {
-          "unlock_switch": "lift_martial_law",
           "happiness_delta": 4
         },
         "sensitive": false,
@@ -2255,6 +2382,47 @@ window.TW_DATA = {
         "sources": [
           "遠見大事紀",
           "關鍵評論網"
+        ]
+      },
+      {
+        "id": "EV_1988_press_freedom_520",
+        "year": 1988,
+        "year_end": 1988,
+        "category": "politics_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "報禁解除、蔣經國辭世與 520 農民運動",
+        "summary": "1988 年元旦報禁解除，報紙張數與家數暴增；1 月 13 日總統蔣經國辭世，李登輝繼任；5 月 20 日農民北上抗議開放農產品進口，爆發激烈街頭衝突。",
+        "institutional_aftermath": "新聞自由與街頭社會運動進入常民生活，農民保險與農業補貼制度隨後逐步建立。",
+        "gameplay_impact": {
+          "happiness_delta": 1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 1988 press restrictions were lifted, President Chiang Ching-kuo died, and farmers staged the landmark May 20 protest.",
+        "sources": [
+          "國史館史料"
+        ]
+      },
+      {
+        "id": "EV_1989_taiex_10000_snail",
+        "year": 1989,
+        "year_end": 1989,
+        "category": "economy_finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "台股衝破萬點與無殼蝸牛夜宿忠孝東路",
+        "summary": "1989 年 6 月台股首度突破萬點，「台灣錢淹腳目」；台北市房價幾年內翻漲數倍，8 月數萬名買不起房的民眾以「無殼蝸牛」之名夜宿忠孝東路抗議。",
+        "institutional_aftermath": "催生日後的住宅政策團體，也讓「高房價」成為台灣社會長期議題。",
+        "gameplay_impact": {
+          "happiness_delta": -1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 1989 the TAIEX topped 10,000 while 'shell-less snails' slept on Taipei's priciest street to protest soaring housing prices.",
+        "sources": [
+          "臺灣證券交易所統計",
+          "住宅運動史料"
         ]
       },
       {
@@ -2268,10 +2436,7 @@ window.TW_DATA = {
         "title": "台股萬二崩盤與鴻源吸金倒閉案",
         "summary": "台股8個月內從12,682點暴跌80%至2,485點（歷時30年才突破），台北市房價回跌30%；同年以月息4分吸金的鴻源機構倒閉，留下約940億元負債與16萬名債權人。",
         "institutional_aftermath": "促使政府嚴查地下投資公司並修法重罰非法吸金，無數台灣家庭一夕致負債。",
-        "gameplay_impact": {
-          "stock_return": -0.8,
-          "resolve_decision_flag": "trapped_in_high_yield"
-        },
+        "gameplay_impact": {},
         "sensitive": false,
         "cultural_footnote_en": "Taiwan's stock market plunged 80% in eight months in 1990—taking 30 years to recover its peak—just as the NT$94B Hongyuan Ponzi scheme collapsed.",
         "sources": [
@@ -2280,7 +2445,7 @@ window.TW_DATA = {
           "理財周刊"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.09,
+          "base_prob": 0.045,
           "regions": [
             "ALL"
           ],
@@ -2322,6 +2487,27 @@ window.TW_DATA = {
         }
       },
       {
+        "id": "EV_1990_wild_lily",
+        "year": 1990,
+        "year_end": 1990,
+        "category": "politics_society",
+        "regions": [
+          "north_taipei",
+          "ALL"
+        ],
+        "title": "野百合學運",
+        "summary": "1990 年 3 月數千名大學生在中正紀念堂廣場靜坐，訴求解散國民大會、廢除臨時條款、召開國是會議與訂定民主改革時間表，總統李登輝接見學生代表。",
+        "institutional_aftermath": "推動國是會議召開與動員戡亂時期終止，也培養出一整代公民運動參與者。",
+        "gameplay_impact": {
+          "happiness_delta": 1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The March 1990 Wild Lily student movement pressed for democratic reform and led to the National Affairs Conference.",
+        "sources": [
+          "國家人權博物館史料"
+        ]
+      },
+      {
         "id": "EV_1991_su_jianhe",
         "year": 1991,
         "year_end": 1991,
@@ -2330,18 +2516,38 @@ window.TW_DATA = {
           "north_taipei",
           "ALL"
         ],
-        "title": "蘇建和案（纏訟21年的司法轉折）",
-        "summary": "蘇建和、劉秉郎、莊林勳三人涉汐止命案遭判死刑定讞，但因刑求自白與科學鑑識爭議纏訟21年，終在2012年8月無罪定讞。",
-        "institutional_aftermath": "推動台灣刑事司法改革，促成2003年《刑事訴訟法》強化無罪推定與不正自白排除，並催生2010年《刑事妥速審判法》。",
+        "title": "汐止命案與蘇建和等三人被捕",
+        "summary": "1991 年汐止發生夫妻命案，蘇建和、劉秉郎、莊林勳三名青年被捕，家屬與律師指控自白出於刑求，案件在法院間展開攻防。",
+        "institutional_aftermath": "催生民間司法改革團體，促成2003年《刑事訴訟法》強化無罪推定與不正自白排除，並催生2010年《刑事妥速審判法》。",
         "gameplay_impact": {
-          "narrative_tag": "judicial_reform",
-          "knowledge_delta_law_track": 3
+          "narrative_tag": "judicial_reform"
         },
         "sensitive": true,
-        "cultural_footnote_en": "A landmark wrongful-conviction case lasting 21 years before final acquittal in 2012, driving Taiwan's adoption of the Speedy Trial Act and stricter confession rules.",
+        "cultural_footnote_en": "Three young men were arrested in a 1991 murder case built on contested confessions, a focal point for Taiwan's judicial reform.",
         "sources": [
           "司法院判決紀錄",
           "民間司改會史料"
+        ]
+      },
+      {
+        "id": "EV_1991_end_mobilization",
+        "year": 1991,
+        "year_end": 1991,
+        "category": "politics_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "終止動員戡亂與國會全面改選",
+        "summary": "1991 年 5 月 1 日終止動員戡亂時期，年底資深民代全數退職，並舉行第二屆國民大會代表全面改選，「萬年國會」走入歷史。",
+        "institutional_aftermath": "台灣國會由全體選民定期選出，為後續立委與總統直選鋪路。",
+        "gameplay_impact": {
+          "happiness_delta": 1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 1991 Taiwan ended the Period of Mobilization and fully re-elected the National Assembly.",
+        "sources": [
+          "中央選舉委員會",
+          "國史館史料"
         ]
       },
       {
@@ -2358,7 +2564,6 @@ window.TW_DATA = {
         "summary": "台北健康幼稚園校外教學遊覽車於桃園平鎮起火，因安全門卡死釀成23人死亡（含捨身救童的林靖娟老師）、9人輕重傷。",
         "institutional_aftermath": "催生靖娟兒童安全文教基金會，全面翻修遊覽車安全門法規與校外教學幼童交通安全規範。",
         "gameplay_impact": {
-          "child_accident_risk_mult_after": 0.9,
           "unlock_daily_flavor": "school_bus_safety_drill"
         },
         "sensitive": true,
@@ -2402,6 +2607,26 @@ window.TW_DATA = {
         }
       },
       {
+        "id": "EV_1992_article100",
+        "year": 1992,
+        "year_end": 1992,
+        "category": "politics_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "《刑法》第 100 條修正與立委全面改選",
+        "summary": "1992 年 5 月修正《刑法》第 100 條，廢除以言論或思想入罪的內亂罪規定，海外黑名單逐步解除；年底舉行立法委員全面改選。",
+        "institutional_aftermath": "言論自由獲得實質保障，街頭與媒體的公共討論更為活躍。",
+        "gameplay_impact": {
+          "happiness_delta": 1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The 1992 revision of Criminal Code Article 100 ended prosecution for non-violent sedition.",
+        "sources": [
+          "全國法規資料庫"
+        ]
+      },
+      {
         "id": "EV_1994_410_edu_reform",
         "year": 1994,
         "year_end": 1994,
@@ -2412,9 +2637,7 @@ window.TW_DATA = {
         "title": "410 教改大遊行與廣設高中大學",
         "summary": "1994年大學錄取率僅44%，民間發起「410教改遊行」訴求廣設高中大學與減輕升學壓力。",
         "institutional_aftermath": "大專校院從1994年130所暴增至2011年163所，錄取率一路攀升至2019年近100%，徹底改變世代升學結構，也埋下日後少子化退場伏筆。",
-        "gameplay_impact": {
-          "uni_admission_rate_trend": "rapid_increase"
-        },
+        "gameplay_impact": {},
         "sensitive": false,
         "cultural_footnote_en": "The 1994 education reform movement demanded wider university access, pushing admission rates from 44% to nearly 100% within two decades.",
         "sources": [
@@ -2457,9 +2680,7 @@ window.TW_DATA = {
         "title": "台中衛爾康西餐廳大火",
         "summary": "台中市衛爾康西餐廳瓦斯外洩引燃易燃裝潢且逃生門遭封死，奪走64條人命，為台灣單一建築物死亡人數最多的火災。",
         "institutional_aftermath": "促成《消防法》與《建築法》大幅修法、強制公共場所使用防焰材料，並建立消防設備師／士國家專技證照制度。",
-        "gameplay_impact": {
-          "public_fire_accident_mult_after": 0.75
-        },
+        "gameplay_impact": {},
         "sensitive": true,
         "cultural_footnote_en": "Taiwan's deadliest single-building fire (64 deaths in Taichung) led to sweeping fire-code overhauls and mandatory flame-retardant standards.",
         "sources": [
@@ -2501,9 +2722,9 @@ window.TW_DATA = {
         }
       },
       {
-        "id": "EV_1996_1997_three_major_crimes",
+        "id": "EV_1996_liu_peng_cases",
         "year": 1996,
-        "year_end": 1997,
+        "year_end": 1996,
         "category": "crime_society",
         "regions": [
           "north_hsinchu",
@@ -2511,15 +2732,14 @@ window.TW_DATA = {
           "north_taipei",
           "ALL"
         ],
-        "title": "1996–1997 三大命案震撼（劉邦友、彭婉如、白曉燕案）",
-        "summary": "半年間接連爆發桃園縣長官邸血案、婦運領袖彭婉如搭計程車遇害，以及白曉燕綁架撕票案，引爆「五〇四為台灣而走」大遊行。",
-        "institutional_aftermath": "彭婉如案火速催生《性侵害犯罪防治法》（1997）與計程車管理改革；白曉燕案迫使內閣總辭，並引發台灣對SNG現場直播媒體倫理的深刻反省。",
+        "title": "劉邦友官邸血案與彭婉如命案",
+        "summary": "1996 年 11 月桃園縣長官邸發生血案，月底婦運領袖彭婉如搭計程車後遇害，治安與婦女夜間安全成為全國焦慮。",
+        "institutional_aftermath": "彭婉如案催生《性侵害犯罪防治法》（1997）與計程車管理改革。",
         "gameplay_impact": {
-          "happiness_delta": -4,
-          "social_anxiety_flag": true
+          "happiness_delta": -2
         },
         "sensitive": true,
-        "cultural_footnote_en": "Three shocking crimes in 1996–97 triggered mass protests, toppled the cabinet, enacted Taiwan's Sexual Assault Crime Prevention Act, and reshaped TV news ethics.",
+        "cultural_footnote_en": "Two shocking murder cases in late 1996 led to Taiwan's Sexual Assault Crime Prevention Act and taxi reform.",
         "sources": [
           "立法院法制沿革",
           "台灣新聞倫理史料"
@@ -2547,25 +2767,68 @@ window.TW_DATA = {
         ]
       },
       {
-        "id": "EV_1997_1998_asian_local_crisis",
+        "id": "EV_1997_asian_crisis",
         "year": 1997,
+        "year_end": 1997,
+        "category": "finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "亞洲金融風暴波及台灣",
+        "summary": "1997 年下半年亞洲金融風暴蔓延，新台幣貶值，台股自 8 月萬點高點一度回落約三成，全年仍小幅收漲，受創程度輕於鄰國。",
+        "institutional_aftermath": "讓社會注意到企業高槓桿與交叉持股的風險。",
+        "gameplay_impact": {
+          "happiness_delta": -1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The 1997 Asian Financial Crisis sent the TAIEX down about 30% from its August peak, though Taiwan fared better than its neighbors.",
+        "sources": [
+          "科技新報",
+          "金管會史料"
+        ]
+      },
+      {
+        "id": "EV_1997_pai_hsiao_yen",
+        "year": 1997,
+        "year_end": 1997,
+        "category": "crime_society",
+        "regions": [
+          "north_taipei",
+          "ALL"
+        ],
+        "title": "白曉燕案與「五〇四為台灣而走」",
+        "summary": "1997 年 4 月藝人之女白曉燕遭綁架撕票，歹徒在逃期間持續犯案；5 月 4 日數萬民眾走上街頭，要求政府為治安負責。",
+        "institutional_aftermath": "內閣因此改組，並引發對媒體採訪綁架案與現場連線報導倫理的深刻反省。",
+        "gameplay_impact": {
+          "happiness_delta": -3
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "The 1997 kidnapping and murder of Pai Hsiao-yen sparked mass protests over public safety and media ethics.",
+        "sources": [
+          "國史館史料",
+          "台灣新聞倫理史料"
+        ]
+      },
+      {
+        "id": "EV_1998_local_crisis",
+        "year": 1998,
         "year_end": 1998,
         "category": "finance",
         "regions": [
           "ALL"
         ],
-        "title": "亞洲金融風暴與台灣本土型金融風暴",
-        "summary": "1997年台股受亞洲金融風暴重挫39.7%；1998下半年再爆本土財團交叉持股超貸與企業跳票，銀行逾放比飆升。",
+        "title": "本土型金融風暴與企業跳票潮",
+        "summary": "1998 年下半年，多家財團因交叉持股、股票質押超貸而接連跳票違約，銀行逾放比飆升，中小企業資金緊縮。",
         "institutional_aftermath": "促使政府推動金融改革、打消呆帳與銀行整併，並於2004年成立金融監督管理委員會（金管會）。",
         "gameplay_impact": {
-          "stock_return_1997": -0.397,
-          "sme_layoff_risk_mult": 1.4
+          "happiness_delta": -2,
+          "sme_layoff_risk_mult": 1.6
         },
         "sensitive": false,
-        "cultural_footnote_en": "Spillovers from the 1997 Asian Financial Crisis exposed domestic corporate over-leveraging, culminating in banking consolidation and the 2004 creation of Taiwan's FSC.",
+        "cultural_footnote_en": "A wave of corporate defaults in late 1998 exposed over-leveraging and pushed Taiwan toward financial reform.",
         "sources": [
-          "科技新報",
-          "金管會史料"
+          "金管會史料",
+          "中央銀行年報"
         ]
       },
       {
@@ -2581,10 +2844,7 @@ window.TW_DATA = {
         "title": "921 集集大地震（規模 7.3）",
         "summary": "9月21日凌晨發生規模7.3強震，造成2,415人死亡、29人失蹤、11,305人受傷，房屋全倒51,711間、半倒53,768間；台北東星大樓87人罹難。",
         "institutional_aftermath": "政府於2000年通過《災害防救法》，定9月21日為國家防災日，並全面大幅提高新建物耐震設計標準。",
-        "gameplay_impact": {
-          "trigger_decision": "D22_major_disaster",
-          "central_home_damage_prob": 0.12
-        },
+        "gameplay_impact": {},
         "sensitive": true,
         "cultural_footnote_en": "The M7.3 Jiji earthquake killed over 2,400 people, leading to Taiwan's Disaster Prevention and Protection Act and far stricter seismic building codes.",
         "sources": [
@@ -2597,7 +2857,7 @@ window.TW_DATA = {
         ],
         "disaster_year": 1999,
         "protagonist_involvement": {
-          "base_prob": 0.09,
+          "base_prob": 0.045,
           "regions": [
             "central",
             "north_taipei"
@@ -2633,7 +2893,7 @@ window.TW_DATA = {
               "force_relocate": true
             },
             {
-              "weight": 0.15,
+              "weight": 0.012,
               "severity": "fatal",
               "narrative": "921 規模 7.3 強震深夜襲擊，你所在的建物於劇烈搖晃中倒塌，不幸於震災中罹難。",
               "fatal": true,
@@ -2641,25 +2901,30 @@ window.TW_DATA = {
             }
           ],
           "pi_track": "systemic"
-        }
+        },
+        "impact_prob": {
+          "central": 0.1,
+          "north_taipei": 0.008
+        },
+        "disaster_name": "921 大地震"
       },
       {
         "id": "EV_2000_dotcom_bubble",
         "year": 2000,
-        "year_end": 2001,
+        "year_end": 2000,
         "category": "finance",
         "regions": [
           "ALL"
         ],
-        "title": "網路泡沫與製造業外移低谷",
-        "summary": "全球網路泡沫破滅使台股大跌66.6%，2001年台灣製造業占GDP降至28.89%低點，企業加速外移。",
-        "institutional_aftermath": "科技業歷經洗牌，台商大舉西進中國設廠成為下一世代職場主旋律。",
+        "title": "全球網路泡沫破滅",
+        "summary": "2000 年全球網路泡沫破滅，台股自 2 月萬點高檔一路下滑，全年重挫 43.9%，科技新貴的股票財富大幅縮水。",
+        "institutional_aftermath": "科技業歷經洗牌，台商加速西進中國設廠。",
         "gameplay_impact": {
-          "stock_return": -0.666,
-          "tech_layoff_risk_mult": 1.3
+          "happiness_delta": -2,
+          "tech_layoff_risk_mult": 1.5
         },
         "sensitive": false,
-        "cultural_footnote_en": "The dot-com crash wiped out 66.6% of Taiwan's stock index while accelerating manufacturing offshoring to mainland China.",
+        "cultural_footnote_en": "The 2000 dot-com crash sent the TAIEX down 43.9% for the year.",
         "sources": [
           "科技新報",
           "工商時報"
@@ -2684,6 +2949,29 @@ window.TW_DATA = {
         "cultural_footnote_en": "The 2000 presidential election marked Taiwan's first peaceful transfer of executive power between rival political parties.",
         "sources": [
           "中選會公開史料"
+        ]
+      },
+      {
+        "id": "EV_2001_recession_offshoring",
+        "year": 2001,
+        "year_end": 2001,
+        "category": "finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "失業率攀升與製造業外移低谷",
+        "summary": "2001 年受全球景氣與 911 事件衝擊，台股一度跌至 3,411 點，失業率升破 4.5%，製造業占 GDP 降至 28.89%，工廠外移、關廠新聞頻傳。",
+        "institutional_aftermath": "「台幹」與「中年失業」成為此時期最貼身的職場記憶，政府擴大就業方案與職業訓練。",
+        "gameplay_impact": {
+          "happiness_delta": -2,
+          "sme_layoff_risk_mult": 1.4,
+          "tech_layoff_risk_mult": 1.4
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 2001 unemployment passed 4.5% and manufacturing's share of GDP fell to 28.89% as factories moved offshore.",
+        "sources": [
+          "主計總處統計",
+          "臺灣證券交易所統計"
         ]
       },
       {
@@ -2721,10 +3009,7 @@ window.TW_DATA = {
         "title": "SARS 和平醫院封院與 0050 ETF 成立",
         "summary": "SARS期間經WHO與疾管署最終血清抗體覆核，全台確診346例、73人死亡、逾15萬人居家隔離；4月24日台北和平醫院封院釀醫護與院內民眾重大傷亡。同年台灣首檔指數ETF「0050」成立。",
         "institutional_aftermath": "SARS重創促成台灣建立中央流行疫情指揮中心與負壓隔離醫療體系，成為2020年COVID-19初期防堵成功的關鍵經驗。",
-        "gameplay_impact": {
-          "trigger_decision": "D23_pandemic_dilemma",
-          "unlock_investment": "etf_0050"
-        },
+        "gameplay_impact": {},
         "sensitive": true,
         "cultural_footnote_en": "The traumatic 2003 SARS lockdown of Taipei's Heping Hospital forged the public-health command system that later guided Taiwan's COVID-19 response.",
         "sources": [
@@ -2797,7 +3082,7 @@ window.TW_DATA = {
           "投保中心與金管會公開資料"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.05,
+          "base_prob": 0.025,
           "regions": [
             "ALL"
           ],
@@ -2826,28 +3111,25 @@ window.TW_DATA = {
         }
       },
       {
-        "id": "EV_2005_2006_credit_card_crisis",
+        "id": "EV_2005_card_debt",
         "year": 2005,
-        "year_end": 2006,
+        "year_end": 2005,
         "category": "finance_society",
         "regions": [
           "ALL"
         ],
-        "title": "雙卡風暴（卡奴危機）",
-        "summary": "銀行浮濫發行信用卡與現金卡、循環利率近20%，導致逼近80萬人陷入卡債，其中約52萬人連6個月最低應繳都付不出；2006年底協商22萬餘件、平均每件144萬元。",
-        "institutional_aftermath": "促成立法院於2007年三讀、2008年4月施行《消費者債務清理條例》，首度建立平民「更生／清算」的個人破產重啟機制。",
-        "gameplay_impact": {
-          "trigger_decision": "D14_financial_trap",
-          "unlock_switch_2008": "consumer_debt_clearance"
-        },
+        "title": "雙卡債務浮現（卡奴現象）",
+        "summary": "銀行浮濫發行信用卡與現金卡、循環利率近 20%。2005 年起越來越多持卡人只繳最低應繳金額、以卡養卡，「卡奴」成為社會新名詞。",
+        "institutional_aftermath": "金管會開始限縮發卡與廣告，並在2006年推動債務協商機制。",
+        "gameplay_impact": {},
         "sensitive": false,
-        "cultural_footnote_en": "Predatory credit and cash cards trapped nearly 800,000 Taiwanese in high-interest debt, resulting in Taiwan's first personal bankruptcy/debt-clearance law in 2008.",
+        "cultural_footnote_en": "By 2005, easy cash cards and ~20% revolving rates had created a new class of 'card slaves' in Taiwan.",
         "sources": [
           "公視新聞",
           "台大論文"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.08,
+          "base_prob": 0.04,
           "regions": [
             "ALL"
           ],
@@ -2867,7 +3149,7 @@ window.TW_DATA = {
             {
               "weight": 1,
               "severity": "economic_severe",
-              "narrative": "你為周轉生活費辦了多張現金卡與信用卡以卡養卡，近 20% 循環利息滾成百萬卡債陷入「卡奴」困境，直到 2008 消債條例上路才得以更生。",
+              "narrative": "你為周轉生活費辦了多張現金卡與信用卡以卡養卡，近 20% 循環利息滾成百萬卡債，陷入「卡奴」困境。",
               "money_ratio_delta": -0.8,
               "extra_debt_2025": 1100000,
               "happiness_delta": -28,
@@ -2876,6 +3158,27 @@ window.TW_DATA = {
           ],
           "pi_track": "systemic"
         }
+      },
+      {
+        "id": "EV_2006_card_negotiation",
+        "year": 2006,
+        "year_end": 2006,
+        "category": "finance_society",
+        "regions": [
+          "ALL"
+        ],
+        "title": "卡債風暴與債務協商機制",
+        "summary": "2006 年逼近 80 萬人陷入卡債，其中約 52 萬人連 6 個月最低應繳都付不出；至年底協商 22 萬餘件、平均每件 144 萬元，催債與家庭悲劇成為社會新聞。",
+        "institutional_aftermath": "促成立法院於2007年三讀、2008年4月施行《消費者債務清理條例》，建立平民「更生／清算」機制。",
+        "gameplay_impact": {
+          "happiness_delta": -1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 2006 nearly 800,000 cardholders were in distress, leading to Taiwan's 2008 consumer debt-clearance law.",
+        "sources": [
+          "公視新聞",
+          "台大論文"
+        ]
       },
       {
         "id": "EV_2007_rebar_scandal",
@@ -2889,10 +3192,7 @@ window.TW_DATA = {
         "title": "力霸東森掏空案",
         "summary": "王又曾家族涉長期掏空詐貸集團旗下事業（檢方偵辦起訴規模逾700億元、法院認定逾320億元），引爆中華商銀擠兌風暴，王家7名子女判刑定讞。",
         "institutional_aftermath": "暴露跨業集團交叉持股與監理漏洞，促使金管會強化大股東適格性審查、關係人交易揭露與實質受益人規範。",
-        "gameplay_impact": {
-          "narrative_only": true,
-          "financial_trust_delta": -3
-        },
+        "gameplay_impact": {},
         "sensitive": false,
         "cultural_footnote_en": "The collapse of the Rebar conglomerate sparked a bank run at Chinese Bank and tightened oversight of conglomerate cross-holdings in Taiwan.",
         "sources": [
@@ -2929,21 +3229,22 @@ window.TW_DATA = {
           "ALL"
         ],
         "title": "全球金融海嘯與雷曼連動債風暴",
-        "summary": "2008年9月雷曼兄弟倒閉引爆全球金融海嘯，台灣約10萬名投資人持有連動債嚴重受損，全年台股大跌57.7%，出口與科技業湧現無薪假。",
+        "summary": "2008年9月雷曼兄弟倒閉引爆全球金融海嘯，台灣約10萬名投資人持有連動債嚴重受損，台股全年大跌46%（自高點回落逾五成七），出口與科技業湧現無薪假。",
         "institutional_aftermath": "催生《金融消費者保護法》與銀行理專不當銷售規範，並促使翌年政府推出22K方案因應青年失業潮。",
         "gameplay_impact": {
-          "stock_return_2008": -0.577,
-          "trigger_decision_job": "D10_unpaid_leave"
+          "happiness_delta": -2,
+          "tech_layoff_risk_mult": 1.6,
+          "sme_layoff_risk_mult": 1.5
         },
         "sensitive": false,
-        "cultural_footnote_en": "The 2008 Lehman Brothers collapse wiped out structured notes held by ~100,000 Taiwanese investors, plunged the TAIEX 57.7%, and triggered widespread unpaid leave.",
+        "cultural_footnote_en": "The 2008 Lehman collapse hit ~100,000 Taiwanese structured-note investors; the TAIEX fell 46% for the year amid widespread unpaid leave.",
         "sources": [
           "今周刊",
           "中央銀行年報"
         ],
         "protagonist_involvement": {
           "pi_track": "systemic",
-          "base_prob": 0.1,
+          "base_prob": 0.05,
           "regions": [
             "ALL"
           ],
@@ -2984,7 +3285,6 @@ window.TW_DATA = {
         "summary": "2009年8月莫拉克颱風三天降下整年雨量重創南台灣與花東，釀681死、小林村滅村；同年全台年均失業率攀至5.85%（8月達6.13%），政府推出大專畢業生22K實習方案。",
         "institutional_aftermath": "22K成為世代低薪代名詞；八八風災全面推動原鄉防災撤離與土石流警戒系統升級。",
         "gameplay_impact": {
-          "trigger_decision_south": "D22_major_disaster",
           "happiness_delta_region": -6
         },
         "sensitive": true,
@@ -3002,7 +3302,7 @@ window.TW_DATA = {
         "disaster_year": 2009,
         "protagonist_involvement": {
           "pi_track": "systemic",
-          "base_prob": 0.08,
+          "base_prob": 0.04,
           "regions": [
             "south_kaohsiung",
             "south_tainan",
@@ -3029,35 +3329,80 @@ window.TW_DATA = {
               "force_relocate": true
             },
             {
-              "weight": 0.08,
+              "weight": 0.03,
               "severity": "fatal",
               "narrative": "莫拉克颱風引發大規模山崩與土石流深夜沖毀家園，你在八八風災中不幸罹難。",
               "fatal": true,
               "death_cause": "2009 年莫拉克八八風災"
             }
           ]
-        }
+        },
+        "impact_prob": {
+          "south_kaohsiung": 0.03,
+          "south_tainan": 0.02,
+          "east_islands": 0.02
+        },
+        "disaster_name": "莫拉克風災"
       },
       {
-        "id": "EV_2011_2014_food_safety_storms",
+        "id": "EV_2009_labor_pension_annuity",
+        "year": 2009,
+        "year_end": 2009,
+        "category": "labor_policy",
+        "regions": [
+          "ALL"
+        ],
+        "title": "勞保老年給付年金化",
+        "summary": "2009 年元旦起勞工保險老年給付改採年金制，勞工退休後可按月領取直到終老，不再只能一次領完；請領年齡也依出生年逐步提高至 65 歲。",
+        "institutional_aftermath": "讓勞工有了終身月領的基本保障，但基金長期財務壓力也成為後續改革焦點。",
+        "gameplay_impact": {
+          "happiness_delta": 1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "From January 2009 Taiwan's Labor Insurance old-age benefit could be drawn as a lifetime annuity.",
+        "sources": [
+          "勞動部勞工保險局"
+        ]
+      },
+      {
+        "id": "EV_2011_plasticizer",
         "year": 2011,
-        "year_end": 2014,
+        "year_end": 2011,
         "category": "society_food_safety",
         "regions": [
           "ALL"
         ],
-        "title": "塑化劑、毒澱粉與黑心油食安連環爆",
-        "summary": "2011年爆發起雲劑違法添加塑化劑，接續2013年毒澱粉與2014年劣質餿水油／飼料油風暴，波及全台飲食供應鏈。",
-        "institutional_aftermath": "立法院多次大修《食品安全衛生管理法》重罰刑責、建立食品雲與追溯追蹤系統，並於2014年底成立行政院食品安全辦公室。",
+        "title": "塑化劑風暴",
+        "summary": "2011 年 5 月爆發飲料與食品起雲劑違法添加塑化劑事件，手搖飲、果汁與保健品大規模下架，家長人心惶惶。",
+        "institutional_aftermath": "推動食品添加物管理與源頭追溯，立法院其後多次大修食品衛生管理法規。",
         "gameplay_impact": {
-          "health_delta": -2,
-          "happiness_delta": -3,
-          "food_traceability_improved_after": true
+          "health_delta": -1,
+          "happiness_delta": -1
         },
         "sensitive": false,
-        "cultural_footnote_en": "Successive scandals involving plasticizers (2011) and gutter oil (2014) led to strict food-traceability laws and harsh criminal penalties.",
+        "cultural_footnote_en": "The 2011 plasticizer scandal forced mass recalls of drinks and foods across Taiwan.",
         "sources": [
           "衛福部食藥署法制沿革"
+        ]
+      },
+      {
+        "id": "EV_2012_su_acquittal",
+        "year": 2012,
+        "year_end": 2012,
+        "category": "crime_justice",
+        "regions": [
+          "north_taipei",
+          "ALL"
+        ],
+        "title": "蘇建和案無罪定讞",
+        "summary": "歷經 21 年訴訟，2012 年 8 月法院對蘇建和、劉秉郎、莊林勳三人判決無罪定讞，成為台灣司法史上的指標案件。",
+        "institutional_aftermath": "強化社會對刑求自白、科學鑑識與妥速審判的重視。",
+        "gameplay_impact": {},
+        "sensitive": true,
+        "cultural_footnote_en": "After 21 years, the three defendants in the Hsichih case were acquitted with finality in August 2012.",
+        "sources": [
+          "司法院判決紀錄",
+          "民間司改會史料"
         ]
       },
       {
@@ -3072,10 +3417,7 @@ window.TW_DATA = {
         "title": "洪仲丘事件與白衫軍運動",
         "summary": "義務役下士洪仲丘於退伍前夕疑遭不當禁閉操練致死，引發25萬名民眾走上凱道抗議。",
         "institutional_aftermath": "促成《軍事審判法》歷史性修法，承平時期現役軍人涉案全面回歸普通法院依《刑事訴訟法》審理，終結承平軍法黑箱。",
-        "gameplay_impact": {
-          "unlock_switch": "military_trial_reform",
-          "military_abuse_risk_mult_after": 0.3
-        },
+        "gameplay_impact": {},
         "sensitive": true,
         "cultural_footnote_en": "The 2013 death of conscript Hung Chung-chiu sparked a 250,000-person protest that abolished peacetime military courts in Taiwan.",
         "sources": [
@@ -3109,6 +3451,26 @@ window.TW_DATA = {
           ],
           "pi_track": "incident"
         }
+      },
+      {
+        "id": "EV_2013_toxic_starch",
+        "year": 2013,
+        "year_end": 2013,
+        "category": "society_food_safety",
+        "regions": [
+          "ALL"
+        ],
+        "title": "毒澱粉與食用油混充事件",
+        "summary": "2013 年珍珠、粉圓等食品驗出違法順丁烯二酸澱粉，年底又爆出食用油混充，民眾對在地小吃與大廠品牌的信任同時動搖。",
+        "institutional_aftermath": "《食品衛生管理法》加重罰則並強化食品業者自主檢驗。",
+        "gameplay_impact": {
+          "happiness_delta": -1
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "In 2013 illegally modified starch and adulterated cooking oil shook trust in Taiwan's foods.",
+        "sources": [
+          "衛福部食藥署法制沿革"
+        ]
       },
       {
         "id": "EV_2014_kaohsiung_gas_explosion",
@@ -3248,6 +3610,27 @@ window.TW_DATA = {
         }
       },
       {
+        "id": "EV_2014_gutter_oil",
+        "year": 2014,
+        "year_end": 2014,
+        "category": "society_food_safety",
+        "regions": [
+          "ALL"
+        ],
+        "title": "劣質油風暴",
+        "summary": "2014 年 9 月爆發餿水油與飼料油混充食用油事件，波及糕餅、夜市與連鎖餐飲，消費者發起抵制大廠。",
+        "institutional_aftermath": "2014年底行政院成立食品安全辦公室，並加速推動食品雲與追溯追蹤系統。",
+        "gameplay_impact": {
+          "health_delta": -1,
+          "happiness_delta": -2
+        },
+        "sensitive": false,
+        "cultural_footnote_en": "The 2014 gutter-oil scandal triggered boycotts and led to the Cabinet's Office of Food Safety.",
+        "sources": [
+          "衛福部食藥署法制沿革"
+        ]
+      },
+      {
         "id": "EV_2015_transasia_formosa_fun_coast",
         "year": 2015,
         "year_end": 2015,
@@ -3259,9 +3642,7 @@ window.TW_DATA = {
         "title": "復興航空 235 空難與八仙樂園粉塵爆炸",
         "summary": "2015年2月復興航空班機墜入基隆河釀43死；6月八仙樂園彩色派對粉塵爆炸釀15死、484人燒燙傷，為921後傷者最多的單一意外。",
         "institutional_aftermath": "全面禁止大型活動使用可燃性微細粉末，並大幅提升大型燒燙傷急救跨院調度能力。",
-        "gameplay_impact": {
-          "youth_accident_alert_2015": true
-        },
+        "gameplay_impact": {},
         "sensitive": true,
         "cultural_footnote_en": "The 2015 Formosa Fun Coast color-powder explosion injured 484 young people, leading to a nationwide ban on flammable powder at public events.",
         "sources": [
@@ -3339,8 +3720,7 @@ window.TW_DATA = {
         "summary": "2016年3月台北內湖發生4歲女童（小燈泡）遇害案，引發全台對精神衛生體系與高風險家庭斷裂的深刻檢討。",
         "institutional_aftermath": "促使行政院啟動跨部會「強化社會安全網」計畫，結合衛政、社政與警政追蹤高風險個案，並推動被害人司法參與。",
         "gameplay_impact": {
-          "happiness_delta_north_taipei": -2,
-          "social_safety_net_level": 1
+          "happiness_delta_north_taipei": -2
         },
         "sensitive": true,
         "cultural_footnote_en": "The tragic 2016 Neihu attack catalyzed Taiwan's cross-ministry 'Strengthening the Social Safety Net' mental-health and social-work initiative.",
@@ -3360,7 +3740,6 @@ window.TW_DATA = {
         "summary": "2019年5月24日《司法院釋字第七四八號解釋施行法》正式生效，台灣成為亞洲第一個同性婚姻合法化國家。",
         "institutional_aftermath": "保障同性伴侶結婚、財產繼承與後續收養權益，成為台灣人權指標里程碑。",
         "gameplay_impact": {
-          "unlock_switch": "same_sex_marriage",
           "happiness_delta": 2
         },
         "sensitive": false,
@@ -3370,22 +3749,21 @@ window.TW_DATA = {
         ]
       },
       {
-        "id": "EV_2020_2022_covid19",
+        "id": "EV_2020_covid_border",
         "year": 2020,
-        "year_end": 2022,
+        "year_end": 2020,
         "category": "epidemic_economy",
         "regions": [
           "ALL"
         ],
-        "title": "COVID-19 世紀疫情",
-        "summary": "2020年台股一度跌30%後V轉、定存破1%；2021年三級警戒無薪假達31,980人（餐飲住宿最多）；2022年共存浪潮累計確診逾半數國人，2022年死亡14,667人使平均壽命減1.02歲。",
-        "institutional_aftermath": "加速遠距辦公、數位轉型與外送經濟普及，也突顯台灣半導體在全球供應鏈的關鍵地位。",
+        "title": "COVID-19 爆發：口罩實名制與邊境管制",
+        "summary": "2020 年 COVID-19 席捲全球，台灣以邊境管制、口罩實名制與疫調守住社區；台股 3 月一度重挫約三成後 V 轉，一年期定存利率跌破 1%。",
+        "institutional_aftermath": "建立社區防疫習慣，也突顯台灣半導體在全球供應鏈的關鍵地位。",
         "gameplay_impact": {
-          "trigger_decision": "D23_pandemic_dilemma",
-          "elderly_mortality_mult_2022": 1.15
+          "happiness_delta": -2
         },
         "sensitive": true,
-        "cultural_footnote_en": "Taiwan kept COVID-19 largely at bay through 2020–21 before a major Omicron wave in 2022 temporarily lowered national life expectancy by 1.02 years.",
+        "cultural_footnote_en": "In 2020 Taiwan kept COVID-19 largely at bay with border controls and mask rationing.",
         "sources": [
           "數位時代",
           "台灣英文新聞",
@@ -3453,29 +3831,109 @@ window.TW_DATA = {
         }
       },
       {
-        "id": "EV_2022_2025_scam_wave_and_imb",
+        "id": "EV_2021_covid_level3",
+        "year": 2021,
+        "year_end": 2021,
+        "category": "epidemic_economy",
+        "regions": [
+          "ALL"
+        ],
+        "title": "全國三級警戒與無薪假",
+        "summary": "2021 年 5 月社區疫情升溫，全國進入三級警戒，學校停課、餐廳禁止內用，減班休息人數一度達 31,980 人，以餐飲住宿最多。",
+        "institutional_aftermath": "加速遠距辦公、外送與線上課程普及，政府發放多輪紓困。",
+        "gameplay_impact": {
+          "happiness_delta": -3
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "Nationwide Level 3 restrictions in May 2021 closed schools and dine-in, peaking at 31,980 workers on reduced hours.",
+        "sources": [
+          "中央流行疫情指揮中心",
+          "勞動部"
+        ]
+      },
+      {
+        "id": "EV_2022_fake_job_scam",
         "year": 2022,
-        "year_end": 2025,
+        "year_end": 2022,
         "category": "crime_finance",
         "regions": [
           "ALL"
         ],
-        "title": "數位投資詐騙浪潮、台版柬埔寨案與 im.B 吸金案",
-        "summary": "跨國假求職與假投資詐騙氾濫，爆發台版柬埔寨人頭戶拘禁案與2023年im.B假債權吸金逾25億元（逾5,000人受害）；2025年全台詐騙受理16.2萬件、財損近900億元。",
-        "institutional_aftermath": "立法院於2024年7月三讀通過「打詐新四法」，重懲高額詐欺、強化科技偵查並限制人頭帳戶金融權限。",
+        "title": "假求職真詐騙：海外園區與台版柬埔寨",
+        "summary": "2022 年跨國假求職詐騙氾濫，有青年被騙往東南亞園區，國內也爆發拘禁人頭帳戶提供者的「台版柬埔寨」案，家長人人自危。",
+        "institutional_aftermath": "各級學校與機場加強宣導攔阻，檢警擴大查緝人頭帳戶。",
         "gameplay_impact": {
-          "trigger_decision": "D14_financial_trap",
-          "unlock_switch_2024": "anti_fraud_4_acts"
+          "happiness_delta": -1
         },
         "sensitive": true,
-        "cultural_footnote_en": "Annual scam losses nearing NT$90B prompted Taiwan's 2024 'Four Anti-Fraud Acts,' dramatically raising penalties and bank withdrawal verifications.",
+        "cultural_footnote_en": "In 2022 fake overseas job scams and a domestic confinement case shocked Taiwan.",
         "sources": [
           "股感",
           "TVBS",
           "法務部打詐新四法"
+        ]
+      },
+      {
+        "id": "EV_2022_covid_omicron",
+        "year": 2022,
+        "year_end": 2022,
+        "category": "epidemic_economy",
+        "regions": [
+          "ALL"
+        ],
+        "title": "Omicron 共存浪潮",
+        "summary": "2022 年政府轉向與病毒共存，Omicron 疫情快速擴散，累計確診逾半數國人；全年因 COVID-19 死亡 14,667 人，平均壽命減少 1.02 歲。",
+        "institutional_aftermath": "高齡與長照機構防疫、口服抗病毒藥物配置成為檢討重點。",
+        "gameplay_impact": {
+          "happiness_delta": -2,
+          "health_delta": -1
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "The 2022 Omicron wave infected over half the population and cut life expectancy by 1.02 years.",
+        "sources": [
+          "衛生福利部統計處"
+        ]
+      },
+      {
+        "id": "EV_2023_metoo_taiwan",
+        "year": 2023,
+        "year_end": 2023,
+        "category": "society_rights",
+        "regions": [
+          "ALL"
+        ],
+        "title": "台灣 #MeToo 浪潮與性平三法修法",
+        "summary": "2023年中起由政壇延燒至演藝、媒體、學界與職場的集體性騷擾揭露運動，打破多年職場沉默文化。",
+        "institutional_aftermath": "立法院於2023年7月火速修訂「性平三法」並於2024年3月8日全面上路，加重權勢性騷刑責與雇主防治義務。",
+        "gameplay_impact": {},
+        "sensitive": true,
+        "cultural_footnote_en": "Taiwan's 2023 #MeToo wave swept politics, media, and workplaces, prompting sweeping amendments to three gender-equality laws effective March 2024.",
+        "sources": [
+          "勞動部與衛福部性平三法專區"
+        ]
+      },
+      {
+        "id": "EV_2023_imb_scam",
+        "year": 2023,
+        "year_end": 2023,
+        "category": "crime_finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "im.B 吸金案與網路假投資",
+        "summary": "2023 年 im.B 假債權平台吸金逾 25 億元案爆發，逾 5,000 人受害；通訊軟體上的飆股群組與假投資廣告同時氾濫。",
+        "institutional_aftermath": "立法院於2024年7月三讀通過「打詐新四法」，重懲高額詐欺、強化科技偵查並限制人頭帳戶金融權限。",
+        "gameplay_impact": {
+          "happiness_delta": -1
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "The 2023 im.B peer-to-peer fraud left over 5,000 victims and spurred Taiwan's 2024 anti-fraud acts.",
+        "sources": [
+          "法務部打詐新四法",
+          "中央社"
         ],
         "protagonist_involvement": {
-          "base_prob": 0.1,
+          "base_prob": 0.05,
           "regions": [
             "ALL"
           ],
@@ -3513,27 +3971,6 @@ window.TW_DATA = {
         }
       },
       {
-        "id": "EV_2023_metoo_taiwan",
-        "year": 2023,
-        "year_end": 2024,
-        "category": "society_rights",
-        "regions": [
-          "ALL"
-        ],
-        "title": "台灣 #MeToo 浪潮與性平三法修法",
-        "summary": "2023年中起由政壇延燒至演藝、媒體、學界與職場的集體性騷擾揭露運動，打破多年職場沉默文化。",
-        "institutional_aftermath": "立法院於2023年7月火速修訂「性平三法」並於2024年3月8日全面上路，加重權勢性騷刑責與雇主防治義務。",
-        "gameplay_impact": {
-          "unlock_switch_2024": "gender_equality_3_acts",
-          "workplace_harassment_protection": true
-        },
-        "sensitive": true,
-        "cultural_footnote_en": "Taiwan's 2023 #MeToo wave swept politics, media, and workplaces, prompting sweeping amendments to three gender-equality laws effective March 2024.",
-        "sources": [
-          "勞動部與衛福部性平三法專區"
-        ]
-      },
-      {
         "id": "EV_2024_hualien_quake_housing_peak",
         "year": 2024,
         "year_end": 2024,
@@ -3545,10 +3982,7 @@ window.TW_DATA = {
         "title": "0403 花蓮規模 7.2 強震與房價所得比創高",
         "summary": "4月3日花蓮發生規模7.2強震（當日至少9死963傷、重創東部觀光與太魯閣）；同年第三季全國房價所得比達10.82倍歷史高點。",
         "institutional_aftermath": "展現921後建築耐震升級的減災成效，同時凸顯居住負擔與東部交通韌性課題。",
-        "gameplay_impact": {
-          "trigger_decision_east": "D22_major_disaster",
-          "housing_burden_peak": true
-        },
+        "gameplay_impact": {},
         "sensitive": false,
         "cultural_footnote_en": "An M7.2 quake struck Hualien in April 2024—causing far fewer deaths than 1999 thanks to upgraded building codes—while housing affordability hit a record low.",
         "sources": [
@@ -3560,7 +3994,7 @@ window.TW_DATA = {
         ],
         "disaster_year": 2024,
         "protagonist_involvement": {
-          "base_prob": 0.08,
+          "base_prob": 0.04,
           "regions": [
             "east_islands"
           ],
@@ -3593,7 +4027,7 @@ window.TW_DATA = {
               "happiness_delta": -16
             },
             {
-              "weight": 0.07,
+              "weight": 0.008,
               "severity": "fatal",
               "narrative": "0403 花蓮規模 7.2 強震襲擊時行經落石路段，不幸於強震中罹難。",
               "fatal": true,
@@ -3601,10 +4035,14 @@ window.TW_DATA = {
             }
           ],
           "pi_track": "systemic"
-        }
+        },
+        "impact_prob": {
+          "east_islands": 0.03
+        },
+        "disaster_name": "0403 花蓮強震"
       },
       {
-        "id": "EV_2023_2025_kaikai_case",
+        "id": "EV_2025_kaikai_verdict",
         "year": 2025,
         "year_end": 2025,
         "category": "crime_society",
@@ -3616,7 +4054,6 @@ window.TW_DATA = {
         "summary": "2023年底台北1歲男童在出養等待期間遭保母凌虐致死，暴露跨縣市社福訪視斷裂；2025年5月國民法官法庭判處主嫌無期徒刑。",
         "institutional_aftermath": "引發大規模公民檢討托育社安網；立法院於2025年7月18日三讀通過「剴剴條款」（增訂刑法第272條之1、修正第286條），明定凌虐未滿7歲幼童致死最重可判死刑。",
         "gameplay_impact": {
-          "childcare_anxiety_delta": 3,
           "narrative_tag": "citizen_judges_era"
         },
         "sensitive": true,
@@ -3641,8 +4078,7 @@ window.TW_DATA = {
         "institutional_aftermath": "形成科技業財富效應與傳產減班、少子高齡化並存的「K型台灣」時代面貌。",
         "gameplay_impact": {
           "tech_wage_bonus": 1.12,
-          "trad_mfg_unpaid_leave_prob": 0.08,
-          "elderly_care_trigger_mult": 1.5
+          "trad_mfg_unpaid_leave_prob": 0.08
         },
         "sensitive": false,
         "cultural_footnote_en": "In 2025, Taiwan officially entered a 'super-aged' society (>20% aged 65+) with a 0.695 fertility rate, while AI exports drove 7.37% GDP growth despite tariff pressures on traditional industries.",
@@ -3654,7 +4090,31 @@ window.TW_DATA = {
         "impact_regions": [
           "east_islands"
         ],
-        "disaster_year": 2025
+        "disaster_year": 2025,
+        "impact_prob": {
+          "east_islands": 0.012
+        },
+        "disaster_name": "光復鄉洪災"
+      },
+      {
+        "id": "EV_2025_scam_record",
+        "year": 2025,
+        "year_end": 2025,
+        "category": "crime_finance",
+        "regions": [
+          "ALL"
+        ],
+        "title": "詐騙財損近 900 億元",
+        "summary": "2025 年全台詐騙受理 16.2 萬件、財損近 900 億元，假投資與深偽影片成為主要手法，銀行臨櫃關懷提問成為日常。",
+        "institutional_aftermath": "打詐新四法上路後持續檢討平台責任與跨境偵查。",
+        "gameplay_impact": {
+          "happiness_delta": -1
+        },
+        "sensitive": true,
+        "cultural_footnote_en": "Taiwan logged 162,000 scam cases and nearly NT$90 billion in losses in 2025.",
+        "sources": [
+          "內政部警政署165"
+        ]
       },
       {
         "id": "EV_2026_taiex_50k_uni_closure",
@@ -3668,8 +4128,7 @@ window.TW_DATA = {
         "summary": "2026年1月台美關稅談判降至15%緩解傳產壓力；AI超級週期推升台股於10月盤中觸及49,968.92點新高，但少子化浪潮亦使中華大學等私立大專於2026年宣布停招。",
         "institutional_aftermath": "資本市場繁榮與高教退場潮並存，凸顯台灣人口少子化與產業集中化轉折。",
         "gameplay_impact": {
-          "tech_wage_bonus": 1.05,
-          "private_uni_closure_prob": 0.05
+          "tech_wage_bonus": 1.05
         },
         "sensitive": false,
         "cultural_footnote_en": "In 2026, tariff relief and the AI boom briefly lifted Taiwan's stock index near 50,000, even as declining births forced private universities like Chung Hua University to halt admissions.",
@@ -3737,7 +4196,6 @@ window.TW_DATA = {
             "label": "念高職或五專學一技之長",
             "effects": {
               "knowledge": 4,
-              "early_job_ready": true,
               "track": "vocational"
             }
           },
@@ -3797,10 +4255,6 @@ window.TW_DATA = {
             "label": "電資／理工／資訊工程學門",
             "effects": {
               "starting_pay_mult": 1.12,
-              "unlock_careers": [
-                "tech_semi",
-                "software"
-              ],
               "happiness": -3
             }
           },
@@ -3809,10 +4263,6 @@ window.TW_DATA = {
             "label": "醫學／牙藥／護理衛生學門",
             "effects": {
               "starting_pay_mult": 1.14,
-              "unlock_careers": [
-                "medical",
-                "healthcare"
-              ],
               "happiness": -4
             }
           },
@@ -3821,19 +4271,14 @@ window.TW_DATA = {
             "label": "法政／商管／會計／人文藝術學門",
             "effects": {
               "happiness": 4,
-              "starting_pay_mult": 1.0,
-              "private_uni_closure_risk_after_2022": 0.06
+              "starting_pay_mult": 1.0
             }
           },
           {
             "key": "public_funded",
             "label": "軍警校或公費師範體系",
             "effects": {
-              "tuition_free": true,
-              "unlock_careers": [
-                "civil_servant_teacher_military"
-              ],
-              "job_stability": 0.99
+              "tuition_free": true
             }
           }
         ]
@@ -3862,17 +4307,18 @@ window.TW_DATA = {
           },
           {
             "key": "transfer_or_grad",
-            "label": "先入學，日後再拚轉學考或洗研究所",
+            "label": "先就讀錄取的後段校系，日後再拚轉學考或研究所",
             "effects": {
-              "knowledge": 3,
+              "enroll_backup_uni": true,
+              "knowledge": 2,
               "happiness": -1
-            }
+            },
+            "requires_year_min": 1997
           },
           {
             "key": "work_or_military",
             "label": "直接就業或先去當兵",
             "effects": {
-              "early_work_years": 1,
               "knowledge": -2
             }
           }
@@ -3902,10 +4348,7 @@ window.TW_DATA = {
             "key": "rd_substitute",
             "label": "申請研發替代役或預官",
             "requires_edu": "master_or_stem",
-            "effects": {
-              "career_gap_months": 0,
-              "tech_entry_bonus": 0.3
-            },
+            "effects": {},
             "era_labels": [
               {
                 "max_year": 1999,
@@ -3956,7 +4399,6 @@ window.TW_DATA = {
             "label": "出國留學（需Q4–Q5資源或學貸）",
             "effects": {
               "money_delta_ratio": -0.45,
-              "unlock_overseas_career": true,
               "long_term_wage_mult": 1.14
             }
           },
@@ -3964,7 +4406,6 @@ window.TW_DATA = {
             "key": "direct_work",
             "label": "直接進入職場",
             "effects": {
-              "early_work_years": 2,
               "era_2009_22k_risk": 0.45
             }
           }
@@ -3982,6 +4423,10 @@ window.TW_DATA = {
           "region_not_in": [
             "north_taipei",
             "north_hsinchu"
+          ],
+          "career_not_in": [
+            "car_civil_teacher",
+            "car_farmer_fisher"
           ]
         },
         "options": [
@@ -3996,7 +4441,22 @@ window.TW_DATA = {
               "wage_mult": 1.25,
               "rent_cost_mult": 2.2,
               "relationships": -6
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1979,
+                "label": "離鄉北上，到台北或桃園的工廠、商行找頭路"
+              },
+              {
+                "min_year": 1980,
+                "max_year": 1999,
+                "label": "離鄉北上，到雙北公司行號或新竹科學園區打拚"
+              },
+              {
+                "min_year": 2000,
+                "label": "北漂雙北或赴桃竹苗科學園區打拚"
+              }
+            ]
           },
           {
             "key": "stay_home",
@@ -4007,6 +4467,16 @@ window.TW_DATA = {
               "happiness": 4,
               "career_ceiling_local": true
             }
+          }
+        ],
+        "era_titles": [
+          {
+            "max_year": 1999,
+            "label": "離鄉北上，還是留在家鄉？"
+          },
+          {
+            "min_year": 2000,
+            "label": "北漂還是留鄉？"
           }
         ]
       },
@@ -4049,22 +4519,13 @@ window.TW_DATA = {
             "key": "civil_service",
             "label": "全職備考高普考／國營事業",
             "effects": {
-              "exam_prep_years": 1,
-              "pass_prob_base": 0.25,
-              "layoff_prob_if_pass": 0.0
+              "exam_prep_years": 1
             }
           },
           {
             "key": "family_biz_startup",
             "label": "接家業或創業當頭家",
-            "effects": {
-              "wage_variance_high": true,
-              "tariff_wto_exposure": true,
-              "region_bonus": [
-                "central",
-                "south_tainan"
-              ]
-            }
+            "effects": {}
           }
         ]
       },
@@ -4100,13 +4561,28 @@ window.TW_DATA = {
             26,
             45
           ],
-          "requires_working_adult": true
+          "requires_working_adult": true,
+          "career_in": [
+            "car_export_sales",
+            "car_office_white_collar",
+            "car_hsinchu_semi",
+            "car_software_remote",
+            "car_finance_broker"
+          ]
         },
         "era_variants": [
           {
+            "variant_id": "sea_taigan",
+            "year_range": [
+              1987,
+              1992
+            ],
+            "label_context": "公司到東南亞設廠，詢問你是否願意外派"
+          },
+          {
             "variant_id": "china_taigan",
             "year_range": [
-              1990,
+              1993,
               2019
             ],
             "label_context": "西進中國大陸或赴東南亞設廠擔任台幹"
@@ -4181,6 +4657,16 @@ window.TW_DATA = {
               }
             ]
           }
+        ],
+        "era_titles": [
+          {
+            "max_year": 1999,
+            "label": "離鄉多年：要不要搬回老家？"
+          },
+          {
+            "min_year": 2000,
+            "label": "北漂十年的返鄉掙扎"
+          }
         ]
       },
       {
@@ -4198,7 +4684,15 @@ window.TW_DATA = {
             2021,
             2025
           ],
-          "requires_working_adult": true
+          "requires_working_adult": true,
+          "career_not_in": [
+            "car_civil_teacher",
+            "car_doctor_pharma",
+            "car_lawyer_cpa",
+            "car_cpa",
+            "car_pharma_medtech",
+            "car_healthcare_ltc"
+          ]
         },
         "options": [
           {
@@ -4232,11 +4726,18 @@ window.TW_DATA = {
             "key": "borrow_credit",
             "label": "刷卡或信貸周轉撐過景氣谷底",
             "effects": {
-              "debt_added_ratio": 0.35,
-              "debt_trap_flag": true
+              "debt_added_ratio": 0.35
             }
           }
-        ]
+        ],
+        "self_employed_variant": {
+          "title": "景氣寒冬：訂單與客源驟減",
+          "labels": {
+            "gig_side_job": "縮減規模、兼差接零工撐過淡季",
+            "resign_retrain": "收掉生意或暫停耕作，轉行找工作",
+            "borrow_credit": "借款周轉撐過景氣谷底"
+          }
+        }
       },
       {
         "id": "D11_health_red_flags",
@@ -4269,7 +4770,29 @@ window.TW_DATA = {
               "midlife_mortality_mult": 1.35
             }
           }
-        ]
+        ],
+        "career_labels": {
+          "default": [
+            "調整步調、準時下班並規律運動與定期健檢",
+            "趁還能拚繼續加班多賺一點"
+          ],
+          "tech": [
+            "降薪換準時下班、規律運動與定期健檢",
+            "趁還能拚繼續加班領分紅"
+          ],
+          "farm": [
+            "減少耕作面積、規律看診與休息",
+            "農忙照舊，先撐過這一季"
+          ],
+          "civil": [
+            "申請調整職務、規律運動與定期健檢",
+            "硬撐年資與考績，繼續加班"
+          ],
+          "self": [
+            "少接一些單，規律運動與定期健檢",
+            "趁訂單多繼續日夜趕工"
+          ]
+        }
       },
       {
         "id": "D12_first_pot_of_gold",
@@ -4287,8 +4810,7 @@ window.TW_DATA = {
             "key": "time_deposit",
             "label": "銀行定存或儲蓄險（依當年代利率計算）",
             "effects": {
-              "invest_style": "deposit",
-              "volatility": 0.01
+              "invest_style": "deposit"
             },
             "era_labels": [
               {
@@ -4310,8 +4832,7 @@ window.TW_DATA = {
             "key": "etf_dca",
             "label": "定期定額投資台股大盤",
             "effects": {
-              "invest_style": "index_etf",
-              "long_term_return_bonus": 0.07
+              "invest_style": "index_etf"
             },
             "era_labels": [
               {
@@ -4343,8 +4864,7 @@ window.TW_DATA = {
             "key": "margin_speculation",
             "label": "融資槓桿／聽明牌重壓飆股",
             "effects": {
-              "invest_style": "leverage",
-              "crash_wipeout_prob": 0.65
+              "invest_style": "leverage"
             },
             "era_labels": [
               {
@@ -4443,7 +4963,13 @@ window.TW_DATA = {
               "happiness": -1
             }
           }
-        ]
+        ],
+        "transit_year_by_region": {
+          "north_taipei": 1996,
+          "south_kaohsiung": 2008,
+          "north_hsinchu": 2017,
+          "central": 2021
+        }
       },
       {
         "id": "D13_buying_home",
@@ -4463,7 +4989,6 @@ window.TW_DATA = {
             "effects": {
               "homeowner": true,
               "mortgage_dti": 0.45,
-              "inflation_hedge": true,
               "happiness": 6
             },
             "requires_home_afford": "core",
@@ -4479,7 +5004,12 @@ window.TW_DATA = {
               },
               {
                 "min_year": 2023,
-                "label": "咬牙買蛋黃區（搭配新青安扛 40 年房貸）"
+                "label": "咬牙買蛋黃區（搭配新青安扛 40 年房貸）",
+                "max_year": 2026
+              },
+              {
+                "min_year": 2027,
+                "label": "咬牙買蛋黃區（搭配青安優惠長年期房貸）"
               }
             ]
           },
@@ -4498,8 +5028,7 @@ window.TW_DATA = {
             "label": "堅持租屋、把頭期款投入股市",
             "effects": {
               "homeowner": false,
-              "liquid_invest_bonus": true,
-              "elderly_rent_rejection_risk": 0.3
+              "liquid_invest_bonus": true
             }
           }
         ]
@@ -4517,6 +5046,16 @@ window.TW_DATA = {
         },
         "era_variants": [
           {
+            "variant_id": "roscas_1970s",
+            "year_range": [
+              1970,
+              1984
+            ],
+            "title": "親友招攬高息互助會（標會）",
+            "crash_year": "immediate_or_next_year",
+            "source_note": "街坊會頭招會，利息比銀行高，但會頭捲款倒會的消息也時有所聞"
+          },
+          {
             "variant_id": "hongyuan_1988",
             "year_range": [
               1985,
@@ -4525,6 +5064,16 @@ window.TW_DATA = {
             "title": "親友力推「鴻源機構」月息 4 分",
             "crash_year": 1990,
             "source_note": "街頭巷尾瘋傳地下投資公司月息 4 分，許多鄰居同事爭相跟進（風險與後果尚不明朗）"
+          },
+          {
+            "variant_id": "unlisted_1995",
+            "year_range": [
+              1992,
+              2003
+            ],
+            "title": "未上市股票與投顧老師明牌",
+            "crash_year": "immediate_or_next_year",
+            "source_note": "盤商兜售未上市科技股，第四台投顧老師天天報明牌"
           },
           {
             "variant_id": "dual_card_2005",
@@ -4547,6 +5096,16 @@ window.TW_DATA = {
             "source_note": "銀行理專主打海外連動債『高配息、低波動』，吸引大批定存族解約轉買"
           },
           {
+            "variant_id": "crypto_2015",
+            "year_range": [
+              2015,
+              2021
+            ],
+            "title": "虛擬貨幣與海外高息投資說明會",
+            "crash_year": "immediate_or_next_year",
+            "source_note": "標榜保證獲利的代幣與海外平台在說明會與社群間流傳"
+          },
+          {
             "variant_id": "scam_2024",
             "year_range": [
               2022,
@@ -4555,6 +5114,16 @@ window.TW_DATA = {
             "title": "飆股群組／im.B「保本高息」平台邀約",
             "crash_year": "immediate_or_next_year",
             "source_note": "通訊軟體飆股群組與高息債權平台盛行，主打穩賺不賠話術"
+          },
+          {
+            "variant_id": "deepfake_2027",
+            "year_range": [
+              2027,
+              2060
+            ],
+            "title": "AI 深偽名人推薦的「保證獲利」投資",
+            "crash_year": "immediate_or_next_year",
+            "source_note": "以假亂真的名人影片與客服機器人誘導匯款，真假越來越難分辨"
           }
         ],
         "options": [
@@ -4629,9 +5198,7 @@ window.TW_DATA = {
           {
             "key": "hold_diamond",
             "label": "蓋牌續抱度過股災（結果依歷史年份分化）",
-            "effects": {
-              "hold_through_cycle": true
-            },
+            "effects": {},
             "era_labels": [
               {
                 "max_year": 2007,
@@ -4652,8 +5219,7 @@ window.TW_DATA = {
             "key": "buy_the_dip",
             "label": "動用預備金進場抄底",
             "effects": {
-              "buy_dip_ratio": 0.4,
-              "cash_buffer_risk": true
+              "buy_dip_ratio": 0.4
             }
           }
         ]
@@ -4710,11 +5276,7 @@ window.TW_DATA = {
             "key": "self_pay_advanced",
             "label": "動用存款選用自費先進療程（復原最佳、大幅壓低致死與失能風險）",
             "requires_med_afford": true,
-            "effects": {
-              "cost_ratio_pre_1995": 0.85,
-              "cost_ratio_post_1995": 0.25,
-              "survival_bonus": 0.35
-            },
+            "effects": {},
             "era_labels": [
               {
                 "max_year": 2000,
@@ -4731,19 +5293,13 @@ window.TW_DATA = {
             "label": "存款不夠——忍痛賣房變現籌措救命自費療程（僅有房者可選）",
             "requires_homeowner_for_med": true,
             "effects": {
-              "sell_home_medical": true,
-              "survival_bonus": 0.3,
               "happiness": -10
             }
           },
           {
             "key": "standard_nhi",
             "label": "無力負擔自費，改採基礎保守治療（存款拮据時有殘疾失能與病情惡化早逝風險）",
-            "effects": {
-              "cost_ratio_pre_1995": 0.35,
-              "cost_ratio_post_1995": 0.05,
-              "inadequate_med_risk": true
-            },
+            "effects": {},
             "era_labels": [
               {
                 "max_year": 1994,
@@ -4855,7 +5411,6 @@ window.TW_DATA = {
             "label": "維持同居或不婚",
             "effects": {
               "married": false,
-              "financial_autonomy": true,
               "old_age_loneliness_risk": 0.15
             }
           }
@@ -4878,7 +5433,6 @@ window.TW_DATA = {
             "label": "生育下一代，迎接家庭新成員",
             "effects": {
               "children_delta": 1,
-              "annual_child_cost_years": 22,
               "subsidy_post_2026_twd": 100000,
               "old_age_support": 10
             },
@@ -4935,7 +5489,6 @@ window.TW_DATA = {
             "key": "move_out_counseling",
             "label": "搬離婆家／夫家，尋求溝通修復關係",
             "effects": {
-              "rent_cost_added": true,
               "repair_prob": 0.65
             },
             "era_labels": [
@@ -4946,6 +5499,16 @@ window.TW_DATA = {
               {
                 "min_year": 1990,
                 "label": "搬離婆家／夫家並尋求專業婚姻諮商修復關係"
+              }
+            ],
+            "era_labels_male": [
+              {
+                "max_year": 1989,
+                "label": "帶著妻小搬出父母家另組小家庭，並請親友從中協調"
+              },
+              {
+                "min_year": 1990,
+                "label": "搬出父母家、分擔家務並尋求專業婚姻諮商修復關係"
               }
             ]
           },
@@ -4989,7 +5552,6 @@ window.TW_DATA = {
             "key": "private_cram",
             "label": "送私立名校與全科課後補習",
             "effects": {
-              "annual_expense_mult": 1.35,
               "child_mobility_bonus": 0.25
             },
             "requires_cram_afford": true,
@@ -5105,8 +5667,7 @@ window.TW_DATA = {
             "key": "hire_caregiver",
             "label": "聘請專業看護或安排入住養護機構",
             "effects": {
-              "monthly_care_cost_twd_2025": 35000,
-              "keep_job": true
+              "monthly_care_cost_twd_2025": 35000
             },
             "requires_caregiver_afford": true,
             "era_labels": [
@@ -5170,16 +5731,16 @@ window.TW_DATA = {
         "options": [
           {
             "key": "standard_retire",
-            "label": "屆齡領勞保／勞退（或公教月退）退休",
+            "label": "辦理退休，開始領取老年給付／退休金",
             "effects": {
               "retired": true,
-              "health": 8,
-              "pension_active": true
-            }
+              "health": 8
+            },
+            "requires_pension_age": true
           },
           {
             "key": "second_career",
-            "label": "退而不休／二度就業對抗長壽通膨",
+            "label": "先不退，轉任較輕鬆的工作（收入減少，幾年後再決定）",
             "effects": {
               "retired": false,
               "income_mult": 0.55,
@@ -5226,7 +5787,6 @@ window.TW_DATA = {
             "label": "簽署《病主法》預立醫療決定（拒絕無效插管）並交代身後事",
             "effects": {
               "happiness": 8,
-              "end_of_life_dignity": true,
               "terminal_cost_mult": 0.4
             }
           },
@@ -5297,7 +5857,6 @@ window.TW_DATA = {
             "label": "動用存款全額資助子女赴海外留學圓夢（需流動資產達門檻）",
             "requires_child_abroad_cash": true,
             "effects": {
-              "fund_child_abroad_cash": true,
               "happiness": 10,
               "relationships": 8
             }
@@ -5307,7 +5866,6 @@ window.TW_DATA = {
             "label": "增貸或變賣部分房產／退休老本送子女出國（需有足夠房產淨值）",
             "requires_child_abroad_home": true,
             "effects": {
-              "fund_child_abroad_mortgage": true,
               "happiness": 6,
               "relationships": 8,
               "health": -4
@@ -5317,7 +5875,6 @@ window.TW_DATA = {
             "key": "cannot_afford_abroad",
             "label": "存款與薪資有限，只能婉拒留學、讓子女留在台灣升學或自行申貸",
             "effects": {
-              "record_child_abroad_barrier": true,
               "happiness": -7,
               "relationships": -3
             }
@@ -5347,7 +5904,6 @@ window.TW_DATA = {
             "label": "向親友借錢周轉／申請房貸寬限硬撐不賣房（需人際 ≥ 60 或家境 Q4 以上）",
             "requires_borrow_rescue": true,
             "effects": {
-              "borrow_to_keep_home": true,
               "happiness": -12,
               "health": -8,
               "relationships": -6
@@ -5357,7 +5913,6 @@ window.TW_DATA = {
             "key": "foreclosure_auction",
             "label": "無力再繳本息，房屋遭銀行低價法拍（資產大幅折損並留存債務）",
             "effects": {
-              "home_foreclosed": true,
               "happiness": -28,
               "health": -10
             }
@@ -5748,9 +6303,24 @@ window.TW_DATA = {
         "cram_school_cost_ratio": 0.04,
         "female_early_work_prob_q1_q2": 0.45,
         "flavor_events": [
-          "國小下課後留校寫完滿滿一疊測驗卷，放學天色都黑了。",
-          "同學家裡靠賣菜供哥哥讀省中，姊姊國中畢業就進成衣廠貼補家用。",
-          "鎮上只有幾家書店，考前大家輪流傳抄油印的考古題講義。"
+          {
+            "text": "國小下課後留校寫完滿滿一疊測驗卷，放學天色都黑了。",
+            "min_age": 7,
+            "max_age": 12,
+            "requires_student": true
+          },
+          {
+            "text": "同學家裡靠賣菜供哥哥讀省中，姊姊國中畢業就進成衣廠貼補家用。",
+            "min_age": 10,
+            "max_age": 17,
+            "requires_student": true
+          },
+          {
+            "text": "鎮上只有幾家書店，考前大家輪流傳抄油印的考古題講義。",
+            "min_age": 10,
+            "max_age": 18,
+            "requires_student": true
+          }
         ]
       },
       {
@@ -5766,9 +6336,24 @@ window.TW_DATA = {
         "cram_school_cost_ratio": 0.08,
         "female_early_work_prob_q1_q2": 0.18,
         "flavor_events": [
-          "每天放學背著沉重書包擠公車去補習街搶前排座位，手裡抓著十元麵包當晚餐。",
-          "考上國立五專讓全家族放鞭炮慶祝，長輩說學一技之長最實在。",
-          "聯考倒數百日，全班在教室後方貼滿紅紙誓師，夜晚路燈下全是背英文單字的身影。"
+          {
+            "text": "每天放學背著沉重書包擠公車去補習街搶前排座位，手裡抓著十元麵包當晚餐。",
+            "min_age": 13,
+            "max_age": 18,
+            "requires_student": true
+          },
+          {
+            "text": "考上國立五專讓全家族放鞭炮慶祝，長輩說學一技之長最實在。",
+            "min_age": 14,
+            "max_age": 16,
+            "requires_student": true
+          },
+          {
+            "text": "聯考倒數百日，全班在教室後方貼滿紅紙誓師，夜晚路燈下全是背英文單字的身影。",
+            "min_age": 15,
+            "max_age": 18,
+            "requires_student": true
+          }
         ]
       },
       {
@@ -5784,9 +6369,26 @@ window.TW_DATA = {
         "cram_school_cost_ratio": 0.12,
         "female_early_work_prob_q1_q2": 0.05,
         "flavor_events": [
-          "小學放學直接搭安親班娃娃車，接著上兒童美語與珠心算，晚上八點才回家吃飯。",
-          "大學錄取率大幅攀升，長輩開始改口叮嚀「光念大學不夠，還要念國立研究所」。",
-          "推甄申請入學要準備備審資料與才藝證明，家庭資源的落差逐漸顯現。"
+          {
+            "text": "小學放學直接搭安親班娃娃車，接著上兒童美語與珠心算，晚上八點才回家吃飯。",
+            "min_age": 7,
+            "max_age": 12,
+            "requires_student": true
+          },
+          {
+            "text": "大學錄取率大幅攀升，長輩開始改口叮嚀「光念大學不夠，還要念國立研究所」。",
+            "min_age": 16,
+            "max_age": 22,
+            "min_year": 1999,
+            "requires_student": true
+          },
+          {
+            "text": "推甄申請入學要準備備審資料與才藝證明，家庭資源的落差逐漸顯現。",
+            "min_age": 16,
+            "max_age": 18,
+            "min_year": 1998,
+            "requires_student": true
+          }
         ]
       },
       {
@@ -5805,14 +6407,33 @@ window.TW_DATA = {
           {
             "text": "十二年國教會考上路後，補習班招牌仍比巷口超商密集，考前模擬考一場接一場。",
             "min_year": 2014,
-            "max_year": 2026
+            "max_year": 2026,
+            "min_age": 13,
+            "max_age": 15,
+            "requires_student": true
           },
           {
             "text": "補習班招牌比巷口超商還密集，週末還得趕場寫程式營隊與整理 108 課綱學習歷程檔案。",
-            "min_year": 2019
+            "min_year": 2019,
+            "min_age": 13,
+            "max_age": 18,
+            "max_year": 2035,
+            "requires_student": true
           },
-          "雙語私校抽籤與入學考擠破頭，家長群組天天討論學區設籍與雙語教材。",
-          "母校國小今年新生減班，老師感嘆十年前每個年級還有八個班。"
+          {
+            "text": "雙語私校抽籤與入學考擠破頭，家長群組天天討論學區設籍與雙語教材。",
+            "min_age": 6,
+            "max_age": 12,
+            "min_year": 2012,
+            "max_year": 2030,
+            "requires_student": true
+          },
+          {
+            "text": "母校國小今年新生減班，老師感嘆十年前每個年級還有八個班。",
+            "min_age": 9,
+            "max_age": 18,
+            "requires_student": true
+          }
         ]
       }
     ],
@@ -6271,7 +6892,9 @@ window.TW_DATA = {
         "daily_vignettes": [
           {
             "text": "家裡把美援麵粉袋洗淨車成短褲與內衣，左鄰右舍的孩子都穿一樣的布料。",
-            "max_age": 35
+            "max_age": 35,
+            "min_age": 4,
+            "max_year": 1966
           },
           {
             "text": "巷口雜貨店響起愛國獎券開獎廣播，大人們屏息核對手中泛黃的獎券。",
@@ -6280,7 +6903,8 @@ window.TW_DATA = {
           {
             "text": "母親參加鄰里的民間互助會（標會），每月省吃儉用存錢幫家裡添購腳踏車。",
             "max_age": 25,
-            "requires_parents_alive": true
+            "requires_parents_alive": true,
+            "min_age": 5
           }
         ]
       },
@@ -6315,7 +6939,7 @@ window.TW_DATA = {
           },
           {
             "text": "收音機裡傳來校園民歌與《愛拚才會贏》，街頭偶爾可見解嚴後熱烈的社會運動布條。",
-            "min_year": 1987,
+            "min_year": 1988,
             "max_year": 1989,
             "min_age": 10
           }
@@ -6339,7 +6963,8 @@ window.TW_DATA = {
             "min_year": 1990,
             "max_year": 1999,
             "min_age": 7,
-            "max_age": 17
+            "max_age": 17,
+            "requires_student": true
           },
           {
             "text": "腰間別著呼叫器（BB Call），下班和朋友約在泡沫紅茶店或漫畫王打發時間。",
@@ -6374,7 +6999,8 @@ window.TW_DATA = {
             "min_year": 2000,
             "max_year": 2009,
             "min_age": 10,
-            "max_age": 17
+            "max_age": 17,
+            "requires_student": true
           },
           {
             "text": "下班或下課後掛在 BBS／PTT 與 MSN 上聊天，同學間互相幫對方的無名小站衝人氣。",
@@ -6415,7 +7041,8 @@ window.TW_DATA = {
             "text": "放學後和同學揪團打手遊、逛文具店買貼紙，回家討論班上最新的熱門影片。",
             "min_year": 2012,
             "min_age": 7,
-            "max_age": 17
+            "max_age": 17,
+            "requires_student": true
           },
           {
             "text": "午休時同事聚在一起滑手機看 0050 與台股大盤，手裡各拿一杯半糖去冰的手搖飲。",
@@ -6425,7 +7052,7 @@ window.TW_DATA = {
           {
             "text": "智慧型手機與臉書剛普及，大家聚餐前習慣先幫餐點拍照打卡。",
             "min_year": 2010,
-            "max_year": 2015,
+            "max_year": 2014,
             "min_age": 15
           },
           {
@@ -6453,7 +7080,8 @@ window.TW_DATA = {
         "homesickness_boost": 4,
         "happiness_delta": 2,
         "social_delta": 2,
-        "cultural_footnote_en": "Before major exams, Taiwanese families pray to Wenchang Dijun (God of Culture) with scallions (smartness) and buns/zongzi (pun for 'passing')."
+        "cultural_footnote_en": "Before major exams, Taiwanese families pray to Wenchang Dijun (God of Culture) with scallions (smartness) and buns/zongzi (pun for 'passing').",
+        "requires_student": true
       },
       {
         "id": "cust_lny_adult",
@@ -6494,7 +7122,17 @@ window.TW_DATA = {
         "homesickness_boost": 4,
         "happiness_delta": 2,
         "social_delta": 1,
-        "cultural_footnote_en": "Green 'Kuai Kuai' (meaning 'behave well') coconut snacks are famously placed on servers, hospital machines, and semiconductor fabs in Taiwan to prevent glitches."
+        "cultural_footnote_en": "Green 'Kuai Kuai' (meaning 'behave well') coconut snacks are famously placed on servers, hospital machines, and semiconductor fabs in Taiwan to prevent glitches.",
+        "career_in": [
+          "car_hsinchu_semi",
+          "car_software_remote",
+          "car_doctor_pharma",
+          "car_pharma_medtech",
+          "car_healthcare_ltc",
+          "car_office_white_collar",
+          "car_civil_teacher",
+          "car_finance_broker"
+        ]
       },
       {
         "id": "cust_postpartum",
@@ -6672,7 +7310,7 @@ window.TW_DATA = {
       },
       {
         "id": "SA02_self_funded_grad",
-        "name": "自費出國攻讀碩士（托福／GRE／雅思）",
+        "name": "自費出國攻讀碩士",
         "year_range": [
           1976,
           2070
@@ -6695,8 +7333,8 @@ window.TW_DATA = {
           "CAN",
           "DEU"
         ],
-        "desc": "1976 年廢除自費留考後最普遍的留學路徑：在補習班苦讀托福／雅思，搭配家庭資助或留學貸款赴海外深造。",
-        "source_note": "2024 年台灣留學生約 6.3 萬人，美、日、澳、英、加為前五大熱門國家。"
+        "desc": "在補習班苦讀英文檢定，搭配家庭資助或留學貸款赴海外深造。",
+        "source_note": "自費留考廢除後最普遍的留學路徑，花費高低與家庭資源關係密切。"
       },
       {
         "id": "SA03_young_student",
@@ -6820,10 +7458,10 @@ window.TW_DATA = {
           {
             "id": "AB_USA_1971_1979",
             "year_start": 1971,
-            "year_end": 1979,
-            "title": "美國校園反戰、保釣運動與 1979 台美斷交衝擊",
-            "summary": "越戰反戰浪潮與保釣運動撕裂海外華人社群；1979 年美台斷交消息傳來，留學生對身分與台灣前途充滿焦慮。",
-            "impact_note": "許多理工留學生選擇先在美扎根，日後成為 1980s 回台建立竹科與半導體產業的關鍵世代。",
+            "year_end": 1976,
+            "title": "美國校園反戰與保釣運動",
+            "summary": "越戰反戰浪潮與保釣運動撕裂海外華人社群，留學生對身分與台灣前途充滿焦慮。",
+            "impact_note": "許多理工留學生選擇先在美扎根，觀望台灣局勢再決定去留。",
             "cultural_footnote_en": "The 1971 Diaoyutai movement and 1979 US-ROC diplomatic break deeply shook Taiwanese students in America; many later returned to build Taiwan's Hsinchu Science Park.",
             "sensitive": false,
             "visa_crisis_prob": 0.05,
@@ -6831,11 +7469,24 @@ window.TW_DATA = {
             "money_mult": 1.0
           },
           {
+            "id": "AB_USA_1978_1980",
+            "year_start": 1978,
+            "year_end": 1980,
+            "title": "台美斷交衝擊",
+            "summary": "1978 年底美國宣布與中華民國斷交，留學生對身分與返鄉去留充滿焦慮。",
+            "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+            "happiness_delta": -1,
+            "money_mult": 1.0,
+            "visa_crisis_prob": 0,
+            "cultural_footnote_en": "台美斷交衝擊",
+            "sensitive": false
+          },
+          {
             "id": "AB_USA_1985_1999",
             "year_start": 1985,
             "year_end": 1999,
-            "title": "矽谷電腦與網路起飛黃金期",
-            "summary": "美國個人電腦與網際網路產業狂飆，理工與商管留學生畢業即獲科技大廠搶才，申請綠卡相對順遂。",
+            "title": "矽谷電腦產業黃金期",
+            "summary": "美國個人電腦產業狂飆，理工與商管留學生畢業即獲科技大廠搶才，申請綠卡相對順遂。",
             "impact_note": "造就大批美籍台裔科技中產家庭，也形成台灣與矽谷緊密的人才雙向走廊。",
             "cultural_footnote_en": "Taiwanese engineers became a vital backbone of Silicon Valley during the 1980s–90s PC and internet booms.",
             "sensitive": false,
@@ -6846,15 +7497,28 @@ window.TW_DATA = {
           {
             "id": "AB_USA_2001_2009",
             "year_start": 2001,
-            "year_end": 2009,
-            "title": "911 後簽證審查趨嚴與 2008 華爾街金融海嘯",
-            "summary": "2001 年 911 事件後美國大幅收緊外籍生與入境審查；2008 年雷曼破產引爆金融海嘯，畢業生求職凍結。",
+            "year_end": 2007,
+            "title": "911 後簽證審查趨嚴",
+            "summary": "2001 年 911 事件後美國大幅收緊外籍生與入境審查，簽證面談等待期拉長。",
             "impact_note": "外籍畢業生留下難度大增，部分台灣留學生提前回流亞洲金融與科技中心。",
             "cultural_footnote_en": "Post-9/11 visa vetting and the 2008 financial crisis made securing US work sponsorship far harder for Taiwanese graduates.",
             "sensitive": true,
             "visa_crisis_prob": 0.16,
             "happiness_delta": -6,
             "money_mult": 0.88
+          },
+          {
+            "id": "AB_USA_2008_2010",
+            "year_start": 2008,
+            "year_end": 2010,
+            "title": "華爾街金融海嘯",
+            "summary": "2008 年雷曼破產引爆金融海嘯，畢業生求職凍結。",
+            "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+            "happiness_delta": -1,
+            "money_mult": 1.0,
+            "visa_crisis_prob": 0.3,
+            "cultural_footnote_en": "華爾街金融海嘯",
+            "sensitive": false
           },
           {
             "id": "AB_USA_2014_2019",
@@ -6872,15 +7536,28 @@ window.TW_DATA = {
           {
             "id": "AB_USA_2020_2026",
             "year_start": 2020,
-            "year_end": 2026,
-            "title": "疫情反亞裔歧視、矽谷裁員潮與 AI 晶片設廠潮",
-            "summary": "2020 年疫情封城伴隨反亞裔仇恨事件；2022–2024 科技大廠輪番裁員引爆 60 天寬限期離境危機；2024 後 AI 與台積電亞利桑那廠再度帶動需求。",
+            "year_end": 2021,
+            "title": "疫情封城與反亞裔歧視",
+            "summary": "疫情封城伴隨反亞裔仇恨事件，課程全面轉為線上。",
             "impact_note": "高薪與身分／治安風險強烈並存，讓不少旅美台灣人重新評估回台或轉往亞洲。",
             "cultural_footnote_en": "From 2020 pandemic isolation and 2022–24 tech layoffs (60-day visa grace period) to TSMC's Arizona fabs, life in the US swung dramatically.",
             "sensitive": true,
             "visa_crisis_prob": 0.18,
             "happiness_delta": -3,
             "money_mult": 1.1
+          },
+          {
+            "id": "AB_USA_2022_2024",
+            "year_start": 2022,
+            "year_end": 2024,
+            "title": "矽谷裁員潮",
+            "summary": "科技大廠輪番裁員，工作簽證持有人面臨 60 天寬限期離境危機。",
+            "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+            "happiness_delta": -1,
+            "money_mult": 1.0,
+            "visa_crisis_prob": 0.3,
+            "cultural_footnote_en": "矽谷裁員潮",
+            "sensitive": false
           }
         ]
       },
@@ -6911,9 +7588,9 @@ window.TW_DATA = {
           {
             "id": "AB_JPN_1992_2008",
             "year_start": 1992,
-            "year_end": 2008,
-            "title": "失落的十年、就職冰河期與 1995 阪神大地震",
-            "summary": "泡沫破滅後日本企業緊縮徵才進入就職冰河期，外國留學生進大手企業門檻驟升；1995 年關西遭阪神強震重創。",
+            "year_end": 2004,
+            "title": "泡沫破滅與就職冰河期",
+            "summary": "泡沫破滅後日本企業緊縮徵才進入就職冰河期，外國留學生進大手企業門檻驟升。",
             "impact_note": "日本嚴格的新卒一括採用制度，使不少留日畢業生選擇返台發展。",
             "cultural_footnote_en": "Japan's post-bubble 'employment ice age' made corporate hiring fiercely competitive for foreign graduates.",
             "sensitive": true,
@@ -6937,15 +7614,28 @@ window.TW_DATA = {
           {
             "id": "AB_JPN_2020_2026",
             "year_start": 2020,
-            "year_end": 2026,
-            "title": "疫情鎖國、日圓大貶與台積電熊本設廠潮",
-            "summary": "2020–2021 日本邊境嚴格管制致留學生苦等入境；2022–2026 日圓創數十年新低讓學費變親民，卻壓低留日薪資折合台幣吸引力；同時台積電熊本廠與日本高度人才簽證大舉招手。",
+            "year_end": 2021,
+            "title": "疫情邊境管制",
+            "summary": "日本邊境嚴格管制，許多留學生苦等入境。",
             "impact_note": "日圓貶值與台灣科技薪資上漲形成對比，留日逐漸由「賺高薪」轉為「追求生活品質」。",
             "cultural_footnote_en": "Historic yen depreciation in 2022–26 lowered tuition costs but narrowed Japan's wage edge over Taiwan, even as TSMC's Kumamoto fabs drew Taiwanese engineers.",
             "sensitive": false,
             "visa_crisis_prob": 0.04,
             "happiness_delta": 1,
             "money_mult": 0.88
+          },
+          {
+            "id": "AB_JPN_2022_2026",
+            "year_start": 2022,
+            "year_end": 2026,
+            "title": "日圓大貶與熊本設廠潮",
+            "summary": "日圓走貶讓學費變親民，卻壓低薪資折合台幣的吸引力；熊本半導體聚落向台灣人才招手。",
+            "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+            "happiness_delta": -1,
+            "money_mult": 1.0,
+            "visa_crisis_prob": 0,
+            "cultural_footnote_en": "日圓大貶與熊本設廠潮",
+            "sensitive": false
           }
         ]
       },
@@ -6976,9 +7666,9 @@ window.TW_DATA = {
           {
             "id": "AB_AUS_2019_2022",
             "year_start": 2019,
-            "year_end": 2022,
-            "title": "世紀森林大火與近兩年最嚴格邊境封鎖",
-            "summary": "2019 跨年野火籠罩東岸城市；2020–2021 澳洲封鎖國境近兩年，海外生被迫滯留當地或遠距苦讀。",
+            "year_end": 2021,
+            "title": "世紀森林大火與邊境封鎖",
+            "summary": "野火籠罩東岸城市，隨後的疫情封鎖讓海外生滯留當地或遠距苦讀。",
             "impact_note": "孤立感與不能返家探親的焦慮讓思鄉值飆升。",
             "cultural_footnote_en": "Australia's nearly two-year COVID border closure left many Taiwanese students stranded abroad unable to visit home.",
             "sensitive": true,
@@ -7028,9 +7718,9 @@ window.TW_DATA = {
           {
             "id": "AB_GBR_2012_2019",
             "year_start": 2012,
-            "year_end": 2019,
-            "title": "取消 PSW 畢業工簽（2012）與英國脫歐公投（2016）",
-            "summary": "2012 年 4 月英國取消 2 年畢業生工作簽證（PSW），多數留學生畢業即被迫返台；2016 脫歐公投引發英鎊重貶與歐洲流動受阻。",
+            "year_end": 2015,
+            "title": "取消 PSW 畢業工簽",
+            "summary": "2012 年 4 月英國取消 2 年畢業生工作簽證（PSW），多數留學生畢業即被迫返台。",
             "impact_note": "政策緊縮讓這世代留英台灣人以「拿學位返台發展」為絕對大宗。",
             "cultural_footnote_en": "Abolishing the Post-Study Work visa in 2012 and the 2016 Brexit vote forced most Taiwanese UK graduates to return home immediately.",
             "sensitive": false,
@@ -7039,17 +7729,43 @@ window.TW_DATA = {
             "money_mult": 0.9
           },
           {
+            "id": "AB_GBR_2016_2019",
+            "year_start": 2016,
+            "year_end": 2019,
+            "title": "英國脫歐公投",
+            "summary": "2016 脫歐公投引發英鎊重貶與歐洲流動受阻。",
+            "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+            "happiness_delta": -1,
+            "money_mult": 1.0,
+            "visa_crisis_prob": 0.1,
+            "cultural_footnote_en": "英國脫歐公投",
+            "sensitive": false
+          },
+          {
             "id": "AB_GBR_2021_2026",
             "year_start": 2021,
-            "year_end": 2026,
-            "title": "重啟 2 年畢業生簽證、高通膨與 2024 工簽薪資門檻大漲",
-            "summary": "2021 年英國重啟 Graduate Route 2 年工簽吸引台灣留學潮回溫；但 2023–2025 面臨高通膨、NHS 看診漫長排隊，以及 2024 年技術工簽年薪門檻大幅拉高。",
+            "year_end": 2022,
+            "title": "重啟 2 年畢業生簽證",
+            "summary": "英國重啟 Graduate Route 2 年工簽，吸引台灣留學潮回溫。",
             "impact_note": "兩年緩衝期雖好找實習，但轉長期贊助工作簽證的門檻再次變高。",
             "cultural_footnote_en": "The 2021 Graduate Route reopened UK careers, though inflation, long NHS waits, and steeper 2024 Skilled Worker salary thresholds tested newcomers.",
             "sensitive": false,
             "visa_crisis_prob": 0.2,
             "happiness_delta": -2,
             "money_mult": 0.96
+          },
+          {
+            "id": "AB_GBR_2023_2026",
+            "year_start": 2024,
+            "year_end": 2026,
+            "title": "高通膨與工簽門檻提高",
+            "summary": "生活費高漲、看診排隊漫長，技術工簽年薪門檻大幅拉高。",
+            "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+            "happiness_delta": -1,
+            "money_mult": 1.0,
+            "visa_crisis_prob": 0.25,
+            "cultural_footnote_en": "高通膨與工簽門檻提高",
+            "sensitive": false
           }
         ]
       },
@@ -7093,9 +7809,9 @@ window.TW_DATA = {
           {
             "id": "AB_CAN_2023_2026",
             "year_start": 2023,
-            "year_end": 2026,
-            "title": "大城市房價失控與聯邦大砍國際學生配額",
-            "summary": "溫哥華與多倫多房租高漲、家庭醫師一號難求；加拿大聯邦政府自 2024 起大幅削減留學生配額並收緊配偶工簽與永居分數。",
+            "year_end": 2024,
+            "title": "房價失控與國際學生配額縮減",
+            "summary": "溫哥華與多倫多房租高漲、家庭醫師一號難求，聯邦政府開始收緊國際學生配額。",
             "impact_note": "留學移民難度明顯上升，部分青年重新比較返台與留加的生活品質。",
             "cultural_footnote_en": "Soaring housing costs and healthcare backlogs led Canada in 2024–26 to cap international student permits and tighten residency paths.",
             "sensitive": false,
@@ -7119,9 +7835,9 @@ window.TW_DATA = {
           {
             "id": "AB_DEU_1984_2005",
             "year_start": 1984,
-            "year_end": 2005,
-            "title": "歐洲公費拓荒、柏林圍牆倒塌（1989）與歐元上路（2002）",
-            "summary": "1984 年台灣增設歐洲公費名額，留德學生見證 1989 柏林圍牆倒塌、兩德統一與 2002 歐元啟用的歷史巨變。",
+            "year_end": 1992,
+            "title": "歐洲公費拓荒與冷戰尾聲",
+            "summary": "台灣增設歐洲公費名額，留德學生見證歐洲劇變的年代。",
             "impact_note": "歐陸人文與精密工程思維帶回台灣，豐富高教與產業視野。",
             "cultural_footnote_en": "After Taiwan expanded European scholarships in 1984, Taiwanese students in Germany witnessed the 1989 fall of the Berlin Wall and 2002 Euro launch.",
             "sensitive": false,
@@ -7132,15 +7848,28 @@ window.TW_DATA = {
           {
             "id": "AB_DEU_2012_2026",
             "year_start": 2012,
-            "year_end": 2026,
-            "title": "英語碩士免學費潮、能源通膨與歐陸車電轉型",
-            "summary": "德國公立大學免學費與 18 個月求職簽證吸引台灣理工與設計系精打細算深造；2022 俄烏戰爭後經歷能源通膨與工業轉型，但工作生活平衡與年假制度仍深具魅力。",
+            "year_end": 2019,
+            "title": "英語碩士免學費潮",
+            "summary": "德國公立大學免學費與 18 個月求職簽證吸引台灣理工與設計系精打細算深造。",
             "impact_note": "德語門檻與冬日漫長陰暗是留德台灣人最常面對的適應關卡。",
             "cultural_footnote_en": "Tuition-free German public universities and an 18-month job-seeker visa made Germany a top value destination for Taiwanese STEM and design students.",
             "sensitive": false,
             "visa_crisis_prob": 0.08,
             "happiness_delta": 2,
             "money_mult": 1.02
+          },
+          {
+            "id": "AB_DEU_2022_2024",
+            "year_start": 2022,
+            "year_end": 2024,
+            "title": "俄烏戰爭與能源通膨",
+            "summary": "俄烏戰爭後能源價格飆升，但工作生活平衡與年假制度仍深具魅力。",
+            "impact_note": "當地就業與居留環境出現變化，留外或返台的盤算更為現實。",
+            "happiness_delta": -1,
+            "money_mult": 1.0,
+            "visa_crisis_prob": 0,
+            "cultural_footnote_en": "俄烏戰爭與能源通膨",
+            "sensitive": false
           }
         ]
       }
@@ -7314,7 +8043,17 @@ window.TW_DATA = {
             "return_home": true,
             "relationships": 14,
             "happiness": 10
-          }
+          },
+          "era_labels": [
+            {
+              "max_year": 1994,
+              "label": "打包返台發展（海歸學人待遇與家人陪伴）"
+            },
+            {
+              "min_year": 1995,
+              "label": "打包返台發展（海歸線：享海歸加給、健保與家人陪伴）"
+            }
+          ]
         },
         {
           "key": "stay_abroad",
@@ -7353,19 +8092,21 @@ window.TW_DATA = {
     "hs_exam_system": {
       "eras": [
         {
+          "min_year": 1950,
           "max_year": 1967,
-          "name": "初中／省中聯考",
+          "name": "初中／初職聯考",
           "age": 12,
+          "level": "junior",
           "top_threshold": 68,
-          "hs_threshold": 48
+          "hs_threshold": 44
         },
         {
-          "min_year": 1968,
+          "min_year": 1950,
           "max_year": 2000,
           "name": "高中聯考（北聯／中聯／南聯）",
           "age": 15,
           "top_threshold": 70,
-          "hs_threshold": 50
+          "hs_threshold": 52
         },
         {
           "min_year": 2001,
@@ -7434,11 +8175,11 @@ window.TW_DATA = {
             },
             "era_labels": [
               {
-                "max_year": 1984,
+                "max_year": 1989,
                 "label": "放學留校補習或去文理補習班狂寫參考書（知識++、升學加分、幸福-）"
               },
               {
-                "min_year": 1985,
+                "min_year": 1990,
                 "label": "上安親班／文理補習班狂寫評量（知識++、升學考加分、幸福-）"
               }
             ]
@@ -7463,6 +8204,44 @@ window.TW_DATA = {
               "happiness": 2,
               "knowledge": -2,
               "flag_set": "childhood_family_help"
+            }
+          }
+        ]
+      },
+      {
+        "id": "LS02A_primary_exam",
+        "stage": "primary_exam",
+        "title": "國小畢業：初中聯考放榜",
+        "conditions": {
+          "special": "junior_exam_year",
+          "in_taiwan_only": true
+        },
+        "desc": "動態生成（1968 年九年國教前，國小畢業須考初中）",
+        "options": [
+          {
+            "key": "enter_junior",
+            "label": "考上初中，繼續升學",
+            "requires_exam_tier": "normal_hs_or_above",
+            "effects": {
+              "track": "junior",
+              "knowledge": 5
+            }
+          },
+          {
+            "key": "enter_junior_voc",
+            "label": "就讀初級職業學校（初職），學一點農工商技能",
+            "effects": {
+              "track": "junior_voc",
+              "knowledge": 3
+            }
+          },
+          {
+            "key": "stop_after_primary",
+            "label": "國小畢業就去當學徒或在家幫忙農事",
+            "effects": {
+              "track": "primary_labor",
+              "knowledge": -3,
+              "hs_tier": "work_early"
             }
           }
         ]
@@ -7505,11 +8284,15 @@ window.TW_DATA = {
             "effects": {
               "track": "vocational",
               "knowledge": 4,
-              "early_job_ready": true,
               "hs_tier": "vocational"
             },
             "era_labels": [
               {
+                "max_year": 1964,
+                "label": "就讀高職（學一技之長、日後就業）"
+              },
+              {
+                "min_year": 1965,
                 "max_year": 1996,
                 "label": "就讀高職或五專（學一技之長、考證照或日後拚二專／插大）"
               },
@@ -7687,7 +8470,17 @@ window.TW_DATA = {
               "happiness": -3,
               "unlock_night_edu": true,
               "flag_set": "night_school_grad"
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1985,
+                "label": "白天工作、晚上念補校或夜間部補完高中職學歷（解除學歷上限！）"
+              },
+              {
+                "min_year": 1986,
+                "label": "白天工作、晚上念夜校／空中大學補學歷（解除學歷上限！）"
+              }
+            ]
           },
           {
             "key": "casual_jobs",
@@ -7745,7 +8538,17 @@ window.TW_DATA = {
               "health": -2,
               "flag_set": "uni_lab_research",
               "wage_mult": 1.08
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1993,
+                "label": "跟著教授做研究／衝書卷獎（知識++、考研究所與留學獎學金大加分）"
+              },
+              {
+                "min_year": 1994,
+                "label": "大二就進教授實驗室做專題／衝書卷獎（知識++、推甄頂大與留學獎學金大加分）"
+              }
+            ]
           },
           {
             "key": "parttime_tutor",
@@ -7884,7 +8687,14 @@ window.TW_DATA = {
             37
           ],
           "requires_working": true,
-          "in_taiwan_only": true
+          "in_taiwan_only": true,
+          "career_not_in": [
+            "car_civil_teacher",
+            "car_farmer_fisher",
+            "car_doctor_pharma",
+            "car_lawyer_cpa",
+            "car_cpa"
+          ]
         },
         "desc": "出社會打滾幾年後進入第一個職涯高原期。你過往累積的屬性、社團人脈或大學備考基礎，此刻都能派上用場。",
         "options": [
@@ -7897,7 +8707,17 @@ window.TW_DATA = {
               "social": 5,
               "happiness": 6,
               "flag_set": "referral_promoted"
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1999,
+                "label": "靠同學同業人脈介紹跳槽更好的公司（需人際 ≥ 68 或曾任社團幹部）"
+              },
+              {
+                "min_year": 2000,
+                "label": "動用大學社團／同業人脈內推跳槽外商或大廠（需人際 ≥ 68 或曾任社團幹部）"
+              }
+            ]
           },
           {
             "key": "exec_cert_study",
@@ -7907,14 +8727,25 @@ window.TW_DATA = {
               "health": -4,
               "money_delta_twd_2025": -120000,
               "check_knowledge_promotion": true
-            }
+            },
+            "era_labels": [
+              {
+                "max_year": 1998,
+                "label": "利用下班到夜間部或補習班進修、報考專業證照（依知識值檢定升遷加薪機率）"
+              },
+              {
+                "min_year": 1999,
+                "label": "利用下班進修專業證照／在職專班（依知識值檢定升遷加薪機率）"
+              }
+            ]
           },
           {
             "key": "switch_civil_service",
-            "label": "趁還有體力報考高普考／國營事業（若大學曾備考或知識 ≥ 72 上榜率極高）",
+            "label": "趁還有體力報考高普考／國營事業（須高中職以上；大學曾備考或知識高者較易上榜）",
             "effects": {
               "attempt_instant_civil_exam": true
-            }
+            },
+            "requires_edu_min": 3
           },
           {
             "key": "steady_balance",
@@ -8563,7 +9394,7 @@ window.TW_DATA = {
         ],
         "age_range": [
           7,
-          16
+          14
         ],
         "relation": "最要好的小學同學",
         "text": "你最要好的小學同學全家要搬到國外去了。臨走前你們在筆記本上抄下彼此的地址；後來你試著寄出幾封航空信，但信件漂洋過海很難送到、回信總隔著好幾個月，久而久之你們漸行漸遠。",
@@ -8595,7 +9426,9 @@ window.TW_DATA = {
         ],
         "relation": "高中好友",
         "text": "你的高中好友數理成績一向名列前茅，一心想上大學電機系；填志願前卻因為是女生，被家裡以「工科太辛苦、當護士比較穩定好嫁人」為由反對，最後被迫改唸護理系。",
-        "historical_note": "台灣大專校院工程類科女性比例長期偏低（不足 10%），性別刻板分工深刻左右升學與職涯選擇。"
+        "historical_note": "台灣大專校院工程類科女性比例長期偏低（不足 10%），性別刻板分工深刻左右升學與職涯選擇。",
+        "min_edu_level": 3,
+        "requires_hs": true
       },
       {
         "id": "AP_1974_oil_crisis_hoarding",
@@ -8657,7 +9490,7 @@ window.TW_DATA = {
       {
         "id": "AP_1994_island_military",
         "year_range": [
-          1980,
+          1985,
           2003
         ],
         "age_range": [
