@@ -4145,7 +4145,7 @@ window.TW_DATA = {
       "schema_version": "1.0.0",
       "total_decisions": 34,
       "design_principle": "選項僅改變後續機率與參數權重，不保證單一結果；支援一卡多年代變體（era_variants）。",
-      "era_choices_note": "時代抉擇卡：依年份區間＋身分、地點、職業、性格條件觸發，不是每個人都會遇到。chance 為符合條件時每年出現的機率，trait_chance 依性格調整；選項的 roll／outcomes 依屬性與性格決定成敗，可延後到指定年份才發生。"
+      "era_choices_note": "時代抉擇卡分三級：era＝時代大事、trend＝時代日常（那個年代的社會期待與生活趨勢下會遇到的選擇）、future＝2027 年後的未來卡（虛構推演，部分需先發生對應的未來事件）。依年份區間＋身分、地點、職業、性格條件觸發，不是每個人都會遇到。chance 為符合條件時每年出現的機率，trait_chance 依性格調整；選項的 roll／outcomes 依屬性與性格決定成敗，可延後到指定年份才發生。"
     },
     "pause_questions": [
       {
@@ -6103,7 +6103,8 @@ window.TW_DATA = {
             },
             "text": "城裡的工錢比種田多，但一家人擠在租來的小房間，日子並不輕鬆。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1953_land_reform_landlord",
@@ -6167,7 +6168,8 @@ window.TW_DATA = {
             },
             "text": "股票換來的現金很快就花完了，家道從此中落。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1950_military_village",
@@ -6249,7 +6251,8 @@ window.TW_DATA = {
               }
             }
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1965_living_room_factory",
@@ -6321,7 +6324,8 @@ window.TW_DATA = {
             },
             "text": "你被抓回來罵了一頓，但那年夏天的大水溝和稻田，是你最記得的童年。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1963_eldest_sacrifice",
@@ -6423,7 +6427,8 @@ window.TW_DATA = {
             },
             "text": "爸媽多兼了一份工，你知道自己這張畢業證書，是全家一起付的學費。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1971_un_exodus",
@@ -6525,7 +6530,8 @@ window.TW_DATA = {
               }
             ]
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1976_suitcase_trade",
@@ -6615,7 +6621,8 @@ window.TW_DATA = {
             },
             "text": "你婉拒了買主。往後幾年，你常想起那只沒提起來的皮箱。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1986_dajiale",
@@ -6734,7 +6741,8 @@ window.TW_DATA = {
             },
             "text": "你看著隔壁鄰居天天去廟裡求明牌，自己繼續上工。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1987_stock_mania",
@@ -6836,7 +6844,8 @@ window.TW_DATA = {
               }
             ]
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1988_mainland_visit",
@@ -6921,7 +6930,8 @@ window.TW_DATA = {
               }
             ]
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1992_go_west",
@@ -7041,7 +7051,8 @@ window.TW_DATA = {
               }
             }
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1995_hsinchu_bonus",
@@ -7150,7 +7161,8 @@ window.TW_DATA = {
             },
             "text": "你婉拒了學長。幾年後看到他買了新竹的透天厝，你偶爾會想，如果當年……"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E1999_crossborder_marriage",
@@ -7209,7 +7221,8 @@ window.TW_DATA = {
             },
             "text": "你跟父母說再等等。母親嘆了口氣，沒再多說。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E2004_cash_card",
@@ -7325,7 +7338,8 @@ window.TW_DATA = {
             },
             "text": "你把申請書丟進捷運站的垃圾桶。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E2009_22k",
@@ -7406,7 +7420,8 @@ window.TW_DATA = {
             },
             "text": "你買齊了補習班的講義，每天早上七點坐到圖書館。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E2012_working_holiday",
@@ -7464,7 +7479,8 @@ window.TW_DATA = {
             "effects": {},
             "text": "你按了一個讚，關掉臉書，繼續加班。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E2014_sunflower",
@@ -7544,7 +7560,8 @@ window.TW_DATA = {
             "effects": {},
             "text": "新聞台整天在轉播，你轉到了別的頻道。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E2015_low_wage_exodus",
@@ -7613,7 +7630,8 @@ window.TW_DATA = {
             },
             "text": "你婉拒了獵頭，週末照常回家吃飯。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E2023_tsmc_overseas",
@@ -7691,7 +7709,8 @@ window.TW_DATA = {
             },
             "text": "你把名額讓給了想出去的同事。"
           }
-        ]
+        ],
+        "tier": "era"
       },
       {
         "id": "E2025_ai_wave",
@@ -7797,6 +7816,1956 @@ window.TW_DATA = {
               "health": 1
             },
             "text": "你報名了水電職訓班。師傅說：「AI 再厲害，也不會幫你換水管。」"
+          }
+        ],
+        "tier": "era"
+      },
+      {
+        "id": "E1996_missile_crisis",
+        "tier": "era",
+        "era_label": "1996 · 台海飛彈危機",
+        "title": "飛彈試射：要不要把存款換成美金？",
+        "desc": "第一次總統直選前，對岸在台灣外海試射飛彈。股市重挫，銀行外匯櫃台大排長龍，有人在討論移民。",
+        "source": "1995–1996 年台海飛彈危機，台股一度大跌，央行進場穩定匯市；直選如期舉行，股市隨後回升。",
+        "conditions": {
+          "year_range": [
+            1996,
+            1996
+          ],
+          "age_range": [
+            25,
+            70
+          ],
+          "min_liquid_twd_2025": 200000
+        },
+        "chance": 0.45,
+        "trait_chance": {
+          "cautious": 1.5,
+          "risk_taker": 1.3
+        },
+        "options": [
+          {
+            "key": "sell_to_usd",
+            "label": "賣掉股票、把一半存款換成美金",
+            "auto_weight": 0.2,
+            "trait_weight": {
+              "cautious": 2.2,
+              "sensitive_introvert": 1.5
+            },
+            "effects": {
+              "stock_sell_ratio": 0.6,
+              "happiness": -2
+            },
+            "text": "你在低點賣掉了股票，換來一疊美鈔和一點安心。",
+            "outcomes": [
+              {
+                "delay": [
+                  1,
+                  2
+                ],
+                "success": {
+                  "effects": {
+                    "money_liquid_ratio": -0.03
+                  },
+                  "text": "危機過後股市回升，當年殺在低點的股票再也買不回原價。"
+                }
+              }
+            ]
+          },
+          {
+            "key": "buy_dip",
+            "label": "趁恐慌進場撿便宜股票",
+            "auto_weight": 0.12,
+            "trait_weight": {
+              "risk_taker": 2.5,
+              "cautious": 0.3
+            },
+            "effects": {
+              "to_stock_ratio": 0.35
+            },
+            "text": "大家在賣，你在買。"
+          },
+          {
+            "key": "stay_calm",
+            "label": "照常過日子，相信會過去",
+            "auto_weight": 0.68,
+            "trait_weight": {
+              "civic_minded": 1.4,
+              "family_first": 1.2
+            },
+            "effects": {},
+            "text": "投票那天你照常去投票所，排隊的人比想像中多。"
+          }
+        ]
+      },
+      {
+        "id": "T1965_deep_sea_fishing",
+        "tier": "trend",
+        "era_label": "1960–80 年代 · 跑船",
+        "title": "跑遠洋漁船：一趟出海就是一兩年",
+        "desc": "港口的船東在招人，說上一趟遠洋漁船回來，賺的錢抵得上在陸地做好幾年。只是一出海就是一兩年，風浪也不長眼。",
+        "source": "1960–80 年代台灣遠洋漁業快速擴張，大量漁工來自屏東、澎湖與東部，收入高但風險與離家代價也高。",
+        "conditions": {
+          "year_range": [
+            1965,
+            1990
+          ],
+          "age_range": [
+            18,
+            35
+          ],
+          "sex": "M",
+          "edu_max": 2,
+          "quintile_range": [
+            1,
+            3
+          ]
+        },
+        "chance": 0.12,
+        "trait_chance": {
+          "risk_taker": 1.8,
+          "family_first": 0.6
+        },
+        "options": [
+          {
+            "key": "go_sea",
+            "label": "上船出海，賺一筆再回來",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "risk_taker": 2.0,
+              "workaholic": 1.4
+            },
+            "effects": {
+              "social": -4,
+              "health": -3,
+              "marital_strain": 0.3
+            },
+            "roll": {
+              "p": 0.85,
+              "stat_p": {
+                "health": 0.004
+              },
+              "success": {
+                "effects": {
+                  "money": 700000,
+                  "happiness": 3
+                },
+                "text": "兩年後你曬得黝黑回到港口，存摺上的數字讓你挺直了腰。"
+              },
+              "fail": {
+                "effects": {
+                  "health": -12,
+                  "money": 150000,
+                  "happiness": -6
+                },
+                "text": "海上的一場意外讓你受了重傷，提前被送回台灣。"
+              }
+            }
+          },
+          {
+            "key": "stay_land",
+            "label": "留在陸地，錢少一點但能回家",
+            "auto_weight": 0.65,
+            "trait_weight": {
+              "family_first": 2.0,
+              "cautious": 1.6
+            },
+            "effects": {},
+            "text": "你目送漁船出港，回頭去工地上工。"
+          }
+        ]
+      },
+      {
+        "id": "T1965_rotating_credit",
+        "tier": "trend",
+        "era_label": "1950–80 年代 · 標會",
+        "title": "標會：要不要跟會？",
+        "desc": "隔壁的阿姨在起會，每個月繳一筆，急用時可以出利息標下來。大家都是街坊鄰居，講的是信用。",
+        "source": "銀行不普及的年代，民間互助會（標會）是許多家庭儲蓄與周轉的方式，但「倒會」也時有所聞。",
+        "conditions": {
+          "year_range": [
+            1955,
+            1990
+          ],
+          "age_range": [
+            24,
+            60
+          ],
+          "working": true,
+          "quintile_range": [
+            1,
+            4
+          ]
+        },
+        "chance": 0.12,
+        "trait_chance": {
+          "sociable": 1.5,
+          "family_first": 1.3,
+          "cautious": 0.8
+        },
+        "options": [
+          {
+            "key": "join_member",
+            "label": "跟會當會腳，強迫自己存錢",
+            "auto_weight": 0.5,
+            "trait_weight": {
+              "family_first": 1.4
+            },
+            "roll": {
+              "p": 0.85,
+              "stat_p": {
+                "social": 0.004
+              },
+              "success": {
+                "effects": {
+                  "money": 60000,
+                  "social": 2
+                },
+                "text": "一年下來會款順利收齊，你存下一筆錢，也多了幾個互相照應的鄰居。"
+              },
+              "fail": {
+                "effects": {
+                  "money": -120000,
+                  "happiness": -6,
+                  "social": -3
+                },
+                "text": "會頭有一天人不見了。倒會的消息傳遍整條街，你繳的錢全拿不回來。"
+              }
+            }
+          },
+          {
+            "key": "be_head",
+            "label": "自己起會當會頭",
+            "auto_weight": 0.1,
+            "trait_weight": {
+              "sociable": 2.0,
+              "risk_taker": 1.8
+            },
+            "roll": {
+              "p": 0.7,
+              "stat_p": {
+                "social": 0.006
+              },
+              "success": {
+                "effects": {
+                  "money": 120000,
+                  "social": 4
+                },
+                "text": "你當會頭當出了名聲，大家都說跟你的會最安心。"
+              },
+              "fail": {
+                "effects": {
+                  "money": -300000,
+                  "social": -8,
+                  "happiness": -8
+                },
+                "text": "有會腳繳不出錢跑了，你只好自掏腰包補洞。"
+              }
+            }
+          },
+          {
+            "key": "no_join",
+            "label": "不跟，錢放銀行比較安心",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "cautious": 2.0,
+              "sensitive_introvert": 1.3
+            },
+            "effects": {
+              "social": -1
+            },
+            "text": "你婉拒了阿姨，她有點不高興。"
+          }
+        ]
+      },
+      {
+        "id": "T1970_daughter_skip_uni",
+        "tier": "trend",
+        "era_label": "1960–80 年代 · 女孩讀那麼多做什麼",
+        "title": "「女孩子念到高中就夠了」",
+        "desc": "高三那年，父母說家裡還要供弟弟念大學，女孩子早點出社會，存點嫁妝，以後嫁個好人家比較實在。老師卻說，以你的成績，大學一定考得上。",
+        "source": "1960–80 年代不少家庭優先讓兒子升學，女兒高中職畢業就進工廠、公司或幫忙家計。",
+        "conditions": {
+          "year_range": [
+            1962,
+            1990
+          ],
+          "age_range": [
+            16,
+            17
+          ],
+          "sex": "F",
+          "in_secondary_school": true,
+          "edu_min": 3,
+          "quintile_range": [
+            1,
+            3
+          ]
+        },
+        "chance": 0.5,
+        "options": [
+          {
+            "key": "obey_work",
+            "label": "聽父母的，畢業就去上班",
+            "auto_weight": 0.45,
+            "trait_weight": {
+              "family_first": 2.0,
+              "cautious": 1.3
+            },
+            "effects": {
+              "no_uni_exam": true,
+              "happiness": -3,
+              "social": 2
+            },
+            "text": "你把大學簡章收進抽屜。畢業典禮後的第二個禮拜，你就去公司報到了。"
+          },
+          {
+            "key": "insist_exam",
+            "label": "堅持參加大學聯考",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "civic_minded": 1.5,
+              "risk_taker": 1.4,
+              "workaholic": 1.4
+            },
+            "effects": {
+              "knowledge": 3,
+              "social": -2,
+              "uni_admit_bonus": 0.04
+            },
+            "text": "你跟父親大吵一架，每天念書念到半夜。"
+          },
+          {
+            "key": "work_then_night",
+            "label": "先工作，之後再念夜間部",
+            "auto_weight": 0.2,
+            "trait_weight": {
+              "workaholic": 1.8
+            },
+            "effects": {
+              "no_uni_exam": true,
+              "flags": [
+                "plans_night_uni"
+              ],
+              "knowledge": 1
+            },
+            "text": "你答應父母先去上班，但在心裡給自己訂了一個期限。",
+            "outcomes": [
+              {
+                "delay": [
+                  3,
+                  6
+                ],
+                "roll": {
+                  "p": 0.45,
+                  "stat_p": {
+                    "knowledge": 0.008
+                  },
+                  "trait_p": {
+                    "workaholic": 0.15
+                  },
+                  "success": {
+                    "effects": {
+                      "unlock_night_uni": true,
+                      "knowledge": 4,
+                      "health": -2
+                    },
+                    "text": "你白天上班、晚上念夜間部，四年後拿到了大學文憑。"
+                  },
+                  "fail": {
+                    "effects": {
+                      "happiness": -2
+                    },
+                    "text": "工作和家事越來越多，念夜間部的計畫一年拖過一年。"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "T1975_wife_quit_job",
+        "tier": "trend",
+        "era_label": "1960–90 年代 · 男主外女主內",
+        "title": "孩子出生了：要辭職回家帶小孩嗎？",
+        "desc": "孩子還小，婆家說「女人家把家顧好就好」，先生也覺得一份薪水撐得起家。公司裡，結婚生子後還留下來的女同事不多。",
+        "source": "1970–90 年代，女性婚育後離開職場相當普遍；「男主外、女主內」的期待直到 2000 年代後才逐漸鬆動。",
+        "conditions": {
+          "year_range": [
+            1960,
+            2005
+          ],
+          "age_range": [
+            22,
+            40
+          ],
+          "sex": "F",
+          "married": true,
+          "working": true,
+          "child_age_range": [
+            0,
+            3
+          ]
+        },
+        "chance": 0.35,
+        "options": [
+          {
+            "key": "quit_home",
+            "label": "辭職回家，專心照顧家庭",
+            "auto_weight": 0.5,
+            "trait_weight": {
+              "family_first": 2.0,
+              "cautious": 1.2,
+              "workaholic": 0.4
+            },
+            "effects": {
+              "homemaker_years": 6,
+              "happiness": 2,
+              "social": -2
+            },
+            "text": "你交出了識別證，從此每天的行程是菜市場、學校和廚房。"
+          },
+          {
+            "key": "keep_working",
+            "label": "繼續上班，請長輩或保母幫忙帶",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "workaholic": 2.0,
+              "civic_minded": 1.3
+            },
+            "effects": {
+              "money": -60000,
+              "happiness": -2,
+              "health": -2,
+              "marital_strain": 0.2
+            },
+            "text": "你每天下班先去保母家接孩子，回家還要煮飯、洗衣服。"
+          },
+          {
+            "key": "home_piecework",
+            "label": "辭職，但在家接代工或做手工貼補家用",
+            "auto_weight": 0.1,
+            "trait_weight": {
+              "family_first": 1.4
+            },
+            "effects": {
+              "homemaker_years": 6,
+              "money": 80000,
+              "health": -1
+            },
+            "text": "孩子睡著後，你在客廳燈下趕著代工。"
+          }
+        ]
+      },
+      {
+        "id": "T1975_husband_breadwinner",
+        "tier": "trend",
+        "era_label": "1960–90 年代 · 男主外女主內",
+        "title": "「男人要讓老婆在家享福」",
+        "desc": "孩子出生後，長輩說男人就該一肩扛起家計，太太在家帶小孩才像樣。太太自己也在猶豫要不要辭職。",
+        "source": "1970–90 年代「男主外、女主內」的期待仍強，丈夫被要求獨力養家也是一種壓力。",
+        "conditions": {
+          "year_range": [
+            1960,
+            2005
+          ],
+          "age_range": [
+            24,
+            42
+          ],
+          "sex": "M",
+          "married": true,
+          "working": true,
+          "spouse_working": true,
+          "child_age_range": [
+            0,
+            3
+          ]
+        },
+        "chance": 0.3,
+        "options": [
+          {
+            "key": "wife_home",
+            "label": "讓太太辭職，自己多兼一份差",
+            "auto_weight": 0.5,
+            "trait_weight": {
+              "family_first": 1.5,
+              "workaholic": 1.6
+            },
+            "effects": {
+              "spouse_homemaker_years": 8,
+              "health": -2,
+              "happiness": 1
+            },
+            "text": "你開始週末去朋友的店裡幫忙，回家時孩子已經睡了。"
+          },
+          {
+            "key": "both_work",
+            "label": "兩個人都繼續工作，請保母幫忙",
+            "auto_weight": 0.5,
+            "trait_weight": {
+              "civic_minded": 1.4,
+              "cautious": 1.2
+            },
+            "effects": {
+              "money": -60000,
+              "social": -1
+            },
+            "text": "長輩唸了幾句，你們還是決定兩個人一起扛。"
+          }
+        ]
+      },
+      {
+        "id": "T1980_live_with_inlaws",
+        "tier": "trend",
+        "era_label": "1960–2000 年代 · 三代同堂",
+        "title": "婚後要跟父母同住嗎？",
+        "desc": "結婚後，長輩理所當然地以為你們會搬回家住，三代同堂互相照應。但另一半私下說，想要一個自己的小家庭。",
+        "source": "1980 年代三代同堂仍相當普遍，之後核心家庭比例快速上升。",
+        "conditions": {
+          "year_range": [
+            1960,
+            2005
+          ],
+          "age_range": [
+            22,
+            40
+          ],
+          "married": true,
+          "lives_with_parents": true
+        },
+        "chance": 0.2,
+        "options": [
+          {
+            "key": "stay_together",
+            "label": "三代同堂，省房租也互相照應",
+            "auto_weight": 0.55,
+            "trait_weight": {
+              "family_first": 2.0,
+              "cautious": 1.3
+            },
+            "effects": {
+              "social": 3,
+              "happiness": -2,
+              "savings_rate_bonus": 0.05,
+              "marital_strain": 0.15
+            },
+            "text": "家裡多了碗筷，也多了摩擦，但孩子放學有阿公阿嬤顧。"
+          },
+          {
+            "key": "move_out",
+            "label": "搬出去自己租房子",
+            "auto_weight": 0.3,
+            "trait_weight": {
+              "risk_taker": 1.4,
+              "sensitive_introvert": 1.5
+            },
+            "effects": {
+              "moved_out": true,
+              "happiness": 3,
+              "social": -1,
+              "money": -40000
+            },
+            "text": "搬家那天母親沒有說話，只是塞給你們一大袋自己醃的菜。"
+          }
+        ]
+      },
+      {
+        "id": "T1985_son_pressure",
+        "tier": "trend",
+        "era_label": "1960–2000 年代 · 傳宗接代",
+        "title": "「要生個兒子才能傳香火」",
+        "desc": "過年回家，長輩又在飯桌上提起：「什麼時候再拚一個男孩？」親戚家已經生了第四胎，就是為了一個兒子。",
+        "source": "台灣出生性別比在 1980–2000 年代明顯偏高，反映重男輕女的生育壓力。",
+        "conditions": {
+          "year_range": [
+            1965,
+            2005
+          ],
+          "age_range": [
+            25,
+            42
+          ],
+          "married": true,
+          "children_min": 1,
+          "children_max": 2
+        },
+        "chance": 0.25,
+        "options": [
+          {
+            "key": "try_again",
+            "label": "順著長輩，再拚一胎",
+            "auto_weight": 0.45,
+            "trait_weight": {
+              "family_first": 2.0
+            },
+            "effects": {
+              "desired_kids_delta": 1,
+              "social": 2,
+              "happiness": -1
+            },
+            "text": "你們又開始計畫下一胎。"
+          },
+          {
+            "key": "push_back",
+            "label": "頂住壓力：女兒也是傳家",
+            "auto_weight": 0.55,
+            "trait_weight": {
+              "civic_minded": 1.8,
+              "sensitive_introvert": 1.3
+            },
+            "effects": {
+              "social": -2,
+              "happiness": 2,
+              "no_more_kids": true
+            },
+            "text": "你在飯桌上放下筷子：「我們家就這樣，很好。」"
+          }
+        ]
+      },
+      {
+        "id": "T1985_civil_service_rice_bowl",
+        "tier": "trend",
+        "era_label": "1970–90 年代 · 鐵飯碗",
+        "title": "要不要辭職考公務員？",
+        "desc": "父母一直勸你考普考：「吃公家飯，穩定又有退休俸。」民間公司薪水比較高，但說倒就倒。",
+        "source": "1970–90 年代公教人員退休金優渥，「鐵飯碗」是許多父母心中的首選。",
+        "conditions": {
+          "year_range": [
+            1972,
+            2000
+          ],
+          "age_range": [
+            22,
+            32
+          ],
+          "working": true,
+          "edu_min": 3,
+          "careers_not_in": [
+            "car_civil_teacher",
+            "car_doctor_pharma",
+            "car_lawyer_cpa",
+            "car_cpa"
+          ]
+        },
+        "chance": 0.1,
+        "trait_chance": {
+          "cautious": 1.8,
+          "risk_taker": 0.5
+        },
+        "options": [
+          {
+            "key": "quit_for_exam",
+            "label": "辭職全心準備高普考",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "cautious": 2.0,
+              "family_first": 1.4
+            },
+            "effects": {
+              "exam_prep_years": 1,
+              "happiness": -2
+            },
+            "text": "你搬回家住，每天去圖書館報到。"
+          },
+          {
+            "key": "stay_private",
+            "label": "留在民間，薪水和機會比較多",
+            "auto_weight": 0.65,
+            "trait_weight": {
+              "risk_taker": 1.8,
+              "workaholic": 1.4
+            },
+            "effects": {
+              "social": -1
+            },
+            "text": "母親嘆了口氣：「你以後就知道。」"
+          }
+        ]
+      },
+      {
+        "id": "T2005_online_shop",
+        "tier": "trend",
+        "era_label": "2000 年代 · 網拍創業",
+        "title": "下班開網拍：要不要試試看？",
+        "desc": "同事在網拍賣衣服，一個月多賺好幾萬。進貨、拍照、出貨都在晚上，聽起來不難。",
+        "source": "2000 年代拍賣網站興起，下班兼職開網拍成為一波副業風潮。",
+        "conditions": {
+          "year_range": [
+            2003,
+            2014
+          ],
+          "age_range": [
+            20,
+            40
+          ],
+          "working": true
+        },
+        "chance": 0.08,
+        "trait_chance": {
+          "risk_taker": 1.6,
+          "workaholic": 1.5,
+          "sensitive_introvert": 0.8
+        },
+        "options": [
+          {
+            "key": "open_shop",
+            "label": "開一家網拍小店試試",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "workaholic": 1.8,
+              "risk_taker": 1.5
+            },
+            "effects": {
+              "money": -50000,
+              "health": -2
+            },
+            "roll": {
+              "p": 0.4,
+              "stat_p": {
+                "knowledge": 0.004,
+                "social": 0.004
+              },
+              "success": {
+                "effects": {
+                  "money": 300000,
+                  "happiness": 5
+                },
+                "text": "你的小店累積了好評，副業收入快追上正職。"
+              },
+              "fail": {
+                "effects": {
+                  "money": -60000,
+                  "happiness": -3
+                },
+                "text": "庫存堆滿了房間，半年後你默默關了賣場。"
+              }
+            }
+          },
+          {
+            "key": "no_shop",
+            "label": "算了，下班想好好休息",
+            "auto_weight": 0.6,
+            "trait_weight": {
+              "cautious": 1.5,
+              "family_first": 1.3
+            },
+            "effects": {
+              "happiness": 1
+            },
+            "text": "你按掉同事傳來的連結。"
+          }
+        ]
+      },
+      {
+        "id": "T2010_overtime_culture",
+        "tier": "trend",
+        "era_label": "2000 年代以後 · 責任制",
+        "title": "責任制：今晚又要加班嗎？",
+        "desc": "主管說專案趕上線，「責任制」沒有加班費。同事們都還在座位上，你看了一眼時鐘，已經九點了。",
+        "source": "台灣長年名列全球工時最長的國家之一；2016 年一例一休修法後，加班與過勞仍是熱門議題。",
+        "conditions": {
+          "year_range": [
+            2000,
+            2028
+          ],
+          "age_range": [
+            24,
+            45
+          ],
+          "working": true,
+          "careers_in": [
+            "car_office_white_collar",
+            "car_software_remote",
+            "car_finance_broker",
+            "car_hsinchu_semi",
+            "car_export_sales",
+            "car_cpa",
+            "car_lawyer_cpa",
+            "car_cram_service_mgr"
+          ]
+        },
+        "chance": 0.12,
+        "options": [
+          {
+            "key": "grind",
+            "label": "拚了，做到專案上線",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "workaholic": 2.5,
+              "sensitive_introvert": 0.8
+            },
+            "effects": {
+              "health": -4,
+              "work_hours_high": true
+            },
+            "roll": {
+              "p": 0.5,
+              "stat_p": {
+                "knowledge": 0.005
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.06,
+                  "happiness": 2
+                },
+                "text": "專案順利上線，你在年底拿到了調薪。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -4
+                },
+                "text": "加了半年的班，功勞最後掛在別人名下。"
+              }
+            }
+          },
+          {
+            "key": "clock_out",
+            "label": "準時下班，工作是為了生活",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "family_first": 1.8,
+              "sociable": 1.4
+            },
+            "effects": {
+              "happiness": 3,
+              "health": 2
+            },
+            "text": "你關上電腦，在主管的目光裡走出辦公室。"
+          },
+          {
+            "key": "change_company",
+            "label": "換到一家不加班的公司，薪水少一點",
+            "auto_weight": 0.2,
+            "trait_weight": {
+              "cautious": 1.3,
+              "sensitive_introvert": 1.5
+            },
+            "effects": {
+              "career_mult": 0.95,
+              "happiness": 4,
+              "health": 2
+            },
+            "text": "新公司六點就沒人了，你第一次在天黑前回到家。"
+          }
+        ]
+      },
+      {
+        "id": "T2018_side_hustle",
+        "tier": "trend",
+        "era_label": "2010–2030 年代 · 斜槓",
+        "title": "薪水不夠用：下班要不要兼外送？",
+        "desc": "房租、孝親費、信用卡帳單，月底總是不夠。朋友說下班跑外送，一個月能多兩三萬。",
+        "source": "2016 年後外送平台與零工經濟興起，下班兼差的「斜槓」成為不少上班族的日常。",
+        "conditions": {
+          "year_range": [
+            2016,
+            2035
+          ],
+          "age_range": [
+            22,
+            45
+          ],
+          "working": true,
+          "low_income": true
+        },
+        "chance": 0.15,
+        "trait_chance": {
+          "workaholic": 1.6,
+          "risk_taker": 1.2
+        },
+        "options": [
+          {
+            "key": "deliver",
+            "label": "下班跑外送",
+            "auto_weight": 0.45,
+            "trait_weight": {
+              "workaholic": 2.0,
+              "family_first": 1.3
+            },
+            "effects": {
+              "money": 200000,
+              "health": -4,
+              "social": -2
+            },
+            "roll": {
+              "p": 0.9,
+              "stat_p": {
+                "health": 0.003
+              },
+              "success": {
+                "effects": {},
+                "text": "你熟悉了城市每一條巷子，存款也慢慢多了起來。"
+              },
+              "fail": {
+                "effects": {
+                  "health": -8,
+                  "money": -50000
+                },
+                "text": "一個下雨的晚上，你在路口摔車，休養了好幾個月。"
+              }
+            }
+          },
+          {
+            "key": "learn_skill",
+            "label": "把時間拿去進修，換更好的工作",
+            "auto_weight": 0.3,
+            "trait_weight": {
+              "cautious": 1.4,
+              "sensitive_introvert": 1.3
+            },
+            "effects": {
+              "money": -40000,
+              "knowledge": 4
+            },
+            "roll": {
+              "p": 0.45,
+              "stat_p": {
+                "knowledge": 0.008
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.1
+                },
+                "text": "你考到了證照，換到薪水高一截的工作。"
+              },
+              "fail": {
+                "effects": {},
+                "text": "課上完了，薪水還是沒動。"
+              }
+            }
+          },
+          {
+            "key": "cut_spending",
+            "label": "縮衣節食就好",
+            "auto_weight": 0.25,
+            "trait_weight": {
+              "cautious": 1.6
+            },
+            "effects": {
+              "happiness": -3,
+              "savings_rate_bonus": 0.05
+            },
+            "text": "你開始自己帶便當，取消了串流訂閱。"
+          }
+        ]
+      },
+      {
+        "id": "T2020_etf_or_house",
+        "tier": "trend",
+        "era_label": "2020 年代 · 存股與買房",
+        "title": "房價高不可攀：存股、存頭期款，還是享受當下？",
+        "desc": "房價所得比創新高，身邊的人分成三派：存高股息 ETF 的、咬牙存頭期款的，和乾脆把錢花在生活上的。",
+        "source": "2020 年代台灣 ETF 受益人數倍增，同時雙北房價所得比長期超過 15 倍。",
+        "conditions": {
+          "year_range": [
+            2019,
+            2035
+          ],
+          "age_range": [
+            24,
+            40
+          ],
+          "working": true,
+          "not_homeowner": true,
+          "min_liquid_twd_2025": 100000
+        },
+        "chance": 0.15,
+        "options": [
+          {
+            "key": "etf",
+            "label": "定期定額存 ETF",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "cautious": 1.3,
+              "workaholic": 1.2
+            },
+            "effects": {
+              "to_stock_ratio": 0.4,
+              "savings_rate_bonus": 0.04
+            },
+            "text": "你設定好每月扣款，打開 App 看帳戶成了每天的儀式。"
+          },
+          {
+            "key": "save_downpayment",
+            "label": "全力存頭期款",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "family_first": 1.8,
+              "cautious": 1.4
+            },
+            "effects": {
+              "savings_rate_bonus": 0.08,
+              "happiness": -3
+            },
+            "text": "你把每一筆支出都記在帳本上。"
+          },
+          {
+            "key": "enjoy_now",
+            "label": "買不起就不買，把錢花在生活上",
+            "auto_weight": 0.25,
+            "trait_weight": {
+              "sociable": 2.0,
+              "risk_taker": 1.3
+            },
+            "effects": {
+              "money": -100000,
+              "happiness": 6
+            },
+            "text": "你訂了機票，第一次一個人出國旅行。"
+          }
+        ]
+      },
+      {
+        "id": "T2024_egg_freezing",
+        "tier": "trend",
+        "era_label": "2020 年代 · 晚婚與凍卵",
+        "title": "要不要先凍卵？",
+        "desc": "你 {age} 歲了，工作正忙，身邊還沒有對的人。婦產科醫師說，如果之後想生，可以考慮先凍卵。",
+        "source": "台灣女性平均初婚年齡已超過 30 歲，凍卵諮詢與療程近年大幅增加。",
+        "conditions": {
+          "year_range": [
+            2015,
+            2060
+          ],
+          "age_range": [
+            30,
+            38
+          ],
+          "sex": "F",
+          "single": true,
+          "never_married": true,
+          "min_liquid_twd_2025": 150000
+        },
+        "chance": 0.2,
+        "trait_chance": {
+          "cautious": 1.4
+        },
+        "options": [
+          {
+            "key": "freeze",
+            "label": "凍卵，給未來的自己多一個選擇",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "cautious": 1.8,
+              "family_first": 1.4
+            },
+            "effects": {
+              "money": -120000,
+              "flags": [
+                "frozen_eggs"
+              ],
+              "happiness": 2
+            },
+            "text": "療程結束那天，你覺得肩上輕了一點。"
+          },
+          {
+            "key": "let_be",
+            "label": "順其自然",
+            "auto_weight": 0.6,
+            "trait_weight": {
+              "risk_taker": 1.3
+            },
+            "effects": {},
+            "text": "你把醫師給的衛教單折起來收進包包。"
+          }
+        ]
+      },
+      {
+        "id": "T1995_grandparenting",
+        "tier": "trend",
+        "era_label": "1990 年代以後 · 隔代教養",
+        "title": "兒女想請你幫忙帶孫子",
+        "desc": "孩子夫妻倆都要上班，托嬰又貴又難排。他們吞吞吐吐地問，能不能把孫子白天交給你帶。",
+        "source": "台灣三歲以下幼兒約有兩到三成由祖父母照顧，「阿公阿嬤帶大」是許多雙薪家庭的日常。",
+        "conditions": {
+          "year_range": [
+            1990,
+            2070
+          ],
+          "age_range": [
+            52,
+            74
+          ],
+          "children_min": 1,
+          "child_age_range": [
+            26,
+            42
+          ]
+        },
+        "chance": 0.06,
+        "options": [
+          {
+            "key": "help",
+            "label": "答應，每天幫忙帶孫",
+            "auto_weight": 0.6,
+            "trait_weight": {
+              "family_first": 2.2,
+              "workaholic": 0.6
+            },
+            "effects": {
+              "happiness": 4,
+              "social": 3,
+              "health": -2
+            },
+            "text": "你的生活又被尿布和奶瓶填滿，但孫子第一次叫你的時候，一切都值得了。"
+          },
+          {
+            "key": "decline",
+            "label": "婉拒，想過自己的退休生活",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "sociable": 1.6,
+              "risk_taker": 1.3
+            },
+            "effects": {
+              "happiness": 2,
+              "social": -2
+            },
+            "text": "你報名了社區大學的書法班，跟老朋友約好下個月去旅行。"
+          }
+        ]
+      },
+      {
+        "id": "F2028_four_day_week",
+        "tier": "future",
+        "era_label": "2030 年代 · 週休三日",
+        "title": "多出來的星期五要做什麼？",
+        "desc": "公司跟著 AI 代理試辦週休三日，你突然多了一天。有人拿來進修，有人兼第二份工作，也有人終於能陪家人。",
+        "source": "虛構推演：延續「AI 代理進駐辦公室」的世界線。",
+        "conditions": {
+          "year_range": [
+            2028,
+            2045
+          ],
+          "age_range": [
+            24,
+            60
+          ],
+          "working": true,
+          "careers_in": [
+            "car_office_white_collar",
+            "car_software_remote",
+            "car_finance_broker",
+            "car_hsinchu_semi",
+            "car_export_sales",
+            "car_cpa",
+            "car_lawyer_cpa",
+            "car_cram_service_mgr"
+          ],
+          "future_events_any": [
+            "FF_2027_ai_white_collar_4day"
+          ]
+        },
+        "chance": 0.5,
+        "options": [
+          {
+            "key": "study",
+            "label": "拿來進修新技能",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "workaholic": 1.6,
+              "cautious": 1.3
+            },
+            "effects": {
+              "knowledge": 5,
+              "money": -30000
+            },
+            "roll": {
+              "p": 0.5,
+              "stat_p": {
+                "knowledge": 0.006
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.08
+                },
+                "text": "兩年後，你成了公司裡少數能和 AI 一起設計流程的人。"
+              },
+              "fail": {
+                "effects": {},
+                "text": "學了不少東西，薪水倒是沒什麼變化。"
+              }
+            }
+          },
+          {
+            "key": "second_job",
+            "label": "兼第二份工作",
+            "auto_weight": 0.25,
+            "trait_weight": {
+              "workaholic": 2.0,
+              "risk_taker": 1.3
+            },
+            "effects": {
+              "money": 250000,
+              "health": -4
+            },
+            "text": "你的星期五變成了另一個星期一。"
+          },
+          {
+            "key": "family_time",
+            "label": "留給家人和自己",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "family_first": 2.0,
+              "sociable": 1.5
+            },
+            "effects": {
+              "happiness": 6,
+              "social": 4,
+              "health": 2
+            },
+            "text": "你開始每週五去爬山，傍晚去接孩子放學。"
+          }
+        ]
+      },
+      {
+        "id": "F2030_heat_outdoor_work",
+        "tier": "future",
+        "era_label": "2030 年代 · 40°C 新常態",
+        "title": "夏天越來越熱：還要繼續在戶外工作嗎？",
+        "desc": "今年夏天又有好幾天超過 40°C，同行有人中暑送醫。朋友介紹了一份室內的工作，薪水少一些。",
+        "source": "虛構推演：延續極端高溫常態化的世界線。",
+        "conditions": {
+          "year_range": [
+            2028,
+            2060
+          ],
+          "age_range": [
+            25,
+            62
+          ],
+          "working": true,
+          "careers_in": [
+            "car_gig_delivery",
+            "car_driver_logistics",
+            "car_craft_apprentice",
+            "car_farmer_fisher",
+            "car_service_worker"
+          ],
+          "future_events_any": [
+            "FF_2028_heatwave_law"
+          ]
+        },
+        "chance": 0.4,
+        "options": [
+          {
+            "key": "move_indoor",
+            "label": "換到室內工作",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "cautious": 1.8,
+              "family_first": 1.3
+            },
+            "effects": {
+              "career_mult": 0.92,
+              "health": 3
+            },
+            "text": "冷氣房裡的工作很單調，但你不用再擔心中暑。"
+          },
+          {
+            "key": "keep_outdoor",
+            "label": "繼續做，避開最熱的時段",
+            "auto_weight": 0.6,
+            "trait_weight": {
+              "workaholic": 1.6,
+              "risk_taker": 1.4
+            },
+            "roll": {
+              "p": 0.8,
+              "stat_p": {
+                "health": 0.005
+              },
+              "success": {
+                "effects": {
+                  "health": -2
+                },
+                "text": "你清晨四點出門，正午就收工。"
+              },
+              "fail": {
+                "effects": {
+                  "health": -10,
+                  "temp_unemployed_years": 1
+                },
+                "text": "一個午後你在工作中熱衰竭倒下，休養了大半年。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "F2030_social_housing",
+        "tier": "future",
+        "era_label": "2030 年代 · 社宅 50 萬戶",
+        "title": "社會住宅抽中了：要搬進去嗎？",
+        "desc": "你抽中了離公司不遠的社會住宅，租金比市價便宜三成，但只能住到一定年限，也不能自己裝潢。",
+        "source": "虛構推演：延續「社宅＋包租代管 50 萬戶」的世界線。",
+        "conditions": {
+          "year_range": [
+            2029,
+            2060
+          ],
+          "age_range": [
+            23,
+            45
+          ],
+          "not_homeowner": true,
+          "future_events_any": [
+            "FF_2029_social_housing_500k"
+          ]
+        },
+        "chance": 0.35,
+        "options": [
+          {
+            "key": "move_in",
+            "label": "搬進社宅，把省下的房租存起來",
+            "auto_weight": 0.6,
+            "trait_weight": {
+              "cautious": 1.6,
+              "family_first": 1.3
+            },
+            "effects": {
+              "savings_rate_bonus": 0.06,
+              "happiness": 3
+            },
+            "text": "新家有電梯和公共客廳，鄰居多是跟你一樣的年輕人。"
+          },
+          {
+            "key": "keep_saving_buy",
+            "label": "放棄，繼續存錢準備買房",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "risk_taker": 1.3
+            },
+            "effects": {
+              "happiness": -1
+            },
+            "text": "你把名額讓給了候補的人。"
+          }
+        ]
+      },
+      {
+        "id": "F2032_industry_pivot",
+        "tier": "future",
+        "era_label": "2030 年代 · 晶圓去中心化",
+        "title": "產業二次轉型：要不要從半導體跳到生醫或綠能？",
+        "desc": "晶圓廠一座座蓋到海外，公司開始縮減台灣的新增職缺。生醫和綠能新創正在搶有製程經驗的工程師。",
+        "source": "虛構推演：延續「全球晶圓製造去中心化」的世界線。",
+        "conditions": {
+          "year_range": [
+            2031,
+            2050
+          ],
+          "age_range": [
+            25,
+            55
+          ],
+          "working": true,
+          "careers_in": [
+            "car_hsinchu_semi"
+          ],
+          "future_events_any": [
+            "FF_2031_semi_decentralize"
+          ]
+        },
+        "chance": 0.45,
+        "options": [
+          {
+            "key": "pivot",
+            "label": "跳槽到生醫或綠能新創",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "risk_taker": 2.0,
+              "civic_minded": 1.3
+            },
+            "roll": {
+              "p": 0.5,
+              "stat_p": {
+                "knowledge": 0.006
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.15,
+                  "happiness": 5
+                },
+                "text": "新創拿到國際大單，你手上的認股權開始值錢了。"
+              },
+              "fail": {
+                "effects": {
+                  "career_mult": 0.85,
+                  "happiness": -4
+                },
+                "text": "新創燒完資金收了，你只好回到傳統製造業。"
+              }
+            }
+          },
+          {
+            "key": "stay_fab",
+            "label": "留在原公司，爭取海外職位",
+            "auto_weight": 0.65,
+            "trait_weight": {
+              "cautious": 1.8,
+              "workaholic": 1.3
+            },
+            "effects": {
+              "expat": [
+                3,
+                1.4
+              ],
+              "social": -2,
+              "marital_strain": 0.2
+            },
+            "text": "你接下了海外廠的職缺，又開始跟家人視訊。"
+          }
+        ]
+      },
+      {
+        "id": "F2033_cancer_vaccine_screen",
+        "tier": "future",
+        "era_label": "2030 年代 · 精準醫療",
+        "title": "要不要做全套基因檢測與預防性療程？",
+        "desc": "個人化 mRNA 癌症疫苗納入健保後，醫院推出自費的全基因定序和預防方案，價格不便宜，但能提早知道風險。",
+        "source": "虛構推演：延續「個人化 mRNA 癌症疫苗納入健保」的世界線。",
+        "conditions": {
+          "year_range": [
+            2032,
+            2070
+          ],
+          "age_range": [
+            40,
+            70
+          ],
+          "future_events_any": [
+            "FF_2032_mrna_cancer_nhi"
+          ],
+          "min_liquid_twd_2025": 150000
+        },
+        "chance": 0.3,
+        "options": [
+          {
+            "key": "screen",
+            "label": "自費做全套檢測",
+            "auto_weight": 0.45,
+            "trait_weight": {
+              "cautious": 2.0,
+              "sensitive_introvert": 1.3
+            },
+            "effects": {
+              "money": -150000,
+              "health": 4,
+              "mortality_mult": 0.92
+            },
+            "text": "報告厚厚一本，醫師幫你排了幾項預防療程。"
+          },
+          {
+            "key": "skip",
+            "label": "健保有的就夠了",
+            "auto_weight": 0.55,
+            "trait_weight": {
+              "risk_taker": 1.5
+            },
+            "effects": {},
+            "text": "你把傳單丟進了回收桶。"
+          }
+        ]
+      },
+      {
+        "id": "F2036_work_to_70",
+        "tier": "future",
+        "era_label": "2030 年代 · 延退至 70 歲",
+        "title": "延退至 70 歲：要再做幾年嗎？",
+        "desc": "勞保改革通過，可以選擇延後到 70 歲退休，年金也會多一些。公司說你的經驗還用得到。",
+        "source": "虛構推演：延續「彈性延退至 70 歲」的世界線。",
+        "conditions": {
+          "year_range": [
+            2034,
+            2070
+          ],
+          "age_range": [
+            60,
+            66
+          ],
+          "working": true,
+          "future_events_any": [
+            "FF_2035_retire_70_reform"
+          ]
+        },
+        "chance": 0.5,
+        "options": [
+          {
+            "key": "extend",
+            "label": "延後退休，多做幾年",
+            "auto_weight": 0.45,
+            "trait_weight": {
+              "workaholic": 2.2,
+              "cautious": 1.3
+            },
+            "effects": {
+              "flags": [
+                "extended_work_70"
+              ],
+              "social": 2,
+              "health": -1
+            },
+            "text": "你把退休歡送會的日期往後挪了幾年。"
+          },
+          {
+            "key": "retire_on_time",
+            "label": "照原計畫退休",
+            "auto_weight": 0.55,
+            "trait_weight": {
+              "family_first": 1.6,
+              "sociable": 1.5
+            },
+            "effects": {
+              "happiness": 2
+            },
+            "text": "你開始規劃退休後第一趟長途旅行。"
+          }
+        ]
+      },
+      {
+        "id": "F2040_ubi_retrain",
+        "tier": "future",
+        "era_label": "2040 年代 · 轉型津貼",
+        "title": "領轉型津貼，回學校重新來過？",
+        "desc": "政府用算力稅發放「全民基本轉型津貼」，申請者可以帶薪離職一年重新學習。你的工作正一點一點被自動化取代。",
+        "source": "虛構推演：延續「自動化算力稅與全民基本轉型津貼」的世界線。",
+        "conditions": {
+          "year_range": [
+            2038,
+            2070
+          ],
+          "age_range": [
+            25,
+            58
+          ],
+          "working": true,
+          "future_events_any": [
+            "FF_2039_ai_tax_ubi_pilot"
+          ]
+        },
+        "chance": 0.35,
+        "options": [
+          {
+            "key": "retrain",
+            "label": "申請津貼，花一年轉換跑道",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "risk_taker": 1.6,
+              "workaholic": 1.2,
+              "civic_minded": 1.3
+            },
+            "effects": {
+              "temp_unemployed_years": 1,
+              "knowledge": 6,
+              "happiness": 3
+            },
+            "roll": {
+              "p": 0.55,
+              "stat_p": {
+                "knowledge": 0.006
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.1
+                },
+                "text": "一年後你帶著新的證照回到職場，起薪比原本還高。"
+              },
+              "fail": {
+                "effects": {
+                  "career_mult": 0.95
+                },
+                "text": "新領域比想像中難擠進去，你最後回到原本的行業。"
+              }
+            }
+          },
+          {
+            "key": "stay",
+            "label": "先保住現在的工作",
+            "auto_weight": 0.6,
+            "trait_weight": {
+              "cautious": 1.8,
+              "family_first": 1.4
+            },
+            "effects": {},
+            "text": "你決定再撐幾年看看。"
+          }
+        ]
+      },
+      {
+        "id": "F2042_culture_export",
+        "tier": "future",
+        "era_label": "2040 年代 · 台流出海",
+        "title": "台流內容當紅：要不要投入遊戲或影視業？",
+        "desc": "台灣的遊戲和影集在海外爆紅，製作公司到處挖人，薪水不穩但機會很多。",
+        "source": "虛構推演：延續「台流內容與沉浸式華語文化出海潮」的世界線。",
+        "conditions": {
+          "year_range": [
+            2040,
+            2060
+          ],
+          "age_range": [
+            20,
+            40
+          ],
+          "working": true,
+          "future_events_any": [
+            "FF_2041_culture_wave_export"
+          ],
+          "careers_not_in": [
+            "car_creator_ecom",
+            "car_doctor_pharma",
+            "car_civil_teacher"
+          ]
+        },
+        "chance": 0.3,
+        "trait_chance": {
+          "sociable": 1.5,
+          "risk_taker": 1.4
+        },
+        "options": [
+          {
+            "key": "jump_in",
+            "label": "轉行進內容產業",
+            "auto_weight": 0.3,
+            "trait_weight": {
+              "risk_taker": 1.8,
+              "sociable": 1.6
+            },
+            "effects": {
+              "assign_career": "car_creator_ecom"
+            },
+            "roll": {
+              "p": 0.4,
+              "stat_p": {
+                "social": 0.005,
+                "knowledge": 0.004
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.25,
+                  "happiness": 8
+                },
+                "text": "你參與的作品在海外拿了獎，片尾名單上有你的名字。"
+              },
+              "fail": {
+                "effects": {
+                  "career_mult": 0.85,
+                  "happiness": -2
+                },
+                "text": "案子有一搭沒一搭，收入起伏很大。"
+              }
+            }
+          },
+          {
+            "key": "watch",
+            "label": "當觀眾就好",
+            "auto_weight": 0.7,
+            "trait_weight": {
+              "cautious": 1.6
+            },
+            "effects": {
+              "happiness": 1
+            },
+            "text": "你追完了那部爆紅的影集，跟朋友在群組裡討論結局。"
+          }
+        ]
+      },
+      {
+        "id": "F2050_remote_return_home",
+        "tier": "future",
+        "era_label": "2050 年代 · 北漂時代終結",
+        "title": "全息遠距普及：要搬回家鄉嗎？",
+        "desc": "全息協作普及後，公司允許全遠距，而且跨縣市同酬。你在外地住了這麼多年，老家的房子比這裡大三倍。",
+        "source": "虛構推演：延續「全息協作與空間運算普及」的世界線。",
+        "conditions": {
+          "year_range": [
+            2052,
+            2080
+          ],
+          "age_range": [
+            25,
+            62
+          ],
+          "working": true,
+          "migrated": true,
+          "future_events_any": [
+            "FF_2054_holo_remote_work"
+          ]
+        },
+        "chance": 0.4,
+        "options": [
+          {
+            "key": "go_home",
+            "label": "搬回家鄉遠距工作",
+            "auto_weight": 0.5,
+            "trait_weight": {
+              "family_first": 2.2,
+              "sensitive_introvert": 1.3
+            },
+            "effects": {
+              "return_home_region": true,
+              "happiness": 6,
+              "social": 3
+            },
+            "text": "你搬回了小時候的那條街，戴上頭盔就能進公司開會。"
+          },
+          {
+            "key": "stay_city",
+            "label": "留在城市",
+            "auto_weight": 0.5,
+            "trait_weight": {
+              "sociable": 1.8,
+              "workaholic": 1.4
+            },
+            "effects": {},
+            "text": "你習慣了城市的節奏，決定留下來。"
+          }
+        ]
+      },
+      {
+        "id": "F2035_ai_companion",
+        "tier": "future",
+        "era_label": "2030 年代以後 · AI 陪伴",
+        "title": "AI 伴侶比人還懂你？",
+        "desc": "手機裡的 AI 伴侶記得你說過的每一句話，永遠有空、永遠溫柔。朋友說你最近都不出門了。",
+        "source": "虛構推演：依當前生成式 AI 陪伴應用的發展趨勢模擬。",
+        "conditions": {
+          "year_range": [
+            2032,
+            2100
+          ],
+          "age_range": [
+            20,
+            60
+          ],
+          "single": true
+        },
+        "chance": 0.08,
+        "trait_chance": {
+          "sensitive_introvert": 2.0,
+          "sociable": 0.4
+        },
+        "options": [
+          {
+            "key": "embrace",
+            "label": "跟 AI 伴侶過日子也不錯",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "sensitive_introvert": 2.0
+            },
+            "effects": {
+              "happiness": 3,
+              "social": -5,
+              "romance_delay": 5
+            },
+            "text": "每天晚上，你都跟它聊到睡著。"
+          },
+          {
+            "key": "go_out",
+            "label": "刪掉 App，報名朋友揪的聚會",
+            "auto_weight": 0.65,
+            "trait_weight": {
+              "sociable": 2.0,
+              "family_first": 1.3
+            },
+            "effects": {
+              "social": 4,
+              "happiness": -1
+            },
+            "text": "第一次聚會有點尷尬，但你認識了幾個新朋友。"
+          }
+        ]
+      },
+      {
+        "id": "F2035_school_merger",
+        "tier": "future",
+        "era_label": "2030 年代以後 · 少子化併校",
+        "title": "家附近的學校要併校了",
+        "desc": "孩子的國小只剩一個年級一班，明年要併到鎮上的學校。另一個選擇，是送孩子進城念書。",
+        "source": "虛構推演：依國發會少子化推估，偏鄉學校裁併持續增加。",
+        "conditions": {
+          "year_range": [
+            2030,
+            2100
+          ],
+          "age_range": [
+            28,
+            55
+          ],
+          "child_age_range": [
+            6,
+            14
+          ],
+          "regions_in": [
+            "east_islands",
+            "south_tainan",
+            "central",
+            "south_kaohsiung"
+          ]
+        },
+        "chance": 0.15,
+        "options": [
+          {
+            "key": "send_city",
+            "label": "送孩子進城念書",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "workaholic": 1.4,
+              "cautious": 1.2
+            },
+            "effects": {
+              "money": -150000,
+              "happiness": -2
+            },
+            "text": "每天清晨你開車送孩子進城，傍晚再接回來。"
+          },
+          {
+            "key": "local_merge",
+            "label": "讓孩子到併校後的學校",
+            "auto_weight": 0.65,
+            "trait_weight": {
+              "family_first": 1.5,
+              "civic_minded": 1.4
+            },
+            "effects": {
+              "social": 2
+            },
+            "text": "你加入了家長會，幫新學校爭取校車。"
+          }
+        ]
+      },
+      {
+        "id": "F2045_longevity_planning",
+        "tier": "future",
+        "era_label": "2040 年代以後 · 百歲人生",
+        "title": "如果要活到一百歲，錢夠用嗎？",
+        "desc": "醫療進步讓百歲不再稀奇。理專提醒你，現在的存款可能只夠用到 85 歲。",
+        "source": "虛構推演：依平均壽命延長與超高齡社會趨勢模擬。",
+        "conditions": {
+          "year_range": [
+            2040,
+            2100
+          ],
+          "age_range": [
+            50,
+            62
+          ],
+          "working": true
+        },
+        "chance": 0.06,
+        "options": [
+          {
+            "key": "annuity",
+            "label": "買年金與長照保險",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "cautious": 2.0,
+              "family_first": 1.3
+            },
+            "effects": {
+              "money": -300000,
+              "flags": [
+                "longevity_insured"
+              ],
+              "happiness": 2
+            },
+            "outcomes": [
+              {
+                "delay": [
+                  18,
+                  25
+                ],
+                "success": {
+                  "effects": {
+                    "money": 600000
+                  },
+                  "text": "當年買的年金開始按月入帳，你的晚年手頭寬裕不少。"
+                }
+              }
+            ],
+            "text": "你簽下了一疊保單，心裡踏實了一些。"
+          },
+          {
+            "key": "work_longer",
+            "label": "打算做久一點，晚點退休",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "workaholic": 2.0
+            },
+            "effects": {
+              "flags": [
+                "extended_work_70"
+              ]
+            },
+            "text": "你跟主管說，退休的事再談。"
+          },
+          {
+            "key": "live_now",
+            "label": "人生苦短，該花就花",
+            "auto_weight": 0.25,
+            "trait_weight": {
+              "sociable": 1.8,
+              "risk_taker": 1.5
+            },
+            "effects": {
+              "money": -150000,
+              "happiness": 6
+            },
+            "text": "你訂了一趟郵輪環島旅行。"
+          }
+        ]
+      },
+      {
+        "id": "F2055_cohousing",
+        "tier": "future",
+        "era_label": "2050 年代以後 · 一人戶時代",
+        "title": "一個人老了：要搬進共居宅嗎？",
+        "desc": "老家只剩你一個人。社區新蓋的跨世代共居宅有共同廚房和看護站，年輕住戶和長輩互相照應。",
+        "source": "虛構推演：延續一人戶比例上升與共居宅普及的趨勢。",
+        "conditions": {
+          "year_range": [
+            2045,
+            2110
+          ],
+          "age_range": [
+            68,
+            88
+          ],
+          "single": true
+        },
+        "chance": 0.07,
+        "options": [
+          {
+            "key": "move_in",
+            "label": "搬進共居宅",
+            "auto_weight": 0.5,
+            "trait_weight": {
+              "sociable": 2.0,
+              "family_first": 1.2
+            },
+            "effects": {
+              "social": 6,
+              "happiness": 4,
+              "money": -100000
+            },
+            "text": "你在共同廚房教年輕住戶包水餃，第一次覺得老了也不寂寞。"
+          },
+          {
+            "key": "stay_home",
+            "label": "留在住慣的老房子",
+            "auto_weight": 0.5,
+            "trait_weight": {
+              "sensitive_introvert": 1.8,
+              "cautious": 1.3
+            },
+            "effects": {
+              "happiness": 1,
+              "social": -2
+            },
+            "text": "你習慣了屋裡每一道光線，不想搬。"
           }
         ]
       }

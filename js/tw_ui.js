@@ -1166,7 +1166,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.3 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.4 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1260,7 +1260,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.3 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.4 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1268,7 +1268,7 @@
   function showDecisionModal(dec) {
     state.pendingDecision = dec;
     const era = state.engine.getEraParams(state.life.currentYear);
-    $("decBadge").textContent = dec.isEraCard ? `🕰 ${dec.eraLabel}` : dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D01B_youth_parttime_request" ? "🪪 法定打工申請" : dec.id === "D07_career_track" ? "💼 職業與實業選擇" : dec.id === "D07B_career_switch" ? "🔄 職涯轉職契機" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
+    $("decBadge").textContent = dec.isEraCard ? `${dec.tierIcon || "🕰"} ${dec.eraLabel}` : dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D01B_youth_parttime_request" ? "🪪 法定打工申請" : dec.id === "D07_career_track" ? "💼 職業與實業選擇" : dec.id === "D07B_career_switch" ? "🔄 職涯轉職契機" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
     $("decYearTag").textContent = `${state.life.currentYear}（${era.roc}）· ${state.life.age} 歲`;
     $("decTitle").textContent = dec.resolvedTitle;
     $("decDesc").textContent = dec.resolvedDesc;
@@ -1439,7 +1439,7 @@
     const eraHist = l.eraHistory || [];
     $("endDecisionsWrap").innerHTML = (eraHist.length
       ? `<h4 style="margin:0 0 8px;">🕰 你遇上的時代（${eraHist.length} 次）</h4>` +
-        eraHist.map((h) => `<div style="font-size:15.6px;margin-bottom:4px;"><strong>${h.age} 歲（${h.year}）${h.eraLabel}</strong>｜${h.title} → ${h.byParents ? "父母決定：" : ""}${h.choice}</div>`).join("") +
+        eraHist.map((h) => `<div style="font-size:15.6px;margin-bottom:4px;"><strong>${h.age} 歲（${h.year}）${h.icon || "🕰"} ${h.eraLabel}</strong>｜${h.title} → ${h.byParents ? "父母決定：" : ""}${h.choice}</div>`).join("") +
         `<div style="height:12px;"></div>`
       : "") +
       `<h4 style="margin:0 0 8px;">📌 這一生做過的關鍵抉擇（${l.decisionHistory.length} 次）</h4>` +

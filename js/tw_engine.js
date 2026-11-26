@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.3 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.4 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -30,6 +30,7 @@
   }
 
   const DECISION_COOLDOWN = 2;
+  const ERA_TIER_ICONS = { era: "🕰", trend: "🧭", future: "🔮" };
   const ORIGIN_LABELS = {
     minnan: "閩南家庭",
     hakka: "客家家庭",
@@ -718,7 +719,7 @@
       if (sp.retired) {
         sp.incomeNominal = Math.round(era.avg_monthly_wage_twd * 12 * (life.currentYear < 2009 ? 0.12 : 0.1 + 0.2 * Math.min(1.2, sp.wageRatio)));
       } else {
-        if (Math.random() < 0.14) sp.working = Math.random() < this.spouseWorkProb(sp, life);
+        if (Math.random() < 0.14 && !(life.flags.spouse_homemaker_until > life.currentYear)) sp.working = Math.random() < this.spouseWorkProb(sp, life);
         const exp = clamp(0.8 + (spAge - 24) * 0.012, 0.8, 1.1);
         sp.incomeNominal = sp.working ? Math.round(Math.max(era.min_wage_twd * 10, era.avg_monthly_wage_twd * 12 * sp.wageRatio * exp)) : 0;
       }
@@ -2957,7 +2958,7 @@
           const chance = clamp(era.uni_admission_rate + (life.stats.knowledge - 50) * 0.006 + (life.quintile - 3) * 0.04 + tierBonus + stageBonus + bonus - hardship, 0.06, 0.99);
           return Math.random() < chance;
         };
-        if (life.age === 18 && life.eduLevel === 3 && life.flags.max_edu_cap !== "junior_high" && !life.flags.uni_checked) {
+        if (life.age === 18 && life.eduLevel === 3 && life.flags.max_edu_cap !== "junior_high" && !life.flags.no_uni_exam && !life.flags.uni_checked) {
           life.flags.uni_checked = true;
           if (rollUniAdmission(0)) {
             life.education = "大學在學"; life.eduLevel = 4; life.uniGradAge = 22;
@@ -4144,6 +4145,16 @@
       const liqReal = (life.moneyNominal + life.stockNominal) / Math.max(0.07, era.cpi);
       if (c.min_liquid_twd_2025 != null && liqReal < c.min_liquid_twd_2025) return false;
       if (c.max_liquid_twd_2025 != null && liqReal > c.max_liquid_twd_2025) return false;
+      if (c.married && !life.married) return false;
+      if (c.children_min != null && life.children < c.children_min) return false;
+      if (c.children_max != null && life.children > c.children_max) return false;
+      if (c.child_age_range && !(life.childrenBirthYears || []).some((by) => y - by >= c.child_age_range[0] && y - by <= c.child_age_range[1])) return false;
+      if (c.lives_with_parents && !life.flags.lives_with_parents) return false;
+      if (c.spouse_working && !(life.spouse && life.spouse.working)) return false;
+      if (c.not_homeowner && life.homeowner) return false;
+      if (c.migrated && !life.migrated) return false;
+      if (c.low_income && !(life.annualSalaryNominal > 0 && life.annualSalaryNominal < era.avg_monthly_wage_twd * 12 * 0.85)) return false;
+      if (c.future_events_any && !c.future_events_any.some((id) => life.futureWorld && life.futureWorld.triggered && life.futureWorld.triggered[id])) return false;
       if (c.flags_all && !c.flags_all.every((f) => life.flags[f])) return false;
       if (c.flags_none && c.flags_none.some((f) => life.flags[f])) return false;
       return true;
@@ -4152,9 +4163,11 @@
     findEraChoice(life, era, isPauseYear) {
       const cards = (this.data.decisions && this.data.decisions.era_choices) || [];
       if (!cards.length || life.location !== "TAIWAN" || isPauseYear) return null;
-      const lastEra = life.flags.lastEraCardAge != null ? life.flags.lastEraCardAge : -10;
-      if (life.age - lastEra < 3 || life.age - life.lastDecisionAge < 1) return null;
-      const pool = cards.filter((card) => !life.triggeredDecisions[card.id] && this.isEraCardEligible(life, card, era));
+      if (life.age - life.lastDecisionAge < 1) return null;
+      const gaps = { era: 3, trend: 4, future: 4 };
+      const lastAt = life.flags.lastCardAgeByTier || {};
+      const tierReady = (t) => life.age - (lastAt[t] != null ? lastAt[t] : -10) >= (gaps[t] || 3);
+      const pool = cards.filter((card) => tierReady(card.tier || "era") && !life.triggeredDecisions[card.id] && this.isEraCardEligible(life, card, era));
       for (let i = pool.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -4183,6 +4196,8 @@
         isEraCard: true,
         eraCard: card,
         eraLabel: card.era_label,
+        tier: card.tier || "era",
+        tierIcon: ERA_TIER_ICONS[card.tier || "era"],
         parentDecides: Boolean(card.parent_decides),
         options: card.options,
         resolvedTitle: fill(card.title),
@@ -4279,6 +4294,40 @@
         life.flags.hs_tier = "work_early";
         life.job = life.sex === "F" ? "加工出口區作業員" : "工廠學徒";
       }
+      if (ef.stock_sell_ratio && life.stockNominal > 0) {
+        const sell = Math.round(life.stockNominal * ef.stock_sell_ratio);
+        life.stockNominal -= sell;
+        life.moneyNominal += sell;
+      }
+      if (ef.uni_admit_bonus) life.flags.uni_admit_bonus = (life.flags.uni_admit_bonus || 0) + ef.uni_admit_bonus;
+      if (ef.no_uni_exam) life.flags.no_uni_exam = true;
+      if (ef.unlock_night_uni && life.eduLevel < 4) {
+        life.eduLevel = 4;
+        life.education = "大學夜間部畢業";
+        life.flags.university_grad = true;
+        life.flags.max_edu_cap = null;
+        life.triggeredDecisions["D05_graduation_crossroads"] = true;
+      }
+      if (ef.homemaker_years && life.careerId) {
+        life.flags.unemployed = true;
+        life.flags.temp_unemployed_years = Math.max(life.flags.temp_unemployed_years || 0, ef.homemaker_years);
+        life.job = life.sex === "F" ? "家庭主婦" : "家庭主夫";
+      }
+      if (ef.spouse_homemaker_years && life.spouse) {
+        life.spouse.working = false;
+        life.flags.spouse_homemaker_until = life.currentYear + ef.spouse_homemaker_years;
+      }
+      if (ef.moved_out) { life.flags.moved_out = true; life.flags.lives_with_parents = false; }
+      if (ef.desired_kids_delta) { life.desiredKids = clamp((life.desiredKids || 0) + ef.desired_kids_delta, 0, 6); life.flags.no_more_kids = false; }
+      if (ef.no_more_kids) life.flags.no_more_kids = true;
+      if (ef.mortality_mult) life.flags.midlife_mortality_mult = (life.flags.midlife_mortality_mult || 1) * ef.mortality_mult;
+      if (ef.romance_delay) life.flags.next_romance_age = Math.max(life.flags.next_romance_age || 0, life.age + ef.romance_delay);
+      if (life.flags.extended_work_70) life.flags.next_retire_ask = Math.max(life.flags.next_retire_ask || 0, 70);
+      if (ef.return_home_region && life.regionId !== life.birthRegionId) {
+        const note = this.relocateTo(life, life.birthRegionId, era);
+        life.flags.moved_out = false;
+        if (note) notes.push(note);
+      }
       if (ef.usd_hedge_ratio) life.flags.usd_hedge_amount = Math.round(Math.max(0, life.moneyNominal) * ef.usd_hedge_ratio);
       if (ef.usd_hedge_loss && life.flags.usd_hedge_amount) {
         const loss = Math.round(life.flags.usd_hedge_amount * ef.usd_hedge_loss);
@@ -4327,7 +4376,8 @@
       const card = decision.eraCard;
       const opt = card.options.find((o) => o.key === optionKey) || card.options[0];
       life.triggeredDecisions[card.id] = true;
-      life.flags.lastEraCardAge = life.age;
+      life.flags.lastCardAgeByTier = life.flags.lastCardAgeByTier || {};
+      life.flags.lastCardAgeByTier[card.tier || "era"] = life.age;
       if (!decision.parentDecides) life.lastDecisionAge = life.age;
       const reg = this.getRegion(life.regionId);
       const salaryBefore = this.computeCurrentAnnualSalaryNominal(life, era, reg);
@@ -4347,7 +4397,7 @@
           ? oc.at_year[0] + Math.floor(Math.random() * (oc.at_year[1] - oc.at_year[0] + 1))
           : life.currentYear + oc.delay[0] + Math.floor(Math.random() * (oc.delay[1] - oc.delay[0] + 1));
         at = Math.max(at, life.currentYear + 1);
-        life.flags.eraPending.push({ at, cardId: card.id, eraLabel: card.era_label, oc });
+        life.flags.eraPending.push({ at, cardId: card.id, eraLabel: card.era_label, icon: ERA_TIER_ICONS[card.tier || "era"], oc });
       }
 
       const maxHp = life.flags.disabled ? 48 : 100;
@@ -4368,19 +4418,20 @@
       }
 
       life.eraHistory = life.eraHistory || [];
-      life.eraHistory.push({ age: life.age, year: life.currentYear, eraLabel: card.era_label, title: decision.resolvedTitle, choice: opt.label, byParents: Boolean(decision.parentDecides) });
+      const icon = ERA_TIER_ICONS[card.tier || "era"];
+      life.eraHistory.push({ age: life.age, year: life.currentYear, eraLabel: card.era_label, tier: card.tier || "era", icon, title: decision.resolvedTitle, choice: opt.label, byParents: Boolean(decision.parentDecides) });
       life.decisionHistory.push({ age: life.age, year: life.currentYear, roc: era.roc, title: decision.resolvedTitle, choice: decision.parentDecides ? `父母決定：${opt.label}` : opt.label });
       if (decision.parentDecides) {
         life.feed.unshift({
           type: "parent_decision", age: life.age, year: life.currentYear, roc: era.roc,
           title: `👨‍👩‍👧 父母的決定：${decision.resolvedTitle}`,
           text: `當時你 ${life.age} 歲。${decision.resolvedDesc}父母決定「${opt.label}」。${text}${notes.join("")}`,
-          impactNote: `由父母決定 ｜ 🕰 ${card.era_label}`
+          impactNote: `由父母決定 ｜ ${icon} ${card.era_label}`
         });
       } else {
         life.feed.unshift({
           type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
-          text: `【🕰 ${card.era_label}｜${decision.resolvedTitle}】你選擇了「${opt.label}」。${text}${notes.join("")}`,
+          text: `【${icon} ${card.era_label}｜${decision.resolvedTitle}】你選擇了「${opt.label}」。${text}${notes.join("")}`,
           salaryDeltaBadge,
           highlight: true,
           showHelpline: Boolean(life.flags.heavy_debt && opt.roll)
@@ -4405,7 +4456,7 @@
         const notes = this.applyEraEffects(life, branch.effects, era);
         life.feed.unshift({
           type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
-          text: `【🕰 時代的回聲｜${item.eraLabel}】${branch.text || ""}${notes.join("")}`,
+          text: `【${item.icon || "🕰"} 時代的回聲｜${item.eraLabel}】${branch.text || ""}${notes.join("")}`,
           highlight: true
         });
       }
@@ -4476,6 +4527,7 @@
       const m = this.getMotherAge(life);
       let p = m < 30 ? 0.9 : m < 33 ? 0.85 : m < 36 ? 0.74 : m < 38 ? 0.6 : m < 40 ? 0.46 : m < 42 ? 0.28 : m < 44 ? 0.12 : 0.03;
       if (life.flags.infertile_tries >= 2) p *= 0.75;
+      if (life.flags.frozen_eggs && life.sex === "F" && m >= 35) p = Math.max(p, m < 40 ? 0.6 : m < 44 ? 0.4 : 0.15);
       if (ivf) p = clamp(Math.max(p, m < 35 ? 0.6 : m < 38 ? 0.5 : m < 40 ? 0.38 : m < 42 ? 0.22 : 0.08) * 1.1, 0.05, 0.7);
       return p;
     }
