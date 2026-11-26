@@ -3712,3 +3712,51 @@ body.theme-dark .pd-tag { color: #f0be7a; }
   font-size: 12.6px; color: var(--ink-2); text-align: center; line-height: 1.6; opacity: .85;
 }
 .music-credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+/* v6.15: 出生抽選開場畫面 */
+.birth-modal { z-index: 150; }
+.birth-card { max-width: 520px; text-align: center; padding: 30px 28px 24px; }
+.birth-line {
+  font-family: var(--serif); font-size: 19px; color: var(--ink-2); letter-spacing: .12em;
+  opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease;
+}
+.birth-roll {
+  font-family: var(--serif); font-weight: 700; color: var(--accent);
+  font-size: clamp(34px, 8vw, 50px); line-height: 1.25; margin: 6px 0 0;
+  min-height: 1.25em; opacity: 0; transition: opacity .3s ease;
+  font-variant-numeric: tabular-nums;
+}
+.birth-roll.is-rolling { filter: blur(.6px); color: var(--ink-2); }
+.birth-roll.is-landed { animation: birthLand .5s ease-out; }
+@keyframes birthLand {
+  0% { transform: scale(1.25); }
+  60% { transform: scale(.96); }
+  100% { transform: scale(1); }
+}
+.birth-roll-sub {
+  font-size: 14.4px; color: var(--ink-3); min-height: 1.6em; margin: 2px 0 16px;
+  opacity: 0; transition: opacity .4s ease;
+}
+.birth-card .is-shown { opacity: 1; transform: none; }
+.birth-bg-card {
+  text-align: left; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-2);
+  padding: 14px 16px; font-size: 15px; line-height: 1.6;
+  opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease;
+  display: none;
+}
+.birth-bg-card.is-visible { display: block; }
+.birth-bg-card .bbc-title { font-family: var(--serif); font-size: 18px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+.birth-bg-card .bbc-row { display: flex; gap: 10px; padding: 3px 0; border-top: 1px dashed var(--line); }
+.birth-bg-card .bbc-row:first-of-type { border-top: 0; }
+.birth-bg-card .bbc-k { flex: 0 0 5.2em; color: var(--ink-3); }
+.birth-bg-card .bbc-v { flex: 1; color: var(--ink); }
+.birth-actions {
+  display: flex; justify-content: center; gap: 10px; margin-top: 8px; min-height: 44px;
+  position: sticky; bottom: -24px; background: var(--bg); padding: 10px 0 2px;
+}
+.birth-go { font-size: 18px; padding: 10px 34px; opacity: 0; transform: scale(.9); transition: opacity .4s ease, transform .4s ease; }
+.birth-go[hidden], .birth-skip[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .birth-line, .birth-roll, .birth-roll-sub, .birth-bg-card, .birth-go { transition: none; }
+  .birth-roll.is-landed { animation: none; }
+}

@@ -314,14 +314,162 @@
     }
   }
 
+  // v6.15：出生抽選開場畫面 —— 先抽出這一生，再用滾動抽選動畫揭曉出生地與年份，
+  // 顯示背景卡，玩家按「出生」後才正式開始。
+  const birthIntro = { life: null, timers: [], rollTimer: null, done: false };
+
+  function clearBirthTimers() {
+    birthIntro.timers.forEach((t) => clearTimeout(t));
+    birthIntro.timers = [];
+    if (birthIntro.rollTimer) { clearTimeout(birthIntro.rollTimer); birthIntro.rollTimer = null; }
+  }
+
+  function birthLater(fn, ms) {
+    birthIntro.timers.push(setTimeout(fn, ms));
+  }
+
+  // 滾動抽選：先快後慢（ease-out），最後停在 finalText
+  function rollTo(el, pool, finalText, durationMs, onDone) {
+    el.classList.add("is-shown", "is-rolling");
+    el.classList.remove("is-landed");
+    const start = performance.now();
+    let last = "";
+    const step = () => {
+      const t = (performance.now() - start) / durationMs;
+      if (t >= 1) {
+        el.textContent = finalText;
+        el.classList.remove("is-rolling");
+        void el.offsetWidth;
+        el.classList.add("is-landed");
+        birthIntro.rollTimer = null;
+        if (onDone) onDone();
+        return;
+      }
+      let next = pool[Math.floor(Math.random() * pool.length)];
+      if (pool.length > 1) { while (next === last) next = pool[Math.floor(Math.random() * pool.length)]; }
+      last = next;
+      el.textContent = next;
+      const delay = 45 + 260 * t * t; // 越來越慢
+      birthIntro.rollTimer = setTimeout(step, delay);
+    };
+    step();
+  }
+
+  function birthBgCardHtml(l) {
+    const era = state.engine.getEraParams(l.birthYear);
+    const cult = state.engine.getCultureEra(l.birthYear);
+    const originLabel = ({ minnan: "閩南家庭", hakka: "客家家庭", waisheng: "外省家庭", indigenous: "原住民家庭", new_immigrant: "新住民家庭" })[l.family.origin] || "—";
+    const sib = l.family.siblings > 0
+      ? `手足 ${l.family.siblings} 人${l.family.birthOrder ? `，排行第 ${l.family.birthOrder}` : ""}`
+      : "獨生子女";
+    const rows = [
+      ["性別", l.sex === "M" ? "男" : "女"],
+      ["家庭", `${originLabel} ｜ ${sib}`],
+      ["父母", `父：${l.family.fatherName} ／ 母：${l.family.motherName}`],
+      ["出生家境", `Q${l.quintile} ${l.quintileLabel}`],
+      ["先天個性", (l.personalities || []).map((x) => `<strong>${x.name}</strong>（${x.desc}）`).join("<br/>") || "—"],
+      ["時代氛圍", `${era.era_summary || ""}${cult && cult.label ? `｜${cult.label}` : ""}`]
+    ];
+    return `<div class="bbc-title">👶 ${l.name}</div>` +
+      rows.map(([k, v]) => `<div class="bbc-row"><div class="bbc-k">${k}</div><div class="bbc-v">${v}</div></div>`).join("");
+  }
+
+  function finishBirthIntro() {
+    clearBirthTimers();
+    const l = birthIntro.life;
+    if (!l) return;
+    const reg = state.engine.getRegion(l.birthRegionId);
+    const era = state.engine.getEraParams(l.birthYear);
+    ["birthLine1", "birthLine2", "birthRegionRoll", "birthRegionSub", "birthYearRoll", "birthYearSub"].forEach((id) => {
+      const el = $(id);
+      el.classList.add("is-shown");
+      el.classList.remove("is-rolling");
+    });
+    $("birthRegionRoll").textContent = reg.name_zh;
+    $("birthRegionSub").textContent = reg.counties.join("・");
+    $("birthYearRoll").textContent = `${l.birthYear} 年`;
+    $("birthYearSub").textContent = era.roc || "";
+    const card = $("birthBgCard");
+    card.innerHTML = birthBgCardHtml(l);
+    card.classList.add("is-visible", "is-shown");
+    $("btnBirthSkip").hidden = true;
+    const go = $("btnBirthGo");
+    go.hidden = false;
+    go.classList.add("is-shown");
+    birthIntro.done = true;
+    try { go.focus({ preventScroll: true }); } catch (_) { go.focus(); }
+  }
+
+  function playBirthIntro(l) {
+    clearBirthTimers();
+    birthIntro.life = l;
+    birthIntro.done = false;
+    const reg = state.engine.getRegion(l.birthRegionId);
+    const era = state.engine.getEraParams(l.birthYear);
+    // 自動模式時動畫加速
+    const k = state.autoMode ? 0.45 : 1;
+    const regionPool = state.data.regions.regions.map((r) => r.name_zh);
+    const yearPool = [];
+    for (let y = 1950; y <= 2026; y++) yearPool.push(`${y} 年`);
+
+    ["birthLine1", "birthLine2", "birthRegionRoll", "birthRegionSub", "birthYearRoll", "birthYearSub"].forEach((id) => {
+      const el = $(id);
+      el.classList.remove("is-shown", "is-rolling", "is-landed");
+      el.textContent = id.startsWith("birthLine") ? el.textContent : "　";
+    });
+    const card = $("birthBgCard");
+    card.classList.remove("is-visible", "is-shown");
+    card.innerHTML = "";
+    const go = $("btnBirthGo");
+    go.hidden = true;
+    go.classList.remove("is-shown");
+    $("btnBirthSkip").hidden = false;
+    $("birthModal").hidden = false;
+    $("birthModal").querySelector(".modal-card").scrollTop = 0;
+
+    birthLater(() => $("birthLine1").classList.add("is-shown"), 150 * k);
+    birthLater(() => {
+      rollTo($("birthRegionRoll"), regionPool, reg.name_zh, 1900 * k, () => {
+        $("birthRegionSub").textContent = reg.counties.join("・");
+        $("birthRegionSub").classList.add("is-shown");
+        birthLater(() => $("birthLine2").classList.add("is-shown"), 450 * k);
+        birthLater(() => {
+          rollTo($("birthYearRoll"), yearPool, `${l.birthYear} 年`, 2100 * k, () => {
+            $("birthYearSub").textContent = era.roc || "";
+            $("birthYearSub").classList.add("is-shown");
+            birthLater(() => {
+              card.innerHTML = birthBgCardHtml(l);
+              card.classList.add("is-visible");
+              void card.offsetWidth;
+              card.classList.add("is-shown");
+            }, 550 * k);
+            birthLater(finishBirthIntro, 1300 * k);
+          });
+        }, 900 * k);
+      });
+    }, 650 * k);
+  }
+
   function startNewLife() {
     stopTimer();
     closeAllModals(false);
-    state.life = state.engine.createLife({
+    state.paused = true;
+    syncPlaybackControls();
+    const l = state.engine.createLife({
       regionMode: state.regionMode,
       manualRegionId: state.selectedRegionId,
       birthYear: state.selectedYear
     });
+    playBirthIntro(l);
+  }
+
+  function beginBornLife() {
+    const l = birthIntro.life;
+    if (!l) return;
+    clearBirthTimers();
+    birthIntro.life = null;
+    $("birthModal").hidden = true;
+    state.life = l;
     state.paused = false;
     syncFocusSelect();
     switchView("life");
@@ -1197,7 +1345,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.14 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.15 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1291,7 +1439,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.14 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.15 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1700,6 +1848,12 @@
     });
 
     $("btnStartLife").addEventListener("click", startNewLife);
+    $("btnBirthSkip").addEventListener("click", finishBirthIntro);
+    $("btnBirthGo").addEventListener("click", beginBornLife);
+    // 動畫進行中點擊卡片任意處＝跳過
+    $("birthModal").addEventListener("click", (e) => {
+      if (!birthIntro.done && !e.target.closest("button")) finishBirthIntro();
+    });
     $("btnRebirth").addEventListener("click", startNewLife);
     $("btnEndRebirth").addEventListener("click", startNewLife);
     $("btnEndBackIntro").addEventListener("click", () => switchView("intro"));
@@ -1851,6 +2005,15 @@
     });
 
     document.addEventListener("keydown", (e) => {
+      // v6.15：出生畫面 —— 動畫中 Enter／空白／Esc 跳過動畫；揭曉後 Enter／空白＝出生
+      if (!$("birthModal").hidden) {
+        if (e.key === "Enter" || e.key === " " || e.code === "Space" || e.key === "Escape") {
+          e.preventDefault();
+          if (!birthIntro.done) finishBirthIntro();
+          else if (e.key !== "Escape") beginBornLife();
+        }
+        return;
+      }
       // Spacebar: toggle pause / resume while playing in #view-life (ignoring inputs & active modals)
       if (e.code === "Space" || e.key === " ") {
         const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : "";

@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="生在台灣" />
-<title>生在台灣 v6.14 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
+<title>生在台灣 v6.15 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -469,6 +469,23 @@
 </div>
 
 <!-- HUKOU / BIRTH CERTIFICATE MODAL -->
+<!-- v6.15: 出生抽選開場畫面 -->
+<div id="birthModal" class="modal birth-modal" hidden role="dialog" aria-modal="true" aria-labelledby="birthLine1">
+  <div class="modal-card birth-card">
+    <div class="birth-line" id="birthLine1">你將出生在</div>
+    <div class="birth-roll" id="birthRegionRoll" aria-live="polite">　</div>
+    <div class="birth-roll-sub" id="birthRegionSub">　</div>
+    <div class="birth-line" id="birthLine2">你將出生於</div>
+    <div class="birth-roll" id="birthYearRoll" aria-live="polite">　</div>
+    <div class="birth-roll-sub" id="birthYearSub">　</div>
+    <div class="birth-bg-card" id="birthBgCard"></div>
+    <div class="birth-actions">
+      <button id="btnBirthSkip" class="tw-btn-ghost birth-skip">跳過動畫 ⏭</button>
+      <button id="btnBirthGo" class="tw-btn-primary birth-go">出生 👶</button>
+    </div>
+  </div>
+</div>
+
 <div id="hukouModal" class="modal" hidden>
   <div class="modal-card">
     <div class="hukou-card" id="hukouBody"></div>
