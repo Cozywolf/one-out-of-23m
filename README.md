@@ -81,7 +81,17 @@ python3 sync_data.py
 ```
 腳本會將全部 **13 份 JSON** 打包同步至 `data/tw_bundle.js`，確保 `file://` 雙擊開啟與線上環境資料一致。
 
-### 4. GitHub Pages 部署
+### 4. 用 Excel 審閱與修改事件
+```bash
+pip install openpyxl
+python scripts/events_excel.py export             # 產生 review/tw_events_review.xlsx
+python scripts/events_excel.py import --dry-run   # 改完 Excel 後先看會改哪些欄位
+python scripts/events_excel.py import             # 寫回 data/tw_*.json 並自動重建 tw_bundle.js
+python scripts/events_excel.py roundtrip          # 驗證「匯出後原樣匯回」零差異
+```
+Excel 收錄歷史事件、當事人結果、未來推演、決策卡與選項、人生階段事件、同儕插曲、習俗、時代日常、教育插曲、留學事件、回流觸發與天災機率共 15 個可編輯分頁，欄位依「識別／觸發條件／機率／影響／內容」上色分組；用法寫在檔案的「說明」分頁。另有一個唯讀分頁列出寫死在 `js/tw_engine.js` 的機率判定，改了不會匯回。
+
+### 5. GitHub Pages 部署
 專案已內建 `.nojekyll` 且全部資源皆採 `./` 相對路徑，直接將專案根目錄檔案推送至 GitHub Pages 分支（如 `https://<user>.github.io/<repo>/`）即可運作。
 
 ---
@@ -94,6 +104,8 @@ born-in-taiwan/
 ├── styles.css                   # 完整樣式表（含淺色／深色／羊皮紙三主題與行動版適配）
 ├── manifest.json                # PWA 應用程式中繼設定
 ├── sync_data.py                 # 將 13 份 data/tw_*.json 同步生成 data/tw_bundle.js
+├── scripts/                     # calibrate_cohorts.js 世代校準、events_excel.py 事件⇄Excel 審閱工具
+├── review/                      # tw_events_review.xlsx 事件審閱表（由 events_excel.py 產生）
 ├── .nojekyll                    # 停用 GitHub Pages Jekyll 處理
 ├── assets/                      # 6 張水彩風格生命階段插畫（.jpg）
 ├── js/
