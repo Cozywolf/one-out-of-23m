@@ -785,7 +785,7 @@
         return `
           <article class="peer-vignette-card">
             <div class="feed-item-head">
-              <span class="pv-tag">🕊 周圍人的身影 · ${item.relation}</span>
+              <span class="pv-tag">${({ friend: "👥", relative: "👪", place: "🏘" })[item.category] || "🕊"} 周圍的人與事 · ${item.relation}</span>
               <span>${item.age} 歲 · ${item.year}（${item.roc}）</span>
             </div>
             <div class="pv-text">${item.text}</div>
@@ -1174,7 +1174,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.7 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.8 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1268,7 +1268,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.7 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.8 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }

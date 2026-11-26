@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.7 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.8 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -31,6 +31,36 @@
 
   const DECISION_COOLDOWN = 2;
   const ERA_TIER_ICONS = { era: "🕰", trend: "🧭", future: "🔮" };
+  // 周圍的人與事留下的記憶：日後相關抉擇時會被想起，並輕微影響自動模式的選擇
+  const MEMORY_HOOKS = {
+    D05_graduation_crossroads: [["friend_abroad_thriving", { study_abroad: 1.5 }]],
+    D06_northbound_migration: [["town_declining", { move_north: 1.4 }], ["friend_returned_home", { stay_home: 1.3 }], ["neighborhood_boom", { stay_home: 1.3 }]],
+    D08_overseas_assignment: [["friend_abroad_thriving", { accept_expat: 1.4 }], ["friend_left_lonely", { decline_stay: 1.4 }]],
+    D09_return_hometown_dilemma: [["friend_returned_home", { return_home: 1.5 }], ["town_declining", { stay_north: 1.3 }]],
+    D11_health_red_flags: [["friend_burnout", { slow_down: 1.8 }], ["relative_died_young", { slow_down: 1.8 }], ["relative_cancer_regret", { slow_down: 1.6 }]],
+    D12_first_pot_of_gold: [["friend_scammed", { time_deposit: 1.3, margin_speculation: 0.5 }], ["friend_rich_from_stocks", { etf_dca: 1.3, margin_speculation: 1.4 }]],
+    D13_buying_home: [["neighborhood_boom", { buy_core_40yr: 1.3, buy_suburb: 1.2 }], ["town_declining", { rent_and_invest: 1.4 }]],
+    D14_financial_trap: [["friend_scammed", { reject: 1.8 }], ["relative_rosca_collapse", { reject: 1.6 }], ["friend_rich_from_stocks", { small_try: 1.4 }]],
+    D16_relative_loan_guarantor: [["relative_guarantor_ruin", { refuse: 2.0, co_sign: 0.4 }]],
+    D19_have_children: [["friend_happy_parent", { have_child: 1.2 }], ["friend_childfree_happy", { dink_pets: 1.4 }]],
+    D20_marriage_crisis: [["friend_divorced", { divorce: 1.3 }]],
+    D24_elderly_care_storm: [["relative_caregiver_burnout", { hire_caregiver: 1.6, share_with_siblings: 1.3 }], ["neighbor_died_alone", { quit_fulltime_care: 1.3 }]],
+    D25_retirement_timing: [["relative_died_young", { early_fire: 1.5, standard_retire: 1.2 }], ["relative_cancer_regret", { early_fire: 1.4, standard_retire: 1.2 }]],
+    E1976_suitcase_trade: [["friend_startup_success", { start_trading: 1.5 }], ["friend_startup_fail", { stay_company: 1.5 }]],
+    E1986_dajiale: [["relative_rosca_collapse", { no_bet: 1.6 }]],
+    E1987_stock_mania: [["friend_rich_from_stocks", { follow_small: 1.4 }]],
+    E2017_crypto_boom: [["friend_scammed", { no: 1.6 }], ["friend_rich_from_stocks", { small: 1.4 }]],
+    T1965_rotating_credit: [["relative_rosca_collapse", { no_join: 1.8 }]],
+    E2012_working_holiday: [["friend_abroad_thriving", { go_aus: 1.5 }], ["friend_left_lonely", { stay: 1.3 }]],
+    E2015_low_wage_exodus: [["friend_abroad_thriving", { go_abroad_job: 1.5 }], ["friend_left_lonely", { stay: 1.3 }]],
+    T2005_online_shop: [["friend_startup_success", { open_shop: 1.4 }], ["friend_startup_fail", { no_shop: 1.4 }]],
+    T2010_overtime_culture: [["friend_burnout", { clock_out: 1.6, change_company: 1.6 }]],
+    E2025_ai_wave: [["colleague_laid_off", { reskill_ai: 1.5 }]],
+    T2020_pets_not_kids: [["friend_childfree_happy", { adopt_pet: 1.3 }], ["friend_happy_parent", { plan_kids: 1.4 }]],
+    F2050_remote_return_home: [["friend_returned_home", { go_home: 1.4 }]],
+    F2058_elder_care_choice: [["neighbor_died_alone", { move_child: 1.4 }]],
+    F2048_midlife_pivot: [["friend_startup_success", { pivot: 1.3 }], ["colleague_laid_off", { pivot: 1.3 }]]
+  };
   // 每段人生在 2026 年後走一條隱藏的未來世界線：決定哪些未來事件較可能發生、未來抉擇的成敗機率
   const WORLD_LINE_AXES = {
     ai: { label: "AI 發展", values: { fast: { w: 0.5, name: "AI 快速普及" }, slow: { w: 0.5, name: "AI 進展趨緩" } } },
@@ -1599,8 +1629,8 @@
     maybeTriggerAmbientPeer(life, era) {
       const list = (this.data.ambientPeers && this.data.ambientPeers.vignettes) || [];
       if (!list.length) return false;
-      if (life.age - (life.flags.lastPeerVignetteAge != null ? life.flags.lastPeerVignetteAge : -10) < 4) return false;
-      if (Math.random() > 0.28) return false;
+      if (life.age - (life.flags.lastPeerVignetteAge != null ? life.flags.lastPeerVignetteAge : -10) < 3) return false;
+      if (Math.random() > 0.42) return false;
 
       const seen = life.flags.seenPeers || {};
       const pool = list.filter((v) => {
@@ -1612,6 +1642,8 @@
         if (v.requires_working && (life.workYears || 0) < 1) return false;
         if (v.requires_flag && !(life.flags && life.flags[v.requires_flag])) return false;
         if (v.requires_hs && !["top_hs", "normal_hs"].includes(life.flags.hs_tier)) return false;
+        if (v.sex && life.sex !== v.sex) return false;
+        if (v.memory && life.flags.memories && life.flags.memories[v.memory]) return false;
         return true;
       });
       if (!pool.length) return false;
@@ -1620,8 +1652,13 @@
       life.flags.seenPeers = seen;
       life.flags.seenPeers[picked.id] = true;
       life.flags.lastPeerVignetteAge = life.age;
+      if (picked.memory) {
+        life.flags.memories = life.flags.memories || {};
+        life.flags.memories[picked.memory] = { year: life.currentYear, age: life.age, echo: picked.memory_echo || picked.text };
+      }
       life.feed.unshift({
         type: "peer_vignette",
+        category: picked.category || "friend",
         age: life.age,
         year: life.currentYear,
         roc: era.roc,
@@ -1957,6 +1994,19 @@
     }
 
     chooseAutoOption(life, decision, eligibleOpts, era) {
+      const bias = decision && decision.memoryBias;
+      if (!bias || !eligibleOpts || eligibleOpts.length < 2) return this.chooseAutoOptionCore(life, decision, eligibleOpts, era);
+      // 記憶偏好：以拒絕取樣把原本的權重乘上偏好倍率
+      const maxB = Math.max(1, ...Object.values(bias));
+      let pickOpt = null;
+      for (let i = 0; i < 8; i++) {
+        pickOpt = this.chooseAutoOptionCore(life, decision, eligibleOpts, era);
+        if (Math.random() < (bias[pickOpt.key] != null ? bias[pickOpt.key] : 1) / maxB) return pickOpt;
+      }
+      return pickOpt;
+    }
+
+    chooseAutoOptionCore(life, decision, eligibleOpts, era) {
       if (!eligibleOpts || !eligibleOpts.length) return decision.options[0];
       if (eligibleOpts.length === 1) return eligibleOpts[0];
       if (decision.isEraCard) {
@@ -4100,7 +4150,7 @@
           resolvedOptions = switchOpts;
           resolvedDesc = `你在「${life.job}」領域已累積 ${life.workYears} 年資歷（目前月薪約 NT$${curMo.toLocaleString()}）。面對 ${life.currentYear} 年（${era.roc}）的產業脈動與獵才邀約，你要趁機跨界轉職還是留在原領域深耕？`;
         }
-        candidates.push({ ...d, options: resolvedOptions, isFixedAge, activeVariant, resolvedTitle, resolvedDesc, resolvedSource });
+        candidates.push(this.attachMemory(life, { ...d, options: resolvedOptions, isFixedAge, activeVariant, resolvedTitle, resolvedDesc, resolvedSource }));
       }
       if (!candidates.length) return null;
       return candidates.find((x) => x.isFixedAge) || candidates.find((x) => x.id === "D22_major_disaster" || x.id === "D17_critical_illness_cost" || x.id === "D30_forced_home_sale" || x.id === "D31_cashflow_debt_crisis" || x.id === "D28_debt_clearance" || x.id === "D04_military_service") ||
@@ -4144,6 +4194,16 @@
       const line = life.futureWorld && life.futureWorld.line;
       if (!line) return [];
       return Object.entries(WORLD_LINE_AXES).map(([ax, def]) => ({ axis: def.label, value: (def.values[line[ax]] || {}).name || line[ax] }));
+    }
+
+    // 若這段人生有相關記憶，抉擇時會想起它（描述加一行，自動模式略微偏向）
+    attachMemory(life, dec) {
+      const hooks = MEMORY_HOOKS[String(dec.id)] || [];
+      const mem = life.flags.memories || {};
+      const hit = hooks.filter(([tag]) => mem[tag]).sort((a, b) => mem[b[0]].year - mem[a[0]].year)[0];
+      if (!hit) return dec;
+      const m = mem[hit[0]];
+      return { ...dec, memoryBias: hit[1], memoryEcho: m.echo, resolvedDesc: `${dec.resolvedDesc}\n💭 你想起 ${m.age} 歲那年：${m.echo}。` };
     }
 
     isWorkingNow(life) {
@@ -4220,7 +4280,7 @@
         if (card.sex_chance && card.sex_chance[life.sex]) p *= card.sex_chance[life.sex];
         if (Math.random() >= clamp(p, 0, 0.95)) continue;
         if (!card.options.some((o) => this.isOptionEligible(life, o, era).eligible)) continue;
-        return this.buildEraDecision(life, card, era);
+        return this.attachMemory(life, this.buildEraDecision(life, card, era));
       }
       return null;
     }

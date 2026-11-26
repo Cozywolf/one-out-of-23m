@@ -3698,3 +3698,5 @@ body.theme-dark .pd-tag { color: #f0be7a; }
 .key-choice { padding: 10px 12px; margin-bottom: 10px; border-left: 3px solid var(--gold-ink, #8C1D3C); background: var(--bg-2); border-radius: 6px; font-size: 15px; }
 .key-choice-echo { margin-top: 6px; font-size: 14px; color: var(--ink-2); }
 .key-choice-untaken { margin-top: 6px; font-size: 13.5px; color: var(--ink-2); }
+
+#decDesc { white-space: pre-line; }

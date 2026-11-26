@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": "1.0.0",
-    "description": "參照 1in8b.life 設計之『周圍人的時代側影』微故事庫（1950–2080s），以身邊同學、親友與鄰居的切片映照各年代台灣社會結構與日常人情。"
+    "description": "參照 1in8b.life 設計之『周圍人的時代側影』微故事庫（1950–2080s），以身邊同學、親友與鄰居的切片映照各年代台灣社會結構與日常人情。（v6.8 起加入「周圍的人與事」：好友、親戚、鄰里與城市變化的敘事事件；category 為 friend／relative／place，memory 標籤會在日後相關抉擇中被想起。）"
   },
   "vignettes": [
     {
@@ -377,6 +377,721 @@
       "relation": "老鄰居的孫子",
       "text": "聽老鄰居聊起，他孫子就讀的百年國小今年全校新生只剩九個人；街口以前擠滿安親班與文具店的那排透天厝，如今一半都改成了社區日照中心與復健診所。",
       "historical_note": "依國發會中推估趨勢，台灣高齡人口占比將逐步朝近半數邁進。"
+    },
+    {
+      "id": "SW_friend_emigrates_lonely",
+      "year_range": [
+        1965,
+        2100
+      ],
+      "age_range": [
+        18,
+        45
+      ],
+      "relation": "從小一起長大的好友",
+      "category": "friend",
+      "text": "好友決定出國了。送機那天你們在機場吃了最後一頓飯，他說會常寫信、常打電話。回家的路上，你突然覺得這座城市空了一塊。",
+      "memory": "friend_left_lonely",
+      "memory_echo": "好友出國後，你們的聯絡一年比一年少"
+    },
+    {
+      "id": "SW_friend_abroad_thriving",
+      "year_range": [
+        1975,
+        2100
+      ],
+      "age_range": [
+        25,
+        50
+      ],
+      "relation": "出國多年的老同學",
+      "category": "friend",
+      "text": "多年前出國的老同學回台探親，請大家吃飯。他說在國外升了主管、買了房子，孩子講英文比中文流利。散場時他拍拍你的肩：「有機會就出去看看吧。」",
+      "memory": "friend_abroad_thriving",
+      "memory_echo": "老同學在國外過得很好，還勸你有機會就出去看看"
+    },
+    {
+      "id": "SW_friend_startup_success",
+      "year_range": [
+        1975,
+        2100
+      ],
+      "age_range": [
+        26,
+        50
+      ],
+      "relation": "大學室友",
+      "category": "friend",
+      "text": "大學室友當年辭職創業，大家都說他瘋了。今年他的公司被大企業收購，他在同學會上請了全場的酒。你看著他，心裡有點不是滋味，也有點佩服。",
+      "memory": "friend_startup_success",
+      "memory_echo": "大學室友辭職創業，最後成功了"
+    },
+    {
+      "id": "SW_friend_startup_fail",
+      "year_range": [
+        1975,
+        2100
+      ],
+      "age_range": [
+        26,
+        55
+      ],
+      "relation": "以前的同事",
+      "category": "friend",
+      "text": "以前的同事拿房子抵押去開店，撐了兩年還是收了。他現在白天跑外送、晚上兼差還債，見到你時笑得很勉強：「創業啊，十個有九個死。」",
+      "memory": "friend_startup_fail",
+      "memory_echo": "同事抵押房子創業失敗，至今還在還債"
+    },
+    {
+      "id": "SW_friend_burnout",
+      "year_range": [
+        1996,
+        2100
+      ],
+      "age_range": [
+        28,
+        50
+      ],
+      "relation": "高中死黨",
+      "category": "friend",
+      "text": "高中死黨在科技廠連續加班好幾個月，某天早上在捷運上昏倒，送醫才知道是過勞。他在病床上說：「賺那麼多，最後都拿來付醫藥費。」",
+      "memory": "friend_burnout",
+      "memory_echo": "高中死黨過勞倒下，躺在病床上說錢都拿去付醫藥費"
+    },
+    {
+      "id": "SW_friend_divorce",
+      "year_range": [
+        1985,
+        2100
+      ],
+      "age_range": [
+        30,
+        55
+      ],
+      "relation": "大學好友",
+      "category": "friend",
+      "text": "大學好友離婚了。她說兩個人早就沒話聊，為了孩子撐了好幾年。簽完字的那天，她約你喝咖啡，說這是她十年來第一次覺得自己可以呼吸。",
+      "memory": "friend_divorced",
+      "memory_echo": "好友離婚後說，那是她十年來第一次覺得可以呼吸"
+    },
+    {
+      "id": "SW_friend_scammed",
+      "year_range": [
+        2010,
+        2100
+      ],
+      "age_range": [
+        25,
+        75
+      ],
+      "relation": "認識很久的朋友",
+      "category": "friend",
+      "text": "認識很久的朋友被網路上的投資群組騙了，把退休金和信貸全投進去，最後群組解散、客服消失。他到現在都不敢跟家人說。",
+      "memory": "friend_scammed",
+      "memory_echo": "朋友被投資詐騙騙光了退休金"
+    },
+    {
+      "id": "SW_friend_rich_stocks",
+      "year_range": [
+        1986,
+        2100
+      ],
+      "age_range": [
+        25,
+        65
+      ],
+      "relation": "同事",
+      "category": "friend",
+      "text": "同事這幾年買股票賺了不少，換了新車，午餐時總在聊他又抓到哪一支飆股。你偷偷打開自己的存款簿，覺得錢放在銀行好像有點笨。",
+      "memory": "friend_rich_from_stocks",
+      "memory_echo": "同事靠買股票換了新車"
+    },
+    {
+      "id": "SW_friend_happy_parent",
+      "year_range": [
+        1980,
+        2100
+      ],
+      "age_range": [
+        27,
+        42
+      ],
+      "relation": "最好的朋友",
+      "category": "friend",
+      "text": "最好的朋友當媽媽了。你去看她的時候，她累得黑眼圈很重，但抱著孩子笑得很滿足：「以前覺得生小孩很可怕，現在覺得是我做過最好的決定。」",
+      "memory": "friend_happy_parent",
+      "memory_echo": "最好的朋友說，生小孩是她做過最好的決定"
+    },
+    {
+      "id": "SW_friend_childfree",
+      "year_range": [
+        1995,
+        2100
+      ],
+      "age_range": [
+        28,
+        45
+      ],
+      "relation": "大學同學",
+      "category": "friend",
+      "text": "大學同學和另一半決定不生小孩，週末到處旅行、養了兩隻貓。家族聚會時長輩一直唸，他們只是笑笑說：「我們過得很好。」",
+      "memory": "friend_childfree_happy",
+      "memory_echo": "同學夫妻決定不生，說他們過得很好"
+    },
+    {
+      "id": "SW_friend_returned_home",
+      "year_range": [
+        2008,
+        2100
+      ],
+      "age_range": [
+        30,
+        50
+      ],
+      "relation": "在台北工作的同鄉",
+      "category": "friend",
+      "text": "同鄉在台北工作了十年，今年辭職回老家接手家裡的果園。他在臉書上貼了一張夕陽下的果園照片，寫著：「終於不用擠捷運了。」",
+      "memory": "friend_returned_home",
+      "memory_echo": "同鄉辭職回老家接手果園，說終於不用擠捷運"
+    },
+    {
+      "id": "SW_friend_military_bond",
+      "year_range": [
+        1960,
+        2010
+      ],
+      "age_range": [
+        20,
+        23
+      ],
+      "relation": "同梯的弟兄",
+      "category": "friend",
+      "text": "退伍前的最後一晚，同梯的弟兄在寢室偷偷開了一瓶米酒，約好以後每年都要聚一次。你們都知道，大部分的約定會慢慢淡掉。",
+      "sex": "M"
+    },
+    {
+      "id": "SW_friend_classmate_reunion",
+      "year_range": [
+        1970,
+        2100
+      ],
+      "age_range": [
+        38,
+        60
+      ],
+      "relation": "國中同學",
+      "category": "friend",
+      "text": "睽違二十年的國中同學會。有人當了老闆，有人離了兩次婚，有人已經不在了。班長點名到一半停了下來，大家安靜了好一會兒。"
+    },
+    {
+      "id": "SW_friend_lost_contact",
+      "year_range": [
+        1960,
+        2100
+      ],
+      "age_range": [
+        40,
+        70
+      ],
+      "relation": "年輕時的摯友",
+      "category": "friend",
+      "text": "整理舊東西時翻到年輕時摯友寫給你的信。你試著找他的電話，才發現已經二十年沒有聯絡了。"
+    },
+    {
+      "id": "SW_relative_died_young",
+      "year_range": [
+        1955,
+        2100
+      ],
+      "age_range": [
+        16,
+        60
+      ],
+      "relation": "表哥",
+      "category": "relative",
+      "text": "表哥才四十出頭，在工地突然倒下就再也沒醒來。告別式上舅媽哭到站不起來，你看著照片裡他笑得那麼開心，第一次認真想：人生到底什麼最重要？",
+      "memory": "relative_died_young",
+      "memory_echo": "表哥四十出頭就突然走了"
+    },
+    {
+      "id": "SW_relative_cancer",
+      "year_range": [
+        1970,
+        2100
+      ],
+      "age_range": [
+        20,
+        70
+      ],
+      "relation": "阿姨",
+      "category": "relative",
+      "text": "阿姨確診癌症第三期。她說年輕時省吃儉用，一次都沒出國玩過，現在想去也走不動了。病房裡她握著你的手：「錢再賺就有，身體只有一個。」",
+      "memory": "relative_cancer_regret",
+      "memory_echo": "阿姨生病後說，錢再賺就有，身體只有一個"
+    },
+    {
+      "id": "SW_relative_rosca_collapse",
+      "year_range": [
+        1955,
+        1995
+      ],
+      "age_range": [
+        15,
+        60
+      ],
+      "relation": "嬸嬸",
+      "category": "relative",
+      "text": "嬸嬸跟了好幾個會，會頭突然跑路，存了十幾年的錢一夕之間沒了。她在客廳哭了一整晚，叔叔一句話也沒說。",
+      "memory": "relative_rosca_collapse",
+      "memory_echo": "嬸嬸跟會被倒，十幾年的積蓄一夕歸零"
+    },
+    {
+      "id": "SW_relative_cousin_success",
+      "year_range": [
+        1975,
+        2100
+      ],
+      "age_range": [
+        20,
+        45
+      ],
+      "relation": "堂弟",
+      "category": "relative",
+      "text": "堂弟考上了台大醫科。過年時長輩們圍著他問東問西，又轉頭問你：「那你現在在做什麼？」你笑著回答，心裡有點悶。"
+    },
+    {
+      "id": "SW_relative_uncle_bankrupt",
+      "year_range": [
+        1970,
+        2100
+      ],
+      "age_range": [
+        15,
+        55
+      ],
+      "relation": "舅舅",
+      "category": "relative",
+      "text": "舅舅替朋友作保，朋友跑了，銀行來查封舅舅的房子。媽媽說，以後誰來借錢都不要作保，親兄弟也一樣。",
+      "memory": "relative_guarantor_ruin",
+      "memory_echo": "舅舅替人作保，最後房子被查封"
+    },
+    {
+      "id": "SW_relative_inheritance_feud",
+      "year_range": [
+        1980,
+        2100
+      ],
+      "age_range": [
+        30,
+        70
+      ],
+      "relation": "父親那邊的親戚",
+      "category": "relative",
+      "text": "爺爺留下的老房子，讓幾個伯伯叔叔吵到上法院。小時候一起過年的堂兄弟，現在在路上遇到都不打招呼了。",
+      "memory": "relative_inheritance_feud",
+      "memory_echo": "伯伯叔叔為了老房子吵上法院"
+    },
+    {
+      "id": "SW_relative_caregiver_burnout",
+      "year_range": [
+        1990,
+        2100
+      ],
+      "age_range": [
+        30,
+        65
+      ],
+      "relation": "姑姑",
+      "category": "relative",
+      "text": "姑姑辭掉工作照顧中風的奶奶七年，自己也累出一身病。她說最後悔的，是當初沒有早點請人幫忙、跟兄弟姊妹分擔。",
+      "memory": "relative_caregiver_burnout",
+      "memory_echo": "姑姑獨自照顧奶奶七年，累出一身病"
+    },
+    {
+      "id": "SW_relative_aunt_emigrated",
+      "year_range": [
+        1970,
+        2010
+      ],
+      "age_range": [
+        10,
+        40
+      ],
+      "relation": "移民美國的姑姑",
+      "category": "relative",
+      "text": "移民美國的姑姑寄來一個大包裹，裡面有巧克力、維他命和一件印著大學名字的運動衫。你把運動衫穿去學校，同學都很羨慕。"
+    },
+    {
+      "id": "SW_relative_cousin_wedding",
+      "year_range": [
+        1960,
+        2100
+      ],
+      "age_range": [
+        18,
+        40
+      ],
+      "relation": "表姊",
+      "category": "relative",
+      "text": "表姊結婚了，喜宴辦了五十桌。親戚們在桌上輪流問你：「什麼時候換你？」你低頭吃菜，假裝沒聽到。"
+    },
+    {
+      "id": "SW_relative_grandparent_passing",
+      "year_range": [
+        1955,
+        2100
+      ],
+      "age_range": [
+        8,
+        40
+      ],
+      "relation": "阿公",
+      "category": "relative",
+      "text": "阿公走了。出殯那天，三合院前搭起了棚子，你第一次看到爸爸哭。晚上整理遺物時，你在阿公的抽屜裡找到一張你小時候的照片。"
+    },
+    {
+      "id": "SW_place_first_711",
+      "year_range": [
+        1979,
+        1992
+      ],
+      "age_range": [
+        6,
+        50
+      ],
+      "relation": "巷口",
+      "category": "place",
+      "text": "巷口開了第一家便利商店，二十四小時都亮著燈。大家半夜也能買到茶葉蛋和泡麵，雜貨店的老闆娘說生意差了好多。",
+      "historical_note": "1979 年台灣第一家 7-ELEVEN 在台北開幕，1980 年代後便利商店快速普及。"
+    },
+    {
+      "id": "SW_place_mall_opens",
+      "year_range": [
+        1990,
+        2100
+      ],
+      "age_range": [
+        8,
+        70
+      ],
+      "relation": "家附近",
+      "category": "place",
+      "text": "家附近新的購物商場落成了，週末停車場排滿了車，連帶周邊開了好多新餐廳。房仲傳單塞滿了信箱，說附近的房價要漲了。",
+      "memory": "neighborhood_boom",
+      "memory_echo": "家附近蓋了大商場，整個區域熱鬧起來"
+    },
+    {
+      "id": "SW_place_mrt_opens",
+      "year_range": [
+        1996,
+        2100
+      ],
+      "age_range": [
+        10,
+        75
+      ],
+      "relation": "家附近",
+      "category": "place",
+      "text": "捷運新路線通車了，站就在離家走路五分鐘的地方。通車那天大家排隊試搭，阿嬤說她活到這把年紀，第一次坐不用開窗的車。",
+      "historical_note": "台北捷運木柵線 1996 年通車，之後高雄、桃園、台中陸續有捷運。",
+      "memory": "neighborhood_boom",
+      "memory_echo": "捷運通到家門口，附近越來越熱鬧",
+      "regions": [
+        "north_taipei",
+        "south_kaohsiung",
+        "north_hsinchu",
+        "central"
+      ]
+    },
+    {
+      "id": "SW_place_factory_closes",
+      "year_range": [
+        1988,
+        2015
+      ],
+      "age_range": [
+        10,
+        60
+      ],
+      "relation": "鎮上",
+      "category": "place",
+      "text": "鎮上最大的工廠搬去大陸了，好幾百人失業。原本熱鬧的工廠門口，現在只剩一排拉下鐵門的小吃店。",
+      "memory": "town_declining",
+      "memory_echo": "鎮上的大工廠搬走了，街上越來越冷清"
+    },
+    {
+      "id": "SW_place_school_closes",
+      "year_range": [
+        2005,
+        2100
+      ],
+      "age_range": [
+        10,
+        80
+      ],
+      "relation": "老家附近",
+      "category": "place",
+      "text": "你念過的國小因為學生太少，明年要併校了。校門口那棵老榕樹還在，但操場上只剩幾個孩子在玩。",
+      "memory": "town_declining",
+      "memory_echo": "你念過的國小因為少子化要併校了",
+      "regions": [
+        "east_islands",
+        "south_tainan",
+        "central",
+        "south_kaohsiung"
+      ]
+    },
+    {
+      "id": "SW_place_night_market",
+      "year_range": [
+        1960,
+        2100
+      ],
+      "age_range": [
+        8,
+        60
+      ],
+      "relation": "附近",
+      "category": "place",
+      "text": "附近空地每週二晚上變成夜市，攤販從傍晚開始搭棚子。烤香腸、射氣球、撈金魚，整條街都是人的聲音和食物的味道。"
+    },
+    {
+      "id": "SW_place_temple_festival",
+      "year_range": [
+        1950,
+        2100
+      ],
+      "age_range": [
+        6,
+        80
+      ],
+      "relation": "廟口",
+      "category": "place",
+      "text": "廟口的媽祖遶境經過家門口，鞭炮聲從早響到晚。鄰居家門口都擺了供桌，小孩子跟著陣頭跑了好幾條街。"
+    },
+    {
+      "id": "SW_place_urban_renewal",
+      "year_range": [
+        2000,
+        2100
+      ],
+      "age_range": [
+        20,
+        80
+      ],
+      "relation": "住的社區",
+      "category": "place",
+      "text": "社區的老公寓談了十年的都更終於成功了。有人分到兩戶，有人堅持不簽被罵釘子戶。拆房子那天，好幾個老鄰居站在對街看了很久。",
+      "regions": [
+        "north_taipei",
+        "central",
+        "south_kaohsiung",
+        "north_hsinchu"
+      ]
+    },
+    {
+      "id": "SW_place_highway",
+      "year_range": [
+        1978,
+        2015
+      ],
+      "age_range": [
+        10,
+        60
+      ],
+      "relation": "老家",
+      "category": "place",
+      "text": "新的高速公路交流道就蓋在老家附近，以前去台北要五個小時，現在不用三個小時。叔叔說，田地的價格一夕之間翻了好幾倍。",
+      "memory": "neighborhood_boom",
+      "memory_echo": "交流道蓋到老家附近，地價一夕翻漲"
+    },
+    {
+      "id": "SW_place_typhoon_blackout",
+      "year_range": [
+        1960,
+        2100
+      ],
+      "age_range": [
+        6,
+        80
+      ],
+      "relation": "整條街",
+      "category": "place",
+      "text": "颱風過後停電三天，整條街的人搬椅子到騎樓乘涼，大人聊天、小孩玩撲克牌。那幾天鄰居們講的話，比一整年加起來還多。"
+    },
+    {
+      "id": "SW_place_old_shop_closes",
+      "year_range": [
+        1995,
+        2100
+      ],
+      "age_range": [
+        15,
+        80
+      ],
+      "relation": "巷口",
+      "category": "place",
+      "text": "巷口開了四十年的柑仔店收了。老闆說年紀大了，孩子也不想接。最後一天，很多人特地回來買一包糖果，跟老闆合照。"
+    },
+    {
+      "id": "SW_place_new_immigrant_shop",
+      "year_range": [
+        2005,
+        2100
+      ],
+      "age_range": [
+        15,
+        80
+      ],
+      "relation": "街角",
+      "category": "place",
+      "text": "街角開了一家越南河粉店，老闆娘是十幾年前嫁來台灣的新住民。湯頭很香，現在每到中午都要排隊。"
+    },
+    {
+      "id": "SW_place_science_park",
+      "year_range": [
+        1985,
+        2100
+      ],
+      "age_range": [
+        15,
+        60
+      ],
+      "relation": "鄰近的鄉鎮",
+      "category": "place",
+      "text": "鄰近的鄉鎮要蓋科學園區了。附近的房子一間間改建成套房，路上多了好多掛著識別證的年輕工程師。",
+      "memory": "neighborhood_boom",
+      "memory_echo": "附近蓋了科學園區，房價和租金一路漲",
+      "regions": [
+        "north_hsinchu",
+        "central",
+        "south_tainan",
+        "south_kaohsiung"
+      ]
+    },
+    {
+      "id": "SW_place_empty_houses",
+      "year_range": [
+        2030,
+        2120
+      ],
+      "age_range": [
+        20,
+        90
+      ],
+      "relation": "老家的村子",
+      "category": "place",
+      "text": "老家的村子越來越安靜，半數的房子空著，路燈壞了也沒人修。只有過年的時候，才會停滿外地回來的車。",
+      "memory": "town_declining",
+      "memory_echo": "老家的村子有一半的房子空著",
+      "regions": [
+        "east_islands",
+        "south_tainan",
+        "central",
+        "south_kaohsiung"
+      ]
+    },
+    {
+      "id": "SW_place_ev_charging",
+      "year_range": [
+        2028,
+        2120
+      ],
+      "age_range": [
+        18,
+        80
+      ],
+      "relation": "社區",
+      "category": "place",
+      "text": "社區地下室裝滿了充電樁，加油站改成了咖啡店。管委會為了充電費怎麼分攤，開了三次會還吵不完。"
+    },
+    {
+      "id": "SW_place_drone_delivery",
+      "year_range": [
+        2035,
+        2120
+      ],
+      "age_range": [
+        10,
+        90
+      ],
+      "relation": "陽台",
+      "category": "place",
+      "text": "無人機送貨開始在你住的區域試辦，陽台多了一個降落架。第一次看到包裹從天上慢慢降下來，鄰居的小孩興奮地尖叫。"
+    },
+    {
+      "id": "SW_place_heat_shelter",
+      "year_range": [
+        2030,
+        2120
+      ],
+      "age_range": [
+        10,
+        90
+      ],
+      "relation": "里民活動中心",
+      "category": "place",
+      "text": "夏天熱到受不了，里民活動中心改成「涼適避難所」，冷氣開一整天。很多獨居的長輩每天下午都來這裡下棋、看電視。"
+    },
+    {
+      "id": "SW_neighbor_lonely_elder",
+      "year_range": [
+        1990,
+        2120
+      ],
+      "age_range": [
+        20,
+        70
+      ],
+      "relation": "樓下的鄰居",
+      "category": "relative",
+      "text": "樓下獨居的阿伯過世好幾天才被發現。管理員說他的孩子都在國外，一年回來一次。那天晚上你打了一通很久沒打的電話給爸媽。",
+      "memory": "neighbor_died_alone",
+      "memory_echo": "樓下獨居的阿伯過世好幾天才被發現"
+    },
+    {
+      "id": "SW_colleague_layoff",
+      "year_range": [
+        1998,
+        2100
+      ],
+      "age_range": [
+        25,
+        60
+      ],
+      "relation": "隔壁座位的同事",
+      "category": "friend",
+      "text": "隔壁座位的同事今天早上被叫進會議室，出來的時候手上拿著一個紙箱。他做了十五年，最後一封信只有三行。",
+      "memory": "colleague_laid_off",
+      "memory_echo": "做了十五年的同事一夕之間被裁員"
+    },
+    {
+      "id": "SW_teacher_encouragement",
+      "year_range": [
+        1955,
+        2100
+      ],
+      "age_range": [
+        10,
+        17
+      ],
+      "relation": "班導師",
+      "category": "friend",
+      "text": "班導師在你的作文簿上寫了一行紅字：「你很有想法，不要放棄。」你把那一頁偷偷撕下來，夾在抽屜裡很多年。"
+    },
+    {
+      "id": "SW_first_love_marries",
+      "year_range": [
+        1960,
+        2100
+      ],
+      "age_range": [
+        24,
+        38
+      ],
+      "relation": "初戀",
+      "category": "friend",
+      "text": "從朋友那裡聽說初戀結婚了，對象是你不認識的人。你以為自己早就忘了，結果那天晚上還是翻出了以前的照片。"
     }
   ]
 }
