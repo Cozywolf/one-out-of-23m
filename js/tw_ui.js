@@ -777,6 +777,7 @@
             </div>
             <div class="pd-text">${item.text}</div>
             ${item.impactNote ? `<div class="pd-impact">${item.impactNote}</div>` : ""}
+            ${impactChipsHtml(item.impactChips, "對你的影響")}
           </article>
         `;
       }
@@ -807,12 +808,19 @@
           <div class="feed-item-head"><span>${item.age} 歲</span><span>${item.year}（${item.roc}）</span></div>
           <div>${item.text}</div>
           ${item.salaryDeltaBadge ? `<div class="salary-delta-pill">${item.salaryDeltaBadge}</div>` : ""}
+          ${impactChipsHtml(item.impactChips)}
           ${!state.eduMode && item.showHelpline ? helplineHtml : ""}
         </div>
       `;
     }).join("");
   }
 
+
+  function impactChipsHtml(chips, label = "這次選擇的影響") {
+    if (!chips || !chips.length) return "";
+    return `<div class="impact-chips"><span class="impact-label">${label}</span>${chips.map((c) =>
+      `<span class="impact-chip ${c.neutral ? "is-neutral" : c.good ? "is-good" : "is-bad"}">${c.text}</span>`).join("")}</div>`;
+  }
 
   function showToast(msg, ms = 2200) {
     const el = $("twToast");
@@ -1166,7 +1174,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.6 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.7 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1260,7 +1268,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.6 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.7 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1292,7 +1300,8 @@
         (!check.eligible ? `<div class="tw-lock-reason">🔒 ${check.reason}</div>` : "");
       if (check.eligible) {
         btn.addEventListener("click", () => {
-          state.engine.applyDecision(state.life, dec, opt.key, era);
+          const impact = state.engine.applyDecision(state.life, dec, opt.key, era);
+          if (impact && impact.chips.length) showToast(`你的選擇帶來：${impact.chips.slice(0, 4).map((c) => c.text).join("｜")}`, 3600);
           $("decisionModal").hidden = true;
           state.pendingDecision = null;
           const nextDec = state.engine.findFollowUpDecision(state.life, dec, era);
@@ -1437,8 +1446,24 @@
       finWrap.hidden = true;
     }
     const eraHist = l.eraHistory || [];
+    const keyChoices = (l.decisionHistory || [])
+      .filter((d) => (d.impactScore || 0) > 0)
+      .sort((a, b) => (b.impactScore || 0) - (a.impactScore || 0))
+      .slice(0, 5)
+      .sort((a, b) => a.age - b.age);
+    const keyChoicesHtml = keyChoices.length
+      ? `<h4 style="margin:0 0 8px;">⚖️ 改變你人生的關鍵選擇</h4>` +
+        keyChoices.map((d) => `
+          <div class="key-choice">
+            <div><strong>${d.age} 歲（${d.year}）${d.title}</strong> → ${d.choice}</div>
+            ${impactChipsHtml(d.impact, "當下")}
+            ${(d.echoes || []).map((e) => `<div class="key-choice-echo">↳ ${e.age} 歲（${e.year}）${e.text}</div>${impactChipsHtml(e.chips, "後來")}`).join("")}
+            ${d.untaken && d.untaken.length ? `<div class="key-choice-untaken">🔀 沒走的路：${d.untaken.join("／")}</div>` : ""}
+          </div>`).join("") +
+        `<div class="muted" style="font-size:13.5px;margin:4px 0 14px;">同樣的起點，換一個選擇，人生可能完全不同。下一次，試試那條沒走的路。</div>`
+      : "";
     const worldLine = l.currentYear >= 2030 ? state.engine.describeWorldLine(l) : [];
-    $("endDecisionsWrap").innerHTML = (eraHist.length
+    $("endDecisionsWrap").innerHTML = keyChoicesHtml + (eraHist.length
       ? `<h4 style="margin:0 0 8px;">🕰 你遇上的時代（${eraHist.length} 次）</h4>` +
         eraHist.map((h) => `<div style="font-size:15.6px;margin-bottom:4px;"><strong>${h.age} 歲（${h.year}）${h.icon || "🕰"} ${h.eraLabel}</strong>｜${h.title} → ${h.byParents ? "父母決定：" : ""}${h.choice}</div>`).join("") +
         `<div style="height:12px;"></div>`

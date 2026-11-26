@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.6 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.7 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -3543,7 +3543,7 @@
         const eraDec = this.findEraChoice(life, era, Boolean(pq));
         if (eraDec && eraDec.parentDecides) {
           const elig = eraDec.options.filter((o) => this.isOptionEligible(life, o, era).eligible);
-          this.applyEraChoice(life, eraDec, this.chooseAutoOption(life, eraDec, elig, era).key, era);
+          this.applyDecision(life, eraDec, this.chooseAutoOption(life, eraDec, elig, era).key, era);
           yearMark = "decision";
         } else if (eraDec) {
           pendingDecision = eraDec;
@@ -4507,10 +4507,19 @@
         else if (oc.p == null || Math.random() < oc.p) branch = oc.success;
         else branch = oc.fail || null;
         if (!branch) continue;
+        const before = this.snapshotForImpact(life);
         const notes = this.applyEraEffects(life, branch.effects, era);
+        const impact = this.diffImpact(before, this.snapshotForImpact(life));
+        const origin = [...(life.decisionHistory || [])].reverse().find((d) => d.decisionId === item.cardId);
+        if (origin) {
+          origin.echoes = origin.echoes || [];
+          origin.echoes.push({ age: life.age, year: life.currentYear, text: branch.text || "", chips: impact.chips });
+          origin.impactScore = +((origin.impactScore || 0) + impact.score).toFixed(2);
+        }
         life.feed.unshift({
           type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
-          text: `【${item.icon || "🕰"} 時代的回聲｜${item.eraLabel}】${branch.text || ""}${notes.join("")}`,
+          text: `【${item.icon || "🕰"} 時代的回聲｜${item.eraLabel}】${origin ? `${origin.age} 歲時你選了「${origin.choice}」。` : ""}${branch.text || ""}${notes.join("")}`,
+          impactChips: impact.chips,
           highlight: true
         });
       }
@@ -4586,7 +4595,72 @@
       return p;
     }
 
+    // 每次抉擇前後比對：屬性、資產、薪資與身分的變化，並記下沒選的路
+    snapshotForImpact(life) {
+      const era = this.getEraParams(life.currentYear);
+      const cpi = Math.max(0.07, era.cpi);
+      return {
+        health: life.stats.health, happiness: life.stats.happiness, knowledge: life.stats.knowledge, social: life.stats.social,
+        nw: this.getNetWorthNominal(life) / cpi,
+        salMo: (life.annualSalaryNominal || 0) / 12 / cpi,
+        job: life.job, regionId: life.regionId, location: life.location, married: life.married, children: life.children,
+        homeowner: life.homeowner, education: life.education
+      };
+    }
+
+    diffImpact(a, b) {
+      const chips = [];
+      let score = 0;
+      const statNames = { health: "健康", happiness: "幸福", knowledge: "知識", social: "人際" };
+      for (const [k, nm] of Object.entries(statNames)) {
+        const d = Math.round(b[k] - a[k]);
+        if (d !== 0) { chips.push({ text: `${nm} ${d > 0 ? "+" : ""}${d}`, good: d > 0 }); score += Math.abs(d) / 6; }
+      }
+      const wan = (n) => Math.round(n / 10000).toLocaleString();
+      const dNw = b.nw - a.nw;
+      if (Math.abs(dNw) >= 20000) { chips.push({ text: `淨資產 ${dNw > 0 ? "+" : "-"}${wan(Math.abs(dNw))} 萬`, good: dNw > 0 }); score += Math.abs(dNw) / 300000; }
+      const dSal = b.salMo - a.salMo;
+      if (Math.abs(dSal) >= 1000) {
+        const pctTxt = a.salMo > 0 ? `（${dSal > 0 ? "+" : ""}${Math.round((dSal / a.salMo) * 100)}%）` : "";
+        chips.push({ text: `月薪 ${dSal > 0 ? "+" : "-"}${Math.round(Math.abs(dSal)).toLocaleString()} 元${pctTxt}`, good: dSal > 0 });
+        if (!/退休/.test(b.job || "")) score += Math.abs(dSal) / 3000;
+      }
+      const struct = (txt) => { chips.push({ text: txt, neutral: true }); score += 2; };
+      if (b.location !== a.location) struct(b.location === "TAIWAN" ? "回到台灣" : "出國生活");
+      else if (b.regionId !== a.regionId) struct(`搬到${(this.getRegion(b.regionId) || {}).name_zh || "他地"}`);
+      if (b.job !== a.job && b.job && a.job) struct(`工作：${a.job} → ${b.job}`);
+      if (b.married !== a.married) struct(b.married ? "結婚" : "婚姻結束");
+      if (b.children !== a.children) struct(b.children > a.children ? `多了一個孩子（共 ${b.children} 個）` : `子女 ${b.children} 人`);
+      if (b.homeowner !== a.homeowner) struct(b.homeowner ? "有了自己的房子" : "不再擁有房子");
+      if (b.education !== a.education) struct(`學歷：${b.education}`);
+      return { chips, score: +score.toFixed(2) };
+    }
+
     applyDecision(life, decision, optionKey, era) {
+      const before = this.snapshotForImpact(life);
+      const histLen = life.decisionHistory.length;
+      const feedLen = life.feed.length;
+      const untaken = decision.options
+        .filter((o) => o.key !== optionKey && this.isOptionEligible(life, o, era).eligible)
+        .map((o) => String(this.resolveEraLabel(o, life.currentYear)).replace(/（[^）]*）/g, "").trim())
+        .slice(0, 3);
+      this.applyDecisionCore(life, decision, optionKey, era);
+      const impact = this.diffImpact(before, this.snapshotForImpact(life));
+      const rec = life.decisionHistory.length > histLen ? life.decisionHistory[life.decisionHistory.length - 1] : null;
+      if (rec) {
+        rec.decisionId = String(decision.id);
+        rec.impact = impact.chips;
+        rec.impactScore = impact.score;
+        rec.untaken = untaken;
+        rec.echoes = [];
+      }
+      const target = life.feed.slice(0, Math.max(0, life.feed.length - feedLen)).find((f) => ["normal", "parent_decision", "overseas_event"].includes(f.type));
+      if (target && impact.chips.length) target.impactChips = impact.chips;
+      life.lastImpact = { title: decision.resolvedTitle, chips: impact.chips };
+      return impact;
+    }
+
+    applyDecisionCore(life, decision, optionKey, era) {
       if (decision.isEraCard) return this.applyEraChoice(life, decision, optionKey, era);
       if (decision.once_per_era_variant && decision.activeVariant) {
         life.triggeredDecisions[`${decision.id}:${decision.activeVariant.variant_id}`] = true;

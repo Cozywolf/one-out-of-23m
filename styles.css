@@ -3688,3 +3688,13 @@ body.theme-dark .pd-tag { color: #f0be7a; }
   font-weight: 600;
   color: var(--ink-2);
 }
+
+/* v6.7：選擇的影響 */
+.impact-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 6px; }
+.impact-label { font-size: 12.5px; color: var(--ink-2); margin-right: 2px; }
+.impact-chip { font-size: 13px; font-weight: 600; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-2); }
+.impact-chip.is-good { background: var(--good-soft); color: var(--good); border-color: transparent; }
+.impact-chip.is-bad { background: var(--bad-soft); color: var(--bad); border-color: transparent; }
+.key-choice { padding: 10px 12px; margin-bottom: 10px; border-left: 3px solid var(--gold-ink, #8C1D3C); background: var(--bg-2); border-radius: 6px; font-size: 15px; }
+.key-choice-echo { margin-top: 6px; font-size: 14px; color: var(--ink-2); }
+.key-choice-untaken { margin-top: 6px; font-size: 13.5px; color: var(--ink-2); }
