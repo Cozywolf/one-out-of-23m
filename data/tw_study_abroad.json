@@ -824,8 +824,7 @@
         "label": "留在當地扎根（移民／永居線：維持海外高薪與居留身分）",
         "effects": {
           "stay_abroad": true,
-          "relationships": -6,
-          "pr_progress": 1
+          "relationships": -6
         }
       },
       {
@@ -834,7 +833,6 @@
         "requires_year_min": 2015,
         "requires_remote_or_senior": true,
         "effects": {
-          "commuter_mode": true,
           "relationships": 6,
           "happiness": 6,
           "annual_travel_cost_twd_2025": 220000

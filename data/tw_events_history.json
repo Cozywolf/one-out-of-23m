@@ -21,7 +21,7 @@
     {
       "id": "EV_1950_us_aid_local_elections",
       "year": 1950,
-      "year_end": 1950,
+      "year_end": 1951,
       "category": "economy_politics",
       "regions": [
         "ALL"
@@ -488,7 +488,6 @@
       "summary": "1979 年 12 月 10 日世界人權日，黨外人士於高雄集會遊行引發警民衝突，當局隨後在全島展開大逮捕。",
       "institutional_aftermath": "引發海內外聲援與美國國會關切，催化台灣本土民主意識與黨外律師世代崛起，成為走向民主化的關鍵轉捩點。",
       "gameplay_impact": {
-        "narrative_tag": "martial_law_caution",
         "happiness_delta": -2
       },
       "sensitive": false,
@@ -607,8 +606,7 @@
       "summary": "1980年12月新竹科學園區正式揭牌，配合工研院技術移轉與海外工程師返台創業（如聯電等），開啟台灣半導體與資通訊黃金時代。",
       "institutional_aftermath": "重塑桃竹苗所得與人口結構，「竹科工程師」躍升為戰後跨世代高薪與中產階級上升象徵。",
       "gameplay_impact": {
-        "tech_wage_bonus": 1.05,
-        "narrative_tag": "hsinchu_science_park"
+        "tech_wage_bonus": 1.05
       },
       "sensitive": false,
       "cultural_footnote_en": "Established in December 1980, Hsinchu Science Park anchored Taiwan's semiconductor ecosystem and turned Hsinchu into Asia's silicon hub.",
@@ -687,8 +685,7 @@
       "summary": "1984年8月《勞動基準法》正式施行，首度明訂最低工資、法定工時、加班費、資遣費與舊制退休金規範，結束戰後工廠缺乏統一勞動底線的年代。",
       "institutional_aftermath": "確立受僱勞工基本勞動基準與童工／青少年工讀保護（15歲門檻），奠定日後2005年勞退新制改革基礎。",
       "gameplay_impact": {
-        "happiness_delta": 2,
-        "narrative_tag": "labor_standards_act"
+        "happiness_delta": 2
       },
       "sensitive": false,
       "cultural_footnote_en": "Taiwan's 1984 Labor Standards Act codified minimum wages, overtime pay, severance, and minimum working-age protections across industries.",
@@ -950,9 +947,7 @@
       "title": "汐止命案與蘇建和等三人被捕",
       "summary": "1991 年汐止發生夫妻命案，蘇建和、劉秉郎、莊林勳三名青年被捕，家屬與律師指控自白出於刑求，案件在法院間展開攻防。",
       "institutional_aftermath": "催生民間司法改革團體，促成2003年《刑事訴訟法》強化無罪推定與不正自白排除，並催生2010年《刑事妥速審判法》。",
-      "gameplay_impact": {
-        "narrative_tag": "judicial_reform"
-      },
+      "gameplay_impact": {},
       "sensitive": true,
       "cultural_footnote_en": "Three young men were arrested in a 1991 murder case built on contested confessions, a focal point for Taiwan's judicial reform.",
       "sources": [
@@ -1090,8 +1085,7 @@
       "institutional_aftermath": "大幅壓低家庭重大傷病自付醫療負擔，使台灣基層醫療可近性躍居全球前段，並顯著拉升中高齡存活率。",
       "gameplay_impact": {
         "happiness_delta": 5,
-        "health_delta": 3,
-        "narrative_tag": "nhi_launch"
+        "health_delta": 3
       },
       "sensitive": false,
       "cultural_footnote_en": "Launched in March 1995, Taiwan's single-payer National Health Insurance achieved >99% coverage and dramatically cut medical bankruptcy.",
@@ -1188,8 +1182,7 @@
       "summary": "1996年3月23日台灣舉行中華民國史上第一次公民直選總統，投票率達76.04%，在中共對台海試射飛彈與美軍雙航母戒備的緊張氛圍中完成和平投票。",
       "institutional_aftermath": "奠定台灣民主政權的直接民意正當性，同時使地緣政治與資金避險意識深植台灣經濟與移民抉擇。",
       "gameplay_impact": {
-        "happiness_delta": 2,
-        "narrative_tag": "first_direct_presidential_election"
+        "happiness_delta": 2
       },
       "sensitive": false,
       "cultural_footnote_en": "Taiwan's landmark March 1996 direct presidential election saw 76% turnout despite cross-strait missile tests.",
@@ -1373,8 +1366,7 @@
       "summary": "2000年總統大選完成台灣戰後首次中央執政權和平輪替，終結國民黨長達半世紀的執政，展現台灣民主制度的穩定成熟。",
       "institutional_aftermath": "強化定期選舉與政黨監督常態化，激勵不少海外台灣青年返台投入公共政策與媒體轉型。",
       "gameplay_impact": {
-        "happiness_delta": 2,
-        "narrative_tag": "first_party_turnover"
+        "happiness_delta": 2
       },
       "sensitive": false,
       "cultural_footnote_en": "The 2000 presidential election marked Taiwan's first peaceful transfer of executive power between rival political parties.",
@@ -1642,8 +1634,7 @@
       "summary": "2007年台灣高鐵通車（台北至左營僅約90–120分鐘），繼1996台北捷運與2006雪山隧道後，徹底改寫台灣西部走廊通勤與商務版圖。",
       "institutional_aftermath": "帶動桃園青埔、竹北、台中烏日與台南沙崙高鐵特區房地產起飛，也讓雙北以外都會區擴大跨縣市通勤人口。",
       "gameplay_impact": {
-        "happiness_delta": 3,
-        "narrative_tag": "thsr_one_day_living_circle"
+        "happiness_delta": 3
       },
       "sensitive": false,
       "cultural_footnote_en": "Opening in 2007, Taiwan High Speed Rail shrank the Taipei–Kaohsiung trip to ~90 minutes, reshaping commuting and regional property markets.",
@@ -1915,8 +1906,7 @@
       "summary": "7月31日深夜高雄市地下丙烯管線外洩引發6公里連環爆炸，造成32人罹難、逾300人輕重傷。",
       "institutional_aftermath": "揭開重工業城市地下石化管線與住宅區共生的歷史共業，促成高雄訂定既有工業管線自治條例並加速城市產業轉型。",
       "gameplay_impact": {
-        "happiness_delta_region": -5,
-        "narrative_tag": "kaohsiung_industrial_transition"
+        "happiness_delta_region": -5
       },
       "sensitive": true,
       "cultural_footnote_en": "Underground petrochemical pipelines exploded across 6 km of residential streets in Kaohsiung, forcing strict industrial-pipeline regulation and urban renewal.",
@@ -1976,8 +1966,7 @@
       "summary": "2014年3月青年學生與公民團體因反對《海峽兩岸服務貿易協議》審查程序，佔領立法院議場24天並引發50萬人凱道集會。",
       "institutional_aftermath": "重塑台灣青年世代的政治參與、兩岸經貿審視基準與公民科技文化，使海內外青年重新定位台灣認同。",
       "gameplay_impact": {
-        "happiness_delta": 1,
-        "narrative_tag": "sunflower_movement"
+        "happiness_delta": 1
       },
       "sensitive": false,
       "cultural_footnote_en": "The March 2014 Sunflower Movement saw students and civic groups occupy Taiwan's legislature for 24 days over trade-pact oversight, reshaping a generation's civic engagement.",
@@ -2215,8 +2204,7 @@
       "summary": "2021年4月2日清明連假返鄉列車於花蓮清水隧道口撞上滑落邊坡工程車，造成49人罹難、逾200人輕重傷。",
       "institutional_aftermath": "打破長年改革阻力，促成台鐵於2024年1月正式掛牌「台鐵公司化」，並全面建置邊坡預警監測系統。",
       "gameplay_impact": {
-        "happiness_delta_east": -6,
-        "narrative_tag": "safe_way_home_east"
+        "happiness_delta_east": -6
       },
       "sensitive": true,
       "cultural_footnote_en": "A 2021 train derailment in Hualien killed 49 holiday travelers, finally pushing Taiwan Railways to corporatize in January 2024 to overhaul safety.",
@@ -2484,9 +2472,7 @@
       "title": "剴剴虐童案與《刑法》修法",
       "summary": "2023年底台北1歲男童在出養等待期間遭保母凌虐致死，暴露跨縣市社福訪視斷裂；2025年5月國民法官法庭判處主嫌無期徒刑。",
       "institutional_aftermath": "引發大規模公民檢討托育社安網；立法院於2025年7月18日三讀通過「剴剴條款」（增訂刑法第272條之1、修正第286條），明定凌虐未滿7歲幼童致死最重可判死刑。",
-      "gameplay_impact": {
-        "narrative_tag": "citizen_judges_era"
-      },
+      "gameplay_impact": {},
       "sensitive": true,
       "cultural_footnote_en": "A fatal child-abuse case tried under Taiwan's new Citizen Judges system led to 2025 penal code amendments imposing severe penalties for lethal child abuse.",
       "sources": [

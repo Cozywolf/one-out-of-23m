@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.9 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.10 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -48,7 +48,7 @@
     D16_relative_loan_guarantor: [["relative_guarantor_ruin", { refuse: 2.0, co_sign: 0.4 }]],
     D19_have_children: [["friend_happy_parent", { have_child: 1.2 }], ["friend_childfree_happy", { dink_pets: 1.4 }]],
     D20_marriage_crisis: [["friend_divorced", { divorce: 1.3 }]],
-    D24_elderly_care_storm: [["relative_caregiver_burnout", { hire_caregiver: 1.6, share_with_siblings: 1.3 }], ["neighbor_died_alone", { quit_fulltime_care: 1.3 }]],
+    D24_elderly_care_storm: [["relative_caregiver_burnout", { hire_caregiver: 1.6, share_with_siblings: 1.3 }], ["neighbor_died_alone", { quit_fulltime_care: 1.3 }], ["relative_inheritance_feud", { hire_caregiver: 1.3 }]],
     D25_retirement_timing: [["relative_died_young", { early_fire: 1.5, standard_retire: 1.2 }], ["relative_cancer_regret", { early_fire: 1.4, standard_retire: 1.2 }]],
     E1976_suitcase_trade: [["friend_startup_success", { start_trading: 1.5 }], ["friend_startup_fail", { stay_company: 1.5 }]],
     E1986_dajiale: [["relative_rosca_collapse", { no_bet: 1.6 }]],
@@ -199,10 +199,6 @@
       const vehVal = this.getOwnedAssetResaleNominal(life, "vehicle", era);
       const valVal = this.getOwnedAssetResaleNominal(life, "valuables", era);
       return Math.round((life.moneyNominal || 0) + (life.stockNominal || 0) + homeEq + vehVal + valVal - (life.studentLoanNominal || 0));
-    }
-
-    isPlaceholderJob(job) {
-      return !job || job === "無（學齡前）" || job === "學生" || job.includes("求職") || job.includes("待業");
     }
 
     isSelfEmployed(life) {
@@ -1386,7 +1382,8 @@
       const childNom = Math.round(childUnits * (life.flags.private_cram_kids ? 145000 : this.interpByYear([[1970, 58000], [1990, 72000], [2010, 88000], [2100, 92000]], life.currentYear)) * realWageRatio * era.cpi);
       const careBase2025 = (life.flags.monthly_care_cost_twd_2025 || 0) * (life.flags.future_care_cost_mult || 1.0);
       const careNom = (careBase2025 > 0 && life.family.parentsAlive) ? Math.round(careBase2025 * 12 * realWageRatio * era.cpi) : 0;
-      const commuterNom = (life.abroad && life.abroad.commuterMode) ? Math.round(220000 * era.cpi) : 0;
+      const commuterOpt = ((this.data.studyAbroad && this.data.studyAbroad.return_decision_template.options) || []).find((o) => o.key === "commuter_nomad");
+      const commuterNom = (life.abroad && life.abroad.commuterMode) ? Math.round(((commuterOpt && commuterOpt.effects.annual_travel_cost_twd_2025) || 220000) * era.cpi) : 0;
 
       // Progressive income tax, labor/NHI premiums & lifestyle scaling (scales with real annual salary)
       const realAnnualSalary = (life.annualSalaryNominal || 0) / Math.max(0.07, era.cpi);
@@ -2060,7 +2057,7 @@
           const m = life.sex === "M";
           return { stem_eng: m ? 0.46 : 0.12, med_doctor: 0.05, health_allied: m ? 0.04 : 0.14, law: 0.05, biz: m ? 0.2 : 0.3, arts: m ? 0.13 : 0.3, public_funded: yrNow < 1995 ? 0.09 : 0.05 };
         },
-        D03_exam_retake: () => ({ cram_school: lerpY([[1975, 0.35], [2000, 0.25], [2015, 0.08]]), transfer_or_grad: yrNow >= 1997 ? 0.22 : 0, work_or_military: lerpY([[1975, 0.6], [2000, 0.35], [2015, 0.25]]) }),
+        D03_exam_retake: () => ({ cram_school: lerpY([[1975, 0.28], [2000, 0.16], [2015, 0.06]]), transfer_or_grad: yrNow >= 1997 ? 0.1 : 0, work_or_military: lerpY([[1975, 0.66], [2000, 0.6], [2015, 0.5]]) }),
         D04_military_service: () => ({ conscription: 0.86, rd_substitute: 0.1, volunteer_soldier: 0.045 }),
         D07_career_track: () => {
           const w = {};
@@ -3753,7 +3750,7 @@
           continue;
         }
         const c = d.conditions || {};
-        const isFixedAge = c.age != null || ["D01_junior_high_track", "D02_university_major", "D05_graduation_crossroads"].includes(d.id);
+        const isFixedAge = c.age != null || ["D01_junior_high_track", "D02_university_major", "D03_exam_retake", "D05_graduation_crossroads"].includes(d.id);
         const isPriorityCard = isFixedAge || ["D04_military_service", "D17_critical_illness_cost", "D22_major_disaster", "D28_debt_clearance", "D30_forced_home_sale", "D31_cashflow_debt_crisis"].includes(d.id) || (d.id === "D07_career_track" && !life.flags.career_chosen) ||
           (d.id === "D25_retirement_timing" && life.age >= this.getPensionAge(life));
         if (priorityOnly && !isPriorityCard) continue;
@@ -4579,6 +4576,7 @@
         life.moneyNominal += sell;
       }
       if (ef.uni_admit_bonus) life.flags.uni_admit_bonus = (life.flags.uni_admit_bonus || 0) + ef.uni_admit_bonus;
+      if (ef.hs_exam_bonus) life.flags.hs_exam_bonus = (life.flags.hs_exam_bonus || 0) + ef.hs_exam_bonus;
       if (ef.no_uni_exam) life.flags.no_uni_exam = true;
       if (ef.unlock_night_uni && life.eduLevel < 4) {
         life.eduLevel = 4;
@@ -4698,7 +4696,7 @@
 
       life.eraHistory = life.eraHistory || [];
       const icon = ERA_TIER_ICONS[card.tier || "era"];
-      life.eraHistory.push({ age: life.age, year: life.currentYear, eraLabel: card.era_label, tier: card.tier || "era", icon, title: decision.resolvedTitle, choice: opt.label, byParents: Boolean(decision.parentDecides) });
+      life.eraHistory.push({ cardId: card.id, key: opt.key, age: life.age, year: life.currentYear, eraLabel: card.era_label, tier: card.tier || "era", icon, title: decision.resolvedTitle, choice: opt.label, byParents: Boolean(decision.parentDecides) });
       life.decisionHistory.push({ age: life.age, year: life.currentYear, roc: era.roc, title: decision.resolvedTitle, choice: decision.parentDecides ? `父母決定：${opt.label}` : opt.label });
       if (decision.parentDecides) {
         life.feed.unshift({
@@ -5020,6 +5018,7 @@
       if (ef.track === "vocational") { life.education = "高職／五專"; life.eduLevel = 3; }
       if (ef.track === "labor") { life.education = life.currentYear >= 1968 ? "國中畢業（提早就業）" : "初中畢業（提早就業）"; life.eduLevel = Math.max(life.eduLevel, 2); life.flags.max_edu_cap = "junior_high"; }
       if (ef.hs_tier) life.flags.hs_tier = ef.hs_tier;
+      if (ef.max_edu_cap) life.flags.max_edu_cap = ef.max_edu_cap;
       if (ef.flag_set) {
         life.flags[ef.flag_set] = true;
         if (ef.flag_set === "vocational_coop" || ef.flag_set === "uni_parttime" || ef.flag_set === "uni_internship") {

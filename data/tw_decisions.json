@@ -1443,7 +1443,6 @@
           "label": "協議離婚重啟人生",
           "effects": {
             "married": false,
-            "asset_split": 0.5,
             "short_term_happiness": -12,
             "long_term_happiness": 8
           }
