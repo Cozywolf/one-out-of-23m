@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.8 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.9 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -31,6 +31,10 @@
 
   const DECISION_COOLDOWN = 2;
   const ERA_TIER_ICONS = { era: "🕰", trend: "🧭", future: "🔮" };
+  // 失能時不能再做的工作：重度排除所有勞力與久站工作，輕度排除重體力工作
+  const PHYSICAL_CAREERS = ["car_craft_apprentice", "car_farmer_fisher", "car_epz_worker", "car_gig_delivery", "car_driver_logistics", "car_service_worker", "car_tourism_hospitality", "car_healthcare_ltc"];
+  const HEAVY_CAREERS = ["car_craft_apprentice", "car_farmer_fisher", "car_gig_delivery", "car_driver_logistics"];
+  const STAT_NAMES = { health: "健康", happiness: "幸福", knowledge: "知識", social: "人際" };
   // 周圍的人與事留下的記憶：日後相關抉擇時會被想起，並輕微影響自動模式的選擇
   const MEMORY_HOOKS = {
     D05_graduation_crossroads: [["friend_abroad_thriving", { study_abroad: 1.5 }]],
@@ -511,6 +515,8 @@
 
     isCareerEligibleForLife(life, c) {
       if (!c) return false;
+      if (life.flags.disability_level === "severe" && PHYSICAL_CAREERS.includes(c.id)) return false;
+      if (life.flags.disability_level === "mild" && HEAVY_CAREERS.includes(c.id)) return false;
       if (life.currentYear < c.era_range[0] || life.currentYear > c.era_range[1]) return false;
       if (life.eduLevel < c.min_edu_level) return false;
       if (Array.isArray(c.required_majors) && c.required_majors.length) {
@@ -1821,6 +1827,15 @@
 
     // Unified option eligibility checker shared by UI, Auto Mode, and Lab
     isOptionEligible(life, opt, era) {
+      if (opt.requires_able_body && (life.flags.disabled || life.flags.disability_level)) {
+        return { eligible: false, reason: "身體狀況無法負荷這條路" };
+      }
+      if (opt.requires_stats) {
+        for (const [k, min] of Object.entries(opt.requires_stats)) {
+          const cur = Math.round(life.stats[k] || 0);
+          if (cur < min) return { eligible: false, reason: `${STAT_NAMES[k] || k}不足（需 ${min}，目前 ${cur}）` };
+        }
+      }
       if (opt.requires && typeof opt.requires === "object") {
         const rq = opt.requires;
         if (rq.quintile_min && life.quintile < rq.quintile_min) return { eligible: false, reason: "家庭經濟條件不足以支應" };
@@ -2845,6 +2860,7 @@
       let yearMark = "lived";
 
       life.flags.temp_income_mult = 1.0;
+      const statsAtYearStart = { ...life.stats };
       life.flags.pandemic_exposure_mult = 1.0;
 
       // 1. Delayed traps & delayed happiness
@@ -2940,6 +2956,7 @@
       if (life.flags.career_health_drain && !life.flags.retired && life.age >= 22) life.stats.health -= life.flags.career_health_drain * 0.15;
       if (life.age > 45) life.stats.health -= (life.age > 70 ? 1.75 : 0.65);
       this.applyTraitAndStatDrift(life, era);
+      this.rollHealthIncidents(life, era, eduMode);
 
       if (!life.flags.betel_nut_habit && life.location === "TAIWAN" && life.sex === "M" && life.age >= 22 && life.age <= 38 && life.eduLevel <= 3 && life.currentYear <= 2005 && Math.random() < 0.015) {
         life.flags.betel_nut_habit = true;
@@ -3543,8 +3560,9 @@
       }
 
       // 8. Companions & stat clamp
+      this.softenGains(life, statsAtYearStart);
       this.stepCompanions(life, era);
-      const maxHealthCap = life.flags.disabled ? 48 : 100;
+      const maxHealthCap = this.healthCap(life);
       life.stats.health = clamp(Math.round(life.stats.health), 0, maxHealthCap);
       for (const k of ["happiness", "knowledge", "social"]) {
         life.stats[k] = clamp(Math.round(life.stats[k]), 0, 100);
@@ -3553,8 +3571,9 @@
       // 9. Mortality roll
       const { qx, band } = this.calcAnnualDeathProb(life, era);
       life.lastSurvivalRate = 1 - qx;
-      if (Math.random() < qx || life.age >= 104) {
-        const cause = this.pickCauseOfDeath(life, band, eduMode);
+      if (life.flags.pending_death || Math.random() < qx || life.age >= 104) {
+        const cause = life.flags.pending_death ? { ...life.flags.pending_death, isSensitive: false } : this.pickCauseOfDeath(life, band, eduMode);
+        delete life.flags.pending_death;
         if (life.age >= 60 && this.getLiquidNominal(life) > 0) {
           this.spendLiquid(life, Math.min(this.getLiquidNominal(life), Math.round(180000 * era.cpi * (life.flags.terminal_cost_mult || 1))));
         }
@@ -3840,7 +3859,7 @@
         if (c.requires === "admitted_to_university" && !life.flags.admitted_to_university) continue;
         if (c.requires === "missed_target_school" && !life.flags.missed_target_school) continue;
         if (c.requires === "university_grad" && !life.flags.university_grad) continue;
-        if (c.requires === "major_illness_diagnosed" && life.stats.health > 45) continue;
+        if (c.requires === "major_illness_diagnosed" && life.stats.health > 45 && !life.flags.major_illness_pending) continue;
         if (c.requires_flag && !life.flags[c.requires_flag]) continue;
         if (c.no_partner_yet && (life.partner || life.married)) continue;
         if (d.id === "D17B_romance_encounter" && life.age > 45 && !life.flags.ever_married) continue;
@@ -4206,6 +4225,152 @@
       return { ...dec, memoryBias: hit[1], memoryEcho: m.echo, resolvedDesc: `${dec.resolvedDesc}\n💭 你想起 ${m.age} 歲那年：${m.echo}。` };
     }
 
+    healthCap(life) {
+      if (life.flags.disabled || life.flags.disability_level === "severe") return 48;
+      if (life.flags.disability_level === "mild") return 75;
+      return 100;
+    }
+
+    // 屬性越高越難再往上：正向變化依起點打折（50 分時全額，80 分約五成，95 分約兩成）
+    softenGains(life, before) {
+      for (const k of ["knowledge", "social"]) {
+        const prev = before[k], cur = life.stats[k];
+        if (prev == null || cur <= prev) continue;
+        life.stats[k] = prev + (cur - prev) * clamp((108 - prev) / 58, 0.12, 1);
+      }
+    }
+
+    // 疾病與事故：依台灣交通事故、職災、中風與癌症發生率，可能康復、留下輕重度失能，或當年過世
+    rollHealthIncidents(life, era, eduMode) {
+      if (life.location !== "TAIWAN" || !life.alive) return;
+      const y = life.currentYear, a = life.age;
+      const line = y >= 2027 ? this.ensureWorldLine(life) : null;
+      const working = this.isWorkingNow(life);
+      const incidents = [];
+      // 1. 交通事故（機車時代最高；2027 年後依 AI 世界線，自駕普及會降低）
+      if (a >= 15) {
+        let p = a < 25 ? 0.004 : a < 45 ? 0.002 : a < 65 ? 0.0015 : 0.0025;
+        p *= y < 1975 ? 0.6 : y < 2005 ? 1.4 : y < 2027 ? 1.0 : (line && line.ai === "fast" ? 0.5 : 0.85);
+        if (this.hasTrait(life, "risk_taker")) p *= 1.4;
+        if (this.hasTrait(life, "cautious")) p *= 0.7;
+        incidents.push({ kind: "traffic", p, out: [0.05, 0.08, 0.17] });
+      }
+      // 2. 職業災害（營造、工廠、農漁、外送物流）
+      if (working && ["car_craft_apprentice", "car_epz_worker", "car_farmer_fisher", "car_driver_logistics", "car_gig_delivery"].includes(life.careerId)) {
+        incidents.push({ kind: "work", p: y < 1990 ? 0.006 : 0.004, out: [0.012, 0.06, 0.2] });
+      }
+      // 3. 中風（年齡、健康、檳榔與過勞）
+      if (a >= 45) {
+        let p = a < 55 ? 0.0015 : a < 65 ? 0.003 : a < 75 ? 0.007 : 0.014;
+        if (life.stats.health < 45) p *= 1.5;
+        if (life.flags.betel_nut_habit || life.flags.work_hours_high) p *= 1.3;
+        if (this.hasTrait(life, "cautious")) p *= 0.85;
+        incidents.push({ kind: "stroke", p, out: [0.15, 0.3, 0.3] });
+      }
+      // 4. 癌症確診（不直接致死，交由後續治療抉擇）
+      if (a >= 30 && !life.flags.cancer_dx_year) {
+        let p = a < 40 ? 0.001 : a < 50 ? 0.003 : a < 60 ? 0.006 : a < 70 ? 0.01 : 0.014;
+        if (life.flags.betel_nut_habit) p *= 2.0;
+        incidents.push({ kind: "cancer", p, out: [0, 0, 0] });
+      }
+      // 5. 小兒麻痺（1950–1966 疫苗普及前）
+      if (a <= 5 && y >= 1950 && y <= 1966) incidents.push({ kind: "polio", p: 0.0006, out: [0.05, 0.45, 0.5] });
+
+      for (const inc of incidents) {
+        if (Math.random() >= inc.p) continue;
+        this.applyHealthIncident(life, era, inc, eduMode);
+        return; // 一年最多一件
+      }
+    }
+
+    applyHealthIncident(life, era, inc, eduMode) {
+      const r = Math.random();
+      const [pFatal, pSevere, pMild] = inc.out;
+      const outcome = r < pFatal ? "fatal" : r < pFatal + pSevere ? "severe" : r < pFatal + pSevere + pMild ? "mild" : "recovered";
+      const hasNHI = this.hasSwitch(life.currentYear, "nhi_universal_healthcare");
+      const T = {
+        traffic: {
+          what: pick(life.age < 18 ? ["放學騎腳踏車回家，在路口被轉彎的車擦撞", "坐在家人的機車後座，遇到對向車搶快"]
+            : life.currentYear < 1997 ? ["沒戴安全帽騎機車，在雨天的省道上打滑", "騎機車下班途中，被闖紅燈的貨車撞上"]
+            : ["騎機車下班途中，被轉彎的大車捲入", "雨夜開車回家，在高速公路上被後車追撞", "過馬路時被一輛沒有減速的車撞倒"]),
+          death: { key: "accident_traffic", label: "交通事故" }
+        },
+        work: {
+          what: pick(["在工地從鷹架上摔下來", "在工廠操作機台時手被捲入", "搬運重物時被倒下的貨架壓傷", "在烈日下作業時熱衰竭倒地"]),
+          death: { key: "accident", label: "職業災害" }
+        },
+        stroke: { what: "某天早上起床，半邊身體突然使不上力，送醫後確診腦中風", death: { key: "cerebrovascular", label: "腦血管疾病（中風）" } },
+        cancer: { what: "例行健康檢查發現異常，進一步檢查確診癌症", death: { key: "cancer", label: "惡性腫瘤（癌症）" } },
+        polio: { what: "發高燒幾天後，雙腿突然沒了力氣——家人帶你去看醫生，確診小兒麻痺", death: { key: "congenital_neuro_other", label: "小兒麻痺併發症" } }
+      }[inc.kind];
+      const payer = life.age < 18 || (life.workYears || 0) === 0;
+      const billBase = { recovered: 60000, mild: 180000, severe: 450000, fatal: 0 }[outcome];
+      const bill = Math.round(billBase * (hasNHI ? 1 : 2.2) * this.wageScale(era) * era.cpi);
+      if (!payer && bill > 0) this.spendLiquid(life, Math.min(bill, Math.max(0, this.getLiquidNominal(life)) + bill * 0.3));
+      let text = `${T.what}。`;
+      let note = "";
+
+      if (inc.kind === "cancer") {
+        life.flags.cancer_dx_year = life.currentYear;
+        life.flags.major_illness_pending = true;
+        life.stats.health = Math.min(life.stats.health - 12, 50);
+        life.stats.happiness -= 8;
+        text += "醫師說要盡快決定治療方式。";
+        note = "接下來要面對治療的抉擇";
+      } else if (outcome === "fatal") {
+        life.flags.pending_death = T.death;
+        text += "傷勢太重，搶救無效。";
+      } else if (outcome === "severe") {
+        life.flags.disability_level = "severe";
+        life.flags.disabled = true;
+        life.flags.disability_cause = inc.kind;
+        life.stats.health = Math.min(life.stats.health, 40);
+        life.stats.happiness -= 15;
+        life.stats.social -= 5;
+        text += inc.kind === "polio" ? "你的雙腿從此要靠支架行走。" : "命保住了，但留下重度失能，生活起居需要人協助。";
+        note = "重度失能：健康上限 48，無法從事勞力與久站工作";
+      } else if (outcome === "mild") {
+        if (life.flags.disability_level !== "severe") life.flags.disability_level = "mild";
+        life.flags.disability_cause = life.flags.disability_cause || inc.kind;
+        life.stats.health = Math.min(life.stats.health - 10, 70);
+        life.stats.happiness -= 8;
+        text += inc.kind === "polio" ? "你走路一跛一跛的，但還能自己上下學。" : "復健了大半年，留下行動不便的後遺症。";
+        note = "輕度失能：健康上限 75，無法從事重體力工作";
+      } else {
+        life.stats.health -= 8;
+        life.stats.happiness -= 4;
+        text += "住院幾個星期後慢慢康復了。";
+      }
+      if (outcome === "severe" || outcome === "mild") this.handleDisabilityCareer(life, era);
+      if (bill > 0 && !payer) note += `${note ? "｜" : ""}醫療與復健支出約 NT$${bill.toLocaleString()}`;
+      life.feed.unshift({
+        type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
+        text: `【${inc.kind === "cancer" || inc.kind === "stroke" || inc.kind === "polio" ? "🏥 疾病" : "🚑 意外"}】${text}`,
+        impactChips: note ? note.split("｜").map((t) => ({ text: t, good: false })) : null,
+        highlight: true
+      });
+    }
+
+    // 失能後不能再做原本的勞力工作：45 歲以下重新找工作，以上轉任輕便職務
+    handleDisabilityCareer(life, era) {
+      const car = (this.data.educationCareers.careers || []).find((c) => c.id === life.careerId);
+      if (!car || this.isCareerEligibleForLife(life, car)) {
+        if (life.careerId) life.careerSalaryMult = +((life.careerSalaryMult || 1) * 0.9).toFixed(2);
+        return;
+      }
+      const alt = this.getEligibleCareers(life).filter((c) => !c.entry)[0];
+      if (life.age <= 45 || !alt) {
+        life.careerId = null;
+        life.flags.career_chosen = false;
+        delete life.triggeredDecisions["D07_career_track"];
+        life.job = "傷病休養、重新找工作";
+      } else {
+        this.assignCareer(life, alt);
+        life.careerSalaryMult = +(life.careerSalaryMult * 0.75).toFixed(2);
+        life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: `身體無法再負荷原本的工作，你轉任「${life.job}」，薪水少了一截。` });
+      }
+    }
+
     isWorkingNow(life) {
       const inSch = life.education.includes("在學") || life.flags.in_grad_school_years > 0 || life.flags.retaking_exam;
       return life.age >= 16 && !inSch && Boolean(life.careerId) && !(life.flags.military_gap_years > 0) && !life.flags.retired &&
@@ -4514,7 +4679,7 @@
         life.flags.eraPending.push({ at, cardId: card.id, eraLabel: card.era_label, icon: ERA_TIER_ICONS[card.tier || "era"], oc });
       }
 
-      const maxHp = life.flags.disabled ? 48 : 100;
+      const maxHp = this.healthCap(life);
       life.stats.health = clamp(Math.round(life.stats.health), 0, maxHp);
       for (const k of ["happiness", "knowledge", "social"]) life.stats[k] = clamp(Math.round(life.stats[k]), 0, 100);
 
@@ -4598,6 +4763,8 @@
       if (has("family_first")) { if (life.married || life.family.parentsAlive) s.social += 0.3; if (life.married && life.children > 0) s.happiness += 0.4; }
       if (has("civic_minded")) { s.knowledge += 0.3; s.social += 0.2; }
       if (has("cautious") && life.age >= 18) s.health += 0.2;
+      if (life.age >= 68) s.knowledge -= 0.35;
+      if (life.flags.retired && !has("sociable")) s.social -= 0.3;
       if (has("risk_taker") && life.age >= 18) s.happiness += 0.2;
 
       if (!working) return;
@@ -4705,7 +4872,9 @@
         .map((o) => String(this.resolveEraLabel(o, life.currentYear)).replace(/（[^）]*）/g, "").trim())
         .slice(0, 3);
       this.applyDecisionCore(life, decision, optionKey, era);
+      this.softenGains(life, before);
       const impact = this.diffImpact(before, this.snapshotForImpact(life));
+      if (String(decision.id) === "D17_critical_illness_cost") delete life.flags.major_illness_pending;
       const rec = life.decisionHistory.length > histLen ? life.decisionHistory[life.decisionHistory.length - 1] : null;
       if (rec) {
         rec.decisionId = String(decision.id);
@@ -4805,7 +4974,7 @@
           life.salaryHistory = life.salaryHistory || [];
           life.salaryHistory.unshift({ age: life.age, year: life.currentYear, title: decision.resolvedTitle, choice: optLabel, beforeMonthly: bMo, afterMonthly: aMo, deltaMonthly: aMo - bMo, pctStr, isFutureMult: false });
         }
-        const maxHpRet = life.flags.disabled ? 48 : 100;
+        const maxHpRet = this.healthCap(life);
         life.stats.health = clamp(Math.round(life.stats.health), 0, maxHpRet);
         for (const k of ["happiness", "knowledge", "social"]) life.stats[k] = clamp(Math.round(life.stats[k]), 0, 100);
         if (life.flags.wage_mult) life.flags.wage_mult = clamp(life.flags.wage_mult, 0.55, 1.28);
@@ -5467,7 +5636,7 @@
         }
       }
 
-      const maxHpDec = life.flags.disabled ? 48 : 100;
+      const maxHpDec = this.healthCap(life);
       life.stats.health = clamp(Math.round(life.stats.health), 0, maxHpDec);
       for (const k of ["happiness", "knowledge", "social"]) life.stats[k] = clamp(Math.round(life.stats[k]), 0, 100);
       if (life.flags.wage_mult) life.flags.wage_mult = clamp(life.flags.wage_mult, 0.55, 1.28);

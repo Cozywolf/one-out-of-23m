@@ -429,7 +429,7 @@
       : (l.sex === "M" ? "👴" : "👵");
     $("lifeName").textContent = l.name;
     const originLabel = ({ minnan: "閩南家庭", hakka: "客家家庭", waisheng: "外省家庭", indigenous: "原住民家庭", new_immigrant: "新住民家庭" })[l.family.origin];
-    $("lifeSubMeta").textContent = `${l.sex === "M" ? "男" : "女"} ｜ ${l.birthYear} 年生 ｜ 手足 ${l.family.siblings} 人${l.family.siblings > 0 && l.family.birthOrder ? `（排行第 ${l.family.birthOrder}）` : ""}${originLabel ? ` ｜ ${originLabel}` : ""}`;
+    $("lifeSubMeta").textContent = `${l.sex === "M" ? "男" : "女"} ｜ ${l.birthYear} 年生 ｜ 手足 ${l.family.siblings} 人${l.family.siblings > 0 && l.family.birthOrder ? `（排行第 ${l.family.birthOrder}）` : ""}${originLabel ? ` ｜ ${originLabel}` : ""}${l.flags.disability_level === "severe" || l.flags.disabled ? " ｜ ♿ 重度失能" : l.flags.disability_level === "mild" ? " ｜ ♿ 輕度失能" : ""}`;
 
     if (l.location !== "TAIWAN" && l.abroad) {
       $("metaRegion").textContent = `${l.abroad.flag} ${l.abroad.countryName}（原籍 ${birthReg.name_zh}）`;
@@ -1174,7 +1174,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.8 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.9 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1268,7 +1268,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.8 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.9 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }

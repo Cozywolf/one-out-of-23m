@@ -4409,7 +4409,11 @@ window.TW_DATA = {
             "effects": {
               "savings_rate_bonus": 0.15,
               "happiness": -4
-            }
+            },
+            "requires_stats": {
+              "health": 55
+            },
+            "requires_able_body": true
           }
         ]
       },
@@ -4429,6 +4433,9 @@ window.TW_DATA = {
               "income_years_zero": 2,
               "long_term_wage_mult": 1.06,
               "knowledge": 10
+            },
+            "requires_stats": {
+              "knowledge": 60
             }
           },
           {
@@ -4437,6 +4444,9 @@ window.TW_DATA = {
             "effects": {
               "money_delta_ratio": -0.45,
               "long_term_wage_mult": 1.14
+            },
+            "requires_stats": {
+              "knowledge": 65
             }
           },
           {
@@ -4639,6 +4649,9 @@ window.TW_DATA = {
               "wage_mult": 1.7,
               "relationships": -10,
               "marital_strain_prob": 0.2
+            },
+            "requires_stats": {
+              "health": 40
             }
           },
           {
@@ -4746,7 +4759,10 @@ window.TW_DATA = {
                 "min_year": 2019,
                 "label": "配合減班休息＋兼差（如跑外送或接案）"
               }
-            ]
+            ],
+            "requires_stats": {
+              "health": 35
+            }
           },
           {
             "key": "resign_retrain",
@@ -5387,6 +5403,9 @@ window.TW_DATA = {
               "start_partner": true,
               "happiness": 8,
               "relationships": 8
+            },
+            "requires_stats": {
+              "happiness": 20
             }
           },
           {
@@ -5733,6 +5752,9 @@ window.TW_DATA = {
               "health": -12,
               "happiness": -15,
               "relationships": 6
+            },
+            "requires_stats": {
+              "health": 35
             }
           },
           {
@@ -5785,6 +5807,9 @@ window.TW_DATA = {
               "income_mult": 0.55,
               "relationships": 5,
               "health": -2
+            },
+            "requires_stats": {
+              "health": 30
             }
           },
           {
@@ -6606,6 +6631,10 @@ window.TW_DATA = {
                 },
                 "text": "跑了兩年展覽，訂單時有時無，積蓄見底，只好回頭找工作。"
               }
+            },
+            "requires_stats": {
+              "social": 50,
+              "health": 40
             }
           },
           {
@@ -6726,6 +6755,9 @@ window.TW_DATA = {
                 },
                 "text": "有人簽中大獎，你賠不出來，只好躲債好一陣子。"
               }
+            },
+            "requires_stats": {
+              "social": 60
             }
           },
           {
@@ -7020,7 +7052,10 @@ window.TW_DATA = {
                   }
                 }
               }
-            ]
+            ],
+            "requires_stats": {
+              "health": 40
+            }
           },
           {
             "key": "stay_taiwan",
@@ -7146,7 +7181,11 @@ window.TW_DATA = {
                   "text": "2008 年員工分紅費用化上路，科技新貴的分紅大幅縮水。"
                 }
               }
-            ]
+            ],
+            "requires_stats": {
+              "knowledge": 60,
+              "health": 40
+            }
           },
           {
             "key": "stay",
@@ -7418,7 +7457,10 @@ window.TW_DATA = {
               "exam_prep_years": 1,
               "happiness": -2
             },
-            "text": "你買齊了補習班的講義，每天早上七點坐到圖書館。"
+            "text": "你買齊了補習班的講義，每天早上七點坐到圖書館。",
+            "requires_stats": {
+              "knowledge": 50
+            }
           }
         ],
         "tier": "era"
@@ -7466,7 +7508,11 @@ window.TW_DATA = {
             "effects": {
               "working_holiday": "AUS"
             },
-            "text": "你在桃園機場拍了一張出境照，配上一句「出發了」。"
+            "text": "你在桃園機場拍了一張出境照，配上一句「出發了」。",
+            "requires_stats": {
+              "health": 50
+            },
+            "requires_able_body": true
           },
           {
             "key": "stay",
@@ -7615,7 +7661,10 @@ window.TW_DATA = {
               "happiness": 2,
               "marital_strain": 0.3
             },
-            "text": "你把台灣的租屋退掉，行李箱裡塞了兩包泡麵和一罐辣椒醬。"
+            "text": "你把台灣的租屋退掉，行李箱裡塞了兩包泡麵和一罐辣椒醬。",
+            "requires_stats": {
+              "knowledge": 55
+            }
           },
           {
             "key": "stay",
@@ -7677,7 +7726,10 @@ window.TW_DATA = {
               "social": -4,
               "health": -2
             },
-            "text": "你在沙漠邊的新廠宿舍裡，用視訊陪孩子寫功課。"
+            "text": "你在沙漠邊的新廠宿舍裡，用視訊陪孩子寫功課。",
+            "requires_stats": {
+              "health": 40
+            }
           },
           {
             "key": "go_kumamoto",
@@ -7694,7 +7746,10 @@ window.TW_DATA = {
               "marital_strain": 0.2,
               "social": -2
             },
-            "text": "熊本的同事很客氣，週末你常搭兩個多小時的飛機回台灣。"
+            "text": "熊本的同事很客氣，週末你常搭兩個多小時的飛機回台灣。",
+            "requires_stats": {
+              "health": 40
+            }
           },
           {
             "key": "stay_hsinchu",
@@ -7773,6 +7828,9 @@ window.TW_DATA = {
                 },
                 "text": "課上完了，部門還是縮編，你只是保住了位子。"
               }
+            },
+            "requires_stats": {
+              "knowledge": 40
             }
           },
           {
@@ -7960,7 +8018,11 @@ window.TW_DATA = {
                 },
                 "text": "海上的一場意外讓你受了重傷，提前被送回台灣。"
               }
-            }
+            },
+            "requires_stats": {
+              "health": 60
+            },
+            "requires_able_body": true
           },
           {
             "key": "stay_land",
@@ -8061,6 +8123,9 @@ window.TW_DATA = {
                 },
                 "text": "有會腳繳不出錢跑了，你只好自掏腰包補洞。"
               }
+            },
+            "requires_stats": {
+              "social": 60
             }
           },
           {
@@ -8133,7 +8198,10 @@ window.TW_DATA = {
               "social": -2,
               "uni_admit_bonus": 0.04
             },
-            "text": "你跟父親大吵一架，每天念書念到半夜。"
+            "text": "你跟父親大吵一架，每天念書念到半夜。",
+            "requires_stats": {
+              "knowledge": 50
+            }
           },
           {
             "key": "work_then_night",
@@ -8467,7 +8535,10 @@ window.TW_DATA = {
               "exam_prep_years": 1,
               "happiness": -2
             },
-            "text": "你搬回家住，每天去圖書館報到。"
+            "text": "你搬回家住，每天去圖書館報到。",
+            "requires_stats": {
+              "knowledge": 50
+            }
           },
           {
             "key": "stay_private",
@@ -8618,6 +8689,9 @@ window.TW_DATA = {
                 },
                 "text": "加了半年的班，功勞最後掛在別人名下。"
               }
+            },
+            "requires_stats": {
+              "health": 40
             }
           },
           {
@@ -8705,7 +8779,11 @@ window.TW_DATA = {
                 },
                 "text": "一個下雨的晚上，你在路口摔車，休養了好幾個月。"
               }
-            }
+            },
+            "requires_stats": {
+              "health": 45
+            },
+            "requires_able_body": true
           },
           {
             "key": "learn_skill",
@@ -8734,6 +8812,9 @@ window.TW_DATA = {
                 "effects": {},
                 "text": "課上完了，薪水還是沒動。"
               }
+            },
+            "requires_stats": {
+              "knowledge": 45
             }
           },
           {
@@ -8993,6 +9074,9 @@ window.TW_DATA = {
                   "slow": -0.1
                 }
               }
+            },
+            "requires_stats": {
+              "knowledge": 40
             }
           },
           {
@@ -9030,6 +9114,9 @@ window.TW_DATA = {
                 },
                 "text": "兼差的公司突然倒了，最後一個月的錢沒拿到，身體也累垮了。"
               }
+            },
+            "requires_stats": {
+              "health": 45
             }
           },
           {
@@ -9144,7 +9231,11 @@ window.TW_DATA = {
                   "harsh": -0.15
                 }
               }
-            }
+            },
+            "requires_stats": {
+              "health": 45
+            },
+            "requires_able_body": true
           }
         ]
       },
@@ -9448,6 +9539,9 @@ window.TW_DATA = {
                 },
                 "text": "身體跟不上工作量，你在一次健檢後被醫師勸退。"
               }
+            },
+            "requires_stats": {
+              "health": 45
             }
           },
           {
@@ -9548,6 +9642,9 @@ window.TW_DATA = {
                   "crisis": -0.15
                 }
               }
+            },
+            "requires_stats": {
+              "knowledge": 45
             }
           },
           {
@@ -9656,6 +9753,9 @@ window.TW_DATA = {
                   "calm": 0.05
                 }
               }
+            },
+            "requires_stats": {
+              "social": 50
             }
           },
           {
@@ -10000,6 +10100,9 @@ window.TW_DATA = {
                 },
                 "text": "身體先喊停了，你只好提早退下來。"
               }
+            },
+            "requires_stats": {
+              "health": 45
             }
           },
           {
@@ -10287,7 +10390,10 @@ window.TW_DATA = {
               "happiness": -4,
               "health": -1
             },
-            "text": "你的國三是考卷、補習班和便利商店的晚餐。"
+            "text": "你的國三是考卷、補習班和便利商店的晚餐。",
+            "requires_stats": {
+              "knowledge": 55
+            }
           },
           {
             "key": "vocational_first",
@@ -10515,6 +10621,9 @@ window.TW_DATA = {
                 },
                 "text": "兩年過去，訂閱數停在幾千人。你默默開始投履歷。"
               }
+            },
+            "requires_stats": {
+              "social": 45
             }
           },
           {
@@ -11549,6 +11658,9 @@ window.TW_DATA = {
                 },
                 "text": "新領域的門比想像中難進，你最後回到原本的行業，年資卻斷了。"
               }
+            },
+            "requires_stats": {
+              "knowledge": 50
             }
           },
           {
@@ -14127,6 +14239,9 @@ window.TW_DATA = {
               "health": -3,
               "flag_set": "hs_group_science",
               "uni_admit_bonus": 0.1
+            },
+            "requires_stats": {
+              "knowledge": 50
             }
           },
           {
@@ -14219,7 +14334,10 @@ window.TW_DATA = {
                 "min_year": 2001,
                 "label": "報名補習班專攻統測／插大，目標考上國立科技大學"
               }
-            ]
+            ],
+            "requires_stats": {
+              "knowledge": 45
+            }
           }
         ]
       },
@@ -14343,6 +14461,9 @@ window.TW_DATA = {
               "social": 5,
               "health": -4,
               "flag_set": "uni_parttime"
+            },
+            "requires_stats": {
+              "knowledge": 55
             }
           },
           {
@@ -14408,7 +14529,10 @@ window.TW_DATA = {
                 "min_year": 2015,
                 "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給）"
               }
-            ]
+            ],
+            "requires_stats": {
+              "knowledge": 55
+            }
           },
           {
             "key": "prep_civil_exam",
@@ -14438,7 +14562,10 @@ window.TW_DATA = {
                 "min_year": 1990,
                 "label": "狂刷歷屆考研／托福 GRE 雅思衝刺（大幅提升國內頂大碩士與出國留學契機）"
               }
-            ]
+            ],
+            "requires_stats": {
+              "knowledge": 60
+            }
           },
           {
             "key": "grad_travel_youth",
@@ -14522,7 +14649,10 @@ window.TW_DATA = {
                 "min_year": 1999,
                 "label": "利用下班進修專業證照／在職專班（依知識值檢定升遷加薪機率）"
               }
-            ]
+            ],
+            "requires_stats": {
+              "knowledge": 45
+            }
           },
           {
             "key": "switch_civil_service",
@@ -14563,6 +14693,9 @@ window.TW_DATA = {
               "wage_mult": 1.05,
               "health": -5,
               "money_delta_twd_2025": -150000
+            },
+            "requires_stats": {
+              "social": 55
             }
           },
           {
@@ -14573,6 +14706,9 @@ window.TW_DATA = {
               "happiness": 7,
               "social": 6,
               "midlife_mortality_mult": 0.8
+            },
+            "requires_stats": {
+              "health": 35
             }
           },
           {
@@ -14630,7 +14766,10 @@ window.TW_DATA = {
               "happiness": 8,
               "health": -5
             },
-            "requires_adult_children": true
+            "requires_adult_children": true,
+            "requires_stats": {
+              "health": 35
+            }
           },
           {
             "key": "slow_travel_invest",

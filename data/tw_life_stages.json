@@ -261,6 +261,9 @@
             "health": -3,
             "flag_set": "hs_group_science",
             "uni_admit_bonus": 0.1
+          },
+          "requires_stats": {
+            "knowledge": 50
           }
         },
         {
@@ -353,7 +356,10 @@
               "min_year": 2001,
               "label": "報名補習班專攻統測／插大，目標考上國立科技大學"
             }
-          ]
+          ],
+          "requires_stats": {
+            "knowledge": 45
+          }
         }
       ]
     },
@@ -477,6 +483,9 @@
             "social": 5,
             "health": -4,
             "flag_set": "uni_parttime"
+          },
+          "requires_stats": {
+            "knowledge": 55
           }
         },
         {
@@ -542,7 +551,10 @@
               "min_year": 2015,
               "label": "爭取知名企業實習／產學預聘（畢業即轉正、起薪加給）"
             }
-          ]
+          ],
+          "requires_stats": {
+            "knowledge": 55
+          }
         },
         {
           "key": "prep_civil_exam",
@@ -572,7 +584,10 @@
               "min_year": 1990,
               "label": "狂刷歷屆考研／托福 GRE 雅思衝刺（大幅提升國內頂大碩士與出國留學契機）"
             }
-          ]
+          ],
+          "requires_stats": {
+            "knowledge": 60
+          }
         },
         {
           "key": "grad_travel_youth",
@@ -656,7 +671,10 @@
               "min_year": 1999,
               "label": "利用下班進修專業證照／在職專班（依知識值檢定升遷加薪機率）"
             }
-          ]
+          ],
+          "requires_stats": {
+            "knowledge": 45
+          }
         },
         {
           "key": "switch_civil_service",
@@ -697,6 +715,9 @@
             "wage_mult": 1.05,
             "health": -5,
             "money_delta_twd_2025": -150000
+          },
+          "requires_stats": {
+            "social": 55
           }
         },
         {
@@ -707,6 +728,9 @@
             "happiness": 7,
             "social": 6,
             "midlife_mortality_mult": 0.8
+          },
+          "requires_stats": {
+            "health": 35
           }
         },
         {
@@ -764,7 +788,10 @@
             "happiness": 8,
             "health": -5
           },
-          "requires_adult_children": true
+          "requires_adult_children": true,
+          "requires_stats": {
+            "health": 35
+          }
         },
         {
           "key": "slow_travel_invest",
