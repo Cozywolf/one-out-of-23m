@@ -3705,3 +3705,10 @@ body.theme-dark .pd-tag { color: #f0be7a; }
 .result-card .result-body p { font-size: 16.2px; line-height: 1.65; margin: 0 0 8px; }
 .result-card .impact-chips { margin-top: 10px; }
 .result-card .impact-chip { font-size: 14px; padding: 3px 10px; }
+
+/* v6.14: background music credit (CC BY 4.0) */
+.music-credit {
+  max-width: 980px; margin: 0 auto; padding: 10px 18px 28px;
+  font-size: 12.6px; color: var(--ink-2); text-align: center; line-height: 1.6; opacity: .85;
+}
+.music-credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }

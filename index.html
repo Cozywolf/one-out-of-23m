@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="生在台灣" />
-<title>生在台灣 v6.13 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
+<title>生在台灣 v6.14 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,6 +30,7 @@
     <button id="btnEduToggle" class="pill-toggle edu-active" aria-pressed="true" title="切換是否顯示重大惡性社會事件（關閉時僅保留法制與制度改革重點）">📢 重大惡性社會事件：開啟</button>
     <button id="btnHistoricalToggle" class="pill-toggle hist-active" aria-pressed="false" title="僅於開啟重大惡性社會事件時可啟用：依個性、經歷與地區有機率成為重大事件當事人">⚡ 史實模式：關</button>
     <button id="btnEnToggle" class="pill-toggle" aria-pressed="false" title="在歷史卡片顯示英文文化註解（Cultural Footnote）">🌐 EN 註解：關</button>
+    <button id="btnMusicTop" class="pill-toggle" data-music-toggle type="button">🎵 音樂</button>
     <button id="btnThemeTop" class="pill-toggle" title="切換淺色／深色／紙本主題">◐ 主題</button>
   </div>
 </header>
@@ -146,6 +147,7 @@
           <button class="ltb-more" id="btnAuto" aria-pressed="false" title="自動抉擇開關">自動：關</button>
           <button class="ltb-more" id="btnHukou" title="檢視台灣戶口名簿出生證明">戶口卡</button>
           <button class="ltb-more" id="btnEndEarly" title="提早結束這段人生" aria-label="提早結束這段人生">💀</button>
+          <button class="ltb-more" id="btnMusicLife" data-music-toggle data-music-compact type="button">🎵</button>
           <button class="ltb-more" id="btnRebirth" title="重新抽籤出生">↺</button>
         </div>
       </div>
@@ -419,6 +421,11 @@
 
 </main>
 
+<footer class="music-credit">
+  背景音樂：<a href="https://incompetech.com" target="_blank" rel="noopener">"Morning"、"Evening" by Kevin MacLeod (incompetech.com)</a>
+  · Licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons: By Attribution 4.0 License</a>
+</footer>
+
 <!-- DECISION MODAL -->
 <div id="decisionModal" class="modal" hidden>
   <div class="modal-card dec-card">
@@ -524,5 +531,6 @@
 <script src="data/tw_bundle.js"></script>
 <script src="js/tw_engine.js"></script>
 <script src="js/tw_ui.js"></script>
+<script src="js/tw_music.js"></script>
 </body>
 </html>
