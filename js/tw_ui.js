@@ -93,7 +93,7 @@
   function closeInfoModal(id) {
     const el = $(id);
     if (el) el.hidden = true;
-    const anyStillOpen = ["decisionModal", "pauseModal", "hukouModal", "helplineModal", "historicalConfirmModal", "endEarlyModal"]
+    const anyStillOpen = ["decisionModal", "resultModal", "pauseModal", "hukouModal", "helplineModal", "historicalConfirmModal", "endEarlyModal"]
       .some((mid) => { const m = $(mid); return m && !m.hidden; });
     if (!anyStillOpen && state.wasPausedBeforeInfoModal !== null) {
       const prev = state.wasPausedBeforeInfoModal;
@@ -107,7 +107,7 @@
   }
 
   function closeAllModals(resumeIfRunning, preservePending = false) {
-    ["decisionModal", "pauseModal", "hukouModal", "helplineModal", "historicalConfirmModal", "endEarlyModal"].forEach((id) => {
+    ["decisionModal", "resultModal", "pauseModal", "hukouModal", "helplineModal", "historicalConfirmModal", "endEarlyModal"].forEach((id) => {
       const el = $(id);
       if (el) el.hidden = true;
     });
@@ -1174,7 +1174,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.10 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.11 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1268,7 +1268,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.10 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.11 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1300,24 +1300,58 @@
         (!check.eligible ? `<div class="tw-lock-reason">🔒 ${check.reason}</div>` : "");
       if (check.eligible) {
         btn.addEventListener("click", () => {
+          const feedBefore = state.life.feed.length;
           const impact = state.engine.applyDecision(state.life, dec, opt.key, era);
-          if (impact && impact.chips.length) showToast(`你的選擇帶來：${impact.chips.slice(0, 4).map((c) => c.text).join("｜")}`, 3600);
+          const fresh = state.life.feed.slice(0, Math.max(0, state.life.feed.length - feedBefore));
           $("decisionModal").hidden = true;
           state.pendingDecision = null;
-          const nextDec = state.engine.findFollowUpDecision(state.life, dec, era);
-          if (nextDec) {
-            renderLifeAll();
-            showDecisionModal(nextDec);
-            return;
-          }
-          state.paused = false;
-          state.lastFrameTs = performance.now();
           renderLifeAll();
+          showResultModal(dec, displayLabel, fresh, impact, () => {
+            const nextDec = state.engine.findFollowUpDecision(state.life, dec, era);
+            if (nextDec) {
+              renderLifeAll();
+              showDecisionModal(nextDec);
+              return;
+            }
+            state.paused = false;
+            state.lastFrameTs = performance.now();
+            renderLifeAll();
+          });
         });
       }
       wrap.appendChild(btn);
     }
     $("decisionModal").hidden = false;
+  }
+
+  // 抉擇結果跳窗：顯示這個選擇當下發生了什麼與帶來的影響，按確認才繼續
+  function showResultModal(dec, choiceLabel, freshFeed, impact, onContinue) {
+    const l = state.life;
+    const era = state.engine.getEraParams(l.currentYear);
+    $("resultBadge").textContent = $("decBadge").textContent || "抉擇結果";
+    $("resultYearTag").textContent = `${l.currentYear}（${era.roc}）· ${l.age} 歲`;
+    $("resultQuestion").textContent = dec.resolvedTitle || "";
+    $("resultTitle").textContent = `你選擇了：${String(choiceLabel).replace(/（[^）]*）/g, "").trim()}`;
+    const strip = (s) => String(s || "").replace(/^【[^】]*】你選擇了「[^」]*」。?/, "").replace(/^【[^】]*】/, "").trim();
+    const paras = freshFeed
+      .slice().reverse()
+      .map((f) => (f.type === "parent_decision" ? f.text : f.type === "overseas_event" ? f.summary : strip(f.text)))
+      .filter((s) => s && s.length > 1);
+    const salary = freshFeed.map((f) => f.salaryDeltaBadge).find(Boolean);
+    $("resultBody").innerHTML = (paras.length ? paras.map((p) => `<p>${p}</p>`).join("") : "")
+      + (salary ? `<div class="salary-delta-pill">${salary}</div>` : "");
+    const chips = (impact && impact.chips) || [];
+    $("resultImpact").innerHTML = chips.length
+      ? impactChipsHtml(chips, "這個選擇帶來")
+      : `<div class="muted" style="font-size:14.4px;margin-top:8px;">這個選擇的影響，可能要過一段時間才會慢慢顯現。</div>`;
+    const btn = $("btnResultContinue");
+    btn.onclick = () => {
+      $("resultModal").hidden = true;
+      btn.onclick = null;
+      onContinue();
+    };
+    $("resultModal").hidden = false;
+    setTimeout(() => btn.focus(), 50);
   }
 
   function showPauseModal(pq, followUpDecision) {
@@ -1803,7 +1837,7 @@
         const lifeView = $("view-life");
         if (!lifeView || !lifeView.classList.contains("active")) return;
         if (!state.life || !state.life.alive) return;
-        const anyModalOpen = ["decisionModal", "pauseModal", "hukouModal", "helplineModal", "historicalConfirmModal", "endEarlyModal"]
+        const anyModalOpen = ["decisionModal", "resultModal", "pauseModal", "hukouModal", "helplineModal", "historicalConfirmModal", "endEarlyModal"]
           .some((id) => { const el = $(id); return el && !el.hidden; });
         if (anyModalOpen) return;
         e.preventDefault();
@@ -1814,6 +1848,11 @@
         return;
       }
 
+      if ((e.key === "Enter" || e.key === "Escape") && !$("resultModal").hidden) {
+        e.preventDefault();
+        $("btnResultContinue").click();
+        return;
+      }
       if (e.key !== "Escape") return;
       if (!$("hukouModal").hidden) { closeInfoModal("hukouModal"); return; }
       if (!$("helplineModal").hidden) { closeInfoModal("helplineModal"); return; }

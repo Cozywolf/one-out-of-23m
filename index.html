@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="生在台灣" />
-<title>生在台灣 v6.10 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
+<title>生在台灣 v6.11 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -431,6 +431,21 @@
     <div id="decTrendBox" class="dec-trend-box" hidden></div>
     <div id="decSourceNote" class="muted" style="font-size:14.4px;margin-bottom:12px;"></div>
     <div id="decOptions" style="display:grid;gap:8px;"></div>
+  </div>
+</div>
+
+<!-- DECISION RESULT MODAL：抉擇後的結果，按確認才繼續 -->
+<div id="resultModal" class="modal" hidden>
+  <div class="modal-card dec-card result-card" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div class="eec-header">
+      <span id="resultBadge" class="eec-cat-badge">抉擇結果</span>
+      <span id="resultYearTag" class="eec-year-badge">—</span>
+    </div>
+    <div id="resultQuestion" class="muted" style="font-size:14.4px;margin-top:6px;"></div>
+    <h3 id="resultTitle" style="margin:4px 0 10px;font-family:var(--serif);font-size:22px;">—</h3>
+    <div id="resultBody" class="result-body"></div>
+    <div id="resultImpact"></div>
+    <button id="btnResultContinue" class="tw-btn-primary" type="button" style="width:100%;margin-top:16px;">確認，繼續人生 →</button>
   </div>
 </div>
 

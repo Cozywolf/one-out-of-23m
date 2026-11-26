@@ -3700,3 +3700,8 @@ body.theme-dark .pd-tag { color: #f0be7a; }
 .key-choice-untaken { margin-top: 6px; font-size: 13.5px; color: var(--ink-2); }
 
 #decDesc { white-space: pre-line; }
+
+/* v6.11：抉擇結果跳窗 */
+.result-card .result-body p { font-size: 16.2px; line-height: 1.65; margin: 0 0 8px; }
+.result-card .impact-chips { margin-top: 10px; }
+.result-card .impact-chip { font-size: 14px; padding: 3px 10px; }
