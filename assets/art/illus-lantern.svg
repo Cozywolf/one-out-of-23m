@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="400" height="400" role="img" aria-label="平溪天燈">
+<style>
+*{stroke:#4b2a20;stroke-width:3.6;stroke-linejoin:round;stroke-linecap:round}
+pattern *{stroke:none}
+.tile{fill:#fbf0d9;stroke:none}.pbg{fill:#cfe5dc;stroke:none}
+.s{fill:#f6c9a3}.r{fill:#cf3f35}.g{fill:#3d8c6a}.y{fill:#f0b33b}.b{fill:#2f6aa0}.h{fill:#2a201b}.hg{fill:#c9c2b8}
+.p{fill:#fffaf0}.k{fill:#2a201b}.sea{fill:#9fd3cf}.fl{fill:url(#fl)}.wall{fill:#f1d3ae;stroke:none}
+.tr{fill:#8a5a3c}.gd{fill:#d9c08a}.nt{fill:#2f4a70;stroke:none}.mt{fill:#2d5446}.lan{fill:#fbe7b8}.o{fill:#e8903e}
+.m{fill:none;stroke:#3a1f17;stroke-width:3.1}.gl{fill:none;stroke:#3a1f17;stroke-width:2.6}.fr{fill:none}
+.e{fill:#3a1f17;stroke:none}.ck{fill:#ef9b94;stroke:none}.sh{fill:#4b2a20;stroke:none;opacity:.18}
+.glow{fill:#ffd27a;stroke:none;opacity:.35}.st{fill:#ffe6a0;stroke:none}
+text{stroke:none;font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU",serif;font-weight:900;text-anchor:middle}
+.tx{fill:#3a1f17;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}
+.tb{fill:#fff6e0}.num{fill:#cf3f35}.nb{fill:#2f6aa0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}</style><defs><pattern id="fl" width="22" height="22" patternUnits="userSpaceOnUse">
+<rect width="22" height="22" fill="#c8332d" stroke="none"/>
+<ellipse cx="3" cy="3" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 3 3)"/>
+<ellipse cx="19" cy="19" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 19 19)"/>
+<circle cx="11" cy="11" r="5.5" fill="#f59ab0" stroke="none"/><circle cx="11" cy="11" r="2" fill="#fff1c2" stroke="none"/></pattern><clipPath id="cp"><circle cx="100" cy="100" r="100"/></clipPath></defs>
+<rect class="nt" x="0" y="0" width="200" height="200"/>
+<circle class="st" cx="30" cy="30" r="2.5"/><circle class="st" cx="62" cy="18" r="2"/><circle class="st" cx="170" cy="26" r="2.5"/><circle class="st" cx="150" cy="60" r="2"/><circle class="st" cx="20" cy="80" r="2"/>
+<g transform="translate(16 40) scale(.36)"><ellipse class="glow" cx="100" cy="124" rx="40" ry="18"/>
+<path class="lan" d="M70 58Q70 46 82 44H118Q130 46 130 58L124 130H76Z"/>
+<path class="m" d="M88 46L90 130M112 46L110 130" style="stroke:#d9b778"/>
+
+<rect class="r" x="74" y="128" width="52" height="8" rx="3"/>
+<ellipse class="y" cx="100" cy="146" rx="7" ry="9"/></g>
+<g transform="translate(140 74) scale(.3)"><ellipse class="glow" cx="100" cy="124" rx="40" ry="18"/>
+<path class="lan" d="M70 58Q70 46 82 44H118Q130 46 130 58L124 130H76Z"/>
+<path class="m" d="M88 46L90 130M112 46L110 130" style="stroke:#d9b778"/>
+
+<rect class="r" x="74" y="128" width="52" height="8" rx="3"/>
+<ellipse class="y" cx="100" cy="146" rx="7" ry="9"/></g>
+<g transform="translate(150 6) scale(.22)"><ellipse class="glow" cx="100" cy="124" rx="40" ry="18"/>
+<path class="lan" d="M70 58Q70 46 82 44H118Q130 46 130 58L124 130H76Z"/>
+<path class="m" d="M88 46L90 130M112 46L110 130" style="stroke:#d9b778"/>
+
+<rect class="r" x="74" y="128" width="52" height="8" rx="3"/>
+<ellipse class="y" cx="100" cy="146" rx="7" ry="9"/></g>
+<g transform="translate(10 -6) scale(.9)"><ellipse class="glow" cx="100" cy="124" rx="40" ry="18"/>
+<path class="lan" d="M70 58Q70 46 82 44H118Q130 46 130 58L124 130H76Z"/>
+<path class="m" d="M88 46L90 130M112 46L110 130" style="stroke:#d9b778"/>
+<text class="num" x="100" y="86" font-size="22">平</text><text class="num" x="100" y="112" font-size="22">安</text>
+<rect class="r" x="74" y="128" width="52" height="8" rx="3"/>
+<ellipse class="y" cx="100" cy="146" rx="7" ry="9"/></g>
+<path class="mt" d="M-10 172L36 146L66 162L104 138L146 164L176 150L210 162V210H-10Z"/>
+<path class="g" d="M-10 188L48 170L92 184L140 172L210 188V210H-10Z"/>
+</svg>

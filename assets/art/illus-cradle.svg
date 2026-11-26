@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="400" height="400" role="img" aria-label="滿月：竹搖籃、花布被、紅蛋">
+<style>
+*{stroke:#4b2a20;stroke-width:3.6;stroke-linejoin:round;stroke-linecap:round}
+pattern *{stroke:none}
+.tile{fill:#fbf0d9;stroke:none}.pbg{fill:#cfe5dc;stroke:none}
+.s{fill:#f6c9a3}.r{fill:#cf3f35}.g{fill:#3d8c6a}.y{fill:#f0b33b}.b{fill:#2f6aa0}.h{fill:#2a201b}.hg{fill:#c9c2b8}
+.p{fill:#fffaf0}.k{fill:#2a201b}.sea{fill:#9fd3cf}.fl{fill:url(#fl)}.wall{fill:#f1d3ae;stroke:none}
+.tr{fill:#8a5a3c}.gd{fill:#d9c08a}.nt{fill:#2f4a70;stroke:none}.mt{fill:#2d5446}.lan{fill:#fbe7b8}.o{fill:#e8903e}
+.m{fill:none;stroke:#3a1f17;stroke-width:3.1}.gl{fill:none;stroke:#3a1f17;stroke-width:2.6}.fr{fill:none}
+.e{fill:#3a1f17;stroke:none}.ck{fill:#ef9b94;stroke:none}.sh{fill:#4b2a20;stroke:none;opacity:.18}
+.glow{fill:#ffd27a;stroke:none;opacity:.35}.st{fill:#ffe6a0;stroke:none}
+text{stroke:none;font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU",serif;font-weight:900;text-anchor:middle}
+.tx{fill:#3a1f17;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}
+.tb{fill:#fff6e0}.num{fill:#cf3f35}.nb{fill:#2f6aa0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}</style><defs><pattern id="fl" width="22" height="22" patternUnits="userSpaceOnUse">
+<rect width="22" height="22" fill="#c8332d" stroke="none"/>
+<ellipse cx="3" cy="3" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 3 3)"/>
+<ellipse cx="19" cy="19" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 19 19)"/>
+<circle cx="11" cy="11" r="5.5" fill="#f59ab0" stroke="none"/><circle cx="11" cy="11" r="2" fill="#fff1c2" stroke="none"/></pattern><clipPath id="cp"><circle cx="100" cy="100" r="100"/></clipPath></defs>
+<rect class="tile" width="200" height="200"/><ellipse class="sh" cx="100" cy="176" rx="72" ry="9"/>
+<path class="y" d="M28 112Q100 196 172 112Z"/>
+<path class="m" d="M46 128Q100 166 154 128"/>
+<path class="m" d="M76 118L77 146M100 118V151M124 118L123 146"/>
+<circle class="s" cx="72" cy="90" r="24"/>
+<path class="m" d="M66 68q6 -8 12 -1q-5 4 -8 0"/>
+<path class="m" d="M60 92q4 4 8 0M76 92q4 4 8 0"/>
+<circle class="ck" cx="58" cy="102" r="5"/><circle class="ck" cx="88" cy="102" r="5"/>
+<path class="fl" d="M88 112Q92 66 136 70Q172 74 170 112Z"/>
+<rect class="y" x="22" y="104" width="156" height="13" rx="6.5"/>
+<ellipse class="r" cx="150" cy="160" rx="13" ry="16"/>
+<ellipse class="r" cx="170" cy="166" rx="11" ry="14"/>
+</svg>

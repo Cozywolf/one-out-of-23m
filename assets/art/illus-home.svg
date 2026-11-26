@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="400" height="400" role="img" aria-label="老公寓鐵窗與窗台的貓">
+<style>
+*{stroke:#4b2a20;stroke-width:3.6;stroke-linejoin:round;stroke-linecap:round}
+pattern *{stroke:none}
+.tile{fill:#fbf0d9;stroke:none}.pbg{fill:#cfe5dc;stroke:none}
+.s{fill:#f6c9a3}.r{fill:#cf3f35}.g{fill:#3d8c6a}.y{fill:#f0b33b}.b{fill:#2f6aa0}.h{fill:#2a201b}.hg{fill:#c9c2b8}
+.p{fill:#fffaf0}.k{fill:#2a201b}.sea{fill:#9fd3cf}.fl{fill:url(#fl)}.wall{fill:#f1d3ae;stroke:none}
+.tr{fill:#8a5a3c}.gd{fill:#d9c08a}.nt{fill:#2f4a70;stroke:none}.mt{fill:#2d5446}.lan{fill:#fbe7b8}.o{fill:#e8903e}
+.m{fill:none;stroke:#3a1f17;stroke-width:3.1}.gl{fill:none;stroke:#3a1f17;stroke-width:2.6}.fr{fill:none}
+.e{fill:#3a1f17;stroke:none}.ck{fill:#ef9b94;stroke:none}.sh{fill:#4b2a20;stroke:none;opacity:.18}
+.glow{fill:#ffd27a;stroke:none;opacity:.35}.st{fill:#ffe6a0;stroke:none}
+text{stroke:none;font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU",serif;font-weight:900;text-anchor:middle}
+.tx{fill:#3a1f17;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}
+.tb{fill:#fff6e0}.num{fill:#cf3f35}.nb{fill:#2f6aa0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}</style><defs><pattern id="fl" width="22" height="22" patternUnits="userSpaceOnUse">
+<rect width="22" height="22" fill="#c8332d" stroke="none"/>
+<ellipse cx="3" cy="3" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 3 3)"/>
+<ellipse cx="19" cy="19" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 19 19)"/>
+<circle cx="11" cy="11" r="5.5" fill="#f59ab0" stroke="none"/><circle cx="11" cy="11" r="2" fill="#fff1c2" stroke="none"/></pattern><clipPath id="cp"><circle cx="100" cy="100" r="100"/></clipPath></defs>
+<rect class="wall" x="0" y="0" width="200" height="200"/>
+<path class="m" d="M0 40h18M0 80h18M182 60h18M182 100h18M0 170h30" style="stroke:#e2b98c"/>
+<rect class="sea" x="46" y="40" width="108" height="98" rx="3"/>
+<path class="m" d="M100 40V138M46 89h108" style="stroke:#4b2a20"/>
+<path class="p" d="M58 44l20 0l-14 34z" style="stroke:none;opacity:.7"/>
+<rect class="fr" x="38" y="30" width="124" height="112" rx="4"/>
+<path class="fr" d="M60 30V140M80 30V140M100 30V140M120 30V140M140 30V140M38 86H162"/>
+<circle class="fr" cx="70" cy="86" r="7"/><circle class="fr" cx="90" cy="86" r="7"/><circle class="fr" cx="110" cy="86" r="7"/><circle class="fr" cx="130" cy="86" r="7"/>
+<path class="fr" d="M40 58q10 -12 20 0t20 0t20 0t20 0t20 0t20 0M40 114q10 12 20 0t20 0t20 0t20 0t20 0t20 0"/>
+<path class="o" d="M58 140Q54 112 74 108Q94 110 92 140Z"/>
+<circle class="o" cx="70" cy="102" r="14"/>
+<path class="o" d="M58 96L58 82L68 90ZM82 96L82 82L72 90Z"/>
+<path class="m" d="M63 103q3 3 6 0M73 103q3 3 6 0M66 109q4 3 8 0"/>
+<path class="m" d="M90 136Q108 136 104 120"/>
+<path class="m" d="M66 122l6 4M66 130l6 4"/>
+<path class="r" d="M124 118H150L146 140H128Z"/>
+<path class="g" d="M137 118Q120 100 128 92Q140 104 137 118Z"/><path class="g" d="M137 118Q152 98 146 90Q132 102 137 118Z"/>
+<rect class="y" x="28" y="138" width="144" height="12" rx="4"/>
+<rect class="p" x="112" y="160" width="62" height="34" rx="4"/>
+<circle class="fr" cx="130" cy="177" r="11"/><path class="m" d="M148 168h18M148 176h18M148 184h18"/>
+</svg>

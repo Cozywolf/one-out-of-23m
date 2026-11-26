@@ -7,13 +7,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="生在台灣" />
-<title>生在台灣 v6.15 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
+<title>生在台灣 v6.16 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&display=swap" />
-<link rel="stylesheet" href="styles.css?v=6.15" />
+<link rel="stylesheet" href="styles.css?v=6.16" />
 </head>
 <body>
 
@@ -40,9 +40,9 @@
   <!-- 1. INTRO -->
   <section id="view-intro" class="view active">
     <div class="illus-strip" aria-hidden="true">
-      <img src="assets/illus-baby-book.jpg" alt="" loading="lazy">
-      <img src="assets/illus-world-people.jpg" alt="" loading="lazy">
-      <img src="assets/illus-time-seed.jpg" alt="" loading="lazy">
+      <img src="assets/art/illus-cradle.svg" alt="" loading="lazy">
+      <img src="assets/art/illus-island.svg" alt="" loading="lazy">
+      <img src="assets/art/illus-calendar.svg" alt="" loading="lazy">
     </div>
     <div class="hero">
       <h1 class="hero-title">
@@ -164,7 +164,7 @@
       <div class="life-col life-col-a">
         <div class="tw-panel" style="margin-bottom:14px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-            <div id="lifePortrait" style="font-size:38.1px;">👶</div>
+            <div id="lifePortrait" class="life-portrait"><img src="assets/art/p-baby.svg" alt="嬰兒"></div>
             <div>
               <div id="lifeName" style="font-family:var(--serif);font-size:24px;font-weight:700;">—</div>
               <div id="lifeSubMeta" class="muted" style="font-size:15px;">—</div>
@@ -251,7 +251,7 @@
           <div id="lifeCultureNote" class="muted" style="font-size:14.4px;margin-top:5px;line-height:1.5;">—</div>
         </div>
         <div class="life-illus" id="lifeIllus" style="text-align:center;margin-bottom:12px;">
-          <img id="lifeIllusImg" src="assets/illus-baby-book.jpg" alt="" style="max-height:110px;border-radius:10px;">
+          <img id="lifeIllusImg" src="assets/art/illus-cradle.svg" alt="" style="max-height:110px;border-radius:10px;">
         </div>
         <div class="life-events-feed">
           <h4>📜 台灣人生與歷史紀錄</h4>
@@ -394,7 +394,7 @@
     <p class="shelf-hint">所有紀錄僅保存在你本機瀏覽器的 localStorage，不上傳任何資料。</p>
     <div id="shelfList" class="shelf-grid"></div>
     <div class="memorial-wall" id="memorialWall" style="margin-top:24px;">
-      <img class="memorial-illus" src="assets/illus-memorial-lantern.jpg" alt="" loading="lazy">
+      <img class="memorial-illus" src="assets/art/illus-lantern.svg" alt="" loading="lazy">
       <h3 class="memorial-title">追思館 · 點一盞燈</h3>
       <p class="memorial-subtitle">每一段走過的台灣人生，都映照著某個時代真實的身影。點任一書架卡片可重開完整訃聞。</p>
       <div id="memorialEmpty" style="color:#b8ad96;padding:12px 0;">目前還沒有可追思的人生，完成一段人生後即可在此點燈紀念。</div>
@@ -469,7 +469,7 @@
 </div>
 
 <!-- HUKOU / BIRTH CERTIFICATE MODAL -->
-<!-- v6.15: 出生抽選開場畫面 -->
+<!-- v6.16: 出生抽選開場畫面 -->
 <div id="birthModal" class="modal birth-modal" hidden role="dialog" aria-modal="true" aria-labelledby="birthLine1">
   <div class="modal-card birth-card">
     <div class="birth-line" id="birthLine1">你將出生在</div>
@@ -545,9 +545,9 @@
 
 <div id="twToast" class="tw-toast" hidden></div>
 
-<script src="data/tw_bundle.js?v=6.15"></script>
-<script src="js/tw_engine.js?v=6.15"></script>
-<script src="js/tw_ui.js?v=6.15"></script>
-<script src="js/tw_music.js?v=6.15"></script>
+<script src="data/tw_bundle.js?v=6.16"></script>
+<script src="js/tw_engine.js?v=6.16"></script>
+<script src="js/tw_ui.js?v=6.16"></script>
+<script src="js/tw_music.js?v=6.16"></script>
 </body>
 </html>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="400" height="400" role="img" aria-label="阿嬤">
+<style>
+*{stroke:#4b2a20;stroke-width:3.6;stroke-linejoin:round;stroke-linecap:round}
+pattern *{stroke:none}
+.tile{fill:#fbf0d9;stroke:none}.pbg{fill:#cfe5dc;stroke:none}
+.s{fill:#f6c9a3}.r{fill:#cf3f35}.g{fill:#3d8c6a}.y{fill:#f0b33b}.b{fill:#2f6aa0}.h{fill:#2a201b}.hg{fill:#c9c2b8}
+.p{fill:#fffaf0}.k{fill:#2a201b}.sea{fill:#9fd3cf}.fl{fill:url(#fl)}.wall{fill:#f1d3ae;stroke:none}
+.tr{fill:#8a5a3c}.gd{fill:#d9c08a}.nt{fill:#2f4a70;stroke:none}.mt{fill:#2d5446}.lan{fill:#fbe7b8}.o{fill:#e8903e}
+.m{fill:none;stroke:#3a1f17;stroke-width:3.1}.gl{fill:none;stroke:#3a1f17;stroke-width:2.6}.fr{fill:none}
+.e{fill:#3a1f17;stroke:none}.ck{fill:#ef9b94;stroke:none}.sh{fill:#4b2a20;stroke:none;opacity:.18}
+.glow{fill:#ffd27a;stroke:none;opacity:.35}.st{fill:#ffe6a0;stroke:none}
+text{stroke:none;font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU",serif;font-weight:900;text-anchor:middle}
+.tx{fill:#3a1f17;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}
+.tb{fill:#fff6e0}.num{fill:#cf3f35}.nb{fill:#2f6aa0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}</style><defs><pattern id="fl" width="22" height="22" patternUnits="userSpaceOnUse">
+<rect width="22" height="22" fill="#c8332d" stroke="none"/>
+<ellipse cx="3" cy="3" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 3 3)"/>
+<ellipse cx="19" cy="19" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 19 19)"/>
+<circle cx="11" cy="11" r="5.5" fill="#f59ab0" stroke="none"/><circle cx="11" cy="11" r="2" fill="#fff1c2" stroke="none"/></pattern><clipPath id="cp"><circle cx="100" cy="100" r="100"/></clipPath></defs>
+<circle class="pbg" cx="100" cy="100" r="100"/><g clip-path="url(#cp)"><path class="fl" d="M24 206Q30 150 100 144Q170 150 176 206Z"/>
+<path class="p" d="M80 146L100 160L120 146Z"/>
+<rect class="s" x="88" y="128" width="24" height="22"/>
+<circle class="hg" cx="56.7" cy="94.4" r="14"/><circle class="hg" cx="61.9" cy="80.0" r="14"/><circle class="hg" cx="71.7" cy="68.3" r="14"/><circle class="hg" cx="85.0" cy="60.7" r="14"/><circle class="hg" cx="100.0" cy="58.0" r="14"/><circle class="hg" cx="115.0" cy="60.7" r="14"/><circle class="hg" cx="128.3" cy="68.3" r="14"/><circle class="hg" cx="138.1" cy="80.0" r="14"/><circle class="hg" cx="143.3" cy="94.4" r="14"/>
+<circle class="s" cx="100" cy="110" r="38"/>
+<circle class="hg" cx="80" cy="76" r="12"/><circle class="hg" cx="100" cy="71" r="12"/><circle class="hg" cx="120" cy="76" r="12"/>
+<path class="m" d="M79 110q6 -6 12 0M109 110q6 -6 12 0"/>
+<circle class="gl" cx="85" cy="110" r="11"/><circle class="gl" cx="115" cy="110" r="11"/><path class="gl" d="M96 110h8"/>
+<circle class="ck" cx="74" cy="126" r="6"/><circle class="ck" cx="126" cy="126" r="6"/>
+<path class="m" d="M90 132q10 7 20 0"/><circle class="p" cx="78" cy="152" r="4"/><circle class="p" cx="89" cy="156" r="4"/><circle class="p" cx="100" cy="158" r="4"/><circle class="p" cx="111" cy="156" r="4"/><circle class="p" cx="122" cy="152" r="4"/></g>
+</svg>

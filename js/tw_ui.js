@@ -571,10 +571,16 @@
     $("lifeYear").textContent = `${l.currentYear}（${era.roc}）`;
     updateCountdownBar();
 
-    $("lifePortrait").textContent = l.age < 6 ? "👶"
-      : l.age < 18 ? (l.sex === "M" ? "👦" : "👧")
-      : l.age < 60 ? (l.sex === "M" ? "👨" : "👩")
-      : (l.sex === "M" ? "👴" : "👵");
+    // v6.16：台灣懷舊彩繪人物大頭（取代 emoji）
+    const pk = l.age < 6 ? "baby"
+      : l.age < 18 ? (l.sex === "M" ? "boy" : "girl")
+      : l.age < 60 ? (l.sex === "M" ? "man" : "woman")
+      : (l.sex === "M" ? "grandpa" : "grandma");
+    const pImg = $("lifePortrait").querySelector("img");
+    if (pImg && !pImg.src.endsWith(`p-${pk}.svg`)) {
+      pImg.src = `./assets/art/p-${pk}.svg`;
+      pImg.alt = ({ baby: "嬰兒", boy: "男孩", girl: "女孩", man: "男人", woman: "女人", grandpa: "阿公", grandma: "阿嬤" })[pk];
+    }
     $("lifeName").textContent = l.name;
     const originLabel = ({ minnan: "閩南家庭", hakka: "客家家庭", waisheng: "外省家庭", indigenous: "原住民家庭", new_immigrant: "新住民家庭" })[l.family.origin];
     $("lifeSubMeta").textContent = `${l.sex === "M" ? "男" : "女"} ｜ ${l.birthYear} 年生 ｜ 手足 ${l.family.siblings} 人${l.family.siblings > 0 && l.family.birthOrder ? `（排行第 ${l.family.birthOrder}）` : ""}${originLabel ? ` ｜ ${originLabel}` : ""}${l.flags.disability_level === "severe" || l.flags.disabled ? " ｜ ♿ 重度失能" : l.flags.disability_level === "mild" ? " ｜ ♿ 輕度失能" : ""}`;
@@ -725,11 +731,11 @@
     }
 
     const img = $("lifeIllusImg");
-    img.src = l.location !== "TAIWAN" ? "./assets/illus-world-people.jpg"
-      : l.age < 12 ? "./assets/illus-baby-book.jpg"
-      : l.age < 35 ? "./assets/illus-time-seed.jpg"
-      : l.age < 65 ? "./assets/illus-home-cat.jpg"
-      : "./assets/illus-elder-hill.jpg";
+    img.src = l.location !== "TAIWAN" ? "./assets/art/illus-island.svg"
+      : l.age < 12 ? "./assets/art/illus-cradle.svg"
+      : l.age < 35 ? "./assets/art/illus-calendar.svg"
+      : l.age < 65 ? "./assets/art/illus-home.svg"
+      : "./assets/art/illus-elder.svg";
 
     const switches = state.engine.getActiveSwitches(l.currentYear);
     $("activeSwitches").innerHTML = switches.length
@@ -1345,7 +1351,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.15 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.16 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1439,7 +1445,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.15 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.16 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="400" height="400" role="img" aria-label="榕樹下的板凳與茶壺">
+<style>
+*{stroke:#4b2a20;stroke-width:3.6;stroke-linejoin:round;stroke-linecap:round}
+pattern *{stroke:none}
+.tile{fill:#fbf0d9;stroke:none}.pbg{fill:#cfe5dc;stroke:none}
+.s{fill:#f6c9a3}.r{fill:#cf3f35}.g{fill:#3d8c6a}.y{fill:#f0b33b}.b{fill:#2f6aa0}.h{fill:#2a201b}.hg{fill:#c9c2b8}
+.p{fill:#fffaf0}.k{fill:#2a201b}.sea{fill:#9fd3cf}.fl{fill:url(#fl)}.wall{fill:#f1d3ae;stroke:none}
+.tr{fill:#8a5a3c}.gd{fill:#d9c08a}.nt{fill:#2f4a70;stroke:none}.mt{fill:#2d5446}.lan{fill:#fbe7b8}.o{fill:#e8903e}
+.m{fill:none;stroke:#3a1f17;stroke-width:3.1}.gl{fill:none;stroke:#3a1f17;stroke-width:2.6}.fr{fill:none}
+.e{fill:#3a1f17;stroke:none}.ck{fill:#ef9b94;stroke:none}.sh{fill:#4b2a20;stroke:none;opacity:.18}
+.glow{fill:#ffd27a;stroke:none;opacity:.35}.st{fill:#ffe6a0;stroke:none}
+text{stroke:none;font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU",serif;font-weight:900;text-anchor:middle}
+.tx{fill:#3a1f17;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}
+.tb{fill:#fff6e0}.num{fill:#cf3f35}.nb{fill:#2f6aa0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:700}</style><defs><pattern id="fl" width="22" height="22" patternUnits="userSpaceOnUse">
+<rect width="22" height="22" fill="#c8332d" stroke="none"/>
+<ellipse cx="3" cy="3" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 3 3)"/>
+<ellipse cx="19" cy="19" rx="4" ry="2" fill="#2f7a5a" stroke="none" transform="rotate(35 19 19)"/>
+<circle cx="11" cy="11" r="5.5" fill="#f59ab0" stroke="none"/><circle cx="11" cy="11" r="2" fill="#fff1c2" stroke="none"/></pattern><clipPath id="cp"><circle cx="100" cy="100" r="100"/></clipPath></defs>
+<rect class="tile" width="200" height="200"/><circle class="y" cx="164" cy="34" r="13"/>
+<path class="gd" d="M-10 160Q100 146 210 160V210H-10Z"/>
+<path class="tr" d="M86 172Q92 124 84 96H116Q108 124 114 172Z"/>
+<path class="m" d="M100 120v40" style="stroke:#6a432c"/>
+<circle class="g" cx="58" cy="82" r="32"/><circle class="g" cx="142" cy="82" r="32"/>
+<circle class="g" cx="100" cy="60" r="40"/><circle class="g" cx="100" cy="94" r="28"/>
+<path class="m" d="M48 108v34M60 112v26M140 112v26M152 108v34" style="stroke:#8a5a3c"/>
+<path class="m" d="M84 56q8 -8 16 0M112 76q8 -8 16 0M52 76q8 -8 16 0" style="stroke:#2b6a4f"/>
+<rect class="r" x="36" y="150" width="128" height="9" rx="3"/>
+<path class="m" d="M46 159v22M154 159v22"/>
+<ellipse class="p" cx="64" cy="140" rx="12" ry="10"/><path class="fr" d="M52 136q-8 2 -8 -6M76 138q6 -2 8 4"/><rect class="p" x="60" y="127" width="8" height="5" rx="2"/>
+<path class="p" d="M82 142h10l-1 8h-8Z"/><path class="p" d="M96 142h10l-1 8h-8Z"/>
+<path class="m" d="M62 122q-3 -6 0 -10M68 122q3 -6 0 -10" style="stroke:#c9b7a5"/>
+</svg>
