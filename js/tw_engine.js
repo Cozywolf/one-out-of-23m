@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.11 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.12 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -2467,11 +2467,21 @@
     }
 
     // Move protagonist overseas via pathway & destination country
+    // 留學總花費：依國家學費與生活費、年代匯率負擔與當年薪資水準計算（選項顯示與實際扣款共用）
+    abroadCostNominal(pathway, country, era, year) {
+      const realWageRatio = clamp(((era.avg_monthly_wage_twd || 48000) / Math.max(0.07, era.cpi)) / 62500, 0.35, 1.15);
+      const usa = this.getAbroadCountry("USA");
+      const livingRel = country && usa ? country.living_cost_mult_vs_tw / usa.living_cost_mult_vs_tw : 1;
+      const tuition = country && country.tuition_mult_vs_usa != null ? country.tuition_mult_vs_usa : 1;
+      const mix = pathway.id === "SA05_working_holiday" ? 0.3 + 0.7 * livingRel : 0.6 * tuition + 0.4 * livingRel;
+      const fxBurden = this.interpByYear([[1960, 2.0], [1975, 1.7], [1986, 1.3], [1995, 1.0], [2100, 1.0]], year);
+      return Math.round((pathway.cost_twd_2025 || 1500000) * mix * fxBurden * realWageRatio * era.cpi);
+    }
+
     departOverseas(life, countryId, pathway, era) {
       const country = this.getAbroadCountry(countryId);
       if (!country) return;
-      const realWageRatio = clamp(((era.avg_monthly_wage_twd || 48000) / Math.max(0.07, era.cpi)) / 62500, 0.35, 1.15);
-      const costNom = Math.round((pathway.cost_twd_2025 || 1500000) * realWageRatio * era.cpi);
+      const costNom = this.abroadCostNominal(pathway, country, era, life.currentYear);
       let fundNote = "費用由父母負擔";
       if (pathway.id !== "SA03_young_student") {
         const pShare = (life.family.parentsAlive && life.age <= 28) ? ([0, 0, 0.15, 0.45, 0.8, 1.0][life.quintile] || 0) : (life.quintile === 5 ? 0.4 : 0);
@@ -2802,7 +2812,6 @@
           [availCountries[si], availCountries[sj]] = [availCountries[sj], availCountries[si]];
         }
         const pickedCountries = availCountries.slice(0, 3);
-        const estCostNom = Math.round(pw.cost_twd_2025 * era.cpi);
 
         if (pw.id === "SA03_young_student" && life.age < 18) {
           const dest = pickedCountries[0];
@@ -2819,7 +2828,7 @@
         }
         const options = pickedCountries.map((c) => ({
           key: `go_${c.id}`,
-          label: `${c.flag} 前往${c.name_zh}（預估花費約 NT$${estCostNom.toLocaleString()}｜當地均薪約台灣 ${c.salary_mult_vs_tw}×）`,
+          label: `${c.flag} 前往${c.name_zh}（${pw.id === "SA05_working_holiday" ? "旅費與初期生活費" : `${pw.study_years || 2} 年學費與生活費`}約 NT$${this.abroadCostNominal(pw, c, era, life.currentYear).toLocaleString()}｜當地均薪約台灣 ${c.salary_mult_vs_tw}×）`,
           effects: { depart_country: c.id, pathway_obj: pw }
         }));
         options.push({
@@ -4871,6 +4880,7 @@
         .slice(0, 3);
       this.applyDecisionCore(life, decision, optionKey, era);
       this.softenGains(life, before);
+      for (const k of ["health", "happiness", "knowledge", "social"]) life.stats[k] = Math.round(life.stats[k]);
       const impact = this.diffImpact(before, this.snapshotForImpact(life));
       if (String(decision.id) === "D17_critical_illness_cost") delete life.flags.major_illness_pending;
       const rec = life.decisionHistory.length > histLen ? life.decisionHistory[life.decisionHistory.length - 1] : null;

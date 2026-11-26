@@ -13129,7 +13129,8 @@ window.TW_DATA = {
         "IIE Open Doors 2024 台灣赴美留學生報告",
         "教育部公自費留學考試沿革（1955 恢復公費、1976 廢除自費留考、1984 歐洲公費名額）",
         "外交部青年度假打工協定沿革（2004 澳洲、2009 日本等）"
-      ]
+      ],
+      "cost_note": "留學花費＝路徑基準費用 ×（學費占六成×各國學費倍率＋生活費占四成×各國生活費相對美國）× 年代匯率負擔 × 當年薪資水準；打工度假只計旅費與生活費。德國公立大學免學費，日本學費約美國的四成多。"
     },
     "institutional_milestones": [
       {
@@ -13441,7 +13442,8 @@ window.TW_DATA = {
             "cultural_footnote_en": "矽谷裁員潮",
             "sensitive": false
           }
-        ]
+        ],
+        "tuition_mult_vs_usa": 1.0
       },
       {
         "id": "JPN",
@@ -13519,7 +13521,8 @@ window.TW_DATA = {
             "cultural_footnote_en": "日圓大貶與熊本設廠潮",
             "sensitive": false
           }
-        ]
+        ],
+        "tuition_mult_vs_usa": 0.45
       },
       {
         "id": "AUS",
@@ -13571,7 +13574,8 @@ window.TW_DATA = {
             "happiness_delta": -2,
             "money_mult": 1.02
           }
-        ]
+        ],
+        "tuition_mult_vs_usa": 0.85
       },
       {
         "id": "GBR",
@@ -13649,7 +13653,8 @@ window.TW_DATA = {
             "cultural_footnote_en": "高通膨與工簽門檻提高",
             "sensitive": false
           }
-        ]
+        ],
+        "tuition_mult_vs_usa": 1.05
       },
       {
         "id": "CAN",
@@ -13701,7 +13706,8 @@ window.TW_DATA = {
             "happiness_delta": -3,
             "money_mult": 0.95
           }
-        ]
+        ],
+        "tuition_mult_vs_usa": 0.75
       },
       {
         "id": "DEU",
@@ -13753,7 +13759,8 @@ window.TW_DATA = {
             "cultural_footnote_en": "俄烏戰爭與能源通膨",
             "sensitive": false
           }
-        ]
+        ],
+        "tuition_mult_vs_usa": 0.15
       }
     ],
     "return_triggers": [

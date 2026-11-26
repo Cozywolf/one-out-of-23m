@@ -1,4 +1,4 @@
-# 生在台灣（v6.11）· 2,340 萬分之 1 台灣人生模擬
+# 生在台灣（v6.12）· 2,340 萬分之 1 台灣人生模擬
 
 > 參照 [1in8b.life](https://1in8b.life/) 模擬精神與 [rollroyces/born-somewhere](https://github.com/rollroyces/born-somewhere) 架構改編，專注於 **台灣六大區域 × 跨年代（1950–2110+）** 的微觀人生模擬器。
 

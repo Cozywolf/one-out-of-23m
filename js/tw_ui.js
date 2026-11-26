@@ -438,7 +438,7 @@
       $("ovPrBadge").textContent = l.abroad.prStatus;
       $("ovMetaLine").textContent = `${l.abroad.pathwayName} ｜ 已旅外 ${l.abroad.yearsAbroad} 年 ｜ 透過「${state.engine.getOverseasCommChannel(l.currentYear)}」關注台灣`;
       $("barHomesick").style.width = `${l.homesickness}%`;
-      $("valHomesick").textContent = l.homesickness;
+      $("valHomesick").textContent = String(Math.round(l.homesickness * 10) / 10);
     } else {
       $("metaRegion").textContent = reg.name_zh + (l.migrated ? `（原籍 ${birthReg.name_zh}）` : "") + (l.everReturnedToTaiwan ? " · 海歸" : "");
       $("overseasStatusBox").hidden = true;
@@ -469,7 +469,8 @@
     if (notes.length) { noteEl.textContent = notes.join(" ｜ "); noteEl.hidden = false; }
     else { noteEl.hidden = true; }
 
-    const setBar = (idB, idV, v) => { $(idB).style.width = v + "%"; $(idV).textContent = v; };
+    const fmt1 = (v) => String(Math.round((Number(v) || 0) * 10) / 10);
+    const setBar = (idB, idV, v) => { $(idB).style.width = Math.max(0, Math.min(100, v)) + "%"; $(idV).textContent = fmt1(v); };
     setBar("barHealth", "valHealth", l.stats.health);
     setBar("barHappy", "valHappy", l.stats.happiness);
     setBar("barKnow", "valKnow", l.stats.knowledge);
@@ -485,8 +486,8 @@
       $("mobHudLoc").textContent = l.location !== "TAIWAN" && l.abroad
         ? `${l.abroad.flag} ${l.abroad.countryName}`
         : `📍 ${reg.name_zh}`;
-      $("mobHudHealth").textContent = `❤️ ${l.stats.health}`;
-      $("mobHudHappy").textContent = `😊 ${l.stats.happiness}`;
+      $("mobHudHealth").textContent = `❤️ ${Math.round(l.stats.health * 10) / 10}`;
+      $("mobHudHappy").textContent = `😊 ${Math.round(l.stats.happiness * 10) / 10}`;
       const absWan = Math.round(Math.abs(totalNom) / 10000);
       $("mobHudMoney").textContent = absWan >= 1
         ? `💰 ${totalNom < 0 ? "-" : ""}${absWan.toLocaleString()}萬`
@@ -1174,7 +1175,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.11 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.12 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1268,7 +1269,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.11 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.12 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
