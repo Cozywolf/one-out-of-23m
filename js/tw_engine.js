@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.4 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.5 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -4293,6 +4293,13 @@
         life.flags.max_edu_cap = "junior_high";
         life.flags.hs_tier = "work_early";
         life.job = life.sex === "F" ? "加工出口區作業員" : "工廠學徒";
+      }
+      if (ef.student_loan) life.studentLoanNominal = (life.studentLoanNominal || 0) + Math.round(ef.student_loan * scale);
+      if (ef.repay_loan_ratio && life.studentLoanNominal > 0) {
+        const pay = Math.min(Math.round(life.studentLoanNominal * ef.repay_loan_ratio), Math.max(0, life.moneyNominal));
+        life.moneyNominal -= pay;
+        life.studentLoanNominal -= pay;
+        life.flags.savings_rate_bonus = (life.flags.savings_rate_bonus || 0) + 0.04;
       }
       if (ef.stock_sell_ratio && life.stockNominal > 0) {
         const sell = Math.round(life.stockNominal * ef.stock_sell_ratio);

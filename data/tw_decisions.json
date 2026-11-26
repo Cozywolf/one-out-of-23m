@@ -5626,6 +5626,734 @@
           "text": "你習慣了屋裡每一道光線，不想搬。"
         }
       ]
+    },
+    {
+      "id": "T2012_tablet_parenting",
+      "tier": "trend",
+      "parent_decides": true,
+      "era_label": "2010 年代以後 · 平板育兒",
+      "title": "要給孩子平板嗎？",
+      "desc": "吃飯、坐車、等看診，身邊的小孩人手一台平板。爸媽工作忙，平板一開，孩子就安靜了。",
+      "source": "2010 年代智慧型裝置普及，兒童首次接觸螢幕的年齡越來越早，「3C 保母」成為親子教養熱門話題。",
+      "conditions": {
+        "year_range": [
+          2012,
+          2045
+        ],
+        "age_range": [
+          3,
+          7
+        ]
+      },
+      "chance": 0.3,
+      "options": [
+        {
+          "key": "tablet_free",
+          "label": "給平板，讓孩子自己看影片、玩遊戲",
+          "auto_weight": 0.45,
+          "effects": {
+            "happiness": 2,
+            "social": -2,
+            "knowledge": -1,
+            "flags": [
+              "screen_heavy_child"
+            ]
+          },
+          "text": "你學會用手指滑影片的年紀，比學會綁鞋帶還早。",
+          "outcomes": [
+            {
+              "delay": [
+                6,
+                10
+              ],
+              "p": 0.35,
+              "success": {
+                "effects": {
+                  "knowledge": -3,
+                  "health": -2,
+                  "happiness": -2
+                },
+                "text": "國中時你每天滑手機到半夜，成績一路往下掉，視力也越來越差。"
+              }
+            }
+          ]
+        },
+        {
+          "key": "limit_screen",
+          "label": "限制螢幕時間，帶去公園和圖書館",
+          "auto_weight": 0.55,
+          "effects": {
+            "knowledge": 2,
+            "social": 2,
+            "health": 1
+          },
+          "text": "週末你被帶去公園溜滑梯、去圖書館聽故事，偶爾抱怨同學都有平板。"
+        }
+      ]
+    },
+    {
+      "id": "T2008_bilingual_kindergarten",
+      "tier": "trend",
+      "parent_decides": true,
+      "era_label": "2000 年代以後 · 不能輸在起跑點",
+      "title": "雙語幼兒園，還是公幼？",
+      "desc": "鄰居的孩子念雙語幼兒園，一個月學費好幾萬，四歲就能用英文自我介紹。公幼便宜，但抽籤不一定抽得到。",
+      "source": "2000 年代以後雙語幼兒園與安親才藝大行其道，家庭經濟條件直接拉開孩子的起跑點。",
+      "conditions": {
+        "year_range": [
+          2005,
+          2045
+        ],
+        "age_range": [
+          3,
+          5
+        ]
+      },
+      "chance": 0.35,
+      "options": [
+        {
+          "key": "bilingual",
+          "label": "咬牙送雙語幼兒園，放學再上才藝班",
+          "auto_weight": 0.35,
+          "requires": {
+            "quintile_min": 3
+          },
+          "effects": {
+            "knowledge": 4,
+            "happiness": -1,
+            "hs_exam_bonus": 2
+          },
+          "text": "你的書包裡有英文繪本、鋼琴譜和美術課的蠟筆。"
+        },
+        {
+          "key": "stretch_budget",
+          "label": "家裡拮据也硬撐著送雙語",
+          "auto_weight": 0.1,
+          "effects": {
+            "knowledge": 3,
+            "hardship": [
+              1,
+              3
+            ]
+          },
+          "text": "爸媽多兼了一份工，只為了讓你跟別人一樣。"
+        },
+        {
+          "key": "public_kinder",
+          "label": "念公幼，放學回家玩",
+          "auto_weight": 0.55,
+          "effects": {
+            "happiness": 3,
+            "social": 2
+          },
+          "text": "你的童年是公幼的沙坑和巷口的雜貨店。"
+        }
+      ]
+    },
+    {
+      "id": "T2014_cap_exam_choice",
+      "tier": "era",
+      "era_label": "2014 以後 · 十二年國教",
+      "title": "會考前的志願：明星高中、技職，還是實驗教育？",
+      "desc": "國三了，導師發下志願調查表。爸媽希望你拚明星高中；你對做東西比較有興趣；也有同學要去念實驗學校。",
+      "source": "2014 年十二年國教上路，國中會考取代基測；108 課綱後技職與實驗教育的選擇變多。",
+      "conditions": {
+        "year_range": [
+          2014,
+          2060
+        ],
+        "age_range": [
+          14,
+          14
+        ],
+        "in_secondary_school": true
+      },
+      "chance": 0.55,
+      "options": [
+        {
+          "key": "aim_top",
+          "label": "拚明星高中，每天補習到晚上十點",
+          "auto_weight": 0.45,
+          "trait_weight": {
+            "workaholic": 2.0,
+            "cautious": 1.3
+          },
+          "effects": {
+            "hs_exam_bonus": 5,
+            "happiness": -4,
+            "health": -1
+          },
+          "text": "你的國三是考卷、補習班和便利商店的晚餐。"
+        },
+        {
+          "key": "vocational_first",
+          "label": "技職優先，選有興趣的科系",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "risk_taker": 1.3,
+            "sensitive_introvert": 1.2
+          },
+          "effects": {
+            "happiness": 3,
+            "knowledge": 1,
+            "flags": [
+              "prefers_vocational"
+            ]
+          },
+          "text": "你跟爸媽說想念機械科。他們沉默了一陣子，最後說：「你自己想清楚就好。」"
+        },
+        {
+          "key": "experimental",
+          "label": "申請實驗教育學校",
+          "auto_weight": 0.2,
+          "trait_weight": {
+            "civic_minded": 1.8,
+            "sociable": 1.3
+          },
+          "requires": {
+            "quintile_min": 3
+          },
+          "effects": {
+            "happiness": 4,
+            "social": 3,
+            "knowledge": 1,
+            "hs_exam_bonus": -3
+          },
+          "text": "新學校沒有段考排名，你第一次覺得上學是一件有趣的事。"
+        }
+      ]
+    },
+    {
+      "id": "T2021_learning_portfolio",
+      "tier": "trend",
+      "era_label": "2020 年代 · 學習歷程",
+      "title": "學習歷程檔案：要不要花錢找人包裝？",
+      "desc": "108 課綱上路，申請大學要交學習歷程。補習班推出「歷程顧問」套餐，一份要好幾萬。同學有人請顧問、有人自己慢慢做。",
+      "source": "2021 年起大學申請入學採計學習歷程檔案，引發城鄉與家庭資源落差的討論。",
+      "conditions": {
+        "year_range": [
+          2021,
+          2060
+        ],
+        "age_range": [
+          16,
+          17
+        ],
+        "in_secondary_school": true,
+        "edu_min": 3
+      },
+      "chance": 0.6,
+      "options": [
+        {
+          "key": "hire_consultant",
+          "label": "請顧問包裝，衝頂尖校系",
+          "auto_weight": 0.25,
+          "requires": {
+            "quintile_min": 3
+          },
+          "trait_weight": {
+            "workaholic": 1.4,
+            "risk_taker": 1.3
+          },
+          "effects": {
+            "uni_admit_bonus": 0.05,
+            "happiness": -1
+          },
+          "text": "顧問幫你把社團、志工和競賽寫成了一個漂亮的故事。"
+        },
+        {
+          "key": "diy",
+          "label": "自己做，寫自己真正做過的事",
+          "auto_weight": 0.6,
+          "trait_weight": {
+            "civic_minded": 1.5,
+            "sensitive_introvert": 1.3
+          },
+          "effects": {
+            "uni_admit_bonus": 0.02,
+            "knowledge": 2
+          },
+          "text": "你熬夜整理三年的作品，才發現自己其實做了不少事。"
+        },
+        {
+          "key": "focus_exam",
+          "label": "不管歷程，專心準備學測",
+          "auto_weight": 0.15,
+          "trait_weight": {
+            "cautious": 1.5
+          },
+          "effects": {
+            "knowledge": 3,
+            "happiness": -2
+          },
+          "text": "你把歷程隨便交了交，把時間全部留給考古題。"
+        }
+      ]
+    },
+    {
+      "id": "E2021_remote_school",
+      "tier": "era",
+      "era_label": "2021 · 停課不停學",
+      "title": "全國停課：在家線上上課",
+      "desc": "疫情升到三級警戒，學校全面停課改成線上教學。鏡頭可以關、麥克風可以靜音，大人也都在家上班。",
+      "source": "2021 年 5 月全國三級警戒，各級學校停止到校上課，改為線上教學直到暑假。",
+      "conditions": {
+        "year_range": [
+          2021,
+          2021
+        ],
+        "age_range": [
+          8,
+          17
+        ]
+      },
+      "chance": 0.7,
+      "options": [
+        {
+          "key": "disciplined",
+          "label": "準時上線，自己排讀書進度",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "cautious": 1.8,
+            "workaholic": 1.8
+          },
+          "effects": {
+            "knowledge": 3,
+            "social": -2
+          },
+          "text": "你在房間貼了一張課表，每天照著做完。"
+        },
+        {
+          "key": "slack_off",
+          "label": "鏡頭一關就打電動",
+          "auto_weight": 0.4,
+          "trait_weight": {
+            "risk_taker": 1.5,
+            "sociable": 1.3
+          },
+          "effects": {
+            "knowledge": -4,
+            "happiness": 3
+          },
+          "text": "那個夏天你的遊戲等級衝得比成績快。"
+        },
+        {
+          "key": "study_group",
+          "label": "跟同學開線上讀書會",
+          "auto_weight": 0.25,
+          "trait_weight": {
+            "sociable": 2.0,
+            "civic_minded": 1.3
+          },
+          "effects": {
+            "knowledge": 1,
+            "social": 3
+          },
+          "text": "每天晚上你們一起開視訊寫作業，聊天的時間比寫作業還多。"
+        }
+      ]
+    },
+    {
+      "id": "T2016_creator_dream",
+      "tier": "trend",
+      "era_label": "2010 年代以後 · 網紅夢",
+      "title": "當網紅、打電競：要不要追夢？",
+      "desc": "你的直播已經有幾千個追蹤，電競戰隊也來問你要不要試訓。爸媽只希望你好好念書、找份穩定的工作。",
+      "source": "2015 年後 YouTuber、實況主、電競選手與 Vtuber 成為新世代熱門的夢想職業，但能以此維生的人仍是少數。",
+      "conditions": {
+        "year_range": [
+          2015,
+          2060
+        ],
+        "age_range": [
+          18,
+          24
+        ]
+      },
+      "chance": 0.08,
+      "trait_chance": {
+        "sociable": 1.8,
+        "risk_taker": 1.6,
+        "cautious": 0.5
+      },
+      "options": [
+        {
+          "key": "go_all_in",
+          "label": "休學或先不找工作，全心經營",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "risk_taker": 2.0,
+            "sociable": 1.6
+          },
+          "effects": {
+            "happiness": 4,
+            "flags": [
+              "chased_creator_dream"
+            ]
+          },
+          "roll": {
+            "p": 0.12,
+            "stat_p": {
+              "social": 0.006
+            },
+            "success": {
+              "effects": {
+                "money": 600000,
+                "happiness": 8,
+                "social": 5
+              },
+              "text": "你的頻道突破十萬訂閱，接到第一支品牌業配。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -6,
+                "knowledge": -2
+              },
+              "text": "兩年過去，訂閱數停在幾千人。你默默開始投履歷。"
+            }
+          }
+        },
+        {
+          "key": "side_project",
+          "label": "當興趣經營，正事照做",
+          "auto_weight": 0.5,
+          "trait_weight": {
+            "cautious": 1.5,
+            "workaholic": 1.3
+          },
+          "effects": {
+            "social": 2,
+            "health": -1
+          },
+          "text": "白天上課上班，晚上剪片直播，睡眠變得很少。"
+        },
+        {
+          "key": "give_up",
+          "label": "放棄，好好念書找工作",
+          "auto_weight": 0.2,
+          "trait_weight": {
+            "family_first": 1.6
+          },
+          "effects": {
+            "knowledge": 2,
+            "happiness": -3
+          },
+          "text": "你把麥克風收進櫃子，偶爾還是會點開以前的影片。"
+        }
+      ]
+    },
+    {
+      "id": "T2018_student_loan",
+      "tier": "trend",
+      "era_label": "2010 年代以後 · 背著學貸出社會",
+      "title": "背著學貸出社會：先還債，還是先存錢？",
+      "desc": "畢業第一個月，學貸帳單就寄來了。大學四年的學費加生活費借了好幾十萬，月薪扣掉房租，所剩不多。",
+      "source": "不少中低收入家庭的大學生靠就學貸款念完大學，畢業就背著數十萬債務出社會。",
+      "conditions": {
+        "year_range": [
+          2010,
+          2060
+        ],
+        "age_range": [
+          22,
+          25
+        ],
+        "working": true,
+        "edu_min": 4,
+        "quintile_range": [
+          1,
+          3
+        ],
+        "max_work_years": 2
+      },
+      "chance": 0.6,
+      "options": [
+        {
+          "key": "repay_fast",
+          "label": "省吃儉用，先把學貸還掉",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "cautious": 2.0,
+            "family_first": 1.3
+          },
+          "effects": {
+            "student_loan": 400000,
+            "repay_loan_ratio": 0.6,
+            "happiness": -3
+          },
+          "text": "你每個月把一半的薪水拿去還學貸，三年後終於無債一身輕。"
+        },
+        {
+          "key": "minimum",
+          "label": "照最低額慢慢還",
+          "auto_weight": 0.45,
+          "trait_weight": {
+            "sociable": 1.3
+          },
+          "effects": {
+            "student_loan": 400000
+          },
+          "text": "學貸每個月固定扣款，你幾乎忘了它的存在。"
+        },
+        {
+          "key": "invest_first",
+          "label": "學貸利率低，先拿錢去投資",
+          "auto_weight": 0.2,
+          "trait_weight": {
+            "risk_taker": 2.0
+          },
+          "effects": {
+            "student_loan": 400000,
+            "to_stock_ratio": 0.5
+          },
+          "text": "你算了算，學貸利率比股票報酬低，乾脆先買 ETF。"
+        }
+      ]
+    },
+    {
+      "id": "E2017_crypto_boom",
+      "tier": "era",
+      "era_label": "2017、2021 · 加密貨幣熱潮",
+      "title": "比特幣又創新高：要不要上車？",
+      "desc": "同事說他買的幣一個月翻了三倍，群組裡每天都有人貼獲利截圖。你看了看帳戶裡的存款。",
+      "source": "比特幣在 2017 年底與 2021 年兩度暴漲，隨後在 2018 年與 2022 年各跌掉七成以上。",
+      "conditions": {
+        "year_range": [
+          2017,
+          2021
+        ],
+        "age_range": [
+          20,
+          50
+        ],
+        "working": true,
+        "min_liquid_twd_2025": 50000
+      },
+      "chance": 0.18,
+      "trait_chance": {
+        "risk_taker": 2.0,
+        "sociable": 1.3,
+        "cautious": 0.3
+      },
+      "options": [
+        {
+          "key": "all_in",
+          "label": "重押，梭哈",
+          "auto_weight": 0.06,
+          "trait_weight": {
+            "risk_taker": 3.0,
+            "cautious": 0.1
+          },
+          "effects": {
+            "money_liquid_ratio": -0.5,
+            "flags": [
+              "crypto_all_in"
+            ]
+          },
+          "text": "你把一半的存款換成了幣，每天睡前都要看一次價格。",
+          "outcomes": [
+            {
+              "delay": [
+                1,
+                2
+              ],
+              "roll": {
+                "p": 0.25,
+                "trait_p": {
+                  "cautious": 0.1
+                },
+                "success": {
+                  "effects": {
+                    "money": 900000,
+                    "happiness": 6
+                  },
+                  "text": "你在高點附近賣掉了，帳戶多了一筆錢，從此對這件事守口如瓶。"
+                },
+                "fail": {
+                  "effects": {
+                    "money": 100000,
+                    "happiness": -8
+                  },
+                  "text": "幣價崩跌七成，你一路抱到谷底才認賠出場，只拿回一點點。"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "key": "small",
+          "label": "小額買一點，當作學費",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "sociable": 1.5
+          },
+          "effects": {
+            "money": -20000
+          },
+          "text": "你買了一點點，然後把 App 藏到手機最後一頁。",
+          "outcomes": [
+            {
+              "delay": [
+                1,
+                3
+              ],
+              "p": 0.4,
+              "success": {
+                "effects": {
+                  "money": 40000
+                },
+                "text": "當年隨手買的幣漲了一倍，你請朋友吃了一頓大餐。"
+              }
+            }
+          ]
+        },
+        {
+          "key": "no",
+          "label": "看不懂的東西不碰",
+          "auto_weight": 0.64,
+          "trait_weight": {
+            "cautious": 2.5,
+            "family_first": 1.3
+          },
+          "effects": {},
+          "text": "你把群組設成靜音。"
+        }
+      ]
+    },
+    {
+      "id": "T2020_pets_not_kids",
+      "tier": "trend",
+      "era_label": "2020 年代 · 毛小孩",
+      "title": "養毛小孩，還是生小孩？",
+      "desc": "身邊的朋友一個個養了貓狗，社群上滿是「毛小孩」的照片。你們討論過生小孩，但算了算房租和托育費，又沉默了。",
+      "source": "近年台灣家犬貓數量已逼近甚至超過 15 歲以下兒童人數，「毛小孩取代小孩」成為少子化的縮影。",
+      "conditions": {
+        "year_range": [
+          2020,
+          2060
+        ],
+        "age_range": [
+          27,
+          42
+        ],
+        "no_children": true,
+        "not_homeowner": true
+      },
+      "chance": 0.12,
+      "options": [
+        {
+          "key": "adopt_pet",
+          "label": "領養一隻貓狗，先這樣就好",
+          "auto_weight": 0.45,
+          "trait_weight": {
+            "sensitive_introvert": 1.6,
+            "family_first": 1.2
+          },
+          "effects": {
+            "happiness": 5,
+            "money": -30000,
+            "desired_kids_delta": -1
+          },
+          "text": "家裡多了一個會在門口等你下班的小傢伙。"
+        },
+        {
+          "key": "plan_kids",
+          "label": "還是想要有自己的孩子",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "family_first": 2.0
+          },
+          "effects": {
+            "desired_kids_delta": 1
+          },
+          "text": "你們開始認真算托育補助和育嬰假。"
+        },
+        {
+          "key": "neither",
+          "label": "兩個都不要，照顧好自己就好",
+          "auto_weight": 0.25,
+          "trait_weight": {
+            "risk_taker": 1.3,
+            "workaholic": 1.4
+          },
+          "effects": {
+            "happiness": 1
+          },
+          "text": "週末你們睡到自然醒，然後去咖啡店坐一下午。"
+        }
+      ]
+    },
+    {
+      "id": "T2010_new_immigrant_child",
+      "tier": "trend",
+      "era_label": "2000 年代以後 · 新住民第二代",
+      "title": "媽媽的語言，要學嗎？",
+      "desc": "你的媽媽來自越南（或印尼、中國大陸）。小時候有同學笑你媽媽講話有口音，你開始不想讓別人知道。這個暑假，媽媽問你要不要跟她回外婆家。",
+      "source": "2000 年代起新住民子女人數快速增加；2019 年 108 課綱將新住民語文列入國小必選課程。",
+      "conditions": {
+        "year_range": [
+          2005,
+          2060
+        ],
+        "age_range": [
+          10,
+          16
+        ],
+        "origin_in": [
+          "new_immigrant"
+        ]
+      },
+      "chance": 0.4,
+      "options": [
+        {
+          "key": "learn_mother_tongue",
+          "label": "跟媽媽學母語，暑假回外婆家",
+          "auto_weight": 0.5,
+          "trait_weight": {
+            "family_first": 2.0,
+            "civic_minded": 1.4
+          },
+          "effects": {
+            "knowledge": 3,
+            "social": 2,
+            "happiness": 3,
+            "flags": [
+              "heritage_bilingual"
+            ]
+          },
+          "text": "外婆家的院子裡有你沒吃過的水果，表哥表姊教你說了好多新的字。",
+          "outcomes": [
+            {
+              "delay": [
+                10,
+                16
+              ],
+              "p": 0.4,
+              "success": {
+                "effects": {
+                  "wage_mult": 1.06,
+                  "happiness": 3
+                },
+                "text": "公司拓展東南亞市場，會說媽媽母語的你被派去當窗口，薪水也跟著調了。"
+              }
+            }
+          ]
+        },
+        {
+          "key": "hide_it",
+          "label": "在學校不提媽媽是哪裡人",
+          "auto_weight": 0.5,
+          "trait_weight": {
+            "sensitive_introvert": 1.8,
+            "cautious": 1.3
+          },
+          "effects": {
+            "happiness": -3,
+            "social": 1
+          },
+          "text": "你學會了在同學面前只講國語。很多年後，你才後悔當年沒跟媽媽多說幾句她的話。"
+        }
+      ]
     }
   ]
 }
