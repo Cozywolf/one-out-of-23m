@@ -2,7 +2,8 @@
   "meta": {
     "schema_version": "1.0.0",
     "total_decisions": 34,
-    "design_principle": "選項僅改變後續機率與參數權重，不保證單一結果；支援一卡多年代變體（era_variants）。"
+    "design_principle": "選項僅改變後續機率與參數權重，不保證單一結果；支援一卡多年代變體（era_variants）。",
+    "era_choices_note": "時代抉擇卡：依年份區間＋身分、地點、職業、性格條件觸發，不是每個人都會遇到。chance 為符合條件時每年出現的機率，trait_chance 依性格調整；選項的 roll／outcomes 依屬性與性格決定成敗，可延後到指定年份才發生。"
   },
   "pause_questions": [
     {
@@ -1885,6 +1886,1775 @@
             "happiness": -10,
             "health": -5
           }
+        }
+      ]
+    }
+  ],
+  "era_choices": [
+    {
+      "id": "E1953_land_reform_tenant",
+      "era_label": "1950 年代 · 耕者有其田",
+      "parent_decides": true,
+      "title": "耕者有其田：家裡分到了田",
+      "desc": "政府實施耕者有其田，家裡租了幾十年的田，終於可以分年繳地價放領給自己耕作。",
+      "source": "1953 年《實施耕者有其田條例》：地主土地由政府徵收後，放領給現耕佃農，十年攤還地價。",
+      "conditions": {
+        "year_range": [
+          1953,
+          1956
+        ],
+        "age_range": [
+          0,
+          6
+        ],
+        "quintile_range": [
+          1,
+          2
+        ],
+        "regions_not_in": [
+          "north_taipei"
+        ]
+      },
+      "chance": 0.45,
+      "options": [
+        {
+          "key": "keep_farming",
+          "label": "承領耕地，全家繼續務農",
+          "auto_weight": 0.7,
+          "effects": {
+            "happiness": 2,
+            "flags": [
+              "family_farmland"
+            ]
+          },
+          "text": "父親在田埂上蹲了很久，說這塊地以後就是自己的了。",
+          "outcomes": [
+            {
+              "delay": [
+                24,
+                34
+              ],
+              "p": 0.35,
+              "success": {
+                "effects": {
+                  "money": 800000,
+                  "happiness": 4
+                },
+                "text": "家裡當年承領的那塊田被劃進都市計畫，地價翻了好幾倍。手足分家後，你也分到一筆錢。"
+              }
+            }
+          ]
+        },
+        {
+          "key": "sell_move_city",
+          "label": "領到地不久就賣掉，全家搬進城裡做工",
+          "auto_weight": 0.3,
+          "effects": {
+            "knowledge": 2,
+            "hardship": [
+              1,
+              4
+            ],
+            "flags": [
+              "moved_city_childhood"
+            ]
+          },
+          "text": "城裡的工錢比種田多，但一家人擠在租來的小房間，日子並不輕鬆。"
+        }
+      ]
+    },
+    {
+      "id": "E1953_land_reform_landlord",
+      "era_label": "1950 年代 · 耕者有其田",
+      "parent_decides": true,
+      "title": "耕者有其田：家裡的地被徵收了",
+      "desc": "家裡是地主，大部分田地被政府徵收，換回一疊土地債券和四大公營事業的股票。",
+      "source": "地主被徵收的土地，以七成實物土地債券、三成台泥、台紙、農林、工礦四大公司股票補償。",
+      "conditions": {
+        "year_range": [
+          1953,
+          1956
+        ],
+        "age_range": [
+          0,
+          6
+        ],
+        "quintile_range": [
+          4,
+          5
+        ],
+        "regions_not_in": [
+          "north_taipei"
+        ]
+      },
+      "chance": 0.45,
+      "options": [
+        {
+          "key": "hold_shares",
+          "label": "抱著補償的台泥股票不賣",
+          "auto_weight": 0.3,
+          "effects": {
+            "flags": [
+              "family_cement_shares"
+            ]
+          },
+          "text": "大多數地主急著把股票脫手，父親卻把那疊股票鎖進了抽屜。",
+          "outcomes": [
+            {
+              "delay": [
+                20,
+                30
+              ],
+              "success": {
+                "effects": {
+                  "money": 900000,
+                  "happiness": 3
+                },
+                "text": "父親當年捨不得賣的台泥股票，幾十年來配股配息，成了家裡最穩的老本，也分了一份給你。"
+              }
+            }
+          ]
+        },
+        {
+          "key": "sell_shares",
+          "label": "股價跌跌不休，低價賣掉換現金",
+          "auto_weight": 0.7,
+          "effects": {
+            "quintile_delta": -1,
+            "happiness": -2
+          },
+          "text": "股票換來的現金很快就花完了，家道從此中落。"
+        }
+      ]
+    },
+    {
+      "id": "E1950_military_village",
+      "era_label": "1950 年代 · 眷村",
+      "parent_decides": true,
+      "title": "眷村，還是自謀生路？",
+      "desc": "父親隨部隊來台已經好幾年，「反攻大陸」遙遙無期。上級分配了眷舍，同鄉卻勸他退伍出去做點小生意。",
+      "source": "1949 年前後約百萬軍民隨國府來台，各地興建眷村安置軍眷；1996 年《國軍老舊眷村改建條例》後陸續改建為國宅。",
+      "conditions": {
+        "year_range": [
+          1950,
+          1962
+        ],
+        "age_range": [
+          0,
+          8
+        ],
+        "origin_in": [
+          "waisheng"
+        ]
+      },
+      "chance": 0.6,
+      "options": [
+        {
+          "key": "stay_juancun",
+          "label": "住進眷村，父親繼續留在軍中",
+          "auto_weight": 0.65,
+          "effects": {
+            "social": 4,
+            "flags": [
+              "juancun_kid"
+            ]
+          },
+          "text": "竹籬笆裡家家戶戶的門都開著，你在各省口音和隔壁伯伯的麵香裡長大。",
+          "outcomes": [
+            {
+              "at_year": [
+                1998,
+                2008
+              ],
+              "p": 0.7,
+              "success": {
+                "effects": {
+                  "money": 300000,
+                  "happiness": 2
+                },
+                "text": "眷村改建，父母以優惠價配售到新國宅。老鄰居散了，但家裡多了一份不動產，也貼補了孩子們一些。"
+              }
+            }
+          ]
+        },
+        {
+          "key": "start_business",
+          "label": "父親退伍，在市場邊開麵館自謀生路",
+          "auto_weight": 0.35,
+          "effects": {
+            "flags": [
+              "family_noodle_shop"
+            ]
+          },
+          "roll": {
+            "p": 0.5,
+            "success": {
+              "effects": {
+                "quintile_delta": 1,
+                "happiness": 3
+              },
+              "text": "麵館靠一碗牛肉麵做出了口碑，家裡日子越過越好。"
+            },
+            "fail": {
+              "effects": {
+                "hardship": [
+                  1,
+                  4
+                ],
+                "happiness": -2
+              },
+              "text": "小店撐了幾年還是收了，父親改去工地打零工。"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "E1965_living_room_factory",
+      "era_label": "1960–80 年代 · 客廳即工廠",
+      "title": "客廳即工廠：放學要不要幫忙做代工？",
+      "desc": "家裡接了加工廠的代工，客廳堆滿聖誕燈泡、雨傘骨架和塑膠花。媽媽說大家一起做，按件計酬，月底就能多一筆收入。",
+      "source": "1970 年代政府推動「客廳即工廠」，家庭代工撐起許多中小企業的外銷訂單。",
+      "conditions": {
+        "year_range": [
+          1965,
+          1986
+        ],
+        "age_range": [
+          8,
+          14
+        ],
+        "quintile_range": [
+          1,
+          3
+        ]
+      },
+      "chance": 0.18,
+      "options": [
+        {
+          "key": "help_family",
+          "label": "放學就坐下來一起趕工",
+          "auto_weight": 0.6,
+          "trait_weight": {
+            "family_first": 1.8,
+            "workaholic": 1.4
+          },
+          "effects": {
+            "knowledge": -3,
+            "social": 2,
+            "health": -1,
+            "hardship_relief": 1,
+            "flags": [
+              "childhood_piecework"
+            ]
+          },
+          "text": "你的手很快就學會了，童年的晚上都是燈泡和膠水的味道，家裡的日子也鬆了一些。"
+        },
+        {
+          "key": "study_first",
+          "label": "先把功課寫完，有空再幫忙",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "cautious": 1.4,
+            "sensitive_introvert": 1.3
+          },
+          "effects": {
+            "knowledge": 3,
+            "happiness": -1
+          },
+          "text": "你趴在代工零件旁邊寫作業，媽媽說：「讀冊卡好，以後免像阮這款。」"
+        },
+        {
+          "key": "sneak_out",
+          "label": "偷溜出去跟鄰居小孩玩",
+          "auto_weight": 0.12,
+          "trait_weight": {
+            "sociable": 2.5,
+            "risk_taker": 1.5
+          },
+          "effects": {
+            "social": 3,
+            "happiness": 3,
+            "knowledge": -1
+          },
+          "text": "你被抓回來罵了一頓，但那年夏天的大水溝和稻田，是你最記得的童年。"
+        }
+      ]
+    },
+    {
+      "id": "E1963_eldest_sacrifice",
+      "era_label": "1960–70 年代 · 長子長女",
+      "title": "家裡撐不住了：要休學去工作，供弟妹讀書嗎？",
+      "desc": "你是家裡最大的孩子之一，底下還有好幾個弟妹。父母的收入撐不起所有孩子的學費，親戚說加工出口區正在大量招工。",
+      "source": "1966 年高雄加工出口區設立，大批國中畢業的少女進廠；不少長子長女提早就業，供弟妹升學。",
+      "conditions": {
+        "year_range": [
+          1962,
+          1982
+        ],
+        "age_range": [
+          14,
+          17
+        ],
+        "quintile_range": [
+          1,
+          3
+        ],
+        "siblings_min": 3,
+        "birth_order_max": 2,
+        "in_secondary_school": true
+      },
+      "chance": 0.35,
+      "sex_chance": {
+        "F": 1.5
+      },
+      "options": [
+        {
+          "key": "quit_for_siblings",
+          "label": "休學進工廠，把薪水寄回家",
+          "auto_weight": 0.45,
+          "trait_weight": {
+            "family_first": 2.2,
+            "cautious": 0.7
+          },
+          "effects": {
+            "quit_school_to_work": true,
+            "social": 3,
+            "happiness": -4,
+            "flags": [
+              "eldest_sacrifice"
+            ]
+          },
+          "text": "你把書包收進衣櫃最上層。第一個月的薪水袋，你原封不動交給了媽媽。",
+          "outcomes": [
+            {
+              "delay": [
+                22,
+                30
+              ],
+              "success": {
+                "effects": {
+                  "happiness": 8,
+                  "social": 4,
+                  "money": 300000
+                },
+                "text": "當年你休學供他們讀書的弟妹都成家立業了。過年時他們塞給你一個厚厚的紅包：「沒有你，就沒有我們。」"
+              }
+            }
+          ]
+        },
+        {
+          "key": "night_school",
+          "label": "白天上班、晚上念夜校，兩頭兼顧",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "workaholic": 2.0
+          },
+          "effects": {
+            "health": -4,
+            "knowledge": -2,
+            "social": 2,
+            "money": 40000,
+            "flags": [
+              "part_time_job",
+              "part_time_approved",
+              "night_school_teen"
+            ]
+          },
+          "text": "你每天清晨進廠、晚上趕去夜校，在公車上睡著是常有的事。"
+        },
+        {
+          "key": "keep_studying",
+          "label": "堅持把書念完，家裡再想辦法",
+          "auto_weight": 0.25,
+          "trait_weight": {
+            "sensitive_introvert": 1.3,
+            "cautious": 1.2
+          },
+          "effects": {
+            "knowledge": 2,
+            "happiness": -2,
+            "hardship": [
+              1,
+              3
+            ]
+          },
+          "text": "爸媽多兼了一份工，你知道自己這張畢業證書，是全家一起付的學費。"
+        }
+      ]
+    },
+    {
+      "id": "E1971_un_exodus",
+      "era_label": "1970 年代 · 退出聯合國",
+      "title": "退出聯合國之後：要不要辦移民？",
+      "desc": "{year} 年，報紙天天在談國際局勢。身邊有人賣掉房子辦依親移民，也有人把存款偷偷換成美金。",
+      "source": "1971 年退出聯合國、1979 年台美斷交，兩度掀起移民與資金外移潮。當時新台幣兌美元約 36～40 元，1980 年代後期升值到 26 元左右。",
+      "conditions": {
+        "year_range": [
+          1971,
+          1980
+        ],
+        "age_range": [
+          22,
+          50
+        ],
+        "quintile_range": [
+          3,
+          5
+        ],
+        "never_abroad": true,
+        "working": true,
+        "min_liquid_twd_2025": 60000
+      },
+      "chance": 0.2,
+      "trait_chance": {
+        "cautious": 1.5,
+        "risk_taker": 1.2
+      },
+      "options": [
+        {
+          "key": "emigrate_us",
+          "label": "跟著親戚辦依親移民，去美國重新開始",
+          "auto_weight": 0.12,
+          "trait_weight": {
+            "risk_taker": 1.6,
+            "family_first": 0.6
+          },
+          "requires": {
+            "quintile_min": 4,
+            "unmarried_or_no_kids": true
+          },
+          "effects": {
+            "emigrate": "USA"
+          },
+          "text": "你在松山機場跟家人揮手，手提箱裡裝著幾件衣服和一包家鄉的茶葉。"
+        },
+        {
+          "key": "buy_usd",
+          "label": "人留在台灣，但把一半存款換成美金放著",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "cautious": 2.0
+          },
+          "effects": {
+            "usd_hedge_ratio": 0.5
+          },
+          "text": "你跑了好幾家銀樓，把一疊台幣換成綠色的美鈔，藏在衣櫃夾層裡。",
+          "outcomes": [
+            {
+              "at_year": [
+                1987,
+                1989
+              ],
+              "success": {
+                "effects": {
+                  "usd_hedge_loss": 0.3
+                },
+                "text": "新台幣一路升值，從 40 元升到 26 元，當年換的美金換回台幣，硬是縮水了三成。"
+              }
+            }
+          ]
+        },
+        {
+          "key": "stay_build",
+          "label": "留在台灣打拚，相信會越來越好",
+          "auto_weight": 0.58,
+          "trait_weight": {
+            "civic_minded": 1.4,
+            "workaholic": 1.3
+          },
+          "effects": {
+            "happiness": 2,
+            "social": 2
+          },
+          "text": "你把移民的表格收進抽屜，第二天照常去上班。",
+          "outcomes": [
+            {
+              "at_year": [
+                1986,
+                1990
+              ],
+              "success": {
+                "effects": {
+                  "happiness": 4
+                },
+                "text": "「台灣錢淹腳目」的年代來了。當年沒走的你，剛好趕上經濟起飛。"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E1976_suitcase_trade",
+      "era_label": "1970–80 年代 · 一卡皮箱走天下",
+      "title": "一卡皮箱走天下：要不要自己出來接單？",
+      "desc": "你在公司做了幾年，熟悉了工廠和客戶。一位國外買主私下說，只要你拿得出樣品和報價單，訂單就給你做。",
+      "source": "1970–80 年代，許多中小企業老闆提著一只皮箱跑遍世界各地展覽接單，撐起台灣的外銷奇蹟。",
+      "conditions": {
+        "year_range": [
+          1975,
+          1990
+        ],
+        "age_range": [
+          24,
+          45
+        ],
+        "working": true,
+        "careers_in": [
+          "car_export_sales",
+          "car_office_white_collar",
+          "car_epz_worker",
+          "car_craft_apprentice",
+          "car_finance_broker"
+        ],
+        "edu_min": 2
+      },
+      "chance": 0.22,
+      "trait_chance": {
+        "risk_taker": 2.0,
+        "cautious": 0.4,
+        "workaholic": 1.3
+      },
+      "options": [
+        {
+          "key": "start_trading",
+          "label": "辭職，拎著皮箱去國外跑展覽接單",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "risk_taker": 2.5,
+            "cautious": 0.3,
+            "workaholic": 1.5
+          },
+          "effects": {
+            "money": -300000,
+            "work_hours_high": true
+          },
+          "roll": {
+            "p": 0.45,
+            "trait_p": {
+              "risk_taker": 0.05,
+              "workaholic": 0.08,
+              "sociable": 0.06,
+              "cautious": -0.05
+            },
+            "stat_p": {
+              "social": 0.004,
+              "knowledge": 0.004
+            },
+            "success": {
+              "effects": {
+                "assign_career": "car_sme_boss",
+                "career_mult": 1.2,
+                "happiness": 8
+              },
+              "text": "第一張訂單成交了。幾年後你有了自己的貿易行，名片上印著「總經理」。"
+            },
+            "fail": {
+              "effects": {
+                "money": -400000,
+                "happiness": -8,
+                "temp_unemployed_years": 1
+              },
+              "text": "跑了兩年展覽，訂單時有時無，積蓄見底，只好回頭找工作。"
+            }
+          }
+        },
+        {
+          "key": "stay_company",
+          "label": "留在公司，穩穩領薪水",
+          "auto_weight": 0.7,
+          "trait_weight": {
+            "cautious": 1.8,
+            "family_first": 1.3
+          },
+          "effects": {
+            "happiness": -1
+          },
+          "text": "你婉拒了買主。往後幾年，你常想起那只沒提起來的皮箱。"
+        }
+      ]
+    },
+    {
+      "id": "E1986_dajiale",
+      "era_label": "1980 年代 · 大家樂",
+      "title": "大家樂：這期要不要簽？",
+      "desc": "巷口雜貨店擠滿了人，大家拿著愛國獎券的號碼猜明牌，連土地公廟、大樹公前都有人燒香求號碼。",
+      "source": "1985–1987 年「大家樂」以愛國獎券開獎號碼為依據，全台瘋狂簽賭；1987 年底愛國獎券停售。",
+      "conditions": {
+        "year_range": [
+          1985,
+          1988
+        ],
+        "age_range": [
+          18,
+          70
+        ]
+      },
+      "chance": 0.35,
+      "trait_chance": {
+        "risk_taker": 2.0,
+        "cautious": 0.3,
+        "sociable": 1.4
+      },
+      "options": [
+        {
+          "key": "small_bet",
+          "label": "小簽一點，玩玩就好",
+          "auto_weight": 0.4,
+          "trait_weight": {
+            "sociable": 1.5
+          },
+          "roll": {
+            "p": 0.15,
+            "success": {
+              "effects": {
+                "money": 60000,
+                "happiness": 4
+              },
+              "text": "居然簽中了！你請整條巷子的人喝汽水。"
+            },
+            "fail": {
+              "effects": {
+                "money": -15000
+              },
+              "text": "沒中，就當繳學費。"
+            }
+          }
+        },
+        {
+          "key": "big_bet",
+          "label": "到處求明牌，押重本",
+          "auto_weight": 0.08,
+          "trait_weight": {
+            "risk_taker": 3.0,
+            "cautious": 0.2
+          },
+          "roll": {
+            "p": 0.06,
+            "success": {
+              "effects": {
+                "money": 800000,
+                "happiness": 10
+              },
+              "text": "冷門號碼開出來了，你一夜之間多了一大筆錢。"
+            },
+            "fail": {
+              "effects": {
+                "money_liquid_ratio": -0.25,
+                "money": -60000,
+                "happiness": -8
+              },
+              "text": "明牌一期一期落空，越簽越大，存款少了一大截。"
+            }
+          }
+        },
+        {
+          "key": "be_bookie",
+          "label": "自己當組頭收簽單",
+          "auto_weight": 0.03,
+          "trait_weight": {
+            "risk_taker": 3.0,
+            "sociable": 1.5
+          },
+          "roll": {
+            "p": 0.55,
+            "stat_p": {
+              "social": 0.004
+            },
+            "success": {
+              "effects": {
+                "money": 500000,
+                "social": -3
+              },
+              "text": "這幾期都是你在收錢，但你也開始擔心警察哪天上門。"
+            },
+            "fail": {
+              "effects": {
+                "money": -600000,
+                "happiness": -10,
+                "social": -6
+              },
+              "text": "有人簽中大獎，你賠不出來，只好躲債好一陣子。"
+            }
+          }
+        },
+        {
+          "key": "no_bet",
+          "label": "不碰，辛苦錢不能這樣花",
+          "auto_weight": 0.49,
+          "trait_weight": {
+            "cautious": 2.0,
+            "family_first": 1.3
+          },
+          "effects": {
+            "happiness": -1
+          },
+          "text": "你看著隔壁鄰居天天去廟裡求明牌，自己繼續上工。"
+        }
+      ]
+    },
+    {
+      "id": "E1987_stock_mania",
+      "era_label": "1980 年代 · 台灣錢淹腳目",
+      "title": "台股衝破萬點：全民瘋股票",
+      "desc": "號子裡擠滿了人，菜籃族、上班族下午都在看盤。報紙說股市一年漲了好幾倍，身邊的人好像都在賺錢。",
+      "source": "台股加權指數從 1986 年的 1000 點，漲到 1990 年 2 月的 12682 點；同年 10 月跌到 2485 點。",
+      "conditions": {
+        "year_range": [
+          1986,
+          1989
+        ],
+        "age_range": [
+          22,
+          65
+        ],
+        "min_liquid_twd_2025": 150000
+      },
+      "chance": 0.4,
+      "trait_chance": {
+        "risk_taker": 1.8,
+        "cautious": 0.6,
+        "sociable": 1.2
+      },
+      "options": [
+        {
+          "key": "quit_fulltime",
+          "label": "辭掉工作，每天去號子當全職股民",
+          "auto_weight": 0.03,
+          "trait_weight": {
+            "risk_taker": 3.0,
+            "cautious": 0.1
+          },
+          "requires": {
+            "working": true
+          },
+          "effects": {
+            "to_stock_ratio": 0.9,
+            "quit_job_years": 2,
+            "happiness": 6,
+            "flags": [
+              "stock_mania_all_in"
+            ]
+          },
+          "text": "你遞出辭呈，把存款幾乎全押進股市，每天下午準時坐在號子的電視牆前。"
+        },
+        {
+          "key": "mortgage_leverage",
+          "label": "拿房子去增貸，加碼股票",
+          "auto_weight": 0.05,
+          "trait_weight": {
+            "risk_taker": 2.5,
+            "cautious": 0.2
+          },
+          "requires": {
+            "homeowner": true
+          },
+          "effects": {
+            "mortgage_draw_ratio": 0.3,
+            "to_stock_ratio": 0.6
+          },
+          "text": "銀行說房子還能再貸一筆。你把貸款和存款一起丟進了股市。"
+        },
+        {
+          "key": "follow_small",
+          "label": "拿一部分存款跟著買",
+          "auto_weight": 0.42,
+          "trait_weight": {
+            "sociable": 1.3
+          },
+          "effects": {
+            "to_stock_ratio": 0.35
+          },
+          "text": "同事報的明牌，你買了幾張。"
+        },
+        {
+          "key": "stay_out",
+          "label": "不碰，看別人賺就好",
+          "auto_weight": 0.5,
+          "trait_weight": {
+            "cautious": 2.2
+          },
+          "effects": {
+            "happiness": -2
+          },
+          "text": "你看著同事一個個換車，心裡有點不是滋味。",
+          "outcomes": [
+            {
+              "at_year": [
+                1990,
+                1991
+              ],
+              "success": {
+                "effects": {
+                  "happiness": 4
+                },
+                "text": "1990 年股市崩盤，身邊好幾個朋友賠掉了房子。你慶幸當年沒跟。"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E1988_mainland_visit",
+      "era_label": "1980 年代 · 開放大陸探親",
+      "title": "開放大陸探親：要陪父親回老家嗎？",
+      "desc": "政府開放大陸探親了。父親離家快四十年，每晚拿著泛黃的家書，說想回去看看還在的親人。",
+      "source": "1987 年 11 月開放赴大陸探親，數十萬老兵返鄉，許多人帶著積蓄與電器「三大件、五小件」回鄉。",
+      "conditions": {
+        "year_range": [
+          1987,
+          1995
+        ],
+        "age_range": [
+          18,
+          60
+        ],
+        "origin_in": [
+          "waisheng"
+        ],
+        "father_alive": true
+      },
+      "chance": 0.5,
+      "trait_chance": {
+        "family_first": 1.5
+      },
+      "options": [
+        {
+          "key": "go_with_gifts",
+          "label": "陪父親回鄉，帶著積蓄和電器分給親戚",
+          "auto_weight": 0.55,
+          "trait_weight": {
+            "family_first": 2.0
+          },
+          "effects": {
+            "money": -150000,
+            "happiness": 6,
+            "social": 4,
+            "flags": [
+              "visited_mainland"
+            ]
+          },
+          "text": "在老家的村口，父親跪在祖墳前哭了很久。你第一次見到一屋子說著同樣鄉音的親戚。"
+        },
+        {
+          "key": "send_money",
+          "label": "工作走不開，讓父親自己回去，匯一點錢",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "workaholic": 1.8
+          },
+          "effects": {
+            "money": -60000,
+            "happiness": 1
+          },
+          "text": "父親回來後話變少了，只說老家跟記憶裡不一樣了。"
+        },
+        {
+          "key": "dont_go",
+          "label": "擔心花費和風險，勸父親別回去",
+          "auto_weight": 0.15,
+          "trait_weight": {
+            "cautious": 2.0
+          },
+          "effects": {
+            "happiness": -4,
+            "social": -2
+          },
+          "text": "父親沒再提起這件事，只是把家書收得更深了。",
+          "outcomes": [
+            {
+              "delay": [
+                3,
+                10
+              ],
+              "p": 0.45,
+              "success": {
+                "effects": {
+                  "happiness": -5
+                },
+                "text": "父親後來再也沒有機會回去。整理遺物時，你看到那疊沒寄出去的家書。"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E1992_go_west",
+      "era_label": "1990 年代 · 台商西進",
+      "title": "台商西進：工廠要搬去大陸了",
+      "desc": "{year} 年，公司宣布把生產線移到東莞和昆山。老闆問你要不要過去當台幹，薪水加倍、包吃包住，一年回台幾次。",
+      "desc_variants": [
+        {
+          "careers_in": [
+            "car_sme_boss"
+          ],
+          "desc": "{year} 年，你的工廠訂單被對岸的低價搶走，同業一家家把廠搬到東莞和昆山。你要跟著過去嗎？"
+        }
+      ],
+      "source": "1990 年代起台商大舉赴大陸設廠；2008 年中國《勞動合同法》上路與金融海嘯後，珠三角掀起台商關廠潮。",
+      "conditions": {
+        "year_range": [
+          1990,
+          2007
+        ],
+        "age_range": [
+          25,
+          52
+        ],
+        "working": true,
+        "careers_in": [
+          "car_epz_worker",
+          "car_sme_boss",
+          "car_export_sales",
+          "car_office_white_collar",
+          "car_craft_apprentice"
+        ]
+      },
+      "chance": 0.12,
+      "trait_chance": {
+        "risk_taker": 1.6,
+        "family_first": 0.6,
+        "workaholic": 1.4
+      },
+      "options": [
+        {
+          "key": "go_taigan",
+          "label": "過去當台幹（或把工廠搬過去），一年回台幾次",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "risk_taker": 1.8,
+            "workaholic": 1.6,
+            "family_first": 0.4
+          },
+          "effects": {
+            "expat": [
+              7,
+              1.5
+            ],
+            "social": -3,
+            "marital_strain": 0.35,
+            "flags": [
+              "taishang"
+            ]
+          },
+          "text": "你在東莞的宿舍裡掛了一本台灣的月曆，算著下次回家的日子。",
+          "outcomes": [
+            {
+              "at_year": [
+                2008,
+                2010
+              ],
+              "roll": {
+                "p": 0.5,
+                "stat_p": {
+                  "knowledge": 0.004
+                },
+                "success": {
+                  "effects": {
+                    "happiness": 3
+                  },
+                  "text": "金融海嘯和新的勞動法夾擊，同業倒了一半，你的廠撐了下來。"
+                },
+                "fail": {
+                  "effects": {
+                    "money": -500000,
+                    "happiness": -6,
+                    "temp_unemployed_years": 1
+                  },
+                  "text": "2008 年後工資上漲、訂單銳減，工廠收掉了。你帶著一身疲憊回到台灣。"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "key": "stay_taiwan",
+          "label": "留在台灣",
+          "auto_weight": 0.7,
+          "trait_weight": {
+            "family_first": 2.0,
+            "cautious": 1.4
+          },
+          "roll": {
+            "p": 0.65,
+            "career_p": {
+              "car_office_white_collar": 0.15,
+              "car_export_sales": 0.1
+            },
+            "success": {
+              "effects": {
+                "happiness": 2
+              },
+              "text": "你留在台灣，換到另一家公司。薪水沒漲，但每天能回家吃飯。"
+            },
+            "fail": {
+              "effects": {
+                "temp_unemployed_years": 1,
+                "happiness": -5
+              },
+              "text": "台灣這邊的廠關了，你成了關廠工人，失業了一陣子才找到新工作。"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "E1995_hsinchu_bonus",
+      "era_label": "1990 年代 · 竹科分紅配股",
+      "title": "竹科分紅配股：要不要跳槽進科學園區？",
+      "desc": "學長在竹科上班，年終分到的股票市值比年薪還高。他說公司正在擴廠，問你要不要過去，代價是常常加班到半夜。",
+      "source": "1990 年代至 2007 年，科技業「員工分紅配股」以面額計算，造就大批科技新貴；2008 年起員工分紅改按市價費用化。",
+      "conditions": {
+        "year_range": [
+          1990,
+          2006
+        ],
+        "age_range": [
+          22,
+          38
+        ],
+        "working": true,
+        "edu_min": 4,
+        "sub_major_in": [
+          "stem_eng"
+        ],
+        "careers_not_in": [
+          "car_hsinchu_semi",
+          "car_doctor_pharma",
+          "car_lawyer_cpa",
+          "car_cpa",
+          "car_civil_teacher"
+        ]
+      },
+      "chance": 0.3,
+      "trait_chance": {
+        "workaholic": 1.6,
+        "sensitive_introvert": 0.8
+      },
+      "options": [
+        {
+          "key": "join_semi",
+          "label": "跳槽進竹科，拼分紅配股",
+          "auto_weight": 0.45,
+          "trait_weight": {
+            "workaholic": 2.0,
+            "risk_taker": 1.3,
+            "family_first": 0.7
+          },
+          "effects": {
+            "assign_career": "car_hsinchu_semi",
+            "wage_mult": 1.1,
+            "work_hours_high": true,
+            "health": -3,
+            "flags": [
+              "tech_bonus_era"
+            ]
+          },
+          "text": "你搬進新竹的宿舍，識別證上印著公司的 logo，桌上多了一張行軍床。",
+          "outcomes": [
+            {
+              "delay": [
+                1,
+                4
+              ],
+              "roll": {
+                "p": 0.6,
+                "stat_p": {
+                  "knowledge": 0.006
+                },
+                "success": {
+                  "effects": {
+                    "money": 1500000,
+                    "happiness": 6
+                  },
+                  "text": "公司股價大漲，你領到的分紅股票，抵得上好幾年薪水。"
+                },
+                "fail": {
+                  "effects": {
+                    "happiness": -2
+                  },
+                  "text": "進去沒多久遇到景氣反轉，分紅股票跌得只剩零頭。"
+                }
+              }
+            },
+            {
+              "at_year": [
+                2008,
+                2008
+              ],
+              "if_career": "car_hsinchu_semi",
+              "success": {
+                "effects": {
+                  "wage_mult": 0.92
+                },
+                "text": "2008 年員工分紅費用化上路，科技新貴的分紅大幅縮水。"
+              }
+            }
+          ]
+        },
+        {
+          "key": "stay",
+          "label": "留在原本的工作，生活比較正常",
+          "auto_weight": 0.55,
+          "trait_weight": {
+            "family_first": 1.6,
+            "sensitive_introvert": 1.4
+          },
+          "effects": {
+            "health": 1
+          },
+          "text": "你婉拒了學長。幾年後看到他買了新竹的透天厝，你偶爾會想，如果當年……"
+        }
+      ]
+    },
+    {
+      "id": "E1999_crossborder_marriage",
+      "era_label": "1990–2000 年代 · 跨國婚姻",
+      "title": "要不要透過介紹，迎娶外籍配偶？",
+      "desc": "你 {age} 歲了還沒成家，父母很著急。鄰近已經有好幾戶人家娶了越南、印尼或中國大陸的配偶，媒人說可以安排你出國相親。",
+      "source": "2003 年外籍與大陸配偶占全台結婚對數約三成；2004 年出生的嬰兒，每 8 人就有 1 人的母親是新住民。",
+      "conditions": {
+        "year_range": [
+          1995,
+          2010
+        ],
+        "age_range": [
+          32,
+          50
+        ],
+        "sex": "M",
+        "single": true,
+        "never_married": true,
+        "edu_max": 3,
+        "quintile_range": [
+          1,
+          3
+        ]
+      },
+      "chance": 0.22,
+      "trait_chance": {
+        "family_first": 1.5,
+        "sensitive_introvert": 1.3,
+        "sociable": 0.7
+      },
+      "options": [
+        {
+          "key": "marry_foreign",
+          "label": "請媒人安排，出國相親結婚",
+          "auto_weight": 0.4,
+          "trait_weight": {
+            "family_first": 1.6
+          },
+          "effects": {
+            "money": -300000,
+            "marry_foreign": true,
+            "happiness": 4
+          },
+          "text": "語言不通的頭幾年很辛苦，但你們慢慢學會彼此的話，也學著當一家人。"
+        },
+        {
+          "key": "stay_single",
+          "label": "不想這樣結婚，順其自然",
+          "auto_weight": 0.6,
+          "trait_weight": {
+            "sensitive_introvert": 1.3
+          },
+          "effects": {
+            "happiness": -1
+          },
+          "text": "你跟父母說再等等。母親嘆了口氣，沒再多說。"
+        }
+      ]
+    },
+    {
+      "id": "E2004_cash_card",
+      "era_label": "2000 年代 · 雙卡風暴",
+      "title": "現金卡廣告滿天飛：要不要辦一張周轉？",
+      "desc": "電視廣告天天播，捷運站口有人在發現金卡申請書，免保人、立刻核卡。月底手頭緊，朋友說辦一張周轉一下就好。",
+      "source": "2002 年起現金卡大行其道，循環利率近 20%；2005–2006 年爆發雙卡風暴，數十萬人淪為「卡奴」。",
+      "conditions": {
+        "year_range": [
+          2002,
+          2005
+        ],
+        "age_range": [
+          20,
+          35
+        ],
+        "working": true,
+        "max_liquid_twd_2025": 400000
+      },
+      "chance": 0.4,
+      "trait_chance": {
+        "risk_taker": 1.8,
+        "sociable": 1.4,
+        "cautious": 0.3
+      },
+      "options": [
+        {
+          "key": "apply_spend",
+          "label": "辦一張，先拿來買想要的東西",
+          "auto_weight": 0.22,
+          "trait_weight": {
+            "risk_taker": 2.0,
+            "sociable": 1.6,
+            "cautious": 0.2
+          },
+          "effects": {
+            "happiness": 5,
+            "money": 120000,
+            "flags": [
+              "card_debt"
+            ]
+          },
+          "text": "新手機、出國玩，刷下去的那一刻很輕鬆。",
+          "outcomes": [
+            {
+              "at_year": [
+                2005,
+                2007
+              ],
+              "roll": {
+                "p": 0.4,
+                "trait_p": {
+                  "cautious": 0.2,
+                  "workaholic": 0.1
+                },
+                "stat_p": {
+                  "knowledge": 0.005
+                },
+                "success": {
+                  "effects": {
+                    "money": -150000
+                  },
+                  "text": "你咬牙把卡債還清，從此不敢再碰現金卡。"
+                },
+                "fail": {
+                  "effects": {
+                    "money": -420000,
+                    "heavy_debt": true,
+                    "happiness": -10,
+                    "health": -3
+                  },
+                  "text": "循環利息越滾越大，你成了新聞裡的「卡奴」，每個月薪水一半拿去還債。"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "key": "apply_emergency",
+          "label": "辦一張備用，只在急用時周轉",
+          "auto_weight": 0.28,
+          "trait_weight": {
+            "family_first": 1.2
+          },
+          "roll": {
+            "p": 0.8,
+            "trait_p": {
+              "cautious": 0.1,
+              "risk_taker": -0.15
+            },
+            "success": {
+              "effects": {},
+              "text": "那張卡一直躺在皮夾裡，只用過一兩次。"
+            },
+            "fail": {
+              "effects": {
+                "money": -100000,
+                "happiness": -4
+              },
+              "text": "急用一次、兩次，利息比你想的還高，花了一年才還清。"
+            }
+          }
+        },
+        {
+          "key": "refuse",
+          "label": "不辦，量入為出",
+          "auto_weight": 0.5,
+          "trait_weight": {
+            "cautious": 2.5
+          },
+          "effects": {
+            "happiness": -1
+          },
+          "text": "你把申請書丟進捷運站的垃圾桶。"
+        }
+      ]
+    },
+    {
+      "id": "E2009_22k",
+      "era_label": "2000 年代末 · 22K",
+      "title": "22K 的畢業季：第一份工作怎麼走？",
+      "desc": "金融海嘯後，企業紛紛凍結招募。政府推出大專畢業生企業實習方案，補助月薪 22K。同學有人去大陸，也有人在家準備國考。",
+      "source": "2009 年教育部「大專畢業生至企業職場實習方案」補助月薪 22,000 元，此後「22K」成為低薪的代名詞。",
+      "conditions": {
+        "year_range": [
+          2009,
+          2012
+        ],
+        "age_range": [
+          22,
+          28
+        ],
+        "working": true,
+        "edu_min": 4,
+        "max_work_years": 2,
+        "careers_not_in": [
+          "car_civil_teacher",
+          "car_doctor_pharma",
+          "car_lawyer_cpa",
+          "car_cpa"
+        ]
+      },
+      "chance": 0.9,
+      "options": [
+        {
+          "key": "accept_22k",
+          "label": "先領 22K 進公司，累積經驗再說",
+          "auto_weight": 0.55,
+          "trait_weight": {
+            "cautious": 1.3,
+            "workaholic": 1.3
+          },
+          "effects": {
+            "flags": [
+              "hit_22k_anchor"
+            ],
+            "wage_mult": 0.96,
+            "knowledge": 2,
+            "happiness": -3
+          },
+          "text": "第一份薪水扣掉房租和勞健保，所剩無幾。你在臉書上看到「22K」又上了新聞。"
+        },
+        {
+          "key": "go_china",
+          "label": "去大陸的台資企業上班，薪水高一截",
+          "auto_weight": 0.15,
+          "trait_weight": {
+            "risk_taker": 1.8,
+            "family_first": 0.5
+          },
+          "effects": {
+            "expat": [
+              4,
+              1.35
+            ],
+            "social": -3,
+            "flags": [
+              "worked_in_china"
+            ]
+          },
+          "text": "你拖著行李到了上海，第一次發現台灣以外的世界那麼大，也那麼競爭。"
+        },
+        {
+          "key": "civil_exam",
+          "label": "辭職在家，全心準備國考",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "cautious": 2.0,
+            "risk_taker": 0.5
+          },
+          "effects": {
+            "exam_prep_years": 1,
+            "happiness": -2
+          },
+          "text": "你買齊了補習班的講義，每天早上七點坐到圖書館。"
+        }
+      ]
+    },
+    {
+      "id": "E2012_working_holiday",
+      "era_label": "2010 年代 · 打工度假",
+      "title": "打工度假：要不要去澳洲存第一桶金？",
+      "desc": "臉書上滿是朋友在澳洲農場、肉廠打工的照片，說一年就能存下在台灣好幾年的積蓄。你的工作看不到加薪的希望……",
+      "source": "2004 年台澳打工度假簽證上路，2012–2013 年每年約 3 萬多名台灣青年前往。",
+      "conditions": {
+        "year_range": [
+          2009,
+          2019
+        ],
+        "age_range": [
+          21,
+          30
+        ],
+        "never_abroad": true,
+        "unmarried": true,
+        "no_children": true,
+        "working": true,
+        "careers_not_in": [
+          "car_civil_teacher",
+          "car_doctor_pharma"
+        ]
+      },
+      "chance": 0.12,
+      "trait_chance": {
+        "risk_taker": 1.6,
+        "sociable": 1.4,
+        "cautious": 0.6,
+        "family_first": 0.7
+      },
+      "options": [
+        {
+          "key": "go_aus",
+          "label": "辭職去澳洲肉廠、農場打工",
+          "auto_weight": 0.4,
+          "trait_weight": {
+            "risk_taker": 1.6,
+            "sociable": 1.3
+          },
+          "effects": {
+            "working_holiday": "AUS"
+          },
+          "text": "你在桃園機場拍了一張出境照，配上一句「出發了」。"
+        },
+        {
+          "key": "stay",
+          "label": "留在台灣，繼續拼加薪",
+          "auto_weight": 0.6,
+          "trait_weight": {
+            "cautious": 1.6,
+            "family_first": 1.4
+          },
+          "effects": {},
+          "text": "你按了一個讚，關掉臉書，繼續加班。"
+        }
+      ]
+    },
+    {
+      "id": "E2014_sunflower",
+      "era_label": "2014 · 太陽花學運",
+      "title": "2014 年 3 月：立法院外的人潮",
+      "desc": "服貿協議在委員會以 30 秒宣布通過，一群學生衝進立法院議場。接下來幾個星期，青島東路、濟南路上坐滿了人，網路上每天都在吵。",
+      "source": "2014 年 3 月 18 日至 4 月 10 日，學生與公民團體占領立法院，反對《海峽兩岸服務貿易協議》的審查程序，服貿最終未生效。社會對此評價分歧。",
+      "conditions": {
+        "year_range": [
+          2014,
+          2014
+        ],
+        "age_range": [
+          18,
+          45
+        ]
+      },
+      "chance": 0.35,
+      "trait_chance": {
+        "civic_minded": 3.0,
+        "sociable": 1.3,
+        "sensitive_introvert": 0.8
+      },
+      "options": [
+        {
+          "key": "join_sit_in",
+          "label": "到立法院外靜坐聲援",
+          "auto_weight": 0.2,
+          "trait_weight": {
+            "civic_minded": 3.0,
+            "sociable": 1.5,
+            "cautious": 0.5
+          },
+          "effects": {
+            "social": 5,
+            "happiness": 3,
+            "health": -1,
+            "knowledge": 2,
+            "flags": [
+              "civic_participant"
+            ]
+          },
+          "text": "你在濟南路的柏油路上坐了一整晚，旁邊的陌生人分給你一瓶水。"
+        },
+        {
+          "key": "online_follow",
+          "label": "在網路上關注、轉貼，沒有到現場",
+          "auto_weight": 0.4,
+          "trait_weight": {
+            "sensitive_introvert": 1.6
+          },
+          "effects": {
+            "knowledge": 2
+          },
+          "text": "你每天睡前都在看直播，和家人在餐桌上為此吵了好幾次。"
+        },
+        {
+          "key": "disagree",
+          "label": "覺得服貿對台灣有利，不認同占領議場",
+          "auto_weight": 0.2,
+          "trait_weight": {
+            "cautious": 1.5
+          },
+          "effects": {
+            "knowledge": 1,
+            "social": -1
+          },
+          "text": "你在臉書上寫了一篇反對占領的文章，底下吵了上百則留言。"
+        },
+        {
+          "key": "ignore",
+          "label": "不太關心，照常上班上課",
+          "auto_weight": 0.2,
+          "trait_weight": {
+            "workaholic": 1.5
+          },
+          "effects": {},
+          "text": "新聞台整天在轉播，你轉到了別的頻道。"
+        }
+      ]
+    },
+    {
+      "id": "E2015_low_wage_exodus",
+      "era_label": "2010 年代 · 低薪出走",
+      "title": "低薪出走：要不要去新加坡或上海工作？",
+      "desc": "你月薪約 {salary} 元，已經好幾年沒有調薪。獵頭打電話來，說新加坡和上海的公司開的薪水是台灣的將近兩倍。",
+      "source": "2010 年代台灣實質薪資停滯，赴海外工作的國人一度超過 70 萬人，中國大陸、東南亞與新加坡是主要去處。",
+      "conditions": {
+        "year_range": [
+          2012,
+          2019
+        ],
+        "age_range": [
+          25,
+          40
+        ],
+        "working": true,
+        "edu_min": 4,
+        "careers_in": [
+          "car_office_white_collar",
+          "car_software_remote",
+          "car_finance_broker",
+          "car_hsinchu_semi",
+          "car_export_sales",
+          "car_tourism_hospitality",
+          "car_cram_service_mgr"
+        ]
+      },
+      "chance": 0.15,
+      "trait_chance": {
+        "risk_taker": 1.5,
+        "family_first": 0.5,
+        "workaholic": 1.3
+      },
+      "options": [
+        {
+          "key": "go_abroad_job",
+          "label": "接下 offer，出國工作幾年",
+          "auto_weight": 0.25,
+          "trait_weight": {
+            "risk_taker": 1.8,
+            "workaholic": 1.5,
+            "family_first": 0.4
+          },
+          "effects": {
+            "expat": [
+              5,
+              1.7
+            ],
+            "social": -4,
+            "happiness": 2,
+            "marital_strain": 0.3
+          },
+          "text": "你把台灣的租屋退掉，行李箱裡塞了兩包泡麵和一罐辣椒醬。"
+        },
+        {
+          "key": "stay",
+          "label": "留在台灣，離家人近一點",
+          "auto_weight": 0.75,
+          "trait_weight": {
+            "family_first": 2.0,
+            "cautious": 1.3
+          },
+          "effects": {
+            "happiness": 1
+          },
+          "text": "你婉拒了獵頭，週末照常回家吃飯。"
+        }
+      ]
+    },
+    {
+      "id": "E2023_tsmc_overseas",
+      "era_label": "2020 年代 · 護國神山出海",
+      "title": "護國神山出海：要不要外派到海外新廠？",
+      "desc": "公司在美國亞利桑那、日本熊本和德國德勒斯登蓋新廠，急需有經驗的工程師。外派加給優渥，但要離開家人好幾年。",
+      "source": "台積電 2020 年宣布赴美設廠，熊本廠 2024 年量產、德勒斯登廠 2024 年動工，外派人力與家庭安排成為熱門話題。",
+      "conditions": {
+        "year_range": [
+          2022,
+          2032
+        ],
+        "age_range": [
+          25,
+          50
+        ],
+        "working": true,
+        "careers_in": [
+          "car_hsinchu_semi"
+        ]
+      },
+      "chance": 0.3,
+      "trait_chance": {
+        "workaholic": 1.4,
+        "family_first": 0.6
+      },
+      "options": [
+        {
+          "key": "go_arizona",
+          "label": "外派美國亞利桑那",
+          "auto_weight": 0.15,
+          "trait_weight": {
+            "risk_taker": 1.6,
+            "workaholic": 1.5,
+            "family_first": 0.4
+          },
+          "effects": {
+            "expat": [
+              4,
+              1.6
+            ],
+            "marital_strain": 0.35,
+            "social": -4,
+            "health": -2
+          },
+          "text": "你在沙漠邊的新廠宿舍裡，用視訊陪孩子寫功課。"
+        },
+        {
+          "key": "go_kumamoto",
+          "label": "外派日本熊本，離台灣近、回家方便",
+          "auto_weight": 0.15,
+          "trait_weight": {
+            "family_first": 1.2
+          },
+          "effects": {
+            "expat": [
+              3,
+              1.4
+            ],
+            "marital_strain": 0.2,
+            "social": -2
+          },
+          "text": "熊本的同事很客氣，週末你常搭兩個多小時的飛機回台灣。"
+        },
+        {
+          "key": "stay_hsinchu",
+          "label": "留在竹科",
+          "auto_weight": 0.7,
+          "trait_weight": {
+            "family_first": 2.0,
+            "cautious": 1.3
+          },
+          "effects": {
+            "happiness": 1
+          },
+          "text": "你把名額讓給了想出去的同事。"
+        }
+      ]
+    },
+    {
+      "id": "E2025_ai_wave",
+      "era_label": "2020 年代 · AI 浪潮",
+      "title": "AI 浪潮：你的工作會被取代嗎？",
+      "desc": "公司導入生成式 AI 後，一個人能做以前三個人的事。主管暗示明年要「組織精簡」，同事有人報名 AI 課程，有人開始找退路。",
+      "source": "2023 年生成式 AI 普及後，文書、客服、翻譯、基礎程式與行銷等工作受到明顯衝擊。",
+      "conditions": {
+        "year_range": [
+          2024,
+          2035
+        ],
+        "age_range": [
+          25,
+          55
+        ],
+        "working": true,
+        "careers_in": [
+          "car_office_white_collar",
+          "car_software_remote",
+          "car_finance_broker",
+          "car_creator_ecom",
+          "car_cram_service_mgr",
+          "car_export_sales",
+          "car_cpa"
+        ]
+      },
+      "chance": 0.2,
+      "options": [
+        {
+          "key": "reskill_ai",
+          "label": "自費上課，學會用 AI 工作",
+          "auto_weight": 0.4,
+          "trait_weight": {
+            "workaholic": 1.6,
+            "cautious": 1.1
+          },
+          "effects": {
+            "money": -60000,
+            "knowledge": 4
+          },
+          "roll": {
+            "p": 0.5,
+            "stat_p": {
+              "knowledge": 0.008
+            },
+            "trait_p": {
+              "workaholic": 0.08
+            },
+            "success": {
+              "effects": {
+                "career_mult": 1.12,
+                "happiness": 4
+              },
+              "text": "你成了部門裡最會用 AI 的人，升了一級。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -2
+              },
+              "text": "課上完了，部門還是縮編，你只是保住了位子。"
+            }
+          }
+        },
+        {
+          "key": "wait_and_see",
+          "label": "先觀望，做好手上的事",
+          "auto_weight": 0.4,
+          "trait_weight": {
+            "cautious": 1.3,
+            "sensitive_introvert": 1.2
+          },
+          "roll": {
+            "p": 0.65,
+            "stat_p": {
+              "knowledge": 0.004,
+              "social": 0.003
+            },
+            "success": {
+              "effects": {},
+              "text": "這一波組織調整沒有輪到你。"
+            },
+            "fail": {
+              "effects": {
+                "temp_unemployed_years": 1,
+                "career_mult": 0.9,
+                "happiness": -8
+              },
+              "text": "組織精簡的名單上有你的名字。"
+            }
+          }
+        },
+        {
+          "key": "switch_trade",
+          "label": "轉行做 AI 取代不了的技術工作",
+          "auto_weight": 0.2,
+          "trait_weight": {
+            "risk_taker": 1.5
+          },
+          "effects": {
+            "assign_career": "car_craft_apprentice",
+            "happiness": 2,
+            "health": 1
+          },
+          "text": "你報名了水電職訓班。師傅說：「AI 再厲害，也不會幫你換水管。」"
         }
       ]
     }

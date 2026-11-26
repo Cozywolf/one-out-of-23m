@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.2 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.3 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -30,6 +30,31 @@
   }
 
   const DECISION_COOLDOWN = 2;
+  const ORIGIN_LABELS = {
+    minnan: "閩南家庭",
+    hakka: "客家家庭",
+    waisheng: "外省家庭",
+    indigenous: "原住民家庭",
+    new_immigrant: "新住民家庭（母親來自東南亞或中國大陸）"
+  };
+  // 性格對既有抉擇的偏好：在時代加權之上再乘一層（「switch_*」= 所有轉職選項）
+  const TRAIT_BIAS = {
+    D05_graduation_crossroads: { risk_taker: { study_abroad: 1.5 }, workaholic: { domestic_master: 1.2 } },
+    D06_northbound_migration: { risk_taker: { move_north: 1.4 }, workaholic: { move_north: 1.3 }, sociable: { move_north: 1.15 }, family_first: { stay_home: 1.6 } },
+    D07B_career_switch: { risk_taker: { "switch_*": 1.6 }, cautious: { stay_current_grow: 1.5 }, workaholic: { "switch_*": 1.2 } },
+    D08_overseas_assignment: { risk_taker: { accept_expat: 1.8 }, workaholic: { accept_expat: 1.5 }, family_first: { decline_stay: 1.8 } },
+    D09_return_hometown_dilemma: { family_first: { return_home: 2.0 }, workaholic: { stay_north: 1.4 } },
+    D10_unpaid_leave: { cautious: { gig_side_job: 1.3, borrow_credit: 0.5 }, risk_taker: { resign_retrain: 1.6 } },
+    D13_buying_home: { cautious: { buy_suburb: 1.3, buy_core_40yr: 0.7 }, risk_taker: { buy_core_40yr: 1.4 }, family_first: { buy_suburb: 1.2 } },
+    D15_stock_crash_panic: { cautious: { panic_sell: 1.6, buy_the_dip: 0.5 }, risk_taker: { buy_the_dip: 2.2, panic_sell: 0.7 }, sensitive_introvert: { panic_sell: 1.4 } },
+    D17B_romance_encounter: { sociable: { start_romance: 1.25 }, sensitive_introvert: { start_romance: 0.85 } },
+    D20_marriage_crisis: { family_first: { endure_for_kids: 1.6, divorce: 0.6 }, risk_taker: { divorce: 1.3 } },
+    D21_child_education_race: { workaholic: { private_cram: 1.4 }, cautious: { private_cram: 1.2 } },
+    D23_pandemic_dilemma: { cautious: { strict_stay_home: 1.7 }, sensitive_introvert: { strict_stay_home: 1.4 }, sociable: { keep_working: 1.4 } },
+    D24_elderly_care_storm: { family_first: { quit_fulltime_care: 2.2, share_with_siblings: 1.2 }, workaholic: { hire_caregiver: 1.5 } },
+    D25_retirement_timing: { workaholic: { second_career: 1.8, early_fire: 0.6 }, cautious: { second_career: 1.2 }, family_first: { standard_retire: 1.2 } },
+    D29_child_study_abroad: { family_first: { fund_abroad_full: 1.5, mortgage_home_for_child: 1.5 }, cautious: { cannot_afford_abroad: 1.3 } }
+  };
   const FIRE_ASSET_THRESHOLD_2025 = 15000000;
   const WAGE_K = 0.73;
 
@@ -989,6 +1014,7 @@
     // Dynamic Era- & Context-Aware Statistics / Social Trends shown on EVERY decision modal (anti-spoiler)
     getDecisionSocialTrend(life, dec, era) {
       if (!dec || !life) return "";
+      if (dec.isEraCard) return "";
       const y = life.currentYear;
       const reg = this.getRegion(life.regionId);
       const uniPct = Math.round((era.uni_admission_rate || 0.5) * 100);
@@ -1746,6 +1772,13 @@
 
     // Unified option eligibility checker shared by UI, Auto Mode, and Lab
     isOptionEligible(life, opt, era) {
+      if (opt.requires && typeof opt.requires === "object") {
+        const rq = opt.requires;
+        if (rq.quintile_min && life.quintile < rq.quintile_min) return { eligible: false, reason: "家庭經濟條件不足以支應" };
+        if (rq.homeowner && !life.homeowner) return { eligible: false, reason: "名下沒有房子" };
+        if (rq.working && !this.isWorkingNow(life)) return { eligible: false, reason: "目前沒有工作" };
+        if (rq.unmarried_or_no_kids && life.married && life.children > 0) return { eligible: false, reason: "已有家庭與子女，難以說走就走" };
+      }
       if (opt.requires_siblings && life.family.siblings <= 0) {
         return { eligible: false, reason: "你是獨生子女，無法與手足分擔" };
       }
@@ -1913,6 +1946,10 @@
     chooseAutoOption(life, decision, eligibleOpts, era) {
       if (!eligibleOpts || !eligibleOpts.length) return decision.options[0];
       if (eligibleOpts.length === 1) return eligibleOpts[0];
+      if (decision.isEraCard) {
+        return weightedPick(eligibleOpts, (o) => (o.auto_weight != null ? o.auto_weight : 0.3) *
+          (life.personalities || []).reduce((m, p) => m * ((o.trait_weight && o.trait_weight[p.id]) || 1), 1));
+      }
 
       const id = decision.id;
       const isTrait = (tid) => (life.personalities || []).some((p) => p.id === tid);
@@ -2032,7 +2069,14 @@
 
       if (wMap[id]) {
         const weights = wMap[id]();
-        return weightedPick(eligibleOpts, (o) => (weights[o.key] != null ? weights[o.key] : 0.2));
+        const bias = TRAIT_BIAS[id] || {};
+        const traitMult = (key) => (life.personalities || []).reduce((m, p) => {
+          const b = bias[p.id];
+          if (!b) return m;
+          const v = b[key] != null ? b[key] : (key.startsWith("switch_") ? b["switch_*"] : null);
+          return v != null ? m * v : m;
+        }, 1);
+        return weightedPick(eligibleOpts, (o) => (weights[o.key] != null ? weights[o.key] : 0.2) * traitMult(o.key));
       }
       if (decision.isStudyAbroadCard && !decision.isMinorAbroadCard) {
         return weightedPick(eligibleOpts, (o) => (o.key === "stay_taiwan" ? 0.72 : 0.09));
@@ -2230,6 +2274,8 @@
       const fatherName = this.generateName("M", Math.max(1950, birthYear - 28));
       const motherName = this.generateName("F", Math.max(1950, birthYear - 26));
       const siblings = Math.max(0, Math.round(era.tfr - 1 + (Math.random() - 0.45) * 1.4));
+      const origin = this.drawOrigin(region.id, birthYear);
+      const birthOrder = 1 + Math.floor(Math.random() * (siblings + 1));
 
       const life = {
         id: "tw_" + Date.now() + "_" + Math.floor(Math.random() * 10000),
@@ -2249,7 +2295,7 @@
         quintile: quintileObj.quintile,
         quintileLabel: quintileObj.label,
         family: {
-          fatherName, motherName, siblings, parentsAlive: true, parentPassedYear: null,
+          fatherName, motherName, siblings, origin, birthOrder, parentsAlive: true, parentPassedYear: null,
           fatherAlive: true, motherAlive: true,
           fatherBirthYear: birthYear - 24 - Math.floor(Math.random() * 12),
           motherBirthYear: birthYear - 21 - Math.floor(Math.random() * 12)
@@ -2323,6 +2369,7 @@
         if (b.knowledge) life.stats.knowledge = clamp(life.stats.knowledge + b.knowledge, 10, 100);
         if (b.social) life.stats.social = clamp(life.stats.social + b.social, 10, 100);
       }
+      if (personalities.some((p) => p.id === "cautious")) life.flags.savings_rate_bonus = 0.1;
       const otherRegions = this.data.regions.regions.filter((r) => r.id !== region.id);
       for (let i = 0; i < 4; i++) {
         const cr = otherRegions[i % otherRegions.length];
@@ -2337,7 +2384,7 @@
 
       life.feed.unshift({
         type: "normal", age: 0, year: birthYear, roc: toROC(birthYear),
-        text: `你出生於 ${birthYear} 年（${toROC(birthYear)}）的${region.name_zh}（${region.counties.join("／")}），家境屬於「${quintileObj.label}」，家中有 ${siblings} 位手足；你的先天個性傾向「${personalities.map((x) => x.name).join("、")}」。${cultEra ? "當時氛圍：" + cultEra.family_gender_norm : ""}`,
+        text: `你出生於 ${birthYear} 年（${toROC(birthYear)}）的${region.name_zh}（${region.counties.join("／")}），家境屬於「${quintileObj.label}」，${ORIGIN_LABELS[origin]}，家中有 ${siblings} 位手足${siblings > 0 ? `（你排行第 ${birthOrder}）` : ""}；你的先天個性傾向「${personalities.map((x) => x.name).join("、")}」。${cultEra ? "當時氛圍：" + cultEra.family_gender_norm : ""}`,
         highlight: true
       });
       this.recordTrajectoryPoint(life, era);
@@ -2749,6 +2796,7 @@
         }
         life.flags.delayedHappiness = nextDH;
       }
+      this.processEraPending(life, era);
       if (life.currentYear === 2015 && life.flags.yucheng_affected) {
         life.flags.yucheng_affected = false;
         life.stats.happiness += 5;
@@ -2828,6 +2876,7 @@
       if (life.flags.work_hours_high && !life.flags.retired) life.stats.health -= 0.8;
       if (life.flags.career_health_drain && !life.flags.retired && life.age >= 22) life.stats.health -= life.flags.career_health_drain * 0.15;
       if (life.age > 45) life.stats.health -= (life.age > 70 ? 1.75 : 0.65);
+      this.applyTraitAndStatDrift(life, era);
 
       if (!life.flags.betel_nut_habit && life.location === "TAIWAN" && life.sex === "M" && life.age >= 22 && life.age <= 38 && life.eduLevel <= 3 && life.currentYear <= 2005 && Math.random() < 0.015) {
         life.flags.betel_nut_habit = true;
@@ -3466,6 +3515,16 @@
       if (!pendingDecision) {
         pendingDecision = this.findEligibleDecision(life, era, eduMode, Boolean(pq), false);
       }
+      if (!pendingDecision && life.location === "TAIWAN") {
+        const eraDec = this.findEraChoice(life, era, Boolean(pq));
+        if (eraDec && eraDec.parentDecides) {
+          const elig = eraDec.options.filter((o) => this.isOptionEligible(life, o, era).eligible);
+          this.applyEraChoice(life, eraDec, this.chooseAutoOption(life, eraDec, elig, era).key, era);
+          yearMark = "decision";
+        } else if (eraDec) {
+          pendingDecision = eraDec;
+        }
+      }
 
       if (pendingDecision) {
         yearMark = "decision";
@@ -3778,6 +3837,7 @@
         if (d.id === "D17B_romance_encounter") {
           const x = life.age - (this.getTypicalMarriageAge(life) - 6);
           randPassProb = life.age > 48 ? 0.12 : clamp(0.22 + x * 0.08, 0.08, 0.7);
+          randPassProb *= clamp(0.85 + life.stats.social / 333, 0.85, 1.15);
         }
         if (d.id === "D18_marriage_choice") {
           const x = life.age - this.getTypicalMarriageAge(life);
@@ -4024,6 +4084,374 @@
         candidates.find((x) => x.id === "D25_retirement_timing" || x.id === "D13_buying_home") || pick(candidates);
     }
 
+    // ===== 時代抉擇卡（data.decisions.era_choices）=====
+    // 依年份區間＋身分、地點、職業、性格觸發；選項的成敗由屬性與性格決定，後果可延後到指定年份才發生。
+    hasTrait(life, id) {
+      return (life.personalities || []).some((p) => p.id === id);
+    }
+
+    drawOrigin(regionId, birthYear) {
+      const newImm = this.interpByYear([[1950, 0.002], [1990, 0.01], [1995, 0.03], [2000, 0.1], [2004, 0.13], [2010, 0.09], [2020, 0.06], [2040, 0.05]], birthYear);
+      const indig = ({ east_islands: 0.18, south_kaohsiung: 0.04, north_hsinchu: 0.02, central: 0.015, north_taipei: 0.012, south_tainan: 0.004 })[regionId] || 0.01;
+      const hakka = ({ north_hsinchu: 0.42, south_kaohsiung: 0.12, east_islands: 0.13, central: 0.09, north_taipei: 0.08, south_tainan: 0.03 })[regionId] || 0.1;
+      const wsMult = ({ north_taipei: 1.9, north_hsinchu: 1.2, central: 0.8, south_tainan: 0.45, south_kaohsiung: 1.0, east_islands: 0.9 })[regionId] || 1;
+      const waisheng = this.interpByYear([[1950, 0.13], [1970, 0.11], [1990, 0.085], [2010, 0.065], [2040, 0.05]], birthYear) * wsMult;
+      let r = Math.random();
+      if ((r -= newImm) < 0) return "new_immigrant";
+      if ((r -= indig) < 0) return "indigenous";
+      if ((r -= hakka) < 0) return "hakka";
+      if ((r -= waisheng) < 0) return "waisheng";
+      return "minnan";
+    }
+
+    isWorkingNow(life) {
+      const inSch = life.education.includes("在學") || life.flags.in_grad_school_years > 0 || life.flags.retaking_exam;
+      return life.age >= 16 && !inSch && Boolean(life.careerId) && !(life.flags.military_gap_years > 0) && !life.flags.retired &&
+        !life.flags.unemployed && !life.flags.fulltime_caregiver && !(life.flags.exam_prep_years > 0);
+    }
+
+    isEraCardEligible(life, card, era) {
+      const c = card.conditions || {};
+      const y = life.currentYear;
+      if (life.location !== "TAIWAN") return false;
+      if (c.year_range && (y < c.year_range[0] || y > c.year_range[1])) return false;
+      if (c.age_range && (life.age < c.age_range[0] || life.age > c.age_range[1])) return false;
+      if (c.sex && life.sex !== c.sex) return false;
+      if (c.origin_in && !c.origin_in.includes(life.family.origin)) return false;
+      if (c.quintile_range && (life.quintile < c.quintile_range[0] || life.quintile > c.quintile_range[1])) return false;
+      if (c.regions_in && !c.regions_in.includes(life.regionId)) return false;
+      if (c.regions_not_in && c.regions_not_in.includes(life.regionId)) return false;
+      if (c.careers_in && !c.careers_in.includes(life.careerId)) return false;
+      if (c.careers_not_in && c.careers_not_in.includes(life.careerId)) return false;
+      if (c.edu_min != null && life.eduLevel < c.edu_min) return false;
+      if (c.edu_max != null && life.eduLevel > c.edu_max) return false;
+      if (c.sub_major_in && !c.sub_major_in.includes(life.subMajor)) return false;
+      if (c.working && !this.isWorkingNow(life)) return false;
+      if (c.max_work_years != null && (life.workYears || 0) > c.max_work_years) return false;
+      if (c.in_secondary_school) {
+        const inJunior = life.eduLevel === 2 && life.education.includes("在學");
+        const inSenior = life.eduLevel === 3 && life.flags.hs_tier !== "work_early";
+        if (!(life.age < 18 && life.flags.max_edu_cap !== "junior_high" && (inJunior || inSenior))) return false;
+      }
+      if (c.unmarried && life.married) return false;
+      if (c.single && (life.married || life.partner)) return false;
+      if (c.never_married && life.flags.ever_married) return false;
+      if (c.no_children && life.children > 0) return false;
+      if (c.never_abroad && life.everStudiedAbroad) return false;
+      if (c.siblings_min != null && (life.family.siblings || 0) < c.siblings_min) return false;
+      if (c.birth_order_max != null && (life.family.birthOrder || 1) > c.birth_order_max) return false;
+      if (c.father_alive && !life.family.fatherAlive) return false;
+      const liqReal = (life.moneyNominal + life.stockNominal) / Math.max(0.07, era.cpi);
+      if (c.min_liquid_twd_2025 != null && liqReal < c.min_liquid_twd_2025) return false;
+      if (c.max_liquid_twd_2025 != null && liqReal > c.max_liquid_twd_2025) return false;
+      if (c.flags_all && !c.flags_all.every((f) => life.flags[f])) return false;
+      if (c.flags_none && c.flags_none.some((f) => life.flags[f])) return false;
+      return true;
+    }
+
+    findEraChoice(life, era, isPauseYear) {
+      const cards = (this.data.decisions && this.data.decisions.era_choices) || [];
+      if (!cards.length || life.location !== "TAIWAN" || isPauseYear) return null;
+      const lastEra = life.flags.lastEraCardAge != null ? life.flags.lastEraCardAge : -10;
+      if (life.age - lastEra < 3 || life.age - life.lastDecisionAge < 1) return null;
+      const pool = cards.filter((card) => !life.triggeredDecisions[card.id] && this.isEraCardEligible(life, card, era));
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      for (const card of pool) {
+        let p = card.chance != null ? card.chance : 0.3;
+        for (const tr of life.personalities || []) p *= (card.trait_chance && card.trait_chance[tr.id]) || 1;
+        if (card.sex_chance && card.sex_chance[life.sex]) p *= card.sex_chance[life.sex];
+        if (Math.random() >= clamp(p, 0, 0.95)) continue;
+        if (!card.options.some((o) => this.isOptionEligible(life, o, era).eligible)) continue;
+        return this.buildEraDecision(life, card, era);
+      }
+      return null;
+    }
+
+    buildEraDecision(life, card, era) {
+      const variant = (card.desc_variants || []).find((v) => !v.careers_in || v.careers_in.includes(life.careerId));
+      const monthly = Math.round((life.annualSalaryNominal || 0) / 12);
+      const fill = (txt) => String(txt || "")
+        .replace(/\{year\}/g, life.currentYear)
+        .replace(/\{age\}/g, life.age)
+        .replace(/\{siblings\}/g, life.family.siblings || 0)
+        .replace(/\{salary\}/g, `NT$${monthly.toLocaleString()}`);
+      return {
+        id: card.id,
+        isEraCard: true,
+        eraCard: card,
+        eraLabel: card.era_label,
+        parentDecides: Boolean(card.parent_decides),
+        options: card.options,
+        resolvedTitle: fill(card.title),
+        resolvedDesc: fill(variant ? variant.desc : card.desc),
+        resolvedSource: fill(card.source)
+      };
+    }
+
+    // 成功機率：基礎機率＋性格加減＋屬性（以 50 為中線）＋職業加減
+    eraRollProb(life, roll) {
+      let p = roll.p != null ? roll.p : 0.5;
+      for (const tr of life.personalities || []) p += (roll.trait_p && roll.trait_p[tr.id]) || 0;
+      for (const [k, coef] of Object.entries(roll.stat_p || {})) p += ((life.stats[k] || 50) - 50) * coef;
+      if (roll.career_p && roll.career_p[life.careerId]) p += roll.career_p[life.careerId];
+      return clamp(p, 0.03, 0.97);
+    }
+
+    applyEraEffects(life, ef, era) {
+      const notes = [];
+      if (!ef) return notes;
+      const scale = this.wageScale(era) * era.cpi;
+      for (const k of ["health", "happiness", "knowledge", "social"]) if (ef[k]) life.stats[k] += ef[k];
+      if (ef.money) {
+        let n = Math.round(ef.money * scale);
+        // 還沒開始工作的人輸不掉家裡的錢：損失以自己手上的現金為上限
+        if (n < 0 && ((life.workYears || 0) === 0 || life.age < 18)) n = -Math.min(-n, Math.max(0, life.moneyNominal));
+        life.moneyNominal += n;
+      }
+      if (ef.money_liquid_ratio && ef.money_liquid_ratio < 0) {
+        this.spendLiquid(life, Math.round(Math.max(0, this.getLiquidNominal(life)) * -ef.money_liquid_ratio));
+      }
+      if (ef.to_stock_ratio && life.currentYear >= 1962) {
+        const move = Math.round(Math.max(0, life.moneyNominal) * ef.to_stock_ratio);
+        life.moneyNominal -= move;
+        life.stockNominal += move;
+        if (life.investStyle === "deposit") life.investStyle = "index_etf";
+      }
+      if (ef.mortgage_draw_ratio && life.homeowner) {
+        const draw = Math.round((life.homeValueNominal || 0) * ef.mortgage_draw_ratio);
+        life.mortgageBalanceNominal = (life.mortgageBalanceNominal || 0) + draw;
+        life.mortgageAnnualPayment = (life.mortgageAnnualPayment || 0) + Math.round(draw * 0.094);
+        life.moneyNominal += draw;
+        notes.push(`（向銀行增貸約 NT$${Math.round(draw / 10000).toLocaleString()} 萬）`);
+      }
+      if (ef.wage_mult) life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * ef.wage_mult, 0.55, 1.28);
+      if (ef.career_mult) life.careerSalaryMult = +((life.careerSalaryMult || 1.0) * ef.career_mult).toFixed(2);
+      if (ef.savings_rate_bonus) life.flags.savings_rate_bonus = (life.flags.savings_rate_bonus || 0) + ef.savings_rate_bonus;
+      for (const f of ef.flags || []) life.flags[f] = true;
+      for (const f of ef.unset_flags || []) delete life.flags[f];
+      if (ef.quintile_delta) this.setQuintile(life, life.quintile + ef.quintile_delta);
+      if (ef.hardship) this.addHardship(life, ef.hardship[0], ef.hardship[1]);
+      if (ef.hardship_relief) life.flags.child_hardship = Math.max(0, (life.flags.child_hardship || 0) - ef.hardship_relief);
+      if (ef.heavy_debt) life.flags.heavy_debt = true;
+      if (ef.work_hours_high) life.flags.work_hours_high = true;
+      if (ef.expat) {
+        life.flags.expat_years_left = ef.expat[0];
+        life.flags.expat_wage_mult = ef.expat[1];
+        life.flags.expat_completed = false;
+      }
+      if (ef.marital_strain && life.married && Math.random() < ef.marital_strain) {
+        life.stats.happiness -= 6;
+        life.stats.social -= 3;
+        life.flags.next_crisis_age = life.age;
+        notes.push("（長期兩地分隔，夫妻關係變得緊繃）");
+      }
+      if (ef.assign_career) {
+        const car = (this.data.educationCareers.careers || []).find((x) => x.id === ef.assign_career);
+        if (car) {
+          this.assignCareer(life, car);
+          life.flags.career_chosen = true;
+          life.flags.unemployed = false;
+          life.triggeredDecisions["D07_career_track"] = true;
+        }
+      }
+      const jobless = ef.temp_unemployed_years || ef.quit_job_years;
+      if (jobless && life.careerId) {
+        life.flags.unemployed = true;
+        life.flags.temp_unemployed_years = Math.max(life.flags.temp_unemployed_years || 0, jobless);
+        if (ef.quit_job_years) life.job = "全職投資（待業）";
+      }
+      if (ef.exam_prep_years) {
+        life.flags.exam_prep_years = ef.exam_prep_years;
+        life.job = "全職準備國考";
+      }
+      if (ef.quit_school_to_work) {
+        if (life.eduLevel <= 2) {
+          life.education = life.currentYear >= 1968 ? "國中肄業（提早就業）" : "初中肄業（提早就業）";
+          life.eduLevel = 1;
+        } else {
+          life.education = "高中職肄業（提早就業）";
+          life.eduLevel = 2;
+        }
+        life.flags.max_edu_cap = "junior_high";
+        life.flags.hs_tier = "work_early";
+        life.job = life.sex === "F" ? "加工出口區作業員" : "工廠學徒";
+      }
+      if (ef.usd_hedge_ratio) life.flags.usd_hedge_amount = Math.round(Math.max(0, life.moneyNominal) * ef.usd_hedge_ratio);
+      if (ef.usd_hedge_loss && life.flags.usd_hedge_amount) {
+        const loss = Math.round(life.flags.usd_hedge_amount * ef.usd_hedge_loss);
+        this.spendLiquid(life, Math.min(loss, Math.max(0, this.getLiquidNominal(life))));
+        notes.push(`（匯兌損失約 NT$${loss.toLocaleString()}）`);
+        delete life.flags.usd_hedge_amount;
+      }
+      if (ef.emigrate && life.location === "TAIWAN") {
+        const prevEdu = life.education;
+        this.departOverseas(life, ef.emigrate, { id: "ERA_emigrant", name: "依親移民", cost_twd_2025: 600000, study_years: 0 }, era);
+        if (life.abroad) {
+          life.abroad.prStatus = "依親移民（綠卡）";
+          life.abroad.studyYearsLeft = 0;
+          life.education = prevEdu;
+          life.job = `${life.abroad.countryName}華人社區工作`;
+          life.careerId = null;
+          life.flags.rank_title = null;
+          life.careerSalaryMult = 1.0;
+        }
+      }
+      if (ef.working_holiday && life.location === "TAIWAN") {
+        const pw = ((this.data.studyAbroad && this.data.studyAbroad.pathways) || []).find((x) => x.id === "SA05_working_holiday");
+        if (pw) {
+          life.triggeredDecisions["SA:SA05_working_holiday"] = true;
+          this.departOverseas(life, ef.working_holiday, pw, era);
+        }
+      }
+      if (ef.marry_foreign && !life.married) {
+        const nat = weightedPick([{ k: "越南", w: 0.5 }, { k: "中國大陸", w: 0.3 }, { k: "印尼", w: 0.15 }, { k: "柬埔寨", w: 0.05 }], (x) => x.w).k;
+        const by = life.birthYear + 8 + Math.floor(Math.random() * 10);
+        const name = nat === "中國大陸" ? this.generateName("F", Math.max(1950, by))
+          : nat === "印尼" ? pick(["西蒂", "莉娜", "黛薇", "阿妮", "娜塔莉"])
+          : nat === "柬埔寨" ? pick(["索菲", "斯雷", "達薇"])
+          : "阮氏" + pick(["秋", "蘭", "香", "梅", "玉", "鳳", "雪", "清"]);
+        life.partnerInfo = { name, sex: "F", birthYear: by, alive: true, retired: false, working: true, wageRatio: 0.45, incomeNominal: 0, nationality: nat };
+        this.marry(life, era);
+        life.flags.foreign_spouse = nat;
+        life.triggeredDecisions["D17B_romance_encounter"] = true;
+        life.triggeredDecisions["D18_marriage_choice"] = true;
+        notes.push(`（你和來自${nat}的${name}結婚）`);
+      }
+      return notes;
+    }
+
+    applyEraChoice(life, decision, optionKey, era) {
+      const card = decision.eraCard;
+      const opt = card.options.find((o) => o.key === optionKey) || card.options[0];
+      life.triggeredDecisions[card.id] = true;
+      life.flags.lastEraCardAge = life.age;
+      if (!decision.parentDecides) life.lastDecisionAge = life.age;
+      const reg = this.getRegion(life.regionId);
+      const salaryBefore = this.computeCurrentAnnualSalaryNominal(life, era, reg);
+
+      let text = opt.text || "";
+      const notes = this.applyEraEffects(life, opt.effects, era);
+      if (opt.roll) {
+        const branch = Math.random() < this.eraRollProb(life, opt.roll) ? opt.roll.success : opt.roll.fail;
+        if (branch) {
+          notes.push(...this.applyEraEffects(life, branch.effects, era));
+          if (branch.text) text += branch.text;
+        }
+      }
+      life.flags.eraPending = life.flags.eraPending || [];
+      for (const oc of opt.outcomes || []) {
+        let at = oc.at_year
+          ? oc.at_year[0] + Math.floor(Math.random() * (oc.at_year[1] - oc.at_year[0] + 1))
+          : life.currentYear + oc.delay[0] + Math.floor(Math.random() * (oc.delay[1] - oc.delay[0] + 1));
+        at = Math.max(at, life.currentYear + 1);
+        life.flags.eraPending.push({ at, cardId: card.id, eraLabel: card.era_label, oc });
+      }
+
+      const maxHp = life.flags.disabled ? 48 : 100;
+      life.stats.health = clamp(Math.round(life.stats.health), 0, maxHp);
+      for (const k of ["happiness", "knowledge", "social"]) life.stats[k] = clamp(Math.round(life.stats[k]), 0, 100);
+
+      let salaryDeltaBadge = "";
+      const salaryAfter = this.computeCurrentAnnualSalaryNominal(life, era, this.getRegion(life.regionId));
+      if (salaryAfter !== salaryBefore) {
+        life.annualSalaryNominal = salaryAfter;
+        const bMo = Math.round(salaryBefore / 12), aMo = Math.round(salaryAfter / 12);
+        if (Math.abs(aMo - bMo) >= Math.max(500, Math.round(1000 * era.cpi))) {
+          const pctStr = bMo > 0 ? `${aMo >= bMo ? "+" : ""}${Math.round(((aMo - bMo) / bMo) * 100)}%` : "開始領薪";
+          salaryDeltaBadge = `💼 薪資變化：月薪 NT$${bMo.toLocaleString()} → NT$${aMo.toLocaleString()}（${pctStr}）`;
+          life.salaryHistory = life.salaryHistory || [];
+          life.salaryHistory.unshift({ age: life.age, year: life.currentYear, title: decision.resolvedTitle, choice: opt.label, beforeMonthly: bMo, afterMonthly: aMo, deltaMonthly: aMo - bMo, pctStr, isFutureMult: false });
+        }
+      }
+
+      life.eraHistory = life.eraHistory || [];
+      life.eraHistory.push({ age: life.age, year: life.currentYear, eraLabel: card.era_label, title: decision.resolvedTitle, choice: opt.label, byParents: Boolean(decision.parentDecides) });
+      life.decisionHistory.push({ age: life.age, year: life.currentYear, roc: era.roc, title: decision.resolvedTitle, choice: decision.parentDecides ? `父母決定：${opt.label}` : opt.label });
+      if (decision.parentDecides) {
+        life.feed.unshift({
+          type: "parent_decision", age: life.age, year: life.currentYear, roc: era.roc,
+          title: `👨‍👩‍👧 父母的決定：${decision.resolvedTitle}`,
+          text: `當時你 ${life.age} 歲。${decision.resolvedDesc}父母決定「${opt.label}」。${text}${notes.join("")}`,
+          impactNote: `由父母決定 ｜ 🕰 ${card.era_label}`
+        });
+      } else {
+        life.feed.unshift({
+          type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
+          text: `【🕰 ${card.era_label}｜${decision.resolvedTitle}】你選擇了「${opt.label}」。${text}${notes.join("")}`,
+          salaryDeltaBadge,
+          highlight: true,
+          showHelpline: Boolean(life.flags.heavy_debt && opt.roll)
+        });
+      }
+    }
+
+    // 時代抉擇的延遲後果：到了指定年份才揭曉
+    processEraPending(life, era) {
+      const list = life.flags.eraPending;
+      if (!list || !list.length) return;
+      const keep = [];
+      for (const item of list) {
+        if (item.at > life.currentYear) { keep.push(item); continue; }
+        const oc = item.oc;
+        if (oc.if_career && life.careerId !== oc.if_career) continue;
+        let branch = null;
+        if (oc.roll) branch = Math.random() < this.eraRollProb(life, oc.roll) ? oc.roll.success : oc.roll.fail;
+        else if (oc.p == null || Math.random() < oc.p) branch = oc.success;
+        else branch = oc.fail || null;
+        if (!branch) continue;
+        const notes = this.applyEraEffects(life, branch.effects, era);
+        life.feed.unshift({
+          type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
+          text: `【🕰 時代的回聲｜${item.eraLabel}】${branch.text || ""}${notes.join("")}`,
+          highlight: true
+        });
+      }
+      life.flags.eraPending = keep;
+    }
+
+    // 性格與屬性每年對人生的牽引（溫和、可累積）
+    applyTraitAndStatDrift(life, era) {
+      if (life.age < 6) return;
+      const working = this.isWorkingNow(life);
+      const s = life.stats;
+      const has = (id) => this.hasTrait(life, id);
+      if (has("workaholic") && working) { s.health -= 0.5; s.knowledge += 0.4; }
+      if (has("sociable")) { s.social += 0.5; s.happiness += 0.3; if (life.age >= 18) s.health -= 0.15; }
+      if (has("sensitive_introvert")) { s.knowledge += 0.3; s.social -= 0.3; if (s.happiness < 40) s.happiness -= 0.6; }
+      if (has("family_first")) { if (life.married || life.family.parentsAlive) s.social += 0.3; if (life.married && life.children > 0) s.happiness += 0.4; }
+      if (has("civic_minded")) { s.knowledge += 0.3; s.social += 0.2; }
+      if (has("cautious") && life.age >= 18) s.health += 0.2;
+      if (has("risk_taker") && life.age >= 18) s.happiness += 0.2;
+
+      if (!working) return;
+      // 拼勁與知識帶來升遷；健康太差則常請病假、收入打折
+      const promos = life.flags.trait_promos || 0;
+      if (promos < 4 && (life.workYears || 0) >= 3 && (life.workYears || 0) <= 30) {
+        const pPromo = (has("workaholic") ? 0.06 : 0) + (s.knowledge >= 75 ? 0.04 : 0) + (s.social >= 80 ? 0.02 : 0);
+        if (pPromo > 0 && Math.random() < pPromo) {
+          life.flags.trait_promos = promos + 1;
+          life.careerSalaryMult = +((life.careerSalaryMult || 1) * 1.04).toFixed(2);
+          life.feed.unshift({
+            type: "normal", age: life.age, year: life.currentYear, roc: era.roc,
+            text: has("workaholic") && s.knowledge >= 75 ? "你又拼又懂行，主管把升遷名額給了你，薪水調了一級。"
+              : has("workaholic") ? "你總是最後一個下班，主管看在眼裡，年底幫你調了薪。"
+              : s.knowledge >= 75 ? "你的專業累積被看見了，升上資深職位，薪水調了一級。"
+              : "人脈幫了你一把：老同事推薦你接下更好的職位。"
+          });
+        }
+      }
+      if (s.health < 35 && life.age < 65) {
+        life.flags.temp_income_mult = (life.flags.temp_income_mult || 1) * 0.85;
+        if (life.age - (life.flags.lastSickLeaveNoteAge || -10) >= 5) {
+          life.flags.lastSickLeaveNoteAge = life.age;
+          life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: "身體狀況不好，你常常請病假，今年的收入因此少了一截。" });
+        }
+      }
+    }
+
     // Choosing "go straight to work" should lead directly to picking the job, in the same year
     findFollowUpDecision(life, prevDecision, era) {
       if (!life.alive || !prevDecision) return null;
@@ -4053,6 +4481,7 @@
     }
 
     applyDecision(life, decision, optionKey, era) {
+      if (decision.isEraCard) return this.applyEraChoice(life, decision, optionKey, era);
       if (decision.once_per_era_variant && decision.activeVariant) {
         life.triggeredDecisions[`${decision.id}:${decision.activeVariant.variant_id}`] = true;
       } else if (decision.id !== "D27_return_to_taiwan") {
