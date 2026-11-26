@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.12 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.13 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -31,6 +31,44 @@
 
   const DECISION_COOLDOWN = 2;
   const ERA_TIER_ICONS = { era: "🕰", trend: "🧭", future: "🔮" };
+  // 年度重心：依人生階段提供不同選項。數值為每年基礎效果（實際會依目前數值邊際遞減、連續太久會倦怠）
+  const FOCUS_STAGES = {
+    student: {
+      label: "求學時期",
+      options: {
+        study: { name: "升學衝刺", desc: "補習、刷題，考試加分", fx: { knowledge: 2, happiness: -1.5, health: -0.5 } },
+        club: { name: "社團與朋友", desc: "人際與快樂，課業普通", fx: { social: 2.5, happiness: 1.5, knowledge: 0.5 } },
+        parttime: { name: "打工存錢", desc: "提早存錢、社會化，課業稍退", fx: { social: 1, knowledge: -1, health: -0.5 }, minAge: 15 },
+        balanced: { name: "均衡生活", desc: "各方面都顧一點", fx: { knowledge: 1, social: 0.8, happiness: 0.5 } }
+      }
+    },
+    work: {
+      label: "工作時期",
+      options: {
+        work: { name: "衝刺事業", desc: "升遷機會變多，但傷身、少陪家人；連續太久容易過勞", fx: { health: -0.8, social: -0.5 } },
+        balanced: { name: "工作生活平衡", desc: "穩穩過日子", fx: { happiness: 0.8, health: 0.3 } },
+        save: { name: "省吃儉用存錢", desc: "生活費大幅降低，生活樂趣變少", fx: { happiness: -1 } },
+        study: { name: "下班進修", desc: "知識成長、轉職門檻更好達到，比較累", fx: { knowledge: 2, health: -0.5, happiness: -0.5 } },
+        family: { name: "陪伴家人", desc: "人際與幸福提升，婚姻危機機率減半，升遷較慢", fx: { social: 1.5, happiness: 1.5 } },
+        health: { name: "規律運動養生", desc: "健康提升、降低中風與病死風險", fx: { health: 1.8, happiness: 0.5 } }
+      }
+    },
+    retired: {
+      label: "退休時期",
+      options: {
+        health: { name: "規律運動養生", desc: "延緩老化、降低跌倒與中風風險", fx: { health: 1.8, happiness: 0.5 } },
+        community: { name: "社區志工與樂齡學習", desc: "人際與知識不退化，對抗孤老", fx: { social: 2, happiness: 1.5, knowledge: 0.8 } },
+        travel: { name: "旅行與享受生活", desc: "幸福提升，每年花一筆旅費", fx: { happiness: 2.5, health: 0.3 } },
+        family: { name: "含飴弄孫、陪伴家人", desc: "親情與幸福，體力消耗", fx: { social: 1.5, happiness: 2, health: -0.3 } },
+        balanced: { name: "隨遇而安", desc: "過自己的步調", fx: { happiness: 0.5 } }
+      }
+    }
+  };
+  const FOCUS_TRAIT_PREF = {
+    workaholic: { work: 2.2, study: 1.4 }, family_first: { family: 2.2, community: 1.4 }, cautious: { save: 2.0, health: 1.4 },
+    risk_taker: { work: 1.4, travel: 1.6, parttime: 1.4 }, sociable: { club: 2.0, community: 1.8, family: 1.3, travel: 1.4 },
+    sensitive_introvert: { study: 1.6, health: 1.3, balanced: 1.3 }, civic_minded: { community: 2.0, study: 1.3, club: 1.3 }
+  };
   // 失能時不能再做的工作：重度排除所有勞力與久站工作，輕度排除重體力工作
   const PHYSICAL_CAREERS = ["car_craft_apprentice", "car_farmer_fisher", "car_epz_worker", "car_gig_delivery", "car_driver_logistics", "car_service_worker", "car_tourism_hospitality", "car_healthcare_ltc"];
   const HEAVY_CAREERS = ["car_craft_apprentice", "car_farmer_fisher", "car_gig_delivery", "car_driver_logistics"];
@@ -569,7 +607,7 @@
       let jobCap = 1.28;
       if (life.flags.career_ceiling_local && !["north_taipei", "north_hsinchu"].includes(life.regionId)) jobCap = 1.14;
       const jobMult = clamp((life.flags && life.flags.wage_mult) || 1.0, 0.55, jobCap);
-      const focusMult = life.focus === "work" ? 1.08 : 1.0;
+      const focusMult = life.focus === "work" ? 1.06 : life.focus === "family" ? 0.98 : 1.0;
       const regMult = 1 + (((reg && reg.income_multiplier) || 1.0) - 1) * 0.7;
       const annual = era.avg_monthly_wage_twd * 12 * regMult * careerMult * eduMult * expMult * ageMult * jobMult * focusMult * WAGE_K;
       return Math.max(era.min_wage_twd * 12, annual);
@@ -666,6 +704,7 @@
     }
 
     marry(life, era) {
+      life.flags.focusPromptReason = "married";
       life.married = true;
       life.partner = true;
       life.spouse = life.partnerInfo || this.createPartnerInfo(life, era);
@@ -2019,6 +2058,10 @@
     }
 
     chooseAutoOptionCore(life, decision, eligibleOpts, era) {
+      if (decision && decision.isFocusCard) {
+        const k = this.chooseFocusAuto(life);
+        return eligibleOpts.find((o) => o.key === k) || eligibleOpts[0];
+      }
       if (!eligibleOpts || !eligibleOpts.length) return decision.options[0];
       if (eligibleOpts.length === 1) return eligibleOpts[0];
       if (decision.isEraCard) {
@@ -2954,10 +2997,7 @@
       }
 
       // 2. Focus, health aging & parents
-      if (life.focus === "study") { life.stats.knowledge += 2; life.stats.happiness -= 1; }
-      if (life.focus === "work") { life.stats.health -= 1.5; life.stats.social -= 0.5; }
-      if (life.focus === "health") { life.stats.health += 2.2; }
-      if (life.focus === "family") { life.stats.social += 2; life.stats.happiness += 1.5; }
+      this.applyFocus(life, era);
       if (life.flags.work_hours_high && !life.flags.retired) life.stats.health -= 0.8;
       if (life.flags.career_health_drain && !life.flags.retired && life.age >= 22) life.stats.health -= life.flags.career_health_drain * 0.15;
       if (life.age > 45) life.stats.health -= (life.age > 70 ? 1.75 : 0.65);
@@ -3614,6 +3654,8 @@
       if (!pendingDecision) {
         pendingDecision = this.findEligibleDecision(life, era, eduMode, Boolean(pq), false);
       }
+      if (!pendingDecision && life.age === 45 && life.flags.focusStage === "work") life.flags.focusPromptReason = life.flags.focusPromptReason || "midlife";
+      if (!pendingDecision && life.children > (life.flags.focusKids || 0)) { life.flags.focusKids = life.children; if (life.children === 1) life.flags.focusPromptReason = life.flags.focusPromptReason || "child"; }
       if (!pendingDecision && life.location === "TAIWAN") {
         const eraDec = this.findEraChoice(life, era, Boolean(pq));
         if (eraDec && eraDec.parentDecides) {
@@ -3625,6 +3667,7 @@
         }
       }
 
+      if (!pendingDecision && !pq) pendingDecision = this.maybeFocusCard(life, era);
       if (pendingDecision) {
         yearMark = "decision";
         if (autoMode) {
@@ -3942,7 +3985,7 @@
           const x = life.age - this.getTypicalMarriageAge(life);
           randPassProb = life.flags.ever_married ? 0.3 : clamp(0.5 + x * 0.12, 0.05, 0.8);
         }
-        if (d.id === "D20_marriage_crisis") randPassProb = life.currentYear < 1985 ? 0.02 : life.currentYear < 1998 ? 0.042 : 0.068;
+        if (d.id === "D20_marriage_crisis") randPassProb = (life.currentYear < 1985 ? 0.02 : life.currentYear < 1998 ? 0.042 : 0.068) * (life.focus === "family" ? 0.5 : life.focus === "work" ? 1.3 : 1);
         if (d.id === "D13_buying_home") {
           const affordable = d.options.some((o) => o.requires_home_afford && this.isOptionEligible(life, o, era).eligible);
           randPassProb = affordable ? (life.married ? 0.75 : 0.4) : (life.age >= 32 && !life.flags.home_barrier_shown ? 0.3 : 0);
@@ -4271,6 +4314,8 @@
         if (life.stats.health < 45) p *= 1.5;
         if (life.flags.betel_nut_habit || life.flags.work_hours_high) p *= 1.3;
         if (this.hasTrait(life, "cautious")) p *= 0.85;
+        if (life.focus === "health") p *= 0.7;
+        if (life.focus === "work" && (life.flags.focusStreak || 0) >= 4) p *= 1.5;
         incidents.push({ kind: "stroke", p, out: [0.15, 0.3, 0.3] });
       }
       // 4. 癌症確診（不直接致死，交由後續治療抉擇）
@@ -4375,6 +4420,112 @@
         life.careerSalaryMult = +(life.careerSalaryMult * 0.75).toFixed(2);
         life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: `身體無法再負荷原本的工作，你轉任「${life.job}」，薪水少了一截。` });
       }
+    }
+
+    // ===== 年度重心 =====
+    getFocusStage(life) {
+      if (life.age < 12) return null;
+      if (life.flags.retired || (life.age >= 65 && !this.isWorkingNow(life))) return "retired";
+      if (life.age < 18 || this.isStudentNow(life) || (life.age < 24 && !life.careerId)) return "student";
+      return "work";
+    }
+
+    getFocusOptions(life) {
+      const stage = this.getFocusStage(life);
+      if (!stage) return [];
+      return Object.entries(FOCUS_STAGES[stage].options)
+        .filter(([, o]) => !o.minAge || life.age >= o.minAge)
+        .map(([key, o]) => ({ key, ...o }));
+    }
+
+    describeFocusFx(fx) {
+      return Object.entries(fx).filter(([, v]) => v).map(([k, v]) => `${STAT_NAMES[k]}${v > 0 ? "+" : ""}${v}`).join("、");
+    }
+
+    // 人生轉折點（進國中、出社會、結婚、生子、退休等）詢問新的重心
+    maybeFocusCard(life, era) {
+      const stage = this.getFocusStage(life);
+      if (!stage) return null;
+      const reason = life.flags.focusStage !== stage ? `stage:${stage}` : (life.flags.focusPromptReason || null);
+      if (!reason) return null;
+      const opts = this.getFocusOptions(life);
+      if (!opts.some((o) => o.key === life.focus)) life.focus = "balanced";
+      life.flags.focusStage = stage;
+      delete life.flags.focusPromptReason;
+      const why = {
+        "stage:student": "你開始有了自己的課業與生活圈。",
+        "stage:work": "你正式踏入社會，接下來的日子要把時間花在哪裡？",
+        "stage:retired": "你從職場退了下來，每天多出了很多時間。",
+        married: "結婚後，生活的重心可能需要重新安排。",
+        child: "家裡多了一個孩子，時間突然變得很不夠用。",
+        midlife: "四十五歲了，身體和家庭都在提醒你重新分配時間。",
+        burnout: "你已經連續好幾年把自己逼得很緊，身體開始抗議了。"
+      }[reason] || "人生來到新的階段。";
+      return {
+        id: "FOCUS_CARD", isFocusCard: true,
+        resolvedTitle: `${FOCUS_STAGES[stage].label}的重心：接下來幾年，你要把時間花在哪裡？`,
+        resolvedDesc: `${why}重心會一直持續，直到你在畫面上改變它；同一個重心維持太久，效果會遞減，甚至帶來倦怠。`,
+        resolvedSource: "年度重心影響每年的屬性變化，也會改變升遷、婚姻危機、過勞與生活費等機率",
+        options: opts.map((o) => ({ key: o.key, label: `${o.name}（${o.desc}｜每年約：${this.describeFocusFx(o.fx) || "持平"}）`, effects: {} }))
+      };
+    }
+
+    chooseFocusAuto(life) {
+      const opts = this.getFocusOptions(life);
+      if (!opts.length) return "balanced";
+      return weightedPick(opts, (o) => (o.key === "balanced" ? 1.6 : 1) * (life.personalities || []).reduce((m, p) => m * ((FOCUS_TRAIT_PREF[p.id] || {})[o.key] || 1), 1)).key;
+    }
+
+    setFocus(life, key) {
+      if (life.focus !== key) {
+        life.focus = key;
+        life.flags.focusStreak = 0;
+        life.flags.focusJustSwitched = true;
+      }
+    }
+
+    applyFocus(life, era) {
+      const stage = this.getFocusStage(life);
+      if (!stage) return;
+      const def = FOCUS_STAGES[stage].options[life.focus] || FOCUS_STAGES[stage].options.balanced;
+      const streak = (life.flags.focusStreak || 0) + 1;
+      life.flags.focusStreak = streak;
+      const fatigue = streak > 4 ? clamp(1 - (streak - 4) * 0.08, 0.5, 1) : 1;
+      const s = life.stats;
+      const before = { ...s };
+      for (const [k, v] of Object.entries(def.fx)) {
+        if (v > 0) s[k] += v * fatigue * clamp((108 - s[k]) / 58, 0.15, 1); // 越高越難再升
+        else s[k] += v * clamp(s[k] / 45, 0.25, 1); // 已經很低時下降變慢，避免直接歸零
+      }
+      if (life.flags.focusJustSwitched) { s.happiness += 1; delete life.flags.focusJustSwitched; }
+      // 特殊效果
+      if (life.focus === "study" && stage === "student") life.flags.hs_exam_bonus = Math.min(4, (life.flags.hs_exam_bonus || 0) + 0.5);
+      if (life.focus === "parttime" && stage === "student" && life.age >= 15) {
+        life.flags.part_time_job = true;
+        life.moneyNominal += Math.round(20000 * this.wageScale(era) * era.cpi);
+      }
+      if (life.focus === "travel") this.spendLiquid(life, Math.min(Math.max(0, this.getLiquidNominal(life)), Math.round(60000 * this.wageScale(era) * era.cpi)));
+      if (life.focus === "work" && this.isWorkingNow(life) && (life.workYears || 0) >= 2 && Math.random() < 0.1 * (life.stats.health >= 40 ? 1 : 0.5)) {
+        life.careerSalaryMult = +((life.careerSalaryMult || 1) * 1.05).toFixed(2);
+        life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: "你衝刺事業的努力被看見了，獲得升遷加薪。", impactChips: [{ text: "薪資 +5%", good: true }] });
+      }
+      // 連續衝刺事業太久：過勞
+      if (life.focus === "work" && streak >= 4 && Math.random() < Math.min(0.2, 0.06 + (streak - 4) * 0.02)) {
+        life.stats.health -= 8; life.stats.happiness -= 6;
+        life.flags.focusStreak = 1; // 被迫休養一陣子，連續年數重新累積
+        life.flags.focusPromptReason = "burnout";
+        life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, highlight: true, text: `【⚠️ 過勞】你已經連續 ${streak} 年把重心放在衝刺事業，某天加班到半夜突然胸悶冒冷汗，被送進急診。醫師說：再這樣下去，下一次可能就不是急診了。`, impactChips: [{ text: "健康 -8", good: false }, { text: "幸福 -6", good: false }] });
+      }
+      // 每三年一則小結，讓玩家看得見重心的累積效果
+      const acc = life.flags.focusAcc || { years: 0, d: {} };
+      for (const k of ["health", "happiness", "knowledge", "social"]) acc.d[k] = (acc.d[k] || 0) + (s[k] - before[k]);
+      acc.years += 1;
+      if (acc.years >= 3) {
+        const chips = Object.entries(acc.d).map(([k, v]) => [k, Math.round(v)]).filter(([, v]) => v !== 0).map(([k, v]) => ({ text: `${STAT_NAMES[k]} ${v > 0 ? "+" : ""}${v}`, good: v > 0 }));
+        if (chips.length) life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, text: `【📅 年度重心】這三年你把重心放在「${def.name}」${streak > 4 ? `（已連續 ${streak} 年，效果開始遞減）` : ""}。`, impactChips: chips });
+        life.flags.focusAcc = { years: 0, d: {} };
+      } else life.flags.focusAcc = acc;
+      life.flags.focusLastFx = def.name;
     }
 
     isWorkingNow(life) {
@@ -4899,6 +5050,12 @@
 
     applyDecisionCore(life, decision, optionKey, era) {
       if (decision.isEraCard) return this.applyEraChoice(life, decision, optionKey, era);
+      if (decision.isFocusCard) {
+        const opt = this.getFocusOptions(life).find((o) => o.key === optionKey);
+        this.setFocus(life, optionKey);
+        life.feed.unshift({ type: "normal", age: life.age, year: life.currentYear, roc: era.roc, highlight: true, text: `【📅 年度重心】你決定把接下來的時間花在「${opt ? opt.name : optionKey}」。${opt ? opt.desc + "。" : ""}` });
+        return;
+      }
       if (decision.once_per_era_variant && decision.activeVariant) {
         life.triggeredDecisions[`${decision.id}:${decision.activeVariant.variant_id}`] = true;
       } else if (decision.id !== "D27_return_to_taiwan") {

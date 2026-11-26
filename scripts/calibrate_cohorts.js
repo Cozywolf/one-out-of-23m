@@ -184,7 +184,7 @@ for (const policy of ["auto", "random"]) {
         const labels = d.options.map((o) => engine.resolveEraLabel(o, l.currentYear));
         for (const t of [d.resolvedTitle, d.resolvedDesc, d.resolvedSource, engine.getDecisionSocialTrend(l, d, era), ...labels]) scan(t, l, d.id);
         const key = (k) => elig.some((o) => o.key === k);
-        const minorEraCard = d.isEraCard && d.eraCard.conditions.age_range && d.eraCard.conditions.age_range[1] < 18;
+        const minorEraCard = d.isFocusCard || (d.isEraCard && d.eraCard.conditions.age_range && d.eraCard.conditions.age_range[1] < 18);
         if (l.age < 18 && !/^(LS|D01|SA:SA03)/.test(d.id) && !minorEraCard) hit("未成年遇成人抉擇", l, d.id);
         if (d.id === "D31_cashflow_debt_crisis") {
           if (key("sell_vehicle") && !l.ownedAssets.vehicle) hit("沒有車卻可賣車", l);

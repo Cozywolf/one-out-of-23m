@@ -323,7 +323,7 @@
       birthYear: state.selectedYear
     });
     state.paused = false;
-    $("focusSelect").value = "balanced";
+    syncFocusSelect();
     switchView("life");
     state.paused = false;
     state.inspectedRegionId = null;
@@ -475,6 +475,7 @@
     setBar("barHappy", "valHappy", l.stats.happiness);
     setBar("barKnow", "valKnow", l.stats.knowledge);
     setBar("barSocial", "valSocial", l.stats.social);
+    syncFocusSelect();
 
     const homeEq = l.homeowner ? Math.max(0, (l.homeValueNominal || 0) - (l.mortgageBalanceNominal || 0)) : 0;
     const totalNom = state.engine.getNetWorthNominal(l);
@@ -821,6 +822,27 @@
     if (!chips || !chips.length) return "";
     return `<div class="impact-chips"><span class="impact-label">${label}</span>${chips.map((c) =>
       `<span class="impact-chip ${c.neutral ? "is-neutral" : c.good ? "is-good" : "is-bad"}">${c.text}</span>`).join("")}</div>`;
+  }
+
+  // 年度重心下拉選單：只列出目前人生階段的選項，並顯示連續年數與健康警示
+  function syncFocusSelect() {
+    const sel = $("focusSelect");
+    if (!sel || !state.life || !state.engine) return;
+    const l = state.life;
+    const opts = state.engine.getFocusOptions(l);
+    const sig = opts.map((o) => o.key).join(",");
+    if (sel.dataset.sig !== sig) {
+      sel.innerHTML = opts.length ? opts.map((o) => `<option value="${o.key}">${o.name}</option>`).join("") : `<option value="balanced">（童年：由父母安排）</option>`;
+      sel.dataset.sig = sig;
+    }
+    sel.disabled = !opts.length;
+    if (opts.some((o) => o.key === l.focus)) sel.value = l.focus;
+    const cur = opts.find((o) => o.key === l.focus);
+    const streak = l.flags.focusStreak || 0;
+    const warn = l.focus === "work" && l.stats.health < 40 ? "｜⚠️ 健康偏低，考慮換個重心" : streak > 4 ? "｜效果開始遞減" : "";
+    let hint = $("focusHint");
+    if (!hint) { hint = document.createElement("div"); hint.id = "focusHint"; hint.className = "muted"; hint.style.fontSize = "13px"; hint.style.marginTop = "4px"; sel.parentNode.appendChild(hint); }
+    hint.textContent = cur ? `${cur.desc}｜已連續 ${streak} 年${warn}` : "";
   }
 
   function showToast(msg, ms = 2200) {
@@ -1175,7 +1197,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.12 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.13 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1269,7 +1291,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.12 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.13 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1277,7 +1299,7 @@
   function showDecisionModal(dec) {
     state.pendingDecision = dec;
     const era = state.engine.getEraParams(state.life.currentYear);
-    $("decBadge").textContent = dec.isEraCard ? `${dec.tierIcon || "🕰"} ${dec.eraLabel}` : dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D01B_youth_parttime_request" ? "🪪 法定打工申請" : dec.id === "D07_career_track" ? "💼 職業與實業選擇" : dec.id === "D07B_career_switch" ? "🔄 職涯轉職契機" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
+    $("decBadge").textContent = dec.isFocusCard ? "📅 年度重心" : dec.isEraCard ? `${dec.tierIcon || "🕰"} ${dec.eraLabel}` : dec.isStudyAbroadCard ? "✈️ 出國留學契機" : dec.id === "D27_return_to_taiwan" ? "🇹🇼 返台或留外抉擇" : dec.isLifeStageCard ? "🌱 人生階段與環境養成" : dec.id === "D01B_youth_parttime_request" ? "🪪 法定打工申請" : dec.id === "D07_career_track" ? "💼 職業與實業選擇" : dec.id === "D07B_career_switch" ? "🔄 職涯轉職契機" : dec.id === "D28_debt_clearance" ? "⚖️ 消債條例更生抉擇" : dec.id === "D29_child_study_abroad" ? "🎓 子女留學與家庭資源" : dec.id === "D30_forced_home_sale" ? "🏚 金融危機與賣房抉擇" : dec.id === "D31_cashflow_debt_crisis" ? "💳 收支赤字與債務危機" : dec.id === "D17B_romance_encounter" ? "💞 感情與交往契機" : dec.id === "D12B_vehicle_purchase" ? "🚗 交通與大額資產配置" : "人生抉擇";
     $("decYearTag").textContent = `${state.life.currentYear}（${era.roc}）· ${state.life.age} 歲`;
     $("decTitle").textContent = dec.resolvedTitle;
     $("decDesc").textContent = dec.resolvedDesc;
@@ -1768,7 +1790,7 @@
       renderObituary(state.life);
       switchView("end");
     });
-    $("focusSelect").addEventListener("change", (e) => { if (state.life) state.life.focus = e.target.value; });
+    $("focusSelect").addEventListener("change", (e) => { if (state.life) { state.engine.setFocus(state.life, e.target.value); syncFocusSelect(); } });
     $("btnHukou").addEventListener("click", showHukouModal);
     $("btnCloseHukou").addEventListener("click", () => closeInfoModal("hukouModal"));
     $("btnOpenHelpline").addEventListener("click", () => openInfoModal("helplineModal"));
