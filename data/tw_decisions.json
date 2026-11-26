@@ -4844,6 +4844,12 @@
             "fail": {
               "effects": {},
               "text": "學了不少東西，薪水倒是沒什麼變化。"
+            },
+            "world_p": {
+              "ai": {
+                "fast": 0.1,
+                "slow": -0.1
+              }
             }
           }
         },
@@ -4859,7 +4865,30 @@
             "money": 250000,
             "health": -4
           },
-          "text": "你的星期五變成了另一個星期一。"
+          "text": "你的星期五變成了另一個星期一。",
+          "roll": {
+            "p": 0.7,
+            "stat_p": {
+              "health": 0.005
+            },
+            "world_p": {
+              "economy": {
+                "boom": 0.15,
+                "crisis": -0.2
+              }
+            },
+            "success": {
+              "effects": {},
+              "text": "第二份工作做出了口碑，你考慮把它變成正職。"
+            },
+            "fail": {
+              "effects": {
+                "health": -4,
+                "money": -80000
+              },
+              "text": "兼差的公司突然倒了，最後一個月的錢沒拿到，身體也累垮了。"
+            }
+          }
         },
         {
           "key": "family_time",
@@ -4920,7 +4949,27 @@
             "career_mult": 0.92,
             "health": 3
           },
-          "text": "冷氣房裡的工作很單調，但你不用再擔心中暑。"
+          "text": "冷氣房裡的工作很單調，但你不用再擔心中暑。",
+          "roll": {
+            "p": 0.6,
+            "world_p": {
+              "economy": {
+                "boom": 0.2,
+                "crisis": -0.2
+              }
+            },
+            "success": {
+              "effects": {},
+              "text": "新工作上手得很快，主管說你比坐辦公室長大的人更能吃苦。"
+            },
+            "fail": {
+              "effects": {
+                "career_mult": 0.95,
+                "happiness": -3
+              },
+              "text": "室內工作缺額少，你只能從最基層做起。"
+            }
+          }
         },
         {
           "key": "keep_outdoor",
@@ -4947,6 +4996,11 @@
                 "temp_unemployed_years": 1
               },
               "text": "一個午後你在工作中熱衰竭倒下，休養了大半年。"
+            },
+            "world_p": {
+              "climate": {
+                "harsh": -0.15
+              }
             }
           }
         }
@@ -4987,7 +5041,25 @@
             "savings_rate_bonus": 0.06,
             "happiness": 3
           },
-          "text": "新家有電梯和公共客廳，鄰居多是跟你一樣的年輕人。"
+          "text": "新家有電梯和公共客廳，鄰居多是跟你一樣的年輕人。",
+          "roll": {
+            "p": 0.75,
+            "stat_p": {
+              "social": 0.004
+            },
+            "success": {
+              "effects": {
+                "social": 2
+              },
+              "text": "社宅的共同廚房讓你認識了一群好鄰居。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -3
+              },
+              "text": "隔音很差，樓上的鄰居每天半夜拖椅子，你開始想念以前的套房。"
+            }
+          }
         },
         {
           "key": "keep_saving_buy",
@@ -5055,6 +5127,12 @@
                 "happiness": -4
               },
               "text": "新創燒完資金收了，你只好回到傳統製造業。"
+            },
+            "world_p": {
+              "economy": {
+                "boom": 0.15,
+                "crisis": -0.2
+              }
             }
           }
         },
@@ -5074,7 +5152,28 @@
             "social": -2,
             "marital_strain": 0.2
           },
-          "text": "你接下了海外廠的職缺，又開始跟家人視訊。"
+          "text": "你接下了海外廠的職缺，又開始跟家人視訊。",
+          "roll": {
+            "p": 0.6,
+            "world_p": {
+              "geo": {
+                "calm": 0.15,
+                "tense": -0.2
+              }
+            },
+            "success": {
+              "effects": {
+                "career_mult": 1.05
+              },
+              "text": "海外廠站穩了腳步，你升上了廠務主管。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -4
+              },
+              "text": "海外廠的政策一變再變，你被調回台灣，職位反而降了一級。"
+            }
+          }
         }
       ]
     },
@@ -5114,7 +5213,28 @@
             "health": 4,
             "mortality_mult": 0.92
           },
-          "text": "報告厚厚一本，醫師幫你排了幾項預防療程。"
+          "text": "報告厚厚一本，醫師幫你排了幾項預防療程。",
+          "roll": {
+            "p": 0.6,
+            "world_p": {
+              "ai": {
+                "fast": 0.2,
+                "slow": -0.15
+              }
+            },
+            "success": {
+              "effects": {
+                "health": 3
+              },
+              "text": "檢測及早發現了一個小問題，處理得很順利。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -2
+              },
+              "text": "報告上一堆「風險偏高」讓你焦慮了好幾個月，最後證明是虛驚一場。"
+            }
+          }
         },
         {
           "key": "skip",
@@ -5166,7 +5286,27 @@
             "social": 2,
             "health": -1
           },
-          "text": "你把退休歡送會的日期往後挪了幾年。"
+          "text": "你把退休歡送會的日期往後挪了幾年。",
+          "roll": {
+            "p": 0.7,
+            "stat_p": {
+              "health": 0.006
+            },
+            "success": {
+              "effects": {
+                "money": 300000,
+                "happiness": 2
+              },
+              "text": "多做的幾年讓退休金多了一截，你也還沒準備好閒下來。"
+            },
+            "fail": {
+              "effects": {
+                "health": -6,
+                "happiness": -3
+              },
+              "text": "身體跟不上工作量，你在一次健檢後被醫師勸退。"
+            }
+          }
         },
         {
           "key": "retire_on_time",
@@ -5179,7 +5319,30 @@
           "effects": {
             "happiness": 2
           },
-          "text": "你開始規劃退休後第一趟長途旅行。"
+          "text": "你開始規劃退休後第一趟長途旅行。",
+          "roll": {
+            "p": 0.65,
+            "world_p": {
+              "economy": {
+                "boom": 0.15,
+                "stagnant": -0.1,
+                "crisis": -0.25
+              }
+            },
+            "success": {
+              "effects": {
+                "happiness": 2
+              },
+              "text": "退休金夠用，你的退休生活過得比預期寬裕。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -4,
+                "savings_rate_bonus": 0.05
+              },
+              "text": "物價漲得比退休金快，你開始精打細算每一筆開銷。"
+            }
+          }
         }
       ]
     },
@@ -5236,6 +5399,12 @@
                 "career_mult": 0.95
               },
               "text": "新領域比想像中難擠進去，你最後回到原本的行業。"
+            },
+            "world_p": {
+              "economy": {
+                "boom": 0.1,
+                "crisis": -0.15
+              }
             }
           }
         },
@@ -5248,7 +5417,28 @@
             "family_first": 1.4
           },
           "effects": {},
-          "text": "你決定再撐幾年看看。"
+          "text": "你決定再撐幾年看看。",
+          "roll": {
+            "p": 0.6,
+            "world_p": {
+              "ai": {
+                "fast": -0.2,
+                "slow": 0.15
+              }
+            },
+            "success": {
+              "effects": {},
+              "text": "你的工作撐過了這一波自動化。"
+            },
+            "fail": {
+              "effects": {
+                "temp_unemployed_years": 1,
+                "career_mult": 0.9,
+                "happiness": -6
+              },
+              "text": "一年後部門整個被系統取代，你錯過了津貼的申請期限。"
+            }
+          }
         }
       ]
     },
@@ -5314,6 +5504,15 @@
                 "happiness": -2
               },
               "text": "案子有一搭沒一搭，收入起伏很大。"
+            },
+            "world_p": {
+              "economy": {
+                "boom": 0.15,
+                "crisis": -0.15
+              },
+              "geo": {
+                "calm": 0.05
+              }
             }
           }
         },
@@ -5368,7 +5567,32 @@
             "happiness": 6,
             "social": 3
           },
-          "text": "你搬回了小時候的那條街，戴上頭盔就能進公司開會。"
+          "text": "你搬回了小時候的那條街，戴上頭盔就能進公司開會。",
+          "roll": {
+            "p": 0.65,
+            "world_p": {
+              "economy": {
+                "boom": 0.1,
+                "crisis": -0.15
+              },
+              "climate": {
+                "harsh": -0.1
+              }
+            },
+            "success": {
+              "effects": {
+                "happiness": 2
+              },
+              "text": "老家的生活慢了下來，你重新跟小學同學聯絡上了。"
+            },
+            "fail": {
+              "effects": {
+                "career_mult": 0.94,
+                "happiness": -2
+              },
+              "text": "遠距久了，升遷機會總是落到常進公司的人身上。"
+            }
+          }
         },
         {
           "key": "stay_city",
@@ -5379,7 +5603,25 @@
             "workaholic": 1.4
           },
           "effects": {},
-          "text": "你習慣了城市的節奏，決定留下來。"
+          "text": "你習慣了城市的節奏，決定留下來。",
+          "roll": {
+            "p": 0.5,
+            "stat_p": {
+              "social": 0.004
+            },
+            "success": {
+              "effects": {
+                "career_mult": 1.05
+              },
+              "text": "留在城市的你接下了新的團隊。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -3
+              },
+              "text": "朋友一個個搬回家鄉，你開始覺得城市有點空。"
+            }
+          }
         }
       ]
     },
@@ -5419,7 +5661,29 @@
             "social": -5,
             "romance_delay": 5
           },
-          "text": "每天晚上，你都跟它聊到睡著。"
+          "text": "每天晚上，你都跟它聊到睡著。",
+          "roll": {
+            "p": 0.5,
+            "world_p": {
+              "ai": {
+                "fast": 0.15,
+                "slow": -0.1
+              }
+            },
+            "success": {
+              "effects": {
+                "happiness": 2
+              },
+              "text": "AI 伴侶陪你走過了一段低潮，你覺得被理解。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -5,
+                "social": -2
+              },
+              "text": "服務商突然停止營運，你的 AI 伴侶在一夜之間消失了。"
+            }
+          }
         },
         {
           "key": "go_out",
@@ -5478,7 +5742,25 @@
             "money": -150000,
             "happiness": -2
           },
-          "text": "每天清晨你開車送孩子進城，傍晚再接回來。"
+          "text": "每天清晨你開車送孩子進城，傍晚再接回來。",
+          "roll": {
+            "p": 0.6,
+            "stat_p": {
+              "knowledge": 0.004
+            },
+            "success": {
+              "effects": {
+                "knowledge": 2
+              },
+              "text": "孩子在城裡的學校如魚得水，成績進步很多。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -3
+              },
+              "text": "孩子每天通勤兩個小時，越來越沒精神。"
+            }
+          }
         },
         {
           "key": "local_merge",
@@ -5558,7 +5840,25 @@
               "extended_work_70"
             ]
           },
-          "text": "你跟主管說，退休的事再談。"
+          "text": "你跟主管說，退休的事再談。",
+          "roll": {
+            "p": 0.65,
+            "stat_p": {
+              "health": 0.006
+            },
+            "success": {
+              "effects": {
+                "money": 250000
+              },
+              "text": "多工作的幾年讓你的退休存款厚了不少。"
+            },
+            "fail": {
+              "effects": {
+                "health": -5
+              },
+              "text": "身體先喊停了，你只好提早退下來。"
+            }
+          }
         },
         {
           "key": "live_now",
@@ -5572,7 +5872,29 @@
             "money": -150000,
             "happiness": 6
           },
-          "text": "你訂了一趟郵輪環島旅行。"
+          "text": "你訂了一趟郵輪環島旅行。",
+          "roll": {
+            "p": 0.5,
+            "world_p": {
+              "economy": {
+                "boom": 0.15,
+                "crisis": -0.2
+              }
+            },
+            "success": {
+              "effects": {
+                "happiness": 2
+              },
+              "text": "那些旅行成了你晚年最常拿出來講的故事。"
+            },
+            "fail": {
+              "effects": {
+                "savings_rate_bonus": 0.05,
+                "happiness": -3
+              },
+              "text": "幾年後物價大漲，你有點後悔當年花得太快。"
+            }
+          }
         }
       ]
     },
@@ -5609,7 +5931,25 @@
             "happiness": 4,
             "money": -100000
           },
-          "text": "你在共同廚房教年輕住戶包水餃，第一次覺得老了也不寂寞。"
+          "text": "你在共同廚房教年輕住戶包水餃，第一次覺得老了也不寂寞。",
+          "roll": {
+            "p": 0.7,
+            "stat_p": {
+              "social": 0.005
+            },
+            "success": {
+              "effects": {
+                "health": 2
+              },
+              "text": "共居宅的年輕人常拉你去散步，你的身體反而變好了。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -3
+              },
+              "text": "你不太習慣跟陌生人共用空間，常常一個人待在房間。"
+            }
+          }
         },
         {
           "key": "stay_home",
@@ -5623,7 +5963,29 @@
             "happiness": 1,
             "social": -2
           },
-          "text": "你習慣了屋裡每一道光線，不想搬。"
+          "text": "你習慣了屋裡每一道光線，不想搬。",
+          "roll": {
+            "p": 0.55,
+            "stat_p": {
+              "health": 0.006
+            },
+            "world_p": {
+              "ai": {
+                "fast": 0.15
+              }
+            },
+            "success": {
+              "effects": {},
+              "text": "居家照護和遠距醫療讓你在老房子裡過得很安穩。"
+            },
+            "fail": {
+              "effects": {
+                "health": -5,
+                "happiness": -3
+              },
+              "text": "一次在家跌倒，過了半天才被鄰居發現。"
+            }
+          }
         }
       ]
     },
@@ -6352,6 +6714,731 @@
             "social": 1
           },
           "text": "你學會了在同學面前只講國語。很多年後，你才後悔當年沒跟媽媽多說幾句她的話。"
+        }
+      ]
+    },
+    {
+      "id": "F2040_market_crash",
+      "tier": "future",
+      "era_label": "2040 年代以後 · 又一次股災",
+      "title": "股市一個月跌掉三成：你要怎麼辦？",
+      "desc": "全球債務危機爆發，你的持股一個月內跌掉三成。新聞說這可能是二十年來最嚴重的衰退，也有人說是百年一遇的買點。",
+      "source": "虛構推演：延續「金融危機頻仍」的世界線。",
+      "conditions": {
+        "year_range": [
+          2038,
+          2095
+        ],
+        "age_range": [
+          28,
+          75
+        ],
+        "world_line": {
+          "economy": [
+            "crisis"
+          ]
+        },
+        "min_liquid_twd_2025": 200000
+      },
+      "chance": 0.12,
+      "options": [
+        {
+          "key": "panic_sell",
+          "label": "全部賣掉，先保住現金",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "cautious": 1.8,
+            "sensitive_introvert": 1.4
+          },
+          "effects": {
+            "stock_ratio": -0.3,
+            "stock_sell_ratio": 1.0
+          },
+          "roll": {
+            "p": 0.4,
+            "success": {
+              "effects": {
+                "happiness": 2
+              },
+              "text": "股市又跌了一年，你慶幸自己跑得快。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -5
+              },
+              "text": "你賣在最低點，半年後股市就反彈了。"
+            }
+          }
+        },
+        {
+          "key": "hold",
+          "label": "抱著不動，等它回來",
+          "auto_weight": 0.45,
+          "trait_weight": {
+            "family_first": 1.2
+          },
+          "effects": {
+            "stock_ratio": -0.3
+          },
+          "roll": {
+            "p": 0.6,
+            "success": {
+              "effects": {
+                "stock_ratio": 0.35
+              },
+              "text": "三年後股市回到了原點，甚至更高。"
+            },
+            "fail": {
+              "effects": {
+                "stock_ratio": -0.15,
+                "happiness": -3
+              },
+              "text": "這次的熊市特別長，帳面虧損一直沒有回來。"
+            }
+          }
+        },
+        {
+          "key": "buy_more",
+          "label": "危機入市，加碼買進",
+          "auto_weight": 0.2,
+          "trait_weight": {
+            "risk_taker": 2.5,
+            "cautious": 0.3
+          },
+          "effects": {
+            "stock_ratio": -0.3,
+            "to_stock_ratio": 0.5
+          },
+          "roll": {
+            "p": 0.55,
+            "success": {
+              "effects": {
+                "stock_ratio": 0.6,
+                "happiness": 5
+              },
+              "text": "你買在相對低點，幾年後資產翻了一倍。"
+            },
+            "fail": {
+              "effects": {
+                "stock_ratio": -0.25,
+                "happiness": -6
+              },
+              "text": "底下還有底，你的加碼成了更深的套牢。"
+            }
+          }
+        }
+      ],
+      "trait_chance": {
+        "risk_taker": 1.3
+      }
+    },
+    {
+      "id": "F2045_geo_hedge",
+      "tier": "future",
+      "era_label": "2030 年代以後 · 局勢緊張",
+      "title": "局勢緊張：要不要替家人準備一條退路？",
+      "desc": "周邊演習越來越頻繁，身邊有人開始把資產轉到海外、替孩子辦外國護照，也有人報名了民防訓練。",
+      "source": "虛構推演：延續「區域局勢緊張」的世界線。",
+      "conditions": {
+        "year_range": [
+          2032,
+          2080
+        ],
+        "age_range": [
+          28,
+          70
+        ],
+        "world_line": {
+          "geo": [
+            "tense"
+          ]
+        }
+      },
+      "chance": 0.12,
+      "options": [
+        {
+          "key": "offshore",
+          "label": "把部分資產換成外幣、放到海外",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "cautious": 2.0,
+            "family_first": 1.3
+          },
+          "effects": {
+            "money_liquid_ratio": -0.02
+          },
+          "roll": {
+            "p": 0.5,
+            "world_p": {
+              "economy": {
+                "crisis": -0.15
+              }
+            },
+            "success": {
+              "effects": {
+                "happiness": 2
+              },
+              "text": "外幣資產讓你安心了不少，匯率也站在你這邊。"
+            },
+            "fail": {
+              "effects": {
+                "money_liquid_ratio": -0.06
+              },
+              "text": "匯率反向走了一大段，換出去的錢縮水了。"
+            }
+          }
+        },
+        {
+          "key": "civil_defense",
+          "label": "留下來，報名民防與急救訓練",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "civic_minded": 2.5,
+            "family_first": 1.2
+          },
+          "effects": {
+            "social": 4,
+            "knowledge": 2,
+            "flags": [
+              "civil_defense_trained"
+            ]
+          },
+          "text": "你學會了止血包紮和避難所的位置，也認識了一群鄰居。"
+        },
+        {
+          "key": "carry_on",
+          "label": "照常過日子",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "risk_taker": 1.3,
+            "workaholic": 1.3
+          },
+          "effects": {},
+          "text": "你關掉新聞，照常去上班。"
+        }
+      ]
+    },
+    {
+      "id": "F2050_child_emigrates",
+      "tier": "future",
+      "era_label": "2040 年代以後 · 下一代出走",
+      "title": "孩子說想移民到國外",
+      "desc": "孩子在國外念完書，拿到了當地的工作機會，打電話回來說想留在那裡，問你們會不會反對。",
+      "source": "虛構推演：依人口外移與跨國就業的長期趨勢推演。",
+      "conditions": {
+        "year_range": [
+          2040,
+          2100
+        ],
+        "age_range": [
+          48,
+          72
+        ],
+        "children_min": 1,
+        "child_age_range": [
+          24,
+          36
+        ]
+      },
+      "chance": 0.08,
+      "options": [
+        {
+          "key": "support",
+          "label": "支持他，自己的人生自己決定",
+          "auto_weight": 0.55,
+          "trait_weight": {
+            "civic_minded": 1.4,
+            "risk_taker": 1.3
+          },
+          "effects": {
+            "happiness": -2,
+            "social": -1
+          },
+          "roll": {
+            "p": 0.6,
+            "world_p": {
+              "geo": {
+                "tense": 0.1
+              },
+              "economy": {
+                "boom": -0.1
+              }
+            },
+            "success": {
+              "effects": {
+                "happiness": 4
+              },
+              "text": "孩子在國外過得很好，每年接你們過去住一個月。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -4
+              },
+              "text": "時差和距離讓聯絡越來越少，年夜飯的桌子空了一個位子。"
+            }
+          }
+        },
+        {
+          "key": "ask_return",
+          "label": "希望他回台灣，離家近一點",
+          "auto_weight": 0.45,
+          "trait_weight": {
+            "family_first": 2.0
+          },
+          "roll": {
+            "p": 0.4,
+            "success": {
+              "effects": {
+                "happiness": 4,
+                "social": 2
+              },
+              "text": "孩子最後回來了，在附近買了房子，週末常帶孫子回家。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -5,
+                "social": -2
+              },
+              "text": "孩子還是留在國外，那通電話之後，你們有好一陣子沒聯絡。"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "F2050_coastal_move",
+      "tier": "future",
+      "era_label": "2040 年代以後 · 氣候遷徙",
+      "title": "家附近又淹水了：要不要搬離沿海？",
+      "desc": "這幾年每逢大潮和颱風就淹水，房價一路下跌。政府有遷村補助，但要離開住了大半輩子的地方。",
+      "source": "虛構推演：延續「極端氣候加劇」的世界線。",
+      "conditions": {
+        "year_range": [
+          2042,
+          2100
+        ],
+        "age_range": [
+          30,
+          80
+        ],
+        "world_line": {
+          "climate": [
+            "harsh"
+          ]
+        },
+        "regions_in": [
+          "south_tainan",
+          "south_kaohsiung",
+          "east_islands"
+        ]
+      },
+      "chance": 0.12,
+      "options": [
+        {
+          "key": "relocate",
+          "label": "領補助，搬到內陸新市鎮",
+          "auto_weight": 0.45,
+          "trait_weight": {
+            "cautious": 1.8
+          },
+          "effects": {
+            "happiness": -3,
+            "money": 100000
+          },
+          "roll": {
+            "p": 0.65,
+            "success": {
+              "effects": {
+                "happiness": 4
+              },
+              "text": "新市鎮的房子不會再淹水，你終於睡得安穩。"
+            },
+            "fail": {
+              "effects": {
+                "social": -4
+              },
+              "text": "新的地方什麼都好，就是沒有熟悉的鄰居。"
+            }
+          }
+        },
+        {
+          "key": "stay_raise",
+          "label": "留下來，把房子墊高",
+          "auto_weight": 0.55,
+          "trait_weight": {
+            "family_first": 1.6,
+            "risk_taker": 1.3
+          },
+          "effects": {
+            "money": -200000
+          },
+          "roll": {
+            "p": 0.5,
+            "world_p": {
+              "climate": {
+                "harsh": -0.1
+              }
+            },
+            "success": {
+              "effects": {
+                "happiness": 2
+              },
+              "text": "墊高後的房子撐過了好幾次大潮。"
+            },
+            "fail": {
+              "effects": {
+                "health": -3,
+                "happiness": -6,
+                "money": -200000
+              },
+              "text": "一場前所未見的暴潮還是淹進了屋裡。"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "F2055_healthspan",
+      "tier": "future",
+      "era_label": "2050 年代以後 · 抗老醫學",
+      "title": "自費抗老療程：值得嗎？",
+      "desc": "醫院推出自費的細胞抗老療程，宣稱能讓身體年齡年輕十歲。價格不便宜，效果也還有爭議。",
+      "source": "虛構推演：依長壽醫學的研發趨勢推演。",
+      "conditions": {
+        "year_range": [
+          2050,
+          2110
+        ],
+        "age_range": [
+          55,
+          80
+        ],
+        "min_liquid_twd_2025": 300000
+      },
+      "chance": 0.1,
+      "options": [
+        {
+          "key": "try_it",
+          "label": "花錢試試看",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "risk_taker": 1.6,
+            "cautious": 0.8
+          },
+          "effects": {
+            "money": -250000
+          },
+          "roll": {
+            "p": 0.45,
+            "world_p": {
+              "ai": {
+                "fast": 0.2,
+                "slow": -0.15
+              }
+            },
+            "success": {
+              "effects": {
+                "health": 8,
+                "mortality_mult": 0.9,
+                "happiness": 3
+              },
+              "text": "療程後你爬山不再喘，醫師說你的身體年齡少了好幾歲。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -3
+              },
+              "text": "錢花了，身體卻沒什麼變化。"
+            }
+          }
+        },
+        {
+          "key": "natural",
+          "label": "規律運動和飲食就好",
+          "auto_weight": 0.65,
+          "trait_weight": {
+            "cautious": 1.6,
+            "family_first": 1.2
+          },
+          "effects": {
+            "health": 2
+          },
+          "text": "你每天早上去公園快走，晚餐少吃一點。"
+        }
+      ]
+    },
+    {
+      "id": "F2058_elder_care_choice",
+      "tier": "future",
+      "era_label": "2050 年代以後 · 誰來照顧你",
+      "title": "年紀大了，誰來照顧你？",
+      "desc": "身體大不如前，日常生活開始需要人幫忙。可以請照護機器人、聘外籍看護，或是搬去和孩子同住。",
+      "source": "虛構推演：依高齡照護人力與科技發展趨勢推演。",
+      "conditions": {
+        "year_range": [
+          2050,
+          2120
+        ],
+        "age_range": [
+          78,
+          95
+        ]
+      },
+      "chance": 0.18,
+      "options": [
+        {
+          "key": "robot",
+          "label": "請照護機器人",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "sensitive_introvert": 1.6
+          },
+          "effects": {
+            "money": -150000
+          },
+          "roll": {
+            "p": 0.5,
+            "world_p": {
+              "ai": {
+                "fast": 0.3,
+                "slow": -0.2
+              }
+            },
+            "success": {
+              "effects": {
+                "health": 3,
+                "happiness": 2
+              },
+              "text": "機器人比你想像的貼心，還會提醒你孫子的生日。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -4,
+                "social": -3
+              },
+              "text": "機器人照顧得很周到，但你一整天都沒跟人說過話。"
+            }
+          }
+        },
+        {
+          "key": "caregiver",
+          "label": "聘請外籍看護",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "cautious": 1.3
+          },
+          "effects": {
+            "money": -200000
+          },
+          "roll": {
+            "p": 0.6,
+            "world_p": {
+              "demo": {
+                "decline": -0.15
+              }
+            },
+            "success": {
+              "effects": {
+                "health": 3,
+                "social": 2
+              },
+              "text": "看護阿妹很細心，你教她講台語，她教你做家鄉菜。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -3
+              },
+              "text": "看護人力短缺，換了三個人都留不久。"
+            }
+          }
+        },
+        {
+          "key": "move_child",
+          "label": "搬去和孩子同住",
+          "auto_weight": 0.3,
+          "trait_weight": {
+            "family_first": 2.2
+          },
+          "requires": {
+            "has_children": true
+          },
+          "roll": {
+            "p": 0.55,
+            "stat_p": {
+              "social": 0.005
+            },
+            "success": {
+              "effects": {
+                "happiness": 5,
+                "social": 3
+              },
+              "text": "每天看著孫子上下學，是你晚年最開心的事。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -4
+              },
+              "text": "兩代人的生活習慣不同，摩擦越來越多。"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "F2060_digital_legacy",
+      "tier": "future",
+      "era_label": "2050 年代以後 · 數位分身",
+      "title": "要不要替自己做一個數位分身？",
+      "desc": "新的服務可以用你的照片、聲音和對話紀錄，做出一個 AI 數位分身，等你走了之後，家人還能跟「你」說話。",
+      "source": "虛構推演：依生成式 AI 數位人與數位遺產的發展趨勢推演。",
+      "conditions": {
+        "year_range": [
+          2050,
+          2120
+        ],
+        "age_range": [
+          70,
+          98
+        ]
+      },
+      "chance": 0.1,
+      "options": [
+        {
+          "key": "make_it",
+          "label": "做一個，留給家人",
+          "auto_weight": 0.4,
+          "trait_weight": {
+            "family_first": 1.6,
+            "sociable": 1.3
+          },
+          "effects": {
+            "money": -50000,
+            "happiness": 3
+          },
+          "roll": {
+            "p": 0.55,
+            "world_p": {
+              "ai": {
+                "fast": 0.2
+              }
+            },
+            "success": {
+              "effects": {},
+              "text": "錄製的過程讓你把一輩子的故事又說了一遍，孫子聽得入迷。"
+            },
+            "fail": {
+              "effects": {
+                "happiness": -2
+              },
+              "text": "數位分身說話的樣子有點陌生，家人看了反而難過。"
+            }
+          }
+        },
+        {
+          "key": "write_letters",
+          "label": "不用了，親手寫幾封信就好",
+          "auto_weight": 0.6,
+          "trait_weight": {
+            "sensitive_introvert": 1.6,
+            "cautious": 1.3
+          },
+          "effects": {
+            "happiness": 2,
+            "social": 1
+          },
+          "text": "你一筆一劃寫下想對每個家人說的話。"
+        }
+      ]
+    },
+    {
+      "id": "F2048_midlife_pivot",
+      "tier": "future",
+      "era_label": "2040 年代以後 · 中年轉職",
+      "title": "四十多歲，要不要轉換跑道？",
+      "desc": "產業變化越來越快，你所在的行業前景不明。政府和企業都在推「第二人生學程」，但轉職意味著從頭開始。",
+      "source": "虛構推演：依產業轉型與終身學習的趨勢推演。",
+      "conditions": {
+        "year_range": [
+          2040,
+          2100
+        ],
+        "age_range": [
+          42,
+          52
+        ],
+        "working": true
+      },
+      "chance": 0.08,
+      "options": [
+        {
+          "key": "pivot",
+          "label": "報名學程，轉換跑道",
+          "auto_weight": 0.35,
+          "trait_weight": {
+            "risk_taker": 1.8,
+            "workaholic": 1.3
+          },
+          "effects": {
+            "money": -80000,
+            "knowledge": 4
+          },
+          "roll": {
+            "p": 0.5,
+            "stat_p": {
+              "knowledge": 0.006
+            },
+            "world_p": {
+              "economy": {
+                "boom": 0.15,
+                "crisis": -0.2
+              }
+            },
+            "success": {
+              "effects": {
+                "career_mult": 1.12,
+                "happiness": 5
+              },
+              "text": "新的工作讓你重新找回熱情，薪水也比以前高。"
+            },
+            "fail": {
+              "effects": {
+                "career_mult": 0.9,
+                "happiness": -4
+              },
+              "text": "新領域的門比想像中難進，你最後回到原本的行業，年資卻斷了。"
+            }
+          }
+        },
+        {
+          "key": "stay",
+          "label": "留在熟悉的行業",
+          "auto_weight": 0.65,
+          "trait_weight": {
+            "cautious": 1.8,
+            "family_first": 1.3
+          },
+          "roll": {
+            "p": 0.6,
+            "world_p": {
+              "ai": {
+                "fast": -0.15
+              },
+              "economy": {
+                "crisis": -0.15
+              }
+            },
+            "success": {
+              "effects": {},
+              "text": "你的資歷在這一行還是很吃香。"
+            },
+            "fail": {
+              "effects": {
+                "career_mult": 0.92,
+                "happiness": -3
+              },
+              "text": "行業持續萎縮，公司兩年沒調薪。"
+            }
+          }
         }
       ]
     }

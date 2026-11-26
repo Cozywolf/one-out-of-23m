@@ -1166,7 +1166,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.5 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.6 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1260,7 +1260,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.5 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.6 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1437,11 +1437,15 @@
       finWrap.hidden = true;
     }
     const eraHist = l.eraHistory || [];
+    const worldLine = l.currentYear >= 2030 ? state.engine.describeWorldLine(l) : [];
     $("endDecisionsWrap").innerHTML = (eraHist.length
       ? `<h4 style="margin:0 0 8px;">🕰 你遇上的時代（${eraHist.length} 次）</h4>` +
         eraHist.map((h) => `<div style="font-size:15.6px;margin-bottom:4px;"><strong>${h.age} 歲（${h.year}）${h.icon || "🕰"} ${h.eraLabel}</strong>｜${h.title} → ${h.byParents ? "父母決定：" : ""}${h.choice}</div>`).join("") +
         `<div style="height:12px;"></div>`
       : "") +
+      (worldLine.length
+        ? `<h4 style="margin:0 0 8px;">🔮 你走過的未來世界線</h4><div style="font-size:15.6px;margin-bottom:12px;">${worldLine.map((w) => `${w.axis}：<strong>${w.value}</strong>`).join("｜")}<div class="muted" style="font-size:13.5px;margin-top:4px;">每段人生的未來都不一樣：再玩一次，同樣的年代可能走上完全不同的世界線。</div></div>`
+        : "") +
       `<h4 style="margin:0 0 8px;">📌 這一生做過的關鍵抉擇（${l.decisionHistory.length} 次）</h4>` +
       (l.decisionHistory.length
         ? l.decisionHistory.map((d) => `<div style="font-size:15.6px;margin-bottom:4px;"><strong>${d.age} 歲（${d.year}）</strong> ${d.title} → ${d.choice}</div>`).join("")

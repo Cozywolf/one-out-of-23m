@@ -8986,6 +8986,12 @@ window.TW_DATA = {
               "fail": {
                 "effects": {},
                 "text": "學了不少東西，薪水倒是沒什麼變化。"
+              },
+              "world_p": {
+                "ai": {
+                  "fast": 0.1,
+                  "slow": -0.1
+                }
               }
             }
           },
@@ -9001,7 +9007,30 @@ window.TW_DATA = {
               "money": 250000,
               "health": -4
             },
-            "text": "你的星期五變成了另一個星期一。"
+            "text": "你的星期五變成了另一個星期一。",
+            "roll": {
+              "p": 0.7,
+              "stat_p": {
+                "health": 0.005
+              },
+              "world_p": {
+                "economy": {
+                  "boom": 0.15,
+                  "crisis": -0.2
+                }
+              },
+              "success": {
+                "effects": {},
+                "text": "第二份工作做出了口碑，你考慮把它變成正職。"
+              },
+              "fail": {
+                "effects": {
+                  "health": -4,
+                  "money": -80000
+                },
+                "text": "兼差的公司突然倒了，最後一個月的錢沒拿到，身體也累垮了。"
+              }
+            }
           },
           {
             "key": "family_time",
@@ -9062,7 +9091,27 @@ window.TW_DATA = {
               "career_mult": 0.92,
               "health": 3
             },
-            "text": "冷氣房裡的工作很單調，但你不用再擔心中暑。"
+            "text": "冷氣房裡的工作很單調，但你不用再擔心中暑。",
+            "roll": {
+              "p": 0.6,
+              "world_p": {
+                "economy": {
+                  "boom": 0.2,
+                  "crisis": -0.2
+                }
+              },
+              "success": {
+                "effects": {},
+                "text": "新工作上手得很快，主管說你比坐辦公室長大的人更能吃苦。"
+              },
+              "fail": {
+                "effects": {
+                  "career_mult": 0.95,
+                  "happiness": -3
+                },
+                "text": "室內工作缺額少，你只能從最基層做起。"
+              }
+            }
           },
           {
             "key": "keep_outdoor",
@@ -9089,6 +9138,11 @@ window.TW_DATA = {
                   "temp_unemployed_years": 1
                 },
                 "text": "一個午後你在工作中熱衰竭倒下，休養了大半年。"
+              },
+              "world_p": {
+                "climate": {
+                  "harsh": -0.15
+                }
               }
             }
           }
@@ -9129,7 +9183,25 @@ window.TW_DATA = {
               "savings_rate_bonus": 0.06,
               "happiness": 3
             },
-            "text": "新家有電梯和公共客廳，鄰居多是跟你一樣的年輕人。"
+            "text": "新家有電梯和公共客廳，鄰居多是跟你一樣的年輕人。",
+            "roll": {
+              "p": 0.75,
+              "stat_p": {
+                "social": 0.004
+              },
+              "success": {
+                "effects": {
+                  "social": 2
+                },
+                "text": "社宅的共同廚房讓你認識了一群好鄰居。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -3
+                },
+                "text": "隔音很差，樓上的鄰居每天半夜拖椅子，你開始想念以前的套房。"
+              }
+            }
           },
           {
             "key": "keep_saving_buy",
@@ -9197,6 +9269,12 @@ window.TW_DATA = {
                   "happiness": -4
                 },
                 "text": "新創燒完資金收了，你只好回到傳統製造業。"
+              },
+              "world_p": {
+                "economy": {
+                  "boom": 0.15,
+                  "crisis": -0.2
+                }
               }
             }
           },
@@ -9216,7 +9294,28 @@ window.TW_DATA = {
               "social": -2,
               "marital_strain": 0.2
             },
-            "text": "你接下了海外廠的職缺，又開始跟家人視訊。"
+            "text": "你接下了海外廠的職缺，又開始跟家人視訊。",
+            "roll": {
+              "p": 0.6,
+              "world_p": {
+                "geo": {
+                  "calm": 0.15,
+                  "tense": -0.2
+                }
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.05
+                },
+                "text": "海外廠站穩了腳步，你升上了廠務主管。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -4
+                },
+                "text": "海外廠的政策一變再變，你被調回台灣，職位反而降了一級。"
+              }
+            }
           }
         ]
       },
@@ -9256,7 +9355,28 @@ window.TW_DATA = {
               "health": 4,
               "mortality_mult": 0.92
             },
-            "text": "報告厚厚一本，醫師幫你排了幾項預防療程。"
+            "text": "報告厚厚一本，醫師幫你排了幾項預防療程。",
+            "roll": {
+              "p": 0.6,
+              "world_p": {
+                "ai": {
+                  "fast": 0.2,
+                  "slow": -0.15
+                }
+              },
+              "success": {
+                "effects": {
+                  "health": 3
+                },
+                "text": "檢測及早發現了一個小問題，處理得很順利。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -2
+                },
+                "text": "報告上一堆「風險偏高」讓你焦慮了好幾個月，最後證明是虛驚一場。"
+              }
+            }
           },
           {
             "key": "skip",
@@ -9308,7 +9428,27 @@ window.TW_DATA = {
               "social": 2,
               "health": -1
             },
-            "text": "你把退休歡送會的日期往後挪了幾年。"
+            "text": "你把退休歡送會的日期往後挪了幾年。",
+            "roll": {
+              "p": 0.7,
+              "stat_p": {
+                "health": 0.006
+              },
+              "success": {
+                "effects": {
+                  "money": 300000,
+                  "happiness": 2
+                },
+                "text": "多做的幾年讓退休金多了一截，你也還沒準備好閒下來。"
+              },
+              "fail": {
+                "effects": {
+                  "health": -6,
+                  "happiness": -3
+                },
+                "text": "身體跟不上工作量，你在一次健檢後被醫師勸退。"
+              }
+            }
           },
           {
             "key": "retire_on_time",
@@ -9321,7 +9461,30 @@ window.TW_DATA = {
             "effects": {
               "happiness": 2
             },
-            "text": "你開始規劃退休後第一趟長途旅行。"
+            "text": "你開始規劃退休後第一趟長途旅行。",
+            "roll": {
+              "p": 0.65,
+              "world_p": {
+                "economy": {
+                  "boom": 0.15,
+                  "stagnant": -0.1,
+                  "crisis": -0.25
+                }
+              },
+              "success": {
+                "effects": {
+                  "happiness": 2
+                },
+                "text": "退休金夠用，你的退休生活過得比預期寬裕。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -4,
+                  "savings_rate_bonus": 0.05
+                },
+                "text": "物價漲得比退休金快，你開始精打細算每一筆開銷。"
+              }
+            }
           }
         ]
       },
@@ -9378,6 +9541,12 @@ window.TW_DATA = {
                   "career_mult": 0.95
                 },
                 "text": "新領域比想像中難擠進去，你最後回到原本的行業。"
+              },
+              "world_p": {
+                "economy": {
+                  "boom": 0.1,
+                  "crisis": -0.15
+                }
               }
             }
           },
@@ -9390,7 +9559,28 @@ window.TW_DATA = {
               "family_first": 1.4
             },
             "effects": {},
-            "text": "你決定再撐幾年看看。"
+            "text": "你決定再撐幾年看看。",
+            "roll": {
+              "p": 0.6,
+              "world_p": {
+                "ai": {
+                  "fast": -0.2,
+                  "slow": 0.15
+                }
+              },
+              "success": {
+                "effects": {},
+                "text": "你的工作撐過了這一波自動化。"
+              },
+              "fail": {
+                "effects": {
+                  "temp_unemployed_years": 1,
+                  "career_mult": 0.9,
+                  "happiness": -6
+                },
+                "text": "一年後部門整個被系統取代，你錯過了津貼的申請期限。"
+              }
+            }
           }
         ]
       },
@@ -9456,6 +9646,15 @@ window.TW_DATA = {
                   "happiness": -2
                 },
                 "text": "案子有一搭沒一搭，收入起伏很大。"
+              },
+              "world_p": {
+                "economy": {
+                  "boom": 0.15,
+                  "crisis": -0.15
+                },
+                "geo": {
+                  "calm": 0.05
+                }
               }
             }
           },
@@ -9510,7 +9709,32 @@ window.TW_DATA = {
               "happiness": 6,
               "social": 3
             },
-            "text": "你搬回了小時候的那條街，戴上頭盔就能進公司開會。"
+            "text": "你搬回了小時候的那條街，戴上頭盔就能進公司開會。",
+            "roll": {
+              "p": 0.65,
+              "world_p": {
+                "economy": {
+                  "boom": 0.1,
+                  "crisis": -0.15
+                },
+                "climate": {
+                  "harsh": -0.1
+                }
+              },
+              "success": {
+                "effects": {
+                  "happiness": 2
+                },
+                "text": "老家的生活慢了下來，你重新跟小學同學聯絡上了。"
+              },
+              "fail": {
+                "effects": {
+                  "career_mult": 0.94,
+                  "happiness": -2
+                },
+                "text": "遠距久了，升遷機會總是落到常進公司的人身上。"
+              }
+            }
           },
           {
             "key": "stay_city",
@@ -9521,7 +9745,25 @@ window.TW_DATA = {
               "workaholic": 1.4
             },
             "effects": {},
-            "text": "你習慣了城市的節奏，決定留下來。"
+            "text": "你習慣了城市的節奏，決定留下來。",
+            "roll": {
+              "p": 0.5,
+              "stat_p": {
+                "social": 0.004
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.05
+                },
+                "text": "留在城市的你接下了新的團隊。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -3
+                },
+                "text": "朋友一個個搬回家鄉，你開始覺得城市有點空。"
+              }
+            }
           }
         ]
       },
@@ -9561,7 +9803,29 @@ window.TW_DATA = {
               "social": -5,
               "romance_delay": 5
             },
-            "text": "每天晚上，你都跟它聊到睡著。"
+            "text": "每天晚上，你都跟它聊到睡著。",
+            "roll": {
+              "p": 0.5,
+              "world_p": {
+                "ai": {
+                  "fast": 0.15,
+                  "slow": -0.1
+                }
+              },
+              "success": {
+                "effects": {
+                  "happiness": 2
+                },
+                "text": "AI 伴侶陪你走過了一段低潮，你覺得被理解。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -5,
+                  "social": -2
+                },
+                "text": "服務商突然停止營運，你的 AI 伴侶在一夜之間消失了。"
+              }
+            }
           },
           {
             "key": "go_out",
@@ -9620,7 +9884,25 @@ window.TW_DATA = {
               "money": -150000,
               "happiness": -2
             },
-            "text": "每天清晨你開車送孩子進城，傍晚再接回來。"
+            "text": "每天清晨你開車送孩子進城，傍晚再接回來。",
+            "roll": {
+              "p": 0.6,
+              "stat_p": {
+                "knowledge": 0.004
+              },
+              "success": {
+                "effects": {
+                  "knowledge": 2
+                },
+                "text": "孩子在城裡的學校如魚得水，成績進步很多。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -3
+                },
+                "text": "孩子每天通勤兩個小時，越來越沒精神。"
+              }
+            }
           },
           {
             "key": "local_merge",
@@ -9700,7 +9982,25 @@ window.TW_DATA = {
                 "extended_work_70"
               ]
             },
-            "text": "你跟主管說，退休的事再談。"
+            "text": "你跟主管說，退休的事再談。",
+            "roll": {
+              "p": 0.65,
+              "stat_p": {
+                "health": 0.006
+              },
+              "success": {
+                "effects": {
+                  "money": 250000
+                },
+                "text": "多工作的幾年讓你的退休存款厚了不少。"
+              },
+              "fail": {
+                "effects": {
+                  "health": -5
+                },
+                "text": "身體先喊停了，你只好提早退下來。"
+              }
+            }
           },
           {
             "key": "live_now",
@@ -9714,7 +10014,29 @@ window.TW_DATA = {
               "money": -150000,
               "happiness": 6
             },
-            "text": "你訂了一趟郵輪環島旅行。"
+            "text": "你訂了一趟郵輪環島旅行。",
+            "roll": {
+              "p": 0.5,
+              "world_p": {
+                "economy": {
+                  "boom": 0.15,
+                  "crisis": -0.2
+                }
+              },
+              "success": {
+                "effects": {
+                  "happiness": 2
+                },
+                "text": "那些旅行成了你晚年最常拿出來講的故事。"
+              },
+              "fail": {
+                "effects": {
+                  "savings_rate_bonus": 0.05,
+                  "happiness": -3
+                },
+                "text": "幾年後物價大漲，你有點後悔當年花得太快。"
+              }
+            }
           }
         ]
       },
@@ -9751,7 +10073,25 @@ window.TW_DATA = {
               "happiness": 4,
               "money": -100000
             },
-            "text": "你在共同廚房教年輕住戶包水餃，第一次覺得老了也不寂寞。"
+            "text": "你在共同廚房教年輕住戶包水餃，第一次覺得老了也不寂寞。",
+            "roll": {
+              "p": 0.7,
+              "stat_p": {
+                "social": 0.005
+              },
+              "success": {
+                "effects": {
+                  "health": 2
+                },
+                "text": "共居宅的年輕人常拉你去散步，你的身體反而變好了。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -3
+                },
+                "text": "你不太習慣跟陌生人共用空間，常常一個人待在房間。"
+              }
+            }
           },
           {
             "key": "stay_home",
@@ -9765,7 +10105,29 @@ window.TW_DATA = {
               "happiness": 1,
               "social": -2
             },
-            "text": "你習慣了屋裡每一道光線，不想搬。"
+            "text": "你習慣了屋裡每一道光線，不想搬。",
+            "roll": {
+              "p": 0.55,
+              "stat_p": {
+                "health": 0.006
+              },
+              "world_p": {
+                "ai": {
+                  "fast": 0.15
+                }
+              },
+              "success": {
+                "effects": {},
+                "text": "居家照護和遠距醫療讓你在老房子裡過得很安穩。"
+              },
+              "fail": {
+                "effects": {
+                  "health": -5,
+                  "happiness": -3
+                },
+                "text": "一次在家跌倒，過了半天才被鄰居發現。"
+              }
+            }
           }
         ]
       },
@@ -10494,6 +10856,731 @@ window.TW_DATA = {
               "social": 1
             },
             "text": "你學會了在同學面前只講國語。很多年後，你才後悔當年沒跟媽媽多說幾句她的話。"
+          }
+        ]
+      },
+      {
+        "id": "F2040_market_crash",
+        "tier": "future",
+        "era_label": "2040 年代以後 · 又一次股災",
+        "title": "股市一個月跌掉三成：你要怎麼辦？",
+        "desc": "全球債務危機爆發，你的持股一個月內跌掉三成。新聞說這可能是二十年來最嚴重的衰退，也有人說是百年一遇的買點。",
+        "source": "虛構推演：延續「金融危機頻仍」的世界線。",
+        "conditions": {
+          "year_range": [
+            2038,
+            2095
+          ],
+          "age_range": [
+            28,
+            75
+          ],
+          "world_line": {
+            "economy": [
+              "crisis"
+            ]
+          },
+          "min_liquid_twd_2025": 200000
+        },
+        "chance": 0.12,
+        "options": [
+          {
+            "key": "panic_sell",
+            "label": "全部賣掉，先保住現金",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "cautious": 1.8,
+              "sensitive_introvert": 1.4
+            },
+            "effects": {
+              "stock_ratio": -0.3,
+              "stock_sell_ratio": 1.0
+            },
+            "roll": {
+              "p": 0.4,
+              "success": {
+                "effects": {
+                  "happiness": 2
+                },
+                "text": "股市又跌了一年，你慶幸自己跑得快。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -5
+                },
+                "text": "你賣在最低點，半年後股市就反彈了。"
+              }
+            }
+          },
+          {
+            "key": "hold",
+            "label": "抱著不動，等它回來",
+            "auto_weight": 0.45,
+            "trait_weight": {
+              "family_first": 1.2
+            },
+            "effects": {
+              "stock_ratio": -0.3
+            },
+            "roll": {
+              "p": 0.6,
+              "success": {
+                "effects": {
+                  "stock_ratio": 0.35
+                },
+                "text": "三年後股市回到了原點，甚至更高。"
+              },
+              "fail": {
+                "effects": {
+                  "stock_ratio": -0.15,
+                  "happiness": -3
+                },
+                "text": "這次的熊市特別長，帳面虧損一直沒有回來。"
+              }
+            }
+          },
+          {
+            "key": "buy_more",
+            "label": "危機入市，加碼買進",
+            "auto_weight": 0.2,
+            "trait_weight": {
+              "risk_taker": 2.5,
+              "cautious": 0.3
+            },
+            "effects": {
+              "stock_ratio": -0.3,
+              "to_stock_ratio": 0.5
+            },
+            "roll": {
+              "p": 0.55,
+              "success": {
+                "effects": {
+                  "stock_ratio": 0.6,
+                  "happiness": 5
+                },
+                "text": "你買在相對低點，幾年後資產翻了一倍。"
+              },
+              "fail": {
+                "effects": {
+                  "stock_ratio": -0.25,
+                  "happiness": -6
+                },
+                "text": "底下還有底，你的加碼成了更深的套牢。"
+              }
+            }
+          }
+        ],
+        "trait_chance": {
+          "risk_taker": 1.3
+        }
+      },
+      {
+        "id": "F2045_geo_hedge",
+        "tier": "future",
+        "era_label": "2030 年代以後 · 局勢緊張",
+        "title": "局勢緊張：要不要替家人準備一條退路？",
+        "desc": "周邊演習越來越頻繁，身邊有人開始把資產轉到海外、替孩子辦外國護照，也有人報名了民防訓練。",
+        "source": "虛構推演：延續「區域局勢緊張」的世界線。",
+        "conditions": {
+          "year_range": [
+            2032,
+            2080
+          ],
+          "age_range": [
+            28,
+            70
+          ],
+          "world_line": {
+            "geo": [
+              "tense"
+            ]
+          }
+        },
+        "chance": 0.12,
+        "options": [
+          {
+            "key": "offshore",
+            "label": "把部分資產換成外幣、放到海外",
+            "auto_weight": 0.3,
+            "trait_weight": {
+              "cautious": 2.0,
+              "family_first": 1.3
+            },
+            "effects": {
+              "money_liquid_ratio": -0.02
+            },
+            "roll": {
+              "p": 0.5,
+              "world_p": {
+                "economy": {
+                  "crisis": -0.15
+                }
+              },
+              "success": {
+                "effects": {
+                  "happiness": 2
+                },
+                "text": "外幣資產讓你安心了不少，匯率也站在你這邊。"
+              },
+              "fail": {
+                "effects": {
+                  "money_liquid_ratio": -0.06
+                },
+                "text": "匯率反向走了一大段，換出去的錢縮水了。"
+              }
+            }
+          },
+          {
+            "key": "civil_defense",
+            "label": "留下來，報名民防與急救訓練",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "civic_minded": 2.5,
+              "family_first": 1.2
+            },
+            "effects": {
+              "social": 4,
+              "knowledge": 2,
+              "flags": [
+                "civil_defense_trained"
+              ]
+            },
+            "text": "你學會了止血包紮和避難所的位置，也認識了一群鄰居。"
+          },
+          {
+            "key": "carry_on",
+            "label": "照常過日子",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "risk_taker": 1.3,
+              "workaholic": 1.3
+            },
+            "effects": {},
+            "text": "你關掉新聞，照常去上班。"
+          }
+        ]
+      },
+      {
+        "id": "F2050_child_emigrates",
+        "tier": "future",
+        "era_label": "2040 年代以後 · 下一代出走",
+        "title": "孩子說想移民到國外",
+        "desc": "孩子在國外念完書，拿到了當地的工作機會，打電話回來說想留在那裡，問你們會不會反對。",
+        "source": "虛構推演：依人口外移與跨國就業的長期趨勢推演。",
+        "conditions": {
+          "year_range": [
+            2040,
+            2100
+          ],
+          "age_range": [
+            48,
+            72
+          ],
+          "children_min": 1,
+          "child_age_range": [
+            24,
+            36
+          ]
+        },
+        "chance": 0.08,
+        "options": [
+          {
+            "key": "support",
+            "label": "支持他，自己的人生自己決定",
+            "auto_weight": 0.55,
+            "trait_weight": {
+              "civic_minded": 1.4,
+              "risk_taker": 1.3
+            },
+            "effects": {
+              "happiness": -2,
+              "social": -1
+            },
+            "roll": {
+              "p": 0.6,
+              "world_p": {
+                "geo": {
+                  "tense": 0.1
+                },
+                "economy": {
+                  "boom": -0.1
+                }
+              },
+              "success": {
+                "effects": {
+                  "happiness": 4
+                },
+                "text": "孩子在國外過得很好，每年接你們過去住一個月。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -4
+                },
+                "text": "時差和距離讓聯絡越來越少，年夜飯的桌子空了一個位子。"
+              }
+            }
+          },
+          {
+            "key": "ask_return",
+            "label": "希望他回台灣，離家近一點",
+            "auto_weight": 0.45,
+            "trait_weight": {
+              "family_first": 2.0
+            },
+            "roll": {
+              "p": 0.4,
+              "success": {
+                "effects": {
+                  "happiness": 4,
+                  "social": 2
+                },
+                "text": "孩子最後回來了，在附近買了房子，週末常帶孫子回家。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -5,
+                  "social": -2
+                },
+                "text": "孩子還是留在國外，那通電話之後，你們有好一陣子沒聯絡。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "F2050_coastal_move",
+        "tier": "future",
+        "era_label": "2040 年代以後 · 氣候遷徙",
+        "title": "家附近又淹水了：要不要搬離沿海？",
+        "desc": "這幾年每逢大潮和颱風就淹水，房價一路下跌。政府有遷村補助，但要離開住了大半輩子的地方。",
+        "source": "虛構推演：延續「極端氣候加劇」的世界線。",
+        "conditions": {
+          "year_range": [
+            2042,
+            2100
+          ],
+          "age_range": [
+            30,
+            80
+          ],
+          "world_line": {
+            "climate": [
+              "harsh"
+            ]
+          },
+          "regions_in": [
+            "south_tainan",
+            "south_kaohsiung",
+            "east_islands"
+          ]
+        },
+        "chance": 0.12,
+        "options": [
+          {
+            "key": "relocate",
+            "label": "領補助，搬到內陸新市鎮",
+            "auto_weight": 0.45,
+            "trait_weight": {
+              "cautious": 1.8
+            },
+            "effects": {
+              "happiness": -3,
+              "money": 100000
+            },
+            "roll": {
+              "p": 0.65,
+              "success": {
+                "effects": {
+                  "happiness": 4
+                },
+                "text": "新市鎮的房子不會再淹水，你終於睡得安穩。"
+              },
+              "fail": {
+                "effects": {
+                  "social": -4
+                },
+                "text": "新的地方什麼都好，就是沒有熟悉的鄰居。"
+              }
+            }
+          },
+          {
+            "key": "stay_raise",
+            "label": "留下來，把房子墊高",
+            "auto_weight": 0.55,
+            "trait_weight": {
+              "family_first": 1.6,
+              "risk_taker": 1.3
+            },
+            "effects": {
+              "money": -200000
+            },
+            "roll": {
+              "p": 0.5,
+              "world_p": {
+                "climate": {
+                  "harsh": -0.1
+                }
+              },
+              "success": {
+                "effects": {
+                  "happiness": 2
+                },
+                "text": "墊高後的房子撐過了好幾次大潮。"
+              },
+              "fail": {
+                "effects": {
+                  "health": -3,
+                  "happiness": -6,
+                  "money": -200000
+                },
+                "text": "一場前所未見的暴潮還是淹進了屋裡。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "F2055_healthspan",
+        "tier": "future",
+        "era_label": "2050 年代以後 · 抗老醫學",
+        "title": "自費抗老療程：值得嗎？",
+        "desc": "醫院推出自費的細胞抗老療程，宣稱能讓身體年齡年輕十歲。價格不便宜，效果也還有爭議。",
+        "source": "虛構推演：依長壽醫學的研發趨勢推演。",
+        "conditions": {
+          "year_range": [
+            2050,
+            2110
+          ],
+          "age_range": [
+            55,
+            80
+          ],
+          "min_liquid_twd_2025": 300000
+        },
+        "chance": 0.1,
+        "options": [
+          {
+            "key": "try_it",
+            "label": "花錢試試看",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "risk_taker": 1.6,
+              "cautious": 0.8
+            },
+            "effects": {
+              "money": -250000
+            },
+            "roll": {
+              "p": 0.45,
+              "world_p": {
+                "ai": {
+                  "fast": 0.2,
+                  "slow": -0.15
+                }
+              },
+              "success": {
+                "effects": {
+                  "health": 8,
+                  "mortality_mult": 0.9,
+                  "happiness": 3
+                },
+                "text": "療程後你爬山不再喘，醫師說你的身體年齡少了好幾歲。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -3
+                },
+                "text": "錢花了，身體卻沒什麼變化。"
+              }
+            }
+          },
+          {
+            "key": "natural",
+            "label": "規律運動和飲食就好",
+            "auto_weight": 0.65,
+            "trait_weight": {
+              "cautious": 1.6,
+              "family_first": 1.2
+            },
+            "effects": {
+              "health": 2
+            },
+            "text": "你每天早上去公園快走，晚餐少吃一點。"
+          }
+        ]
+      },
+      {
+        "id": "F2058_elder_care_choice",
+        "tier": "future",
+        "era_label": "2050 年代以後 · 誰來照顧你",
+        "title": "年紀大了，誰來照顧你？",
+        "desc": "身體大不如前，日常生活開始需要人幫忙。可以請照護機器人、聘外籍看護，或是搬去和孩子同住。",
+        "source": "虛構推演：依高齡照護人力與科技發展趨勢推演。",
+        "conditions": {
+          "year_range": [
+            2050,
+            2120
+          ],
+          "age_range": [
+            78,
+            95
+          ]
+        },
+        "chance": 0.18,
+        "options": [
+          {
+            "key": "robot",
+            "label": "請照護機器人",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "sensitive_introvert": 1.6
+            },
+            "effects": {
+              "money": -150000
+            },
+            "roll": {
+              "p": 0.5,
+              "world_p": {
+                "ai": {
+                  "fast": 0.3,
+                  "slow": -0.2
+                }
+              },
+              "success": {
+                "effects": {
+                  "health": 3,
+                  "happiness": 2
+                },
+                "text": "機器人比你想像的貼心，還會提醒你孫子的生日。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -4,
+                  "social": -3
+                },
+                "text": "機器人照顧得很周到，但你一整天都沒跟人說過話。"
+              }
+            }
+          },
+          {
+            "key": "caregiver",
+            "label": "聘請外籍看護",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "cautious": 1.3
+            },
+            "effects": {
+              "money": -200000
+            },
+            "roll": {
+              "p": 0.6,
+              "world_p": {
+                "demo": {
+                  "decline": -0.15
+                }
+              },
+              "success": {
+                "effects": {
+                  "health": 3,
+                  "social": 2
+                },
+                "text": "看護阿妹很細心，你教她講台語，她教你做家鄉菜。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -3
+                },
+                "text": "看護人力短缺，換了三個人都留不久。"
+              }
+            }
+          },
+          {
+            "key": "move_child",
+            "label": "搬去和孩子同住",
+            "auto_weight": 0.3,
+            "trait_weight": {
+              "family_first": 2.2
+            },
+            "requires": {
+              "has_children": true
+            },
+            "roll": {
+              "p": 0.55,
+              "stat_p": {
+                "social": 0.005
+              },
+              "success": {
+                "effects": {
+                  "happiness": 5,
+                  "social": 3
+                },
+                "text": "每天看著孫子上下學，是你晚年最開心的事。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -4
+                },
+                "text": "兩代人的生活習慣不同，摩擦越來越多。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "F2060_digital_legacy",
+        "tier": "future",
+        "era_label": "2050 年代以後 · 數位分身",
+        "title": "要不要替自己做一個數位分身？",
+        "desc": "新的服務可以用你的照片、聲音和對話紀錄，做出一個 AI 數位分身，等你走了之後，家人還能跟「你」說話。",
+        "source": "虛構推演：依生成式 AI 數位人與數位遺產的發展趨勢推演。",
+        "conditions": {
+          "year_range": [
+            2050,
+            2120
+          ],
+          "age_range": [
+            70,
+            98
+          ]
+        },
+        "chance": 0.1,
+        "options": [
+          {
+            "key": "make_it",
+            "label": "做一個，留給家人",
+            "auto_weight": 0.4,
+            "trait_weight": {
+              "family_first": 1.6,
+              "sociable": 1.3
+            },
+            "effects": {
+              "money": -50000,
+              "happiness": 3
+            },
+            "roll": {
+              "p": 0.55,
+              "world_p": {
+                "ai": {
+                  "fast": 0.2
+                }
+              },
+              "success": {
+                "effects": {},
+                "text": "錄製的過程讓你把一輩子的故事又說了一遍，孫子聽得入迷。"
+              },
+              "fail": {
+                "effects": {
+                  "happiness": -2
+                },
+                "text": "數位分身說話的樣子有點陌生，家人看了反而難過。"
+              }
+            }
+          },
+          {
+            "key": "write_letters",
+            "label": "不用了，親手寫幾封信就好",
+            "auto_weight": 0.6,
+            "trait_weight": {
+              "sensitive_introvert": 1.6,
+              "cautious": 1.3
+            },
+            "effects": {
+              "happiness": 2,
+              "social": 1
+            },
+            "text": "你一筆一劃寫下想對每個家人說的話。"
+          }
+        ]
+      },
+      {
+        "id": "F2048_midlife_pivot",
+        "tier": "future",
+        "era_label": "2040 年代以後 · 中年轉職",
+        "title": "四十多歲，要不要轉換跑道？",
+        "desc": "產業變化越來越快，你所在的行業前景不明。政府和企業都在推「第二人生學程」，但轉職意味著從頭開始。",
+        "source": "虛構推演：依產業轉型與終身學習的趨勢推演。",
+        "conditions": {
+          "year_range": [
+            2040,
+            2100
+          ],
+          "age_range": [
+            42,
+            52
+          ],
+          "working": true
+        },
+        "chance": 0.08,
+        "options": [
+          {
+            "key": "pivot",
+            "label": "報名學程，轉換跑道",
+            "auto_weight": 0.35,
+            "trait_weight": {
+              "risk_taker": 1.8,
+              "workaholic": 1.3
+            },
+            "effects": {
+              "money": -80000,
+              "knowledge": 4
+            },
+            "roll": {
+              "p": 0.5,
+              "stat_p": {
+                "knowledge": 0.006
+              },
+              "world_p": {
+                "economy": {
+                  "boom": 0.15,
+                  "crisis": -0.2
+                }
+              },
+              "success": {
+                "effects": {
+                  "career_mult": 1.12,
+                  "happiness": 5
+                },
+                "text": "新的工作讓你重新找回熱情，薪水也比以前高。"
+              },
+              "fail": {
+                "effects": {
+                  "career_mult": 0.9,
+                  "happiness": -4
+                },
+                "text": "新領域的門比想像中難進，你最後回到原本的行業，年資卻斷了。"
+              }
+            }
+          },
+          {
+            "key": "stay",
+            "label": "留在熟悉的行業",
+            "auto_weight": 0.65,
+            "trait_weight": {
+              "cautious": 1.8,
+              "family_first": 1.3
+            },
+            "roll": {
+              "p": 0.6,
+              "world_p": {
+                "ai": {
+                  "fast": -0.15
+                },
+                "economy": {
+                  "crisis": -0.15
+                }
+              },
+              "success": {
+                "effects": {},
+                "text": "你的資歷在這一行還是很吃香。"
+              },
+              "fail": {
+                "effects": {
+                  "career_mult": 0.92,
+                  "happiness": -3
+                },
+                "text": "行業持續萎縮，公司兩年沒調薪。"
+              }
+            }
           }
         ]
       }
@@ -14408,6 +15495,12 @@ window.TW_DATA = {
           "unlock_remote_if_tech": true,
           "happiness_delta": 2,
           "knowledge_delta": 3
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.6,
+            "slow": 0.4
+          }
         }
       },
       {
@@ -14433,6 +15526,12 @@ window.TW_DATA = {
           "living_cost_mult": 1.03,
           "health_delta": -2,
           "happiness_delta": -2
+        },
+        "world_bias": {
+          "climate": {
+            "harsh": 1.6,
+            "mild": 0.5
+          }
         }
       },
       {
@@ -14458,6 +15557,12 @@ window.TW_DATA = {
           "care_cost_mult": 0.78,
           "health_delta_elder": 4,
           "happiness_delta": 3
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.4,
+            "slow": 0.7
+          }
         }
       },
       {
@@ -14483,6 +15588,12 @@ window.TW_DATA = {
           "rent_cost_mult": 0.88,
           "clear_elderly_rent_risk": true,
           "happiness_delta": 4
+        },
+        "world_bias": {
+          "economy": {
+            "boom": 1.2,
+            "crisis": 0.8
+          }
         }
       },
       {
@@ -14513,6 +15624,12 @@ window.TW_DATA = {
           "region_wage_mult": 1.08,
           "happiness_delta": 3,
           "health_delta_east": 3
+        },
+        "world_bias": {
+          "economy": {
+            "boom": 1.3,
+            "crisis": 0.6
+          }
         }
       },
       {
@@ -14537,6 +15654,12 @@ window.TW_DATA = {
         "gameplay_impact": {
           "knowledge_delta": 4,
           "happiness_delta": 2
+        },
+        "world_bias": {
+          "demo": {
+            "decline": 1.3,
+            "rebound": 0.5
+          }
         }
       },
       {
@@ -14563,6 +15686,16 @@ window.TW_DATA = {
           "stock_shock_pct": 0.16,
           "tech_wage_mult": 1.12,
           "happiness_delta": 2
+        },
+        "world_bias": {
+          "geo": {
+            "calm": 1.3,
+            "tense": 0.8
+          },
+          "economy": {
+            "boom": 1.4,
+            "crisis": 0.6
+          }
         }
       },
       {
@@ -14590,6 +15723,12 @@ window.TW_DATA = {
           "tech_wage_mult": 0.93,
           "non_tech_wage_mult": 1.05,
           "happiness_delta": -3
+        },
+        "world_bias": {
+          "geo": {
+            "tense": 1.5,
+            "calm": 0.7
+          }
         }
       },
       {
@@ -14615,6 +15754,12 @@ window.TW_DATA = {
           "health_delta": 6,
           "happiness_delta": 4,
           "mortality_mult": 0.88
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.2,
+            "slow": 0.9
+          }
         }
       },
       {
@@ -14641,6 +15786,15 @@ window.TW_DATA = {
           "living_cost_mult": 0.96,
           "happiness_delta": 3,
           "stock_shock_pct": 0.06
+        },
+        "world_bias": {
+          "climate": {
+            "mild": 1.3,
+            "harsh": 0.8
+          },
+          "economy": {
+            "boom": 1.2
+          }
         }
       },
       {
@@ -14666,6 +15820,15 @@ window.TW_DATA = {
         "gameplay_impact": {
           "living_cost_mult": 1.07,
           "happiness_delta": -3
+        },
+        "world_bias": {
+          "climate": {
+            "harsh": 1.4,
+            "mild": 0.7
+          },
+          "ai": {
+            "fast": 1.2
+          }
         }
       },
       {
@@ -14690,6 +15853,12 @@ window.TW_DATA = {
         "gameplay_impact": {
           "housing_divergence": true,
           "happiness_delta": 1
+        },
+        "world_bias": {
+          "demo": {
+            "decline": 1.4,
+            "rebound": 0.5
+          }
         }
       },
       {
@@ -14717,6 +15886,12 @@ window.TW_DATA = {
           "living_cost_mult": 0.97,
           "social_delta": 5,
           "happiness_delta": 3
+        },
+        "world_bias": {
+          "demo": {
+            "decline": 1.3,
+            "rebound": 0.7
+          }
         }
       },
       {
@@ -14743,6 +15918,15 @@ window.TW_DATA = {
           "wage_mult": 1.03,
           "happiness_delta": -3,
           "social_delta": 2
+        },
+        "world_bias": {
+          "economy": {
+            "stagnant": 1.3,
+            "boom": 0.8
+          },
+          "demo": {
+            "decline": 1.2
+          }
         }
       },
       {
@@ -14767,6 +15951,12 @@ window.TW_DATA = {
         "gameplay_impact": {
           "happiness_delta": 3,
           "mortality_mult": 0.96
+        },
+        "world_bias": {
+          "geo": {
+            "tense": 1.4,
+            "calm": 0.8
+          }
         }
       },
       {
@@ -14799,6 +15989,12 @@ window.TW_DATA = {
           ],
           "region_housing_shock_pct": -0.06,
           "health_delta": 1
+        },
+        "world_bias": {
+          "climate": {
+            "harsh": 1.6,
+            "mild": 0.4
+          }
         }
       },
       {
@@ -14824,6 +16020,12 @@ window.TW_DATA = {
           "reduce_scam_risk": true,
           "happiness_delta": 3,
           "knowledge_delta": 2
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.2,
+            "slow": 0.8
+          }
         }
       },
       {
@@ -14851,6 +16053,15 @@ window.TW_DATA = {
         "gameplay_impact": {
           "cash_subsidy_2025": 180000,
           "happiness_delta": 5
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.5,
+            "slow": 0.3
+          },
+          "economy": {
+            "crisis": 1.2
+          }
         }
       },
       {
@@ -14876,6 +16087,12 @@ window.TW_DATA = {
           "non_tech_wage_mult": 1.1,
           "happiness_delta": 4,
           "social_delta": 3
+        },
+        "world_bias": {
+          "economy": {
+            "boom": 1.3,
+            "crisis": 0.7
+          }
         }
       },
       {
@@ -14901,6 +16118,12 @@ window.TW_DATA = {
           "care_cost_mult": 0.72,
           "health_delta_elder": 6,
           "happiness_delta": 5
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.2,
+            "slow": 0.8
+          }
         }
       },
       {
@@ -14926,6 +16149,12 @@ window.TW_DATA = {
           "living_cost_mult": 0.98,
           "health_delta": 2,
           "happiness_delta": 1
+        },
+        "world_bias": {
+          "demo": {
+            "decline": 1.5,
+            "rebound": 0.2
+          }
         }
       },
       {
@@ -14960,6 +16189,12 @@ window.TW_DATA = {
           ],
           "region_wage_mult": 1.12,
           "happiness_delta": 4
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.5,
+            "slow": 0.3
+          }
         }
       },
       {
@@ -14984,6 +16219,12 @@ window.TW_DATA = {
         "gameplay_impact": {
           "social_delta": 7,
           "happiness_delta": 5
+        },
+        "world_bias": {
+          "demo": {
+            "decline": 1.4,
+            "rebound": 0.5
+          }
         }
       },
       {
@@ -15012,6 +16253,12 @@ window.TW_DATA = {
           "health_delta": 7,
           "mortality_mult": 0.85,
           "happiness_delta": 3
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.3,
+            "slow": 0.7
+          }
         }
       },
       {
@@ -15036,13 +16283,19 @@ window.TW_DATA = {
         "gameplay_impact": {
           "happiness_delta": 4,
           "social_delta": 4
+        },
+        "world_bias": {
+          "demo": {
+            "decline": 1.5,
+            "rebound": 0.1
+          }
         }
       },
       {
         "id": "FF_2078_netzero_green_island",
         "year_range": [
           2072,
-          2110
+          2115
         ],
         "probability": 0.35,
         "category": "climate_energy",
@@ -15064,6 +16317,12 @@ window.TW_DATA = {
           "health_delta": 6,
           "happiness_delta": 6,
           "mortality_mult": 0.92
+        },
+        "world_bias": {
+          "climate": {
+            "mild": 1.4,
+            "harsh": 0.6
+          }
         }
       },
       {
@@ -15090,6 +16349,12 @@ window.TW_DATA = {
           "living_cost_mult": 1.08,
           "happiness_delta": -5,
           "knowledge_delta": 1
+        },
+        "world_bias": {
+          "geo": {
+            "tense": 2.0,
+            "calm": 0.3
+          }
         }
       },
       {
@@ -15116,6 +16381,13 @@ window.TW_DATA = {
           "care_cost_mult": 1.15,
           "health_delta_elder": -2,
           "happiness_delta": -4
+        },
+        "world_bias": {
+          "economy": {
+            "stagnant": 1.3,
+            "crisis": 1.3,
+            "boom": 0.6
+          }
         }
       },
       {
@@ -15144,6 +16416,12 @@ window.TW_DATA = {
           "living_cost_mult": 1.07,
           "non_tech_wage_mult": 0.96,
           "happiness_delta": -5
+        },
+        "world_bias": {
+          "climate": {
+            "harsh": 1.8,
+            "mild": 0.3
+          }
         }
       },
       {
@@ -15152,7 +16430,7 @@ window.TW_DATA = {
           2050,
           2075
         ],
-        "probability": 0.28,
+        "probability": 0.2,
         "category": "climate_energy",
         "regions": [
           "ALL"
@@ -15171,6 +16449,879 @@ window.TW_DATA = {
           "health_delta": -3,
           "happiness_delta": -6,
           "mortality_mult": 1.05
+        }
+      },
+      {
+        "id": "FF_2032_ai_bubble_burst",
+        "year_range": [
+          2030,
+          2036
+        ],
+        "probability": 0.4,
+        "category": "ai_economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "ai_bubble_burst"
+        ],
+        "title": "AI 概念股泡沫破裂：科技股兩年腰斬",
+        "summary": "全球資金過度湧入 AI 算力與模型公司，獲利追不上估值。龍頭企業財報失色引爆連鎖拋售，台股電子權值股兩年內跌掉近半，竹科與內湖掀起一波凍結招募。",
+        "institutional_aftermath": "金管會強化 AI 概念股資訊揭露，勞動部啟動科技業大量解僱通報與轉職補助。",
+        "trend_basis": "虛構推演 · 參照 2000 年網路泡沫與歷次科技股修正週期推演。",
+        "cultural_footnote_en": "Fictional forecast: An AI equity bubble bursts, halving tech stocks and freezing hiring across Taiwan's tech parks.",
+        "gameplay_impact": {
+          "stock_shock_pct": -0.3,
+          "tech_wage_mult": 0.94,
+          "happiness_delta": -4
+        },
+        "world_bias": {
+          "economy": {
+            "crisis": 2.0,
+            "stagnant": 1.0,
+            "boom": 0.3
+          },
+          "ai": {
+            "fast": 1.3
+          }
+        },
+        "mutually_exclusive_group": "ai_market_2030s"
+      },
+      {
+        "id": "FF_2032_ai_productivity_boom",
+        "year_range": [
+          2030,
+          2036
+        ],
+        "probability": 0.4,
+        "category": "ai_economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "ai_dividend"
+        ],
+        "title": "AI 生產力紅利兌現：台灣出口與薪資雙雙創高",
+        "summary": "AI 從試辦走進工廠、醫院與中小企業，生產力明顯提升。台灣伺服器與晶片出口連年創高，企業開始把獲利分給員工，十多年來第一次出現普遍加薪。",
+        "institutional_aftermath": "政府推出中小企業 AI 導入補助，基本工資審議納入生產力指標。",
+        "trend_basis": "虛構推演 · 延伸自 2025 年後 AI 伺服器出口與產業導入趨勢。",
+        "cultural_footnote_en": "Fictional forecast: AI productivity gains finally lift exports and broad-based wages in Taiwan.",
+        "gameplay_impact": {
+          "stock_shock_pct": 0.15,
+          "wage_mult": 1.04,
+          "happiness_delta": 3
+        },
+        "world_bias": {
+          "economy": {
+            "boom": 2.0,
+            "stagnant": 0.8,
+            "crisis": 0.2
+          },
+          "ai": {
+            "fast": 1.4,
+            "slow": 0.6
+          }
+        },
+        "mutually_exclusive_group": "ai_market_2030s"
+      },
+      {
+        "id": "FF_2034_strait_blockade_drill",
+        "year_range": [
+          2031,
+          2040
+        ],
+        "probability": 0.42,
+        "category": "geopolitics",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "blockade_stress"
+        ],
+        "title": "長期海空演習與航運中斷：台灣經歷 30 天的「準封鎖」",
+        "summary": "區域局勢升溫，周邊海空演習一度持續一個月，貨輪改道、保險費暴漲，部分進口物資與能源吃緊。超市一度出現搶購潮，企業緊急啟動備援供應鏈。",
+        "institutional_aftermath": "國家安全韌性委員會常態化，全民防衛動員與能源儲備天數大幅提高。",
+        "trend_basis": "虛構推演 · 依區域地緣風險情境推演，不代表任何預測立場。",
+        "cultural_footnote_en": "Fictional forecast: A month-long blockade-like drill disrupts shipping and tests Taiwan's resilience.",
+        "gameplay_impact": {
+          "stock_shock_pct": -0.15,
+          "living_cost_mult": 1.04,
+          "happiness_delta": -5
+        },
+        "requires_world_line": {
+          "geo": [
+            "tense"
+          ]
+        },
+        "mutually_exclusive_group": "strait_2030s"
+      },
+      {
+        "id": "FF_2034_cross_strait_thaw",
+        "year_range": [
+          2031,
+          2040
+        ],
+        "probability": 0.35,
+        "category": "geopolitics",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "regional_calm"
+        ],
+        "title": "區域局勢和緩：航運保費回落、觀光與投資回溫",
+        "summary": "國際情勢轉趨穩定，區域航運保費回落，國際觀光客與外資重新回流台灣，股市與觀光業迎來一段溫和的好日子。",
+        "institutional_aftermath": "政府擴大國際觀光推廣，外資投資審議流程簡化。",
+        "trend_basis": "虛構推演 · 依區域地緣風險情境推演，不代表任何預測立場。",
+        "cultural_footnote_en": "Fictional forecast: Regional tensions ease, bringing back tourism and foreign investment.",
+        "gameplay_impact": {
+          "stock_shock_pct": 0.08,
+          "happiness_delta": 3
+        },
+        "requires_world_line": {
+          "geo": [
+            "calm"
+          ]
+        },
+        "mutually_exclusive_group": "strait_2030s"
+      },
+      {
+        "id": "FF_2036_super_typhoon",
+        "year_range": [
+          2033,
+          2050
+        ],
+        "probability": 0.4,
+        "category": "climate_energy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "super_typhoon_hit"
+        ],
+        "title": "超級颱風直撲中南部：一夜雨量破歷史紀錄",
+        "summary": "暖化後的海溫讓颱風強度更強、移動更慢。一個超級颱風在中南部滯留兩天，多處淹水、土石流，部分地區停電一週。",
+        "institutional_aftermath": "氣象署建立極端颱風分級，地方政府全面檢討滯洪池與高風險社區遷村。",
+        "trend_basis": "虛構推演 · 延伸自西北太平洋強颱比例上升的氣候研究。",
+        "cultural_footnote_en": "Fictional forecast: A slow-moving super typhoon smashes rainfall records across central and southern Taiwan.",
+        "gameplay_impact": {
+          "health_delta": -2,
+          "happiness_delta": -4,
+          "region_housing_shock_ids": [
+            "south_tainan",
+            "south_kaohsiung",
+            "central"
+          ],
+          "region_housing_shock_pct": -0.05
+        },
+        "requires_world_line": {
+          "climate": [
+            "harsh"
+          ]
+        }
+      },
+      {
+        "id": "FF_2037_birth_rebound",
+        "year_range": [
+          2034,
+          2046
+        ],
+        "probability": 0.45,
+        "category": "demography",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "birth_rebound"
+        ],
+        "title": "生育率谷底反彈：托育全面公共化後，出生數連三年回升",
+        "summary": "0 到 6 歲托育全面公共化、育嬰假延長到一年並由國家支薪，加上住宅政策奏效，出生數意外連三年回升，產科與幼兒園重新開張。",
+        "institutional_aftermath": "少子化對策從「發錢」轉為「時間與托育」，企業育兒友善認證成為求職指標。",
+        "trend_basis": "虛構推演 · 參照北歐與部分東亞國家托育政策後的生育率變化推演。",
+        "cultural_footnote_en": "Fictional forecast: Universal childcare helps Taiwan's birth rate rebound for three straight years.",
+        "gameplay_impact": {
+          "happiness_delta": 3,
+          "living_cost_mult": 0.98
+        },
+        "requires_world_line": {
+          "demo": [
+            "rebound"
+          ]
+        }
+      },
+      {
+        "id": "FF_2043_pension_cut",
+        "year_range": [
+          2040,
+          2050
+        ],
+        "probability": 0.4,
+        "category": "society",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "pension_cut"
+        ],
+        "title": "勞保年金改革：給付打折、提撥加碼",
+        "summary": "勞保基金逼近破產線，立法院通過年金改革：退休給付打九折、在職者提撥率提高。年輕人與退休族各有不滿，街頭出現兩代對立的抗議。",
+        "institutional_aftermath": "政府撥補基金並推動個人帳戶制雙軌化，鼓勵自主提撥。",
+        "trend_basis": "虛構推演 · 延伸自勞保基金財務精算的長期趨勢。",
+        "cultural_footnote_en": "Fictional forecast: Taiwan cuts labor-insurance pensions and raises contributions as the fund nears insolvency.",
+        "gameplay_impact": {
+          "living_cost_mult": 1.03,
+          "happiness_delta": -4
+        },
+        "world_bias": {
+          "economy": {
+            "stagnant": 1.6,
+            "crisis": 1.6,
+            "boom": 0.3
+          },
+          "demo": {
+            "decline": 1.3,
+            "rebound": 0.6
+          }
+        }
+      },
+      {
+        "id": "FF_2045_household_robots",
+        "year_range": [
+          2042,
+          2058
+        ],
+        "probability": 0.42,
+        "category": "ai_economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "home_robots"
+        ],
+        "title": "家務與照護機器人進入一般家庭",
+        "summary": "價格降到一台機車左右的家務機器人開始普及，能洗衣、打掃、陪長輩散步和提醒吃藥。外籍看護需求下降，長照家庭的負擔明顯減輕。",
+        "institutional_aftermath": "衛福部將照護機器人納入長照輔具補助，並訂定隱私與安全規範。",
+        "trend_basis": "虛構推演 · 延伸自服務型機器人成本下降與高齡照護需求。",
+        "cultural_footnote_en": "Fictional forecast: Affordable household and care robots arrive in ordinary Taiwanese homes.",
+        "gameplay_impact": {
+          "care_cost_mult": 0.85,
+          "health_delta_elder": 2,
+          "happiness_delta": 2
+        },
+        "requires_world_line": {
+          "ai": [
+            "fast"
+          ]
+        }
+      },
+      {
+        "id": "FF_2046_global_recession",
+        "year_range": [
+          2040,
+          2060
+        ],
+        "probability": 0.4,
+        "category": "economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "great_recession_2040s"
+        ],
+        "title": "全球債務危機：二十年來最深的衰退",
+        "summary": "主要經濟體的債務問題同時爆發，全球需求驟降。台灣出口連續六季衰退，無薪假與裁員潮重現，股市一年蒸發三成。",
+        "institutional_aftermath": "政府推出擴大公共建設與失業保險延長給付，央行連續降息。",
+        "trend_basis": "虛構推演 · 參照 2008 年金融海嘯與各國公共債務長期攀升的推演。",
+        "cultural_footnote_en": "Fictional forecast: A global debt crisis triggers the deepest recession in two decades.",
+        "gameplay_impact": {
+          "stock_shock_pct": -0.3,
+          "wage_mult": 0.95,
+          "happiness_delta": -5
+        },
+        "world_bias": {
+          "economy": {
+            "crisis": 2.0,
+            "stagnant": 0.6
+          }
+        },
+        "requires_world_line": {
+          "economy": [
+            "crisis",
+            "stagnant"
+          ]
+        },
+        "mutually_exclusive_group": "macro_2040s"
+      },
+      {
+        "id": "FF_2047_southbound_boom",
+        "year_range": [
+          2040,
+          2060
+        ],
+        "probability": 0.4,
+        "category": "economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "southbound_boom"
+        ],
+        "title": "印太新興市場崛起：台灣中小企業搭上第二次外銷黃金期",
+        "summary": "東南亞與印度的中產階級快速壯大，台灣的機械、醫材與食品品牌大舉進軍，中小企業像當年「一卡皮箱」一樣跑遍新興市場。",
+        "institutional_aftermath": "經濟部推出新興市場拓銷基金，雙語與東南亞語人才成為熱門。",
+        "trend_basis": "虛構推演 · 延伸自南亞與東南亞人口紅利與中產消費成長趨勢。",
+        "cultural_footnote_en": "Fictional forecast: Rising Indo-Pacific markets bring Taiwanese SMEs a second export golden age.",
+        "gameplay_impact": {
+          "stock_shock_pct": 0.1,
+          "wage_mult": 1.04,
+          "happiness_delta": 3
+        },
+        "world_bias": {
+          "economy": {
+            "boom": 2.0,
+            "stagnant": 0.6
+          }
+        },
+        "requires_world_line": {
+          "economy": [
+            "boom",
+            "stagnant"
+          ]
+        },
+        "mutually_exclusive_group": "macro_2040s"
+      },
+      {
+        "id": "FF_2045_pandemic_x",
+        "year_range": [
+          2038,
+          2075
+        ],
+        "probability": 0.22,
+        "category": "health",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "pandemic_x"
+        ],
+        "title": "新型呼吸道傳染病來襲：再一次的口罩與隔離",
+        "summary": "一種新型病毒在國際間快速擴散，台灣再度啟動邊境管制與口罩實名制。這次有了 AI 疫調與快速疫苗平台，但高齡人口比例更高，長照機構成為防疫重點。",
+        "institutional_aftermath": "中央流行疫情指揮中心常設化，國產疫苗快速量產平台啟用。",
+        "trend_basis": "虛構推演 · 依全球大流行約數十年一遇的歷史頻率推演。",
+        "cultural_footnote_en": "Fictional forecast: A novel respiratory pandemic returns Taiwan to masks, border controls and rapid vaccines.",
+        "gameplay_impact": {
+          "health_delta": -4,
+          "happiness_delta": -4,
+          "stock_shock_pct": -0.12,
+          "health_delta_elder": -2
+        }
+      },
+      {
+        "id": "FF_2049_coastal_retreat",
+        "year_range": [
+          2045,
+          2070
+        ],
+        "probability": 0.4,
+        "category": "climate_energy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "coastal_retreat"
+        ],
+        "title": "海平面上升：西南沿海啟動有計畫的撤退遷村",
+        "summary": "地層下陷加上海平面上升，雲嘉南與屏東沿海多個村落每逢大潮就淹水。政府首度推動「有計畫撤退」，補貼居民遷往內陸新市鎮。",
+        "institutional_aftermath": "國土計畫劃設氣候高風險區，限制新建並推動遷村補償。",
+        "trend_basis": "虛構推演 · 延伸自海平面上升與西南沿海地層下陷的長期監測。",
+        "cultural_footnote_en": "Fictional forecast: Rising seas force planned retreat from Taiwan's southwestern coast.",
+        "gameplay_impact": {
+          "region_housing_shock_ids": [
+            "south_tainan",
+            "south_kaohsiung"
+          ],
+          "region_housing_shock_pct": -0.12,
+          "happiness_delta": -3
+        },
+        "requires_world_line": {
+          "climate": [
+            "harsh"
+          ]
+        }
+      },
+      {
+        "id": "FF_2052_brain_interface",
+        "year_range": [
+          2048,
+          2065
+        ],
+        "probability": 0.35,
+        "category": "ai_economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "bci_era"
+        ],
+        "title": "非侵入式腦機介面上市：學習與工作方式再度改寫",
+        "summary": "戴上輕量頭環就能用意念操作電腦、加速語言學習。年輕世代很快上手，中高齡上班族則擔心被淘汰，補習班紛紛改成「腦機訓練中心」。",
+        "institutional_aftermath": "國家通訊傳播委員會訂定神經數據保護規範，禁止雇主強制使用。",
+        "trend_basis": "虛構推演 · 延伸自腦機介面與穿戴式神經裝置的研發進展。",
+        "cultural_footnote_en": "Fictional forecast: Non-invasive brain-computer interfaces reshape how Taiwan learns and works.",
+        "gameplay_impact": {
+          "knowledge_delta": 4,
+          "tech_wage_mult": 1.05,
+          "non_tech_wage_mult": 0.98
+        },
+        "requires_world_line": {
+          "ai": [
+            "fast"
+          ]
+        }
+      },
+      {
+        "id": "FF_2056_cheap_energy",
+        "year_range": [
+          2050,
+          2075
+        ],
+        "probability": 0.38,
+        "category": "climate_energy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "cheap_energy"
+        ],
+        "title": "潔淨能源成本崩跌：電費十年來首次大降",
+        "summary": "太陽能、儲能與新型核能成本持續下降，台灣電價十年來首次調降，冷氣不再是奢侈品，工廠與資料中心擴產加速。",
+        "institutional_aftermath": "電業法修正開放社區售電，能源轉型從補貼走向市場化。",
+        "trend_basis": "虛構推演 · 延伸自再生能源與儲能成本的長期學習曲線。",
+        "cultural_footnote_en": "Fictional forecast: Clean-energy costs collapse and Taiwan's electricity prices fall for the first time in a decade.",
+        "gameplay_impact": {
+          "living_cost_mult": 0.96,
+          "happiness_delta": 3
+        },
+        "world_bias": {
+          "climate": {
+            "mild": 1.6,
+            "harsh": 0.6
+          },
+          "economy": {
+            "boom": 1.4,
+            "crisis": 0.6
+          }
+        }
+      },
+      {
+        "id": "FF_2057_lost_decade",
+        "year_range": [
+          2050,
+          2075
+        ],
+        "probability": 0.4,
+        "category": "economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "lost_decade"
+        ],
+        "title": "失落的十年：薪資停滯、物價溫和、年輕人「低慾望」",
+        "summary": "產業轉型不順加上人口老化，台灣經濟陷入長期低成長。薪水十年沒怎麼動，年輕人不買房、不買車，「低慾望社會」成為流行語。",
+        "institutional_aftermath": "政府推動移民開放與產業升級方案，成效仍待觀察。",
+        "trend_basis": "虛構推演 · 參照日本失落年代的人口與經濟結構推演。",
+        "cultural_footnote_en": "Fictional forecast: Taiwan slips into a lost decade of stagnant pay and a 'low-desire' youth culture.",
+        "gameplay_impact": {
+          "wage_mult": 0.96,
+          "housing_cost_mult": 0.97,
+          "happiness_delta": -2
+        },
+        "requires_world_line": {
+          "economy": [
+            "stagnant",
+            "crisis"
+          ]
+        }
+      },
+      {
+        "id": "FF_2062_heat_dome",
+        "year_range": [
+          2055,
+          2085
+        ],
+        "probability": 0.4,
+        "category": "climate_energy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "heat_dome"
+        ],
+        "title": "熱穹頂籠罩全台：連續兩週 42°C",
+        "summary": "一場罕見的熱穹頂讓全台連續兩週高溫破 42°C，夜間也降不到 30°C。熱傷害送醫人數創新高，戶外工作全面停工，長輩成為最脆弱的一群。",
+        "institutional_aftermath": "高溫假與戶外工作停工標準全面入法，各里設立「涼適避難所」。",
+        "trend_basis": "虛構推演 · 延伸自極端高溫事件頻率上升的氣候推估。",
+        "cultural_footnote_en": "Fictional forecast: A heat dome bakes Taiwan above 42°C for two weeks, straining health and power.",
+        "gameplay_impact": {
+          "health_delta": -3,
+          "health_delta_elder": -3,
+          "mortality_mult": 1.03,
+          "happiness_delta": -3
+        },
+        "requires_world_line": {
+          "climate": [
+            "harsh"
+          ]
+        }
+      },
+      {
+        "id": "FF_2063_space_industry",
+        "year_range": [
+          2055,
+          2080
+        ],
+        "probability": 0.25,
+        "category": "ai_economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "space_industry"
+        ],
+        "title": "台灣衛星與太空產業成形：屏東發射場常態商轉",
+        "summary": "低軌衛星製造與商業發射在屏東形成聚落，台灣成為亞洲小型衛星的主要供應國之一，太空工程師成為新的熱門職業。",
+        "institutional_aftermath": "太空發展法修正，地方政府爭取太空產業園區。",
+        "trend_basis": "虛構推演 · 延伸自台灣太空中心與低軌衛星供應鏈的發展。",
+        "cultural_footnote_en": "Fictional forecast: A homegrown satellite and launch industry takes root in southern Taiwan.",
+        "gameplay_impact": {
+          "tech_wage_mult": 1.05,
+          "region_bonus_ids": [
+            "south_kaohsiung"
+          ],
+          "region_wage_mult": 1.04,
+          "happiness_delta": 2
+        },
+        "world_bias": {
+          "economy": {
+            "boom": 1.6,
+            "crisis": 0.5
+          },
+          "ai": {
+            "fast": 1.3
+          }
+        }
+      },
+      {
+        "id": "FF_2070_population_15m",
+        "year_range": [
+          2065,
+          2110
+        ],
+        "probability": 0.4,
+        "category": "demography",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "population_15m"
+        ],
+        "title": "人口跌破 1,500 萬：一半的鄉鎮被列為「消滅危機」",
+        "summary": "人口持續萎縮，全台一半鄉鎮人口不到高峰時的一半。學校、診所與公車線一一收掉，留下來的居民必須搬到整併後的核心城鎮。",
+        "institutional_aftermath": "國土重劃推動「核心城鎮＋無人機物流」模式，鄉鎮市公所合併。",
+        "trend_basis": "虛構推演 · 依國發會人口推計低推估情境延伸。",
+        "cultural_footnote_en": "Fictional forecast: Taiwan's population falls below 15 million, hollowing out half its townships.",
+        "gameplay_impact": {
+          "living_cost_mult": 1.03,
+          "happiness_delta": -2,
+          "region_housing_shock_ids": [
+            "east_islands",
+            "south_tainan"
+          ],
+          "region_housing_shock_pct": -0.15
+        },
+        "requires_world_line": {
+          "demo": [
+            "decline"
+          ]
+        }
+      },
+      {
+        "id": "FF_2074_baby_boom_echo",
+        "year_range": [
+          2065,
+          2110
+        ],
+        "probability": 0.4,
+        "category": "demography",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "baby_boom_echo"
+        ],
+        "title": "回聲嬰兒潮：二十年前回升的那一代，開始生下一代",
+        "summary": "2030–40 年代生育回升的那一代成年了，出生數再次溫和上升，社區又聽得到孩子的聲音，退場的學校重新開張。",
+        "institutional_aftermath": "教育部重新規劃中小學設校，地方政府推動「回流成家」補助。",
+        "trend_basis": "虛構推演 · 延伸自生育率回升情境的世代回聲推演。",
+        "cultural_footnote_en": "Fictional forecast: The children of Taiwan's birth rebound start families, echoing a small baby boom.",
+        "gameplay_impact": {
+          "happiness_delta": 4,
+          "social_delta": 2
+        },
+        "requires_world_line": {
+          "demo": [
+            "rebound"
+          ]
+        }
+      },
+      {
+        "id": "FF_2076_aging_pill",
+        "year_range": [
+          2068,
+          2100
+        ],
+        "probability": 0.14,
+        "category": "health",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "aging_pill"
+        ],
+        "title": "延緩老化藥物獲准上市：「健康餘命」再延長五年",
+        "summary": "首款證實能延緩細胞老化的口服藥通過核准，價格不菲但逐步納入健保。七十歲的人看起來像五十歲，退休與家庭結構再度改寫。",
+        "institutional_aftermath": "健保署分階段給付，勞動部研議再延後退休年齡。",
+        "trend_basis": "虛構推演 · 延伸自老化生物學與長壽醫學的研發趨勢。",
+        "cultural_footnote_en": "Fictional forecast: The first approved anti-aging drug extends healthy lifespan by about five years.",
+        "gameplay_impact": {
+          "mortality_mult": 0.92,
+          "health_delta_elder": 3,
+          "happiness_delta": 3
+        },
+        "world_bias": {
+          "ai": {
+            "fast": 1.4,
+            "slow": 0.7
+          }
+        }
+      },
+      {
+        "id": "FF_2081_ai_governance_crisis",
+        "year_range": [
+          2072,
+          2115
+        ],
+        "probability": 0.35,
+        "category": "ai_economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "ai_governance_crisis"
+        ],
+        "title": "AI 治理危機：一場系統失控讓金融與交通停擺三天",
+        "summary": "高度自動化的金融與交通系統出現連鎖錯誤，全台金流、捷運與物流停擺三天。社會開始反思把太多決定交給 AI，「人類在迴路中」成為新的法規原則。",
+        "institutional_aftermath": "立法院通過 AI 關鍵基礎設施法，要求人類最終決策權與離線備援。",
+        "trend_basis": "虛構推演 · 延伸自關鍵基礎設施自動化風險的推演。",
+        "cultural_footnote_en": "Fictional forecast: A cascading AI failure halts Taiwan's finance and transport for three days.",
+        "gameplay_impact": {
+          "stock_shock_pct": -0.15,
+          "happiness_delta": -4
+        },
+        "requires_world_line": {
+          "ai": [
+            "fast"
+          ]
+        }
+      },
+      {
+        "id": "FF_2086_climate_recovery",
+        "year_range": [
+          2078,
+          2120
+        ],
+        "probability": 0.4,
+        "category": "climate_energy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "climate_recovery"
+        ],
+        "title": "全球排放達峰後回落：夏天第一次沒有變得更熱",
+        "summary": "全球排放在 2060 年代達峰後持續下降，氣溫上升趨緩。台灣的夏天第一次連續幾年沒有創新高，海岸線的變化也慢了下來。",
+        "institutional_aftermath": "國家氣候調適計畫從「防災」轉向「復育」，重建濕地與海岸林。",
+        "trend_basis": "虛構推演 · 依全球淨零路徑順利實現的情境推演。",
+        "cultural_footnote_en": "Fictional forecast: Global emissions fall and, for the first time in decades, Taiwan's summers stop getting hotter.",
+        "gameplay_impact": {
+          "health_delta": 2,
+          "happiness_delta": 3
+        },
+        "requires_world_line": {
+          "climate": [
+            "mild"
+          ]
+        }
+      },
+      {
+        "id": "FF_2090_great_flood",
+        "year_range": [
+          2080,
+          2120
+        ],
+        "probability": 0.35,
+        "category": "climate_energy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "great_flood"
+        ],
+        "title": "百年洪水：西部平原大範圍淹水",
+        "summary": "一場前所未見的豪雨伴隨暴潮，西部平原大範圍淹水，多座城市地下室與捷運站進水，數十萬人暫時撤離。",
+        "institutional_aftermath": "全國啟動「與水共生」城市改造，地下空間全面加裝防洪閘門。",
+        "trend_basis": "虛構推演 · 依極端降雨與海平面上升的長期情境推演。",
+        "cultural_footnote_en": "Fictional forecast: An unprecedented flood swamps Taiwan's western plains and city subways.",
+        "gameplay_impact": {
+          "health_delta": -2,
+          "happiness_delta": -4,
+          "region_housing_shock_ids": [
+            "south_tainan",
+            "central",
+            "north_taipei"
+          ],
+          "region_housing_shock_pct": -0.06
+        },
+        "requires_world_line": {
+          "climate": [
+            "harsh"
+          ]
+        }
+      },
+      {
+        "id": "FF_2095_centenarian_society",
+        "year_range": [
+          2088,
+          2125
+        ],
+        "probability": 0.4,
+        "category": "society",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "centenarian_society"
+        ],
+        "title": "百歲人瑞突破十萬人：「一百歲」成為人生的新常態",
+        "summary": "全台百歲人瑞突破十萬人，社區裡的百歲生日派對不再稀奇。人們開始規劃「第三段人生」，七十歲重新上大學的人越來越多。",
+        "institutional_aftermath": "教育部推動終身學習學分銀行，百歲人瑞健康照護納入社區醫療常規。",
+        "trend_basis": "虛構推演 · 依平均壽命延長與高齡人口推估延伸。",
+        "cultural_footnote_en": "Fictional forecast: Taiwan passes 100,000 centenarians as living to 100 becomes ordinary.",
+        "gameplay_impact": {
+          "social_delta": 2,
+          "happiness_delta": 2
+        }
+      },
+      {
+        "id": "FF_2100_new_century",
+        "year_range": [
+          2098,
+          2110
+        ],
+        "probability": 0.5,
+        "category": "society",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "new_century"
+        ],
+        "title": "迎接 22 世紀：台灣在跨世紀夜晚回顧百年",
+        "summary": "2100 年的最後一天，全台各地舉辦跨世紀晚會，電視台播放百年台灣影像回顧，從戒嚴、解嚴、民主化到 AI 時代。許多長輩說，這一百年變得比他們想像的還多。",
+        "institutional_aftermath": "國家檔案館開放「百年台灣家族記憶」數位典藏。",
+        "trend_basis": "虛構推演 · 依時間推演的象徵性年度事件。",
+        "cultural_footnote_en": "Fictional forecast: Taiwan welcomes the 22nd century with a nationwide look back at a hundred years.",
+        "gameplay_impact": {
+          "happiness_delta": 3,
+          "social_delta": 2
+        }
+      },
+      {
+        "id": "FF_2104_lifelong_learning_retirement",
+        "year_range": [
+          2098,
+          2125
+        ],
+        "probability": 0.4,
+        "category": "society",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "no_retirement_age"
+        ],
+        "title": "退休制度大翻修：「退休年齡」從法律中消失",
+        "summary": "健康餘命延長到九十歲以上，政府廢除強制退休年齡，改為「彈性工作＋終身學習帳戶」。八十歲的人重回大學、半工半讀成為常態。",
+        "institutional_aftermath": "勞動法全面改寫，年金改為依工作年數與健康狀況彈性給付。",
+        "trend_basis": "虛構推演 · 依健康餘命延長的長期情境推演。",
+        "cultural_footnote_en": "Fictional forecast: Taiwan abolishes the retirement age in favor of flexible work and lifelong learning accounts.",
+        "gameplay_impact": {
+          "knowledge_delta": 3,
+          "happiness_delta": 2
+        }
+      },
+      {
+        "id": "FF_2108_ai_personhood_debate",
+        "year_range": [
+          2098,
+          2125
+        ],
+        "probability": 0.35,
+        "category": "ai_economy",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "ai_personhood_debate"
+        ],
+        "title": "AI 能不能有「人格」？憲法法庭受理第一件 AI 權利案",
+        "summary": "一個陪伴長者二十多年的 AI 助理，在主人過世後被家屬要求刪除，引發社會激辯：AI 是財產，還是某種家人？全台家庭飯桌上都在吵這件事。",
+        "institutional_aftermath": "憲法法庭作成指標性判決，數位陪伴者的資料保存與刪除權交由使用者生前指定。",
+        "trend_basis": "虛構推演 · 依 AI 陪伴與數位人格的倫理討論推演。",
+        "cultural_footnote_en": "Fictional forecast: Taiwan's Constitutional Court hears its first case on whether an AI companion has rights.",
+        "gameplay_impact": {
+          "social_delta": 1,
+          "happiness_delta": -1
+        },
+        "requires_world_line": {
+          "ai": [
+            "fast"
+          ]
+        }
+      },
+      {
+        "id": "FF_2112_digital_heritage_island",
+        "year_range": [
+          2100,
+          2125
+        ],
+        "probability": 0.4,
+        "category": "society",
+        "regions": [
+          "ALL"
+        ],
+        "sets_world_flags": [
+          "digital_heritage"
+        ],
+        "title": "「台灣百年記憶」全民數位典藏完成",
+        "summary": "歷時三十年的全民數位典藏計畫完成，每個家庭都能把老照片、錄音與家族故事存進國家記憶庫。許多人第一次聽到曾祖父母的聲音。",
+        "institutional_aftermath": "國家檔案館開放家族記憶查詢，學校把家族史納入課程。",
+        "trend_basis": "虛構推演 · 依數位典藏與家族記憶保存的長期趨勢推演。",
+        "cultural_footnote_en": "Fictional forecast: Taiwan completes a nationwide digital archive of family memories spanning a century.",
+        "gameplay_impact": {
+          "happiness_delta": 3,
+          "social_delta": 2
         }
       }
     ]

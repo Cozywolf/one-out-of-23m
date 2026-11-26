@@ -1,4 +1,4 @@
-/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.5 (13 Databases Integrated) ===
+/* === Taiwan Life Simulation Engine (js/tw_engine.js) — v6.6 (13 Databases Integrated) ===
  * Pure data-driven microsimulation consuming all 13 data/tw_*.json modules (or window.TW_DATA):
  * 1. tw_regions.json           6 macro-regions, quintiles, migration rates
  * 2. tw_eras.json              1950–2070+ anchors, year overrides, 26 institutional switches
@@ -31,6 +31,14 @@
 
   const DECISION_COOLDOWN = 2;
   const ERA_TIER_ICONS = { era: "🕰", trend: "🧭", future: "🔮" };
+  // 每段人生在 2026 年後走一條隱藏的未來世界線：決定哪些未來事件較可能發生、未來抉擇的成敗機率
+  const WORLD_LINE_AXES = {
+    ai: { label: "AI 發展", values: { fast: { w: 0.5, name: "AI 快速普及" }, slow: { w: 0.5, name: "AI 進展趨緩" } } },
+    climate: { label: "氣候", values: { mild: { w: 0.55, name: "氣候大致穩定" }, harsh: { w: 0.45, name: "極端氣候加劇" } } },
+    economy: { label: "經濟", values: { boom: { w: 0.38, name: "經濟繁榮" }, stagnant: { w: 0.4, name: "長期停滯" }, crisis: { w: 0.22, name: "金融危機頻仍" } } },
+    geo: { label: "兩岸與國際", values: { calm: { w: 0.55, name: "兩岸大致和緩" }, tense: { w: 0.45, name: "區域局勢緊張" } } },
+    demo: { label: "人口", values: { rebound: { w: 0.3, name: "生育率回升" }, decline: { w: 0.7, name: "人口持續萎縮" } } }
+  };
   const ORIGIN_LABELS = {
     minnan: "閩南家庭",
     hakka: "客家家庭",
@@ -1723,6 +1731,7 @@
         life.futureWorld = { flags: {}, groups: {}, triggered: {}, lastForecastAge: -10 };
       }
       const fw = life.futureWorld;
+      const line = this.ensureWorldLine(life);
       if (life.age - (fw.lastForecastAge != null ? fw.lastForecastAge : -10) < 3) return false;
 
       const candidates = events.filter((ev) => {
@@ -1731,6 +1740,7 @@
         if (ev.mutually_exclusive_group && fw.groups[ev.mutually_exclusive_group]) return false;
         if (Array.isArray(ev.requires_world_flags) && !ev.requires_world_flags.every((fl) => fw.flags[fl])) return false;
         if (Array.isArray(ev.excludes_world_flags) && ev.excludes_world_flags.some((fl) => fw.flags[fl])) return false;
+        if (ev.requires_world_line && !Object.entries(ev.requires_world_line).every(([ax, vals]) => vals.includes(line[ax]))) return false;
         if (ev.regions && !ev.regions.includes("ALL")) {
           const checkReg = life.location === "TAIWAN" ? life.regionId : life.birthRegionId;
           if (!ev.regions.includes(checkReg)) return false;
@@ -1739,10 +1749,11 @@
       });
       if (!candidates.length) return false;
 
-      const picked = pick(candidates);
+      const bias = (ev) => Object.entries(ev.world_bias || {}).reduce((m, [ax, tbl]) => m * (tbl[line[ax]] != null ? tbl[line[ax]] : 1), 1);
+      const picked = weightedPick(candidates, (ev) => bias(ev));
       const gapYrs = life.age - (fw.lastForecastAge != null ? fw.lastForecastAge : -10);
-      const baseProb = picked.probability != null ? picked.probability : 0.34;
-      const effProb = gapYrs >= 6 ? Math.min(0.85, baseProb + 0.35) : baseProb;
+      const baseProb = (picked.probability != null ? picked.probability : 0.34) * clamp(bias(picked), 0.3, 1.8);
+      const effProb = clamp(gapYrs >= 6 ? baseProb + 0.2 : baseProb, 0.04, 0.8);
       if (Math.random() > effProb) return false;
 
       fw.triggered[picked.id] = life.currentYear;
@@ -1779,6 +1790,7 @@
         if (rq.homeowner && !life.homeowner) return { eligible: false, reason: "名下沒有房子" };
         if (rq.working && !this.isWorkingNow(life)) return { eligible: false, reason: "目前沒有工作" };
         if (rq.unmarried_or_no_kids && life.married && life.children > 0) return { eligible: false, reason: "已有家庭與子女，難以說走就走" };
+        if (rq.has_children && life.children <= 0) return { eligible: false, reason: "沒有子女" };
       }
       if (opt.requires_siblings && life.family.siblings <= 0) {
         return { eligible: false, reason: "你是獨生子女，無法與手足分擔" };
@@ -3173,6 +3185,17 @@
 
       // === Historical Taiwan Stock Market (TAIEX / 0050) & Real Estate Engine ===
       const mkt = this.getMarketYear(life.currentYear);
+      // 2027 年後依這段人生的隱藏世界線調整股市、房市與薪資走勢（平均而言中性，但不同人生差很多）
+      if (!mkt.isHistorical && life.currentYear >= 2027) {
+        const line = this.ensureWorldLine(life);
+        const crash = line.economy === "crisis" && Math.random() < 0.07;
+        mkt.price_pct = +clamp(mkt.price_pct + ({ boom: 0.03, stagnant: -0.012, crisis: -0.005 }[line.economy] || 0) + (crash ? -0.22 : 0), -0.45, 0.35).toFixed(3);
+        if (mkt.price_pct < 0) mkt.max_drawdown = Math.min(mkt.max_drawdown, mkt.price_pct - 0.08);
+        if (crash) mkt.note = "金融危機再起，台股重挫";
+        mkt.housing_pct = +(mkt.housing_pct + ({ rebound: 0.012, decline: -0.006 }[line.demo] || 0)).toFixed(3);
+        const wageDrift = { boom: 1.004, stagnant: 0.998, crisis: 0.997 }[line.economy] || 1;
+        if (wageDrift !== 1 && life.age >= 18) life.flags.wage_mult = clamp((life.flags.wage_mult || 1.0) * wageDrift, 0.55, 1.28);
+      }
       life.lastMarketReturnPct = mkt.price_pct;
       life.lastMarketNote = mkt.note || "";
       life.flags.margin_called_this_year = false;
@@ -4105,6 +4128,24 @@
       return "minnan";
     }
 
+    ensureWorldLine(life) {
+      if (!life.futureWorld) life.futureWorld = { flags: {}, groups: {}, triggered: {}, lastForecastAge: -10 };
+      if (!life.futureWorld.line) {
+        const line = {};
+        for (const [ax, def] of Object.entries(WORLD_LINE_AXES)) {
+          line[ax] = weightedPick(Object.entries(def.values), ([, v]) => v.w)[0];
+        }
+        life.futureWorld.line = line;
+      }
+      return life.futureWorld.line;
+    }
+
+    describeWorldLine(life) {
+      const line = life.futureWorld && life.futureWorld.line;
+      if (!line) return [];
+      return Object.entries(WORLD_LINE_AXES).map(([ax, def]) => ({ axis: def.label, value: (def.values[line[ax]] || {}).name || line[ax] }));
+    }
+
     isWorkingNow(life) {
       const inSch = life.education.includes("在學") || life.flags.in_grad_school_years > 0 || life.flags.retaking_exam;
       return life.age >= 16 && !inSch && Boolean(life.careerId) && !(life.flags.military_gap_years > 0) && !life.flags.retired &&
@@ -4154,6 +4195,7 @@
       if (c.not_homeowner && life.homeowner) return false;
       if (c.migrated && !life.migrated) return false;
       if (c.low_income && !(life.annualSalaryNominal > 0 && life.annualSalaryNominal < era.avg_monthly_wage_twd * 12 * 0.85)) return false;
+      if (c.world_line && !Object.entries(c.world_line).every(([ax, vals]) => vals.includes(this.ensureWorldLine(life)[ax]))) return false;
       if (c.future_events_any && !c.future_events_any.some((id) => life.futureWorld && life.futureWorld.triggered && life.futureWorld.triggered[id])) return false;
       if (c.flags_all && !c.flags_all.every((f) => life.flags[f])) return false;
       if (c.flags_none && c.flags_none.some((f) => life.flags[f])) return false;
@@ -4212,6 +4254,10 @@
       for (const tr of life.personalities || []) p += (roll.trait_p && roll.trait_p[tr.id]) || 0;
       for (const [k, coef] of Object.entries(roll.stat_p || {})) p += ((life.stats[k] || 50) - 50) * coef;
       if (roll.career_p && roll.career_p[life.careerId]) p += roll.career_p[life.careerId];
+      if (roll.world_p && life.currentYear >= 2026) {
+        const line = this.ensureWorldLine(life);
+        for (const [ax, tbl] of Object.entries(roll.world_p)) p += tbl[line[ax]] || 0;
+      }
       return clamp(p, 0.03, 0.97);
     }
 
@@ -4301,6 +4347,7 @@
         life.studentLoanNominal -= pay;
         life.flags.savings_rate_bonus = (life.flags.savings_rate_bonus || 0) + 0.04;
       }
+      if (ef.stock_ratio && life.stockNominal > 0) life.stockNominal = Math.max(0, Math.round(life.stockNominal * (1 + ef.stock_ratio)));
       if (ef.stock_sell_ratio && life.stockNominal > 0) {
         const sell = Math.round(life.stockNominal * ef.stock_sell_ratio);
         life.stockNominal -= sell;
