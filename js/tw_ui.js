@@ -805,7 +805,7 @@
             <div class="pec-impacts">人生衝擊：${item.impacts}</div>
             <div class="eec-aftermath">
               <strong>📌 這件事改變了台灣什麼（制度與社會餘波）</strong>
-              ${state.engine.visibleAftermath(item.aftermath, l.currentYear)}
+              ${item.aftermath || ""}
             </div>
             ${state.showEnNotes && item.cultural_footnote_en ? `
               <div class="eec-en-note"><strong>EN Cultural Footnote:</strong>${item.cultural_footnote_en}</div>` : ""}
@@ -837,12 +837,10 @@
               </summary>
               <div class="edu-event-body">
                 <p class="eec-fact">${item.summary}</p>
-                <details class="eec-aftermath-spoiler">
-                  <summary>📌 這件事後來改變了什麼（只顯示到目前年份）</summary>
-                  <div class="eec-aftermath" style="margin-top:6px;">
-                    ${state.engine.visibleAftermath(item.aftermath, l.currentYear)}
-                  </div>
-                </details>
+                <div class="eec-aftermath">
+                  <strong>📌 這件事後來改變了什麼</strong>
+                  ${item.aftermath || ""}
+                </div>
                 ${state.showEnNotes && item.cultural_footnote_en ? `
                   <div class="eec-en-note"><strong>EN Cultural Footnote:</strong>${item.cultural_footnote_en}</div>` : ""}
                 <div class="eec-footer"><span>資料出處：${(item.sources || []).join("、")}</span></div>
@@ -1353,7 +1351,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.20 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.21 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1447,7 +1445,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.20 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.21 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
