@@ -1353,7 +1353,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.18 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.19 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1447,7 +1447,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.18 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.19 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1561,6 +1561,22 @@
     };
   }
 
+  // v6.19：把整段人生的詳細資料（逐年屬性與資產、事件、抉擇與門檻判定）匯出成 JSON，方便除錯
+  function downloadLifeExport(l) {
+    try {
+      const data = state.engine.buildLifeExport(l, { name: "生在台灣", version: "6.19", url: location.href.split("#")[0] });
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `tw-life_${l.birthYear}-${l.currentYear}_age${l.age}_${l.alive ? "partial" : "full"}_${String(l.id || Date.now()).replace(/[^A-Za-z0-9_-]/g, "").slice(-12)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    } catch (err) {
+      console.error("[tw] export failed", err);
+    }
+  }
+
   function showHukouModal() {
     const l = state.life;
     if (!l) return;
@@ -1653,9 +1669,14 @@
     if (barriers.length || mktLogs.length || l.flags.disabled) {
       finWrap.hidden = false;
       const homeEqEnd = l.homeowner ? Math.max(0, (l.homeValueNominal || 0) - (l.mortgageBalanceNominal || 0)) : 0;
+      const endCpi = Math.max(0.07, state.engine.getEraParams(l.currentYear).cpi);
+      const realNote = Math.abs(endCpi - 1) >= 0.05
+        ? `<div class="muted" style="font-size:13.5px;margin-top:2px;">以上為 ${l.currentYear} 年名目金額（物價約為 2025 年的 ${endCpi.toFixed(2)} 倍）；折合 2025 年購買力：現金 ${fmtTWD(Math.round(l.moneyNominal / endCpi))} ｜ 台股 ${fmtTWD(Math.round(l.stockNominal / endCpi))} ｜ 房產淨值 ${fmtTWD(Math.round(homeEqEnd / endCpi))}</div>`
+        : "";
       finWrap.innerHTML = `<h4 style="margin:0 0 8px;">💰 股市資產與財務門檻人生軌跡</h4>
         <div style="font-size:15px;margin-bottom:8px;">
           期末結構：現金 <strong>${fmtTWD(l.moneyNominal)}</strong> ｜ 台股 <strong>${fmtTWD(l.stockNominal)}</strong> ｜ 房產淨值 <strong>${fmtTWD(homeEqEnd)}</strong>
+          ${realNote}
           ${l.flags.disabled ? " ｜ <strong style='color:#991b1b;'>曾因醫療負擔不足致殘／失能</strong>" : ""}
         </div>
         ${mktLogs.length ? `<div style="font-size:14.5px;margin-bottom:8px;"><strong>📈 經歷的史實股市大波動：</strong>${mktLogs.slice(-6).join("；")}</div>` : ""}
@@ -1730,6 +1751,10 @@
         flags: {
           widowed: Boolean(l.flags && l.flags.widowed), divorced: Boolean(l.flags && l.flags.divorced), lives_with_parents: Boolean(l.flags && l.flags.lives_with_parents),
           financialBarriers: (l.flags && l.flags.financialBarriers) || [],
+          financialBarrierLog: (l.flags && l.flags.financialBarrierLog) || [],
+          homeAcquisitions: (l.flags && l.flags.homeAcquisitions) || [],
+          home_source: (l.flags && l.flags.home_source) || null,
+          retired: Boolean(l.flags && l.flags.retired),
           disabled: Boolean(l.flags && l.flags.disabled)
         }
       };
@@ -2397,6 +2422,13 @@
     $("btnDownloadCertPng").addEventListener("click", () => {
       const target = state.obituaryLife || state.life;
       if (target) downloadLifeCertPNG(target);
+    });
+    $("btnExportLifeJson").addEventListener("click", () => {
+      const target = state.obituaryLife || state.life;
+      if (target) downloadLifeExport(target);
+    });
+    $("btnExportLifeJsonLive").addEventListener("click", () => {
+      if (state.life) downloadLifeExport(state.life);
     });
 
     document.addEventListener("keydown", (e) => {

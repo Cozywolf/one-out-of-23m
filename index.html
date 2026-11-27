@@ -7,13 +7,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="生在台灣" />
-<title>生在台灣 v6.18 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
+<title>生在台灣 v6.19 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&display=swap" />
-<link rel="stylesheet" href="styles.css?v=6.18" />
+<link rel="stylesheet" href="styles.css?v=6.19" />
 </head>
 <body>
 
@@ -157,6 +157,7 @@
           <button class="ltb-more" id="btnStepYear" title="手動前進 1 歲">+1歲</button>
           <button class="ltb-more" id="btnAuto" aria-pressed="false" title="自動抉擇開關">自動：關</button>
           <button class="ltb-more" id="btnHukou" title="檢視台灣戶口名簿出生證明">戶口卡</button>
+          <button class="ltb-more" id="btnExportLifeJsonLive" title="匯出到目前為止的人生詳細資料（JSON），方便除錯" aria-label="匯出人生詳細資料">🧾</button>
           <button class="ltb-more" id="btnEndEarly" title="提早結束這段人生" aria-label="提早結束這段人生">💀</button>
           <button class="ltb-more" id="btnMusicLife" data-music-toggle data-music-compact type="button">🎵</button>
           <button class="ltb-more" id="btnRebirth" title="重新抽籤出生">↺</button>
@@ -362,6 +363,7 @@
       <div style="padding:16px 24px 24px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
         <button id="btnEndReplay" class="tw-btn-ghost">🎬 重播人生回顧</button>
         <button id="btnDownloadCertPng" class="tw-btn-ghost">📥 下載生命證書 PNG</button>
+        <button id="btnExportLifeJson" class="tw-btn-ghost" title="下載這一生的逐年屬性、資產結構、事件、抉擇與門檻判定（JSON），方便除錯">🧾 匯出這一生詳細資料</button>
         <button id="btnEndRebirth" class="tw-btn-primary">再抽一段台灣人生</button>
         <button id="btnEndBackIntro" class="tw-btn-ghost">回到首頁重選設定</button>
         <button id="btnEndGoShelf" class="tw-btn-ghost">查看過去人生書架</button>
@@ -588,9 +590,9 @@
 
 <div id="twToast" class="tw-toast" hidden></div>
 
-<script src="data/tw_bundle.js?v=6.18"></script>
-<script src="js/tw_engine.js?v=6.18"></script>
-<script src="js/tw_ui.js?v=6.18"></script>
-<script src="js/tw_music.js?v=6.18"></script>
+<script src="data/tw_bundle.js?v=6.19"></script>
+<script src="js/tw_engine.js?v=6.19"></script>
+<script src="js/tw_ui.js?v=6.19"></script>
+<script src="js/tw_music.js?v=6.19"></script>
 </body>
 </html>

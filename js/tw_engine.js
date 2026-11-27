@@ -231,6 +231,40 @@
       return 0;
     }
 
+    // 匯出一段人生的完整除錯資料（逐年屬性、資產結構、事件、抉擇與門檻判定）
+    buildLifeExport(life, meta) {
+      const era = this.getEraParams(life.currentYear || life.birthYear || 2025);
+      const flags = life.flags || {};
+      const feed = (life.feed || []).slice().reverse().map((f) => ({ year: f.year, age: f.age, type: f.type, title: f.title || "", text: f.text || "", impactChips: f.impactChips || undefined }));
+      return {
+        exportVersion: 1,
+        exportedAt: new Date().toISOString(),
+        app: meta || {},
+        notes: "金額欄位 *Nom 為當年名目新台幣；*Real2025 為折合 2025 年購買力（名目 ÷ cpi）。",
+        profile: {
+          id: life.id, name: life.name, sex: life.sex, birthYear: life.birthYear, endYear: life.currentYear, age: life.age,
+          alive: life.alive, birthRegionId: life.birthRegionId, regionId: life.regionId, location: life.location,
+          quintile: life.quintile, quintileLabel: life.quintileLabel, family: life.family,
+          personalities: (life.personalities || []).map((p) => p.name || p),
+          education: life.education, job: life.job, careerId: life.careerId,
+          married: life.married, children: life.children, homeowner: life.homeowner, homeSource: flags.home_source || null,
+          causeOfDeath: life.causeOfDeath || null, worldLine: (life.futureWorld && life.futureWorld.line) || null
+        },
+        finalFinance: this.financeSnapshot(life, era),
+        financialBarriers: flags.financialBarriers || [],
+        financialBarrierLog: flags.financialBarrierLog || [],
+        homeAcquisitions: flags.homeAcquisitions || [],
+        yearly: life.trajectory || [],
+        decisions: life.debugDecisions || [],
+        decisionHistory: life.decisionHistory || [],
+        salaryHistory: (life.salaryHistory || []).slice().reverse(),
+        marketLog: life.marketLogSummary || [],
+        milestones: life.milestones || [],
+        events: feed,
+        flags
+      };
+    }
+
     getNetWorthNominal(life) {
       const era = this.getEraParams(life.currentYear || life.birthYear || 2025);
       const homeEq = life.homeowner ? Math.max(0, (life.homeValueNominal || 0) - (life.mortgageBalanceNominal || 0)) : 0;
@@ -317,11 +351,42 @@
       return Math.round(base2025 * Math.min(1, this.wageScale(era) * 1.1) * era.cpi);
     }
 
-    recordFinancialBarrier(life, era, label) {
+    recordFinancialBarrier(life, era, label, detail) {
       if (!life.flags.financialBarriers) life.flags.financialBarriers = [];
       const entry = `${life.age} 歲（${life.currentYear} 年）：${label}`;
       if (!life.flags.financialBarriers.includes(entry)) {
         life.flags.financialBarriers.push(entry);
+        // 結構化紀錄：當下的資產快照，方便除錯與事後檢查「門檻判定是否和期末資產矛盾」
+        if (!life.flags.financialBarrierLog) life.flags.financialBarrierLog = [];
+        life.flags.financialBarrierLog.push({ ...this.financeSnapshot(life, era), label, detail: detail || "" });
+      }
+    }
+
+    // 某一刻的財務快照（名目與折合 2025 購買力）
+    financeSnapshot(life, era) {
+      const cpi = Math.max(0.07, era.cpi);
+      const homeEq = life.homeowner ? Math.max(0, (life.homeValueNominal || 0) - (life.mortgageBalanceNominal || 0)) : 0;
+      const spouseInc = (life.married && life.spouse && !life.spouse.retired) ? (life.spouse.incomeNominal || 0) : 0;
+      const nw = this.getNetWorthNominal(life);
+      return {
+        age: life.age, year: life.currentYear, cpi: +cpi.toFixed(4),
+        cashNom: Math.round(life.moneyNominal || 0), stockNom: Math.round(life.stockNominal || 0),
+        homeowner: Boolean(life.homeowner), homeValueNom: Math.round(life.homeValueNominal || 0),
+        mortgageNom: Math.round(life.mortgageBalanceNominal || 0), homeEqNom: Math.round(homeEq),
+        salaryNom: Math.round(life.annualSalaryNominal || 0), spouseIncomeNom: Math.round(spouseInc),
+        netWorthNom: nw, netWorthReal2025: Math.round(nw / cpi)
+      };
+    }
+
+    // 取得自住房時，回頭在「無力購屋」的轉折後面註明後來怎麼有房的，避免敘事和期末房產互相矛盾
+    noteHomeAcquired(life, source) {
+      life.flags.homeAcquisitions = life.flags.homeAcquisitions || [];
+      life.flags.homeAcquisitions.push({ age: life.age, year: life.currentYear, source, valueNom: Math.round(life.homeValueNominal || 0) });
+      const bars = life.flags.financialBarriers || [];
+      for (let i = 0; i < bars.length; i++) {
+        if (bars[i].includes("無力購屋") && !bars[i].includes("→")) {
+          bars[i] += ` → 後於 ${life.age} 歲（${life.currentYear} 年）${source}取得自住房`;
+        }
       }
     }
 
@@ -864,6 +929,7 @@
           life.mortgageBalanceNominal = 0;
           life.mortgageAnnualPayment = 0;
           life.flags.home_source = "繼承";
+          this.noteHomeAcquired(life, "繼承老家");
           return `老家房子由你承接（估值約 NT$${wan(value)} 萬）。`;
         }
         const share = Math.round(value * 0.95 / heirs);
@@ -2132,7 +2198,15 @@
         D24_elderly_care_storm: () => ({ hire_caregiver: 0.4, quit_fulltime_care: life.sex === "F" ? 0.14 : 0.07, share_with_siblings: 0.46 }),
         D25_retirement_timing: () => ({ standard_retire: life.age >= 64 ? 0.85 : 0.66, second_career: life.age >= 64 ? 0.15 : 0.34, early_fire: 0.16 }),
         D28_debt_clearance: () => ({ file_rehab: 0.7, grind_repay: 0.3 }),
-        D29_child_study_abroad: () => ({ fund_abroad_full: 0.25, mortgage_home_for_child: 0.06, cannot_afford_abroad: 0.69 }),
+        D29_child_study_abroad: () => {
+          // 付得起的家庭多半會資助；存款愈寬裕愈可能全額支持
+          const th = (this.data.marketHistory && this.data.marketHistory.financial_thresholds_2025) || {};
+          const need = Math.max(1, (th.child_abroad_full || 2400000) * era.cpi);
+          const ratio = this.getLiquidNominal(life) / need;
+          const fundW = eligibleOpts.some((o) => o.key === "fund_abroad_full") ? clamp(0.4 + (ratio - 1) * 0.12, 0.4, 0.8) : 0;
+          const homeW = eligibleOpts.some((o) => o.key === "mortgage_home_for_child") ? (fundW ? 0.05 : 0.3) : 0;
+          return { fund_abroad_full: fundW, mortgage_home_for_child: homeW, cannot_afford_abroad: Math.max(0.15, 1 - fundW - homeW) };
+        },
         D30_forced_home_sale: () => ({ sell_home_survive: 0.5, borrow_hold_home: 0.45, foreclosure_auction: 0.05 }),
         D31_cashflow_debt_crisis: () => ({ sell_vehicle: 0.3, sell_valuables: 0.35, sell_home_crisis: 0.06, borrow_relatives: 0.3, high_interest_loan: 0.14 }),
         D17B_romance_encounter: () => {
@@ -2318,7 +2392,16 @@
         assetScore: this.normalizeAssetScore(realNet),
         cashNom: life.moneyNominal,
         stockNom: life.stockNominal,
-        homeEqNom: life.homeowner ? Math.max(0, (life.homeValueNominal || 0) - (life.mortgageBalanceNominal || 0)) : 0
+        homeEqNom: life.homeowner ? Math.max(0, (life.homeValueNominal || 0) - (life.mortgageBalanceNominal || 0)) : 0,
+        // 以下欄位供「匯出這一生詳細資料」除錯用
+        cpi: +Math.max(0.07, era.cpi).toFixed(4),
+        homeValueNom: life.homeowner ? Math.round(life.homeValueNominal || 0) : 0,
+        mortgageNom: Math.round(life.mortgageBalanceNominal || 0),
+        salaryNom: Math.round(life.annualSalaryNominal || 0),
+        spouseIncomeNom: (life.married && life.spouse && !life.spouse.retired) ? Math.round(life.spouse.incomeNominal || 0) : 0,
+        studentLoanNom: Math.round(life.studentLoanNominal || 0),
+        location: life.location, regionId: life.regionId, job: life.job, education: life.education,
+        married: Boolean(life.married), children: life.children || 0, homeowner: Boolean(life.homeowner), retired: Boolean(life.flags.retired)
       };
       const last = life.trajectory[life.trajectory.length - 1];
       if (last && last.age === life.age) {
@@ -4051,6 +4134,12 @@
         }
 
         let resolvedOptions = d.options;
+        if (d.id === "D29_child_study_abroad" && d.options.some((o) => o.key !== "cannot_afford_abroad" && this.isOptionEligible(life, o, era).eligible)) {
+          // 付得起時，「不資助」是選擇而不是無力負擔
+          resolvedTitle = "子女想出國留學：要出這筆錢嗎？";
+          resolvedOptions = d.options.map((o) => o.key === "cannot_afford_abroad"
+            ? { ...o, label: "評估家庭財務後決定不資助，鼓勵子女在台灣升學或自行申請獎學金", era_labels: null } : o);
+        }
         if (d.id === "D23_pandemic_dilemma") {
           const isRetiredOrSchool = life.flags.retired || life.education.includes("在學") || life.flags.in_grad_school_years > 0;
           if (isRetiredOrSchool) {
@@ -5025,6 +5114,18 @@
       const before = this.snapshotForImpact(life);
       const histLen = life.decisionHistory.length;
       const feedLen = life.feed.length;
+      // 除錯紀錄：每次抉擇當下的財務快照與每個選項的門檻判定
+      const debugEntry = {
+        ...this.financeSnapshot(life, era),
+        decisionId: String(decision.id), title: decision.resolvedTitle || decision.title || "",
+        desc: decision.resolvedDesc || "", chosen: optionKey,
+        options: (decision.options || []).map((o) => {
+          const el = this.isOptionEligible(life, o, era);
+          return { key: o.key, label: String(this.resolveEraLabel(o, life.currentYear)), eligible: el.eligible, reason: el.reason || "" };
+        })
+      };
+      life.debugDecisions = life.debugDecisions || [];
+      life.debugDecisions.push(debugEntry);
       const untaken = decision.options
         .filter((o) => o.key !== optionKey && this.isOptionEligible(life, o, era).eligible)
         .map((o) => String(this.resolveEraLabel(o, life.currentYear)).replace(/（[^）]*）/g, "").trim())
@@ -5033,6 +5134,8 @@
       this.softenGains(life, before);
       for (const k of ["health", "happiness", "knowledge", "social"]) life.stats[k] = Math.round(life.stats[k]);
       const impact = this.diffImpact(before, this.snapshotForImpact(life));
+      debugEntry.impact = impact.chips;
+      debugEntry.after = this.financeSnapshot(life, era);
       if (String(decision.id) === "D17_critical_illness_cost") delete life.flags.major_illness_pending;
       const rec = life.decisionHistory.length > histLen ? life.decisionHistory[life.decisionHistory.length - 1] : null;
       if (rec) {
@@ -5466,12 +5569,16 @@
           life.mortgageBalanceNominal = spec.loanAmount;
           life.mortgageAnnualPayment = spec.annualPayment;
           life.mortgageDTI = ef.mortgage_dti || 0.35;
+          life.flags.home_source = "購屋";
+          this.noteHomeAcquired(life, tier === "suburb" ? "於蛋白區購屋" : "於蛋黃區購屋");
           extraLog = `（成交總價約 NT$${Math.round(spec.totalPrice / 10000).toLocaleString()} 萬，自備頭期 ${Math.round(spec.requiredOwnCash / 10000).toLocaleString()} 萬${spec.parentHelp > 0 ? "＋父母贊助" : ""}，背負房貸 ${Math.round(spec.loanAmount / 10000).toLocaleString()} 萬）`;
         } else if (ef.liquid_invest_bonus) {
           const coreOk = this.isOptionEligible(life, decision.options[0], era).eligible;
           const subOk = this.isOptionEligible(life, decision.options[1], era).eligible;
           if (!coreOk && !subOk) {
-            this.recordFinancialBarrier(life, era, "因存款不足頭期款或薪資門檻，無力購屋只能繼續租房");
+            const subWhy = this.isOptionEligible(life, decision.options[1], era).reason || "";
+            const why = subWhy.startsWith("年薪") ? "年薪未達房貸核貸門檻" : "存款（現金＋股票）不足頭期款";
+            this.recordFinancialBarrier(life, era, `因${why}，無力購屋只能繼續租房`, subWhy);
             extraLog = "（受限於高房價與存款不足，現階段只能繼續租屋存錢）";
           } else {
             const move = Math.round(Math.max(0, life.moneyNominal) * 0.4);
@@ -5669,8 +5776,16 @@
           life.mortgageAnnualPayment = Math.round(life.mortgageBalanceNominal * 0.055);
           extraLog = `（以房屋增貸 NT$${Math.round(cost / 10000).toLocaleString()} 萬送孩子出國深造，退休後仍須背負貸款）`;
         } else {
-          this.recordFinancialBarrier(life, era, "因存款與薪資有限，無力資助子女出國留學");
-          extraLog = "（現實存款與薪資無法支撐海外學費，只能遺憾婉拒子女留學夢）";
+          const fundOk = decision.options.some((o) => o.key === "fund_abroad_full" && this.isOptionEligible(life, o, era).eligible);
+          const homeOk = decision.options.some((o) => o.key === "mortgage_home_for_child" && this.isOptionEligible(life, o, era).eligible);
+          if (!fundOk && !homeOk) {
+            const liq = this.getLiquidNominal(life);
+            this.recordFinancialBarrier(life, era, "因存款不足、名下也沒有足夠房產淨值可增貸，無力資助子女出國留學",
+              `需約 NT$${Math.round(cost / 10000).toLocaleString()} 萬，流動資產 NT$${Math.round(Math.max(0, liq) / 10000).toLocaleString()} 萬`);
+            extraLog = "（現實存款與房產都無法支撐海外學費，只能遺憾婉拒子女留學夢）";
+          } else {
+            extraLog = "（家裡其實負擔得起，但評估後決定不出這筆錢，鼓勵孩子在台灣升學或自己申請獎學金）";
+          }
         }
       }
       if (decision.id === "D30_forced_home_sale" && life.homeowner) {
