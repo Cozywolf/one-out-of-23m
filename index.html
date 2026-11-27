@@ -7,13 +7,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="生在台灣" />
-<title>生在台灣 v6.19 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
+<title>生在台灣 v6.20 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&display=swap" />
-<link rel="stylesheet" href="styles.css?v=6.19" />
+<link rel="stylesheet" href="styles.css?v=6.20" />
 </head>
 <body>
 
@@ -106,7 +106,7 @@
       <div class="tw-panel">
         <h3>
           <span>二、出生年代（民國／西元雙軌）</span>
-          <span class="muted" style="font-size:14.4px;">1950–2026</span>
+          <span class="muted" style="font-size:14.4px;">1950–2005</span>
         </h3>
         <div class="era-presets" id="eraPresets">
           <button class="era-chip active" data-year="random">🎲 隨機年代</button>
@@ -115,11 +115,10 @@
           <button class="era-chip" data-year="1985">1985（民國74）</button>
           <button class="era-chip" data-year="1995">1995（民國84）</button>
           <button class="era-chip" data-year="2005">2005（民國94）</button>
-          <button class="era-chip" data-year="2025">2025（此刻）</button>
         </div>
         <div class="tw-year-slider-row">
-          <input type="range" id="yearSlider" min="1950" max="2026" value="1990" />
-          <span class="tw-year-display" id="yearSliderDisplay">隨機（1950–2026）</span>
+          <input type="range" id="yearSlider" min="1950" max="2005" value="1990" />
+          <span class="tw-year-display" id="yearSliderDisplay">隨機（1950–2005）</span>
         </div>
         <p id="eraPreviewNote" class="muted" style="font-size:15px;margin:10px 0 14px;"></p>
 
@@ -381,13 +380,13 @@
           <select id="labRegionA" style="padding:6px;border-radius:6px;border:1px solid var(--line);"></select>
         </label>
         <label style="font-size:15.6px;">組別 A 出生年<br/>
-          <input type="number" id="labYearA" value="1965" min="1950" max="2026" style="width:92px;padding:6px;border-radius:6px;border:1px solid var(--line);" />
+          <input type="number" id="labYearA" value="1965" min="1950" max="2005" style="width:92px;padding:6px;border-radius:6px;border:1px solid var(--line);" />
         </label>
         <label style="font-size:15.6px;">組別 B 大區<br/>
           <select id="labRegionB" style="padding:6px;border-radius:6px;border:1px solid var(--line);"></select>
         </label>
         <label style="font-size:15.6px;">組別 B 出生年<br/>
-          <input type="number" id="labYearB" value="2025" min="1950" max="2026" style="width:92px;padding:6px;border-radius:6px;border:1px solid var(--line);" />
+          <input type="number" id="labYearB" value="2005" min="1950" max="2005" style="width:92px;padding:6px;border-radius:6px;border:1px solid var(--line);" />
         </label>
         <label style="font-size:15.6px;">每組模擬人數<br/>
           <select id="labN" style="padding:6px;border-radius:6px;border:1px solid var(--line);">
@@ -590,9 +589,9 @@
 
 <div id="twToast" class="tw-toast" hidden></div>
 
-<script src="data/tw_bundle.js?v=6.19"></script>
-<script src="js/tw_engine.js?v=6.19"></script>
-<script src="js/tw_ui.js?v=6.19"></script>
-<script src="js/tw_music.js?v=6.19"></script>
+<script src="data/tw_bundle.js?v=6.20"></script>
+<script src="js/tw_engine.js?v=6.20"></script>
+<script src="js/tw_ui.js?v=6.20"></script>
+<script src="js/tw_music.js?v=6.20"></script>
 </body>
 </html>

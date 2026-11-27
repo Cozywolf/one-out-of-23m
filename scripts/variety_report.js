@@ -94,9 +94,9 @@ const check = (name, v, lo, hi) => { const ok = v >= lo && v <= hi; if (!ok) fai
 console.log("\n=== 1. 各年代開局的體驗密度（自動模式）===");
 const rows1 = [];
 const decadeStats = {};
-for (const dec of [1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]) {
+for (const dec of [1950, 1960, 1970, 1980, 1990, 2000]) {
   const runs = [];
-  for (let i = 0; i < N; i++) runs.push(play({ birthYear: dec + Math.floor(Math.random() * (dec === 2020 ? 7 : 10)) }));
+  for (let i = 0; i < N; i++) runs.push(play({ birthYear: dec + Math.floor(Math.random() * (dec === 2000 ? 6 : 10)) }));
   const adults = runs.filter((r) => r.l.age >= 40);
   const s = {
     抉擇: +mean(runs.map((r) => r.decisions)).toFixed(1),
@@ -119,9 +119,9 @@ for (const [dec, s] of Object.entries(decadeStats)) {
 }
 
 // ---------------------------------------------------------------- 2. 2026 年後的不可預測性
-console.log("\n=== 2. 2026 年後的不可預測性（1995–2026 出生）===");
+console.log("\n=== 2. 2026 年後的不可預測性（1995–2005 出生）===");
 const futRuns = [];
-for (let i = 0; i < N * 2; i++) futRuns.push(play({ birthYear: 1995 + Math.floor(Math.random() * 32) }));
+for (let i = 0; i < N * 2; i++) futRuns.push(play({ birthYear: 1995 + Math.floor(Math.random() * 11) }));
 const longLived = futRuns.filter((r) => r.l.currentYear >= 2070);
 const futSets = longLived.map((r) => new Set(r.future));
 const freq = {};

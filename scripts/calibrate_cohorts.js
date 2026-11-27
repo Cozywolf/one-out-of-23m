@@ -71,7 +71,7 @@ const TARGETS = {
   1970: { uni: [20, 40], wed: [78, 94], mAge: [26, 31], kids: [1.35, 2.1], own60: [66, 94], le: [76, 85], nw60: [600, 1700] },
   1980: { uni: [40, 65], wed: [64, 86], mAge: [28, 34], kids: [0.85, 1.45], own60: [70, 95], le: [77, 86], nw60: [700, 1800] },
   1995: { uni: [64, 86], wed: [52, 76], mAge: [30, 36], kids: [0.6, 1.2], own60: [70, 95], le: [77, 87], nw60: [700, 1900] },
-  2015: { uni: [64, 88], wed: [48, 74], mAge: [30, 37], kids: [0.5, 1.1], own60: [66, 95], le: [77, 88], nw60: [700, 2000] }
+  2005: { uni: [64, 88], wed: [48, 74], mAge: [30, 37], kids: [0.5, 1.1], own60: [66, 95], le: [77, 88], nw60: [700, 2000] }
 };
 const rows = [];
 for (const by of Object.keys(TARGETS).map(Number)) {
@@ -155,7 +155,7 @@ const M = QUICK ? 500 : 1400;
 for (const policy of ["auto", "random"]) {
   for (let i = 0; i < M; i++) {
     let hadPartner = false, hadMarriage = false;
-    runLife({ birthYear: 1950 + (i % 77) }, policy, {
+    runLife({ birthYear: 1950 + (i % 56) }, policy, {
       year(l, era, fresh) {
         if (l.partner) hadPartner = true;
         if (l.married) { if (!hadPartner) hit("未交往就結婚", l); hadMarriage = true; }

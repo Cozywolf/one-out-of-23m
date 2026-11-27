@@ -15,6 +15,9 @@
   "use strict";
 
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  // v6.20：可選出生年份限縮為 1950–2005（2005 年後出生者的人生大部分落在預測期，可玩內容有限）
+  const BIRTH_YEAR_MIN = 1950;
+  const BIRTH_YEAR_MAX = 2005;
   const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
   const toROC = (y) => (y >= 1912 ? `民國${y - 1911}年` : `民前${1912 - y}年`);
 
@@ -2463,8 +2466,8 @@
 
     createLife(opts = {}) {
       const birthYear = opts.birthYear === "random" || !opts.birthYear
-        ? 1950 + Math.floor(Math.random() * 77)
-        : clamp(Number(opts.birthYear), 1950, 2026);
+        ? BIRTH_YEAR_MIN + Math.floor(Math.random() * (BIRTH_YEAR_MAX - BIRTH_YEAR_MIN + 1))
+        : clamp(Number(opts.birthYear), BIRTH_YEAR_MIN, BIRTH_YEAR_MAX);
       const sex = opts.sex || (Math.random() < 0.51 ? "M" : "F");
       const region = this.drawRegion(opts.regionMode || "birth_weight", opts.manualRegionId);
       const quintileObj = pick(this.data.regions.income_quintiles.tiers);

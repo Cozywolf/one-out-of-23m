@@ -190,7 +190,7 @@ for (let i = 0; i < LIVES; i++) {
   const showAll = Math.random() < 0.3;
   const policy = Math.random() < 0.5 ? "auto" : "random";
   const regionMode = ["birth_weight", "pop_weight", "manual"][Math.floor(Math.random() * 3)];
-  const l = engine.createLife({ birthYear: 1950 + Math.floor(Math.random() * 77), regionMode, manualRegionId: D.regions.regions[Math.floor(Math.random() * 6)].id });
+  const l = engine.createLife({ birthYear: 1950 + Math.floor(Math.random() * 56), regionMode, manualRegionId: D.regions.regions[Math.floor(Math.random() * 6)].id });
   try {
     while (l.alive && l.age < 105) {
       const before = l.feed.length;

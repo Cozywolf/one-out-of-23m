@@ -304,8 +304,8 @@
 
   function updateEraPreview() {
     if (state.selectedYear === "random") {
-      $("yearSliderDisplay").textContent = "隨機（1950–2026）";
-      $("eraPreviewNote").textContent = "將隨機出生於民國 39 年至 115 年間，體驗不同世代的教育資源、職涯、習俗與出國留學／海歸抉擇。";
+      $("yearSliderDisplay").textContent = "隨機（1950–2005）";
+      $("eraPreviewNote").textContent = "將隨機出生於民國 39 年至 94 年間，體驗不同世代的教育資源、職涯、習俗與出國留學／海歸抉擇。";
     } else {
       const y = Number(state.selectedYear);
       const era = state.engine.getEraParams(y);
@@ -411,7 +411,7 @@
     const k = state.autoMode ? 0.45 : 1;
     const regionPool = state.data.regions.regions.map((r) => r.name_zh);
     const yearPool = [];
-    for (let y = 1950; y <= 2026; y++) yearPool.push(`${y} 年`);
+    for (let y = 1950; y <= 2005; y++) yearPool.push(`${y} 年`);
 
     ["birthLine1", "birthLine2", "birthRegionRoll", "birthRegionSub", "birthYearRoll", "birthYearSub"].forEach((id) => {
       const el = $(id);
@@ -1353,7 +1353,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.19 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.20 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1447,7 +1447,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.19 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.20 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1564,7 +1564,7 @@
   // v6.19：把整段人生的詳細資料（逐年屬性與資產、事件、抉擇與門檻判定）匯出成 JSON，方便除錯
   function downloadLifeExport(l) {
     try {
-      const data = state.engine.buildLifeExport(l, { name: "生在台灣", version: "6.19", url: location.href.split("#")[0] });
+      const data = state.engine.buildLifeExport(l, { name: "生在台灣", version: "6.20", url: location.href.split("#")[0] });
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
