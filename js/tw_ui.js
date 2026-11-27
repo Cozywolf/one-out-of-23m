@@ -1353,7 +1353,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.17 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.18 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1447,7 +1447,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.17 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.18 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1851,7 +1851,7 @@
   function milestoneSnap(l) {
     const f = l.family || {};
     return {
-      married: Boolean(l.married), children: l.children || 0, homeowner: Boolean(l.homeowner),
+      married: Boolean(l.married), partner: Boolean(l.partner), children: l.children || 0, homeowner: Boolean(l.homeowner),
       fatherAlive: f.fatherAlive !== false, motherAlive: f.motherAlive !== false,
       location: l.location, regionId: l.regionId, eduLevel: l.eduLevel || 0,
       careerId: l.careerId || null, widowed: Boolean(l.flags && l.flags.widowed),
@@ -1862,13 +1862,20 @@
     if (!l) return;
     if (!Array.isArray(l.milestones)) l.milestones = [];
     if (!l.milestoneSnap) l.milestoneSnap = milestoneSnap(l);
+    // v6.17 的存檔沒有 partner 欄位：以目前狀態補上，避免接續時誤記一筆「開始交往」
+    if (!("partner" in l.milestoneSnap)) l.milestoneSnap.partner = Boolean(l.partner);
   }
   function trackMilestones(l) {
     if (!l) return;
     ensureMilestoneSnap(l);
     const a = l.milestoneSnap;
     const b = milestoneSnap(l);
-    const add = (icon, title, text) => l.milestones.push({ age: l.age, year: l.currentYear, icon, title, text: text || "" });
+    // dh：記錄當下已做過幾次抉擇，回顧時同一年內用它排出「先抉擇、後結果」的實際順序
+    const dh = (l.decisionHistory || []).length;
+    const add = (icon, title, text) => l.milestones.push({ age: l.age, year: l.currentYear, icon, title, text: text || "", dh });
+    const pName = l.partnerInfo && l.partnerInfo.name ? l.partnerInfo.name : "";
+    if (!a.partner && b.partner && !b.married) add("💞", "開始交往", pName ? `和${pName}開始交往` : "");
+    if (a.partner && !b.partner && !a.married && !b.married) add("🥀", "分手", "");
     if (!a.married && b.married) add("💍", "結婚", l.spouse && l.spouse.name ? `和${l.spouse.name}步入禮堂` : "");
     if (b.children > a.children) {
       for (let k = a.children + 1; k <= b.children; k++) add("👶", k === 1 ? "第一個孩子出生" : `第 ${k} 個孩子出生`, "");
@@ -1884,7 +1891,7 @@
       add("🚚", `搬到${rn || "新的城市"}`, "");
     }
     if (b.eduLevel > a.eduLevel && b.eduLevel >= 4) add("🎓", b.eduLevel >= 5 ? "進修研究所" : "進入大學", l.education || "");
-    if (b.careerId && b.careerId !== a.careerId) add("💼", a.careerId ? "轉換跑道" : "踏入職場", l.job || "");
+    if (b.careerId && b.careerId !== a.careerId) add("💼", a.careerId ? "轉換跑道" : (l.workYears || 0) > 3 ? "展開新的工作" : "踏入職場", l.job || "");
     if (!a.divorced && b.divorced) add("💔", "離婚", "");
     if (!a.widowed && b.widowed) add("🖤", "喪偶", "");
     if (!a.retired && b.retired) add("🌅", "退休", "");
@@ -1898,8 +1905,9 @@
     const items = [];
     let birthReg = "";
     try { birthReg = state.engine.getRegion(l.birthRegionId).name_zh; } catch (_) {}
-    items.push({ age: 0, year: l.birthYear, icon: "👶", kind: "birth", title: "你出生了", text: `${birthReg}・${l.quintileLabel || ""}${l.family && l.family.siblings ? `・家中有 ${l.family.siblings} 位手足` : ""}` });
-    for (const m of (l.milestones || [])) items.push({ ...m, kind: "milestone" });
+    items.push({ age: 0, year: l.birthYear, icon: "👶", kind: "birth", seq: -2, title: "你出生了", text: `${birthReg}・${l.quintileLabel || ""}${l.family && l.family.siblings ? `・家中有 ${l.family.siblings} 位手足` : ""}` });
+    // 舊存檔的大事沒有 dh，視為該年所有抉擇之後
+    for (const m of (l.milestones || [])) items.push({ ...m, kind: "milestone", seq: m.dh != null ? m.dh : 1e6 });
     const decs = (l.decisionHistory || []).map((d, i) => ({ d, i }));
     const keySet = new Set(decs
       .filter(({ d }) => (d.impactScore || 0) > 0)
@@ -1915,14 +1923,13 @@
     for (const { d, i } of decs) {
       if (!keySet.has(i) && !extra.has(i)) continue;
       items.push({
-        age: d.age, year: d.year, icon: keySet.has(i) ? "⭐" : "⚖️", kind: keySet.has(i) ? "key" : "choice",
+        age: d.age, year: d.year, seq: i + 0.5, icon: keySet.has(i) ? "⭐" : "⚖️", kind: keySet.has(i) ? "key" : "choice",
         title: d.title, text: `你選擇了：${String(d.choice || "").replace(/（[^）]*）/g, "").trim()}`,
         chips: d.impact || [], untaken: d.untaken || [], echoes: d.echoes || []
       });
     }
-    for (const pe of (l.protagonistEvents || [])) items.push({ age: pe.age, year: pe.year, icon: "⚠️", kind: "history", title: pe.title, text: pe.impacts || "" });
-    const order = { birth: 0, milestone: 2, history: 1, choice: 3, key: 3 };
-    items.sort((a, b) => (a.age - b.age) || ((order[a.kind] || 0) - (order[b.kind] || 0)));
+    for (const pe of (l.protagonistEvents || [])) items.push({ age: pe.age, year: pe.year, seq: -1, icon: "⚠️", kind: "history", title: pe.title, text: pe.impacts || "" });
+    items.sort((a, b) => (a.age - b.age) || (a.seq - b.seq));
     const cause = l.causeOfDeath ? l.causeOfDeath.label : "結束模擬";
     items.push({ age: l.age, year: l.currentYear, icon: "🕯️", kind: "death", title: `${l.currentYear} 年，你在 ${l.age} 歲離開了`, text: cause });
     return items;
