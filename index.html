@@ -7,13 +7,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="生在台灣" />
-<title>生在台灣 v6.16 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
+<title>生在台灣 v6.17 · 台灣人生模擬（薪資收支 × 時代側影 × 台灣未來預測）</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238C1D3C'/%3E%3Ctext x='50%25' y='58%25' font-size='38' text-anchor='middle' fill='%23faf7f0' font-family='serif'%3E台%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&display=swap" />
-<link rel="stylesheet" href="styles.css?v=6.16" />
+<link rel="stylesheet" href="styles.css?v=6.17" />
 </head>
 <body>
 
@@ -54,6 +54,17 @@
         以 1in8b.life 與 born-somewhere 為基底，導入台灣真實生命表、家庭收支五等分位、六大區房價所得比與 1950–2070 戰後現代史。<br/>
         每一次選擇只改變機率，不鎖死命運——從 0 歲走完一段台灣人生，看見重大事件與法制改革如何塑造今日生活。
       </p>
+    </div>
+
+    <div id="resumeBanner" class="resume-banner" hidden>
+      <div class="resume-text">
+        <div class="resume-kicker">💾 上次的人生還沒走完</div>
+        <div id="resumeInfo" class="resume-info"></div>
+      </div>
+      <div class="resume-actions">
+        <button id="btnResumeLife" class="tw-btn-primary">接續這一生 →</button>
+        <button id="btnDiscardSave" class="tw-btn-ghost" title="刪除存檔；開始新人生也會覆蓋存檔">捨棄存檔</button>
+      </div>
     </div>
 
     <div class="tw-mode-strip">
@@ -349,6 +360,7 @@
       <div id="endThoughtsWrap" style="padding:16px 24px;border-top:1px solid var(--line);"></div>
       <div id="endHelplineBox" style="padding:0 24px 16px;"></div>
       <div style="padding:16px 24px 24px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <button id="btnEndReplay" class="tw-btn-ghost">🎬 重播人生回顧</button>
         <button id="btnDownloadCertPng" class="tw-btn-ghost">📥 下載生命證書 PNG</button>
         <button id="btnEndRebirth" class="tw-btn-primary">再抽一段台灣人生</button>
         <button id="btnEndBackIntro" class="tw-btn-ghost">回到首頁重選設定</button>
@@ -486,6 +498,37 @@
   </div>
 </div>
 
+<div id="reviewModal" class="review-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="reviewName">
+  <div class="review-stage">
+    <div class="review-head">
+      <span class="review-kicker">人生回顧</span>
+      <span class="review-name" id="reviewName">—</span>
+      <button id="btnReviewClose" class="review-x" aria-label="關閉回顧">✕</button>
+    </div>
+    <div class="review-clock">
+      <span class="review-year" id="reviewYear">—</span>
+      <span class="review-age" id="reviewAge">—</span>
+    </div>
+    <div class="review-track" aria-hidden="true">
+      <div class="review-track-line"><div class="review-track-fill" id="reviewFill"></div></div>
+      <div class="review-dots" id="reviewDots"></div>
+    </div>
+    <div class="review-body">
+      <div class="review-main">
+        <div class="review-card-wrap" id="reviewCardWrap" aria-live="polite"></div>
+        <div class="review-stats" id="reviewStats"></div>
+      </div>
+      <ol class="review-list" id="reviewList"></ol>
+    </div>
+    <div class="review-actions">
+      <span class="review-progress muted" id="reviewProgress"></span>
+      <button id="btnReviewPause" class="tw-btn-ghost">❚❚ 暫停</button>
+      <button id="btnReviewFast" class="tw-btn-ghost">⏩ 2×</button>
+      <button id="btnReviewSkip" class="tw-btn-primary">跳過 ⏭</button>
+    </div>
+  </div>
+</div>
+
 <div id="hukouModal" class="modal" hidden>
   <div class="modal-card">
     <div class="hukou-card" id="hukouBody"></div>
@@ -545,9 +588,9 @@
 
 <div id="twToast" class="tw-toast" hidden></div>
 
-<script src="data/tw_bundle.js?v=6.16"></script>
-<script src="js/tw_engine.js?v=6.16"></script>
-<script src="js/tw_ui.js?v=6.16"></script>
-<script src="js/tw_music.js?v=6.16"></script>
+<script src="data/tw_bundle.js?v=6.17"></script>
+<script src="js/tw_engine.js?v=6.17"></script>
+<script src="js/tw_ui.js?v=6.17"></script>
+<script src="js/tw_music.js?v=6.17"></script>
 </body>
 </html>

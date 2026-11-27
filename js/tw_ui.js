@@ -145,6 +145,7 @@
       b.classList.toggle("active", b.dataset.view === name);
     });
     if (name === "shelf") renderShelf();
+    if (name === "intro") renderResumeBanner();
 
     // U02 Fix: Automatically restore pending pause or decision modal when returning to #view-life
     if (name === "life" && state.life && state.life.alive) {
@@ -470,6 +471,7 @@
     birthIntro.life = null;
     $("birthModal").hidden = true;
     state.life = l;
+    ensureMilestoneSnap(l);
     state.paused = false;
     syncFocusSelect();
     switchView("life");
@@ -481,6 +483,7 @@
     renderLifeAll();
     syncPlaybackControls();
     startTimer();
+    saveCurrentLife(true);
   }
 
   function getYearIntervalMs() {
@@ -536,15 +539,14 @@
   function advanceOneYear() {
     if (!state.life || !state.life.alive) return;
     const res = state.engine.stepYear(state.life, { eduMode: state.eduMode, historicalMode: state.historicalMode, autoMode: state.autoMode, showAllHistoricalEvents: state.showAllHistoricalEvents });
+    trackMilestones(state.life);
     renderLifeAll();
 
     if (res.ended) {
-      stopTimer();
-      saveToShelf(state.life);
-      renderObituary(state.life);
-      switchView("end");
+      endLifeWithReview(state.life);
       return;
     }
+    if (!res.pauseQuestion && !res.pendingDecision) saveCurrentLife(false);
     if (res.pauseQuestion) {
       state.paused = true;
       syncPlaybackControls();
@@ -1351,7 +1353,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.16 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.17 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1445,7 +1447,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.16 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.17 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -1482,6 +1484,8 @@
           const fresh = state.life.feed.slice(0, Math.max(0, state.life.feed.length - feedBefore));
           $("decisionModal").hidden = true;
           state.pendingDecision = null;
+          trackMilestones(state.life);
+          saveCurrentLife(true);
           renderLifeAll();
           showResultModal(dec, displayLabel, fresh, impact, () => {
             const nextDec = state.engine.findFollowUpDecision(state.life, dec, era);
@@ -1499,6 +1503,7 @@
       wrap.appendChild(btn);
     }
     $("decisionModal").hidden = false;
+    saveCurrentLife(true);
   }
 
   // 抉擇結果跳窗：顯示這個選擇當下發生了什麼與帶來的影響，按確認才繼續
@@ -1538,11 +1543,13 @@
     $("pauseQuestion").textContent = pq.question_zh;
     $("pauseInput").value = "";
     $("pauseModal").hidden = false;
+    saveCurrentLife(true);
     $("btnPauseContinue").onclick = () => {
       const txt = $("pauseInput").value.trim();
       if (txt && state.life) state.life.reflections.push({ age: pq.age, year: state.life.currentYear, question: pq.question_zh, text: txt });
       $("pauseModal").hidden = true;
       state.pendingPause = null;
+      saveCurrentLife(true);
       const nextDec = state.followUpDecision;
       state.followUpDecision = null;
       if (nextDec) showDecisionModal(nextDec);
@@ -1717,6 +1724,7 @@
         decisionHistory: l.decisionHistory || [],
         reflections: l.reflections || [],
         trajectory: l.trajectory || [],
+        milestones: l.milestones || [],
         causeOfDeath: l.causeOfDeath || { key: "manual", label: "提前結束", isSensitive: false },
         studentLoanNominal: l.studentLoanNominal || 0,
         flags: {
@@ -1734,6 +1742,382 @@
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, 24)));
     } catch (_) {}
+  }
+
+  // ===== v6.17：存檔／接續人生 =====
+  // 參照 born-somewhere：把整段人生（含尚未回答的抉擇）序列化進 localStorage，重新整理後可接續。
+  const SAVE_KEY = "tw_life_sim_current_v1";
+  const SAVE_VERSION = 1;
+  let lastSaveTs = 0;
+
+  function saveCurrentLife(force) {
+    const l = state.life;
+    if (!l || !l.alive) return;
+    const now = Date.now();
+    if (!force && now - lastSaveTs < 1500) return;
+    lastSaveTs = now;
+    try {
+      localStorage.setItem(SAVE_KEY, JSON.stringify({
+        v: SAVE_VERSION,
+        savedAt: now,
+        life: l,
+        pendingDecision: state.pendingDecision || null,
+        pendingPause: state.pendingPause || null,
+        followUpDecision: state.followUpDecision || null,
+        settings: {
+          eduMode: state.eduMode, historicalMode: state.historicalMode,
+          showAllHistoricalEvents: state.showAllHistoricalEvents,
+          speed: state.speed, autoMode: state.autoMode, showEnNotes: state.showEnNotes
+        }
+      }));
+    } catch (_) {
+      // 配額不足：先把事件紀錄縮到最近 400 則再試一次
+      try {
+        const slim = JSON.parse(JSON.stringify(l));
+        if (Array.isArray(slim.feed)) slim.feed = slim.feed.slice(0, 400);
+        localStorage.setItem(SAVE_KEY, JSON.stringify({ v: SAVE_VERSION, savedAt: now, life: slim, pendingDecision: state.pendingDecision || null, pendingPause: state.pendingPause || null, followUpDecision: state.followUpDecision || null, settings: { eduMode: state.eduMode, historicalMode: state.historicalMode, showAllHistoricalEvents: state.showAllHistoricalEvents, speed: state.speed, autoMode: state.autoMode, showEnNotes: state.showEnNotes } }));
+      } catch (__) {}
+    }
+  }
+
+  function loadSavedLife() {
+    try {
+      const raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw);
+      if (!s || s.v !== SAVE_VERSION || !s.life || !s.life.alive || !s.life.stats) return null;
+      return s;
+    } catch (_) { return null; }
+  }
+
+  function clearSavedLife() {
+    try { localStorage.removeItem(SAVE_KEY); } catch (_) {}
+    renderResumeBanner();
+  }
+
+  function renderResumeBanner() {
+    const box = $("resumeBanner");
+    if (!box) return;
+    const s = loadSavedLife();
+    if (!s) { box.hidden = true; return; }
+    const l = s.life;
+    let regionName = "";
+    try { regionName = l.location !== "TAIWAN" && l.abroad ? `${l.abroad.flag} ${l.abroad.countryName}` : state.engine.getRegion(l.regionId).name_zh; } catch (_) {}
+    const when = new Date(s.savedAt);
+    const whenTxt = `${when.getMonth() + 1}/${when.getDate()} ${String(when.getHours()).padStart(2, "0")}:${String(when.getMinutes()).padStart(2, "0")}`;
+    $("resumeInfo").innerHTML = `<strong>${escapeHtml(l.name)}</strong>・${l.age} 歲・${l.currentYear} 年${regionName ? "・" + escapeHtml(regionName) : ""}<span class="muted">（存於 ${whenTxt}）</span>`;
+    box.hidden = false;
+  }
+
+  function resumeSavedLife() {
+    const s = loadSavedLife();
+    if (!s) { showToast("找不到可接續的存檔"); renderResumeBanner(); return; }
+    stopTimer();
+    closeAllModals(false);
+    const st = s.settings || {};
+    state.eduMode = Boolean(st.eduMode);
+    state.historicalMode = !state.eduMode && Boolean(st.historicalMode);
+    state.showAllHistoricalEvents = Boolean(st.showAllHistoricalEvents);
+    state.showEnNotes = Boolean(st.showEnNotes);
+    if (st.speed) state.speed = Number(st.speed) || 1;
+    state.autoMode = Boolean(st.autoMode);
+    state.life = s.life;
+    state.pendingDecision = s.pendingDecision || null;
+    state.pendingPause = s.pendingPause || null;
+    state.followUpDecision = s.followUpDecision || null;
+    state.inspectedRegionId = null;
+    state.expandedEvents = {};
+    ensureMilestoneSnap(state.life);
+    syncTopToggles();
+    syncFocusSelect();
+    const hasPending = Boolean(state.pendingDecision || state.pendingPause);
+    state.paused = true;
+    switchView("life");
+    setMobileLifeTab("feed");
+    resetYearCountdown();
+    renderLifeAll();
+    if (!hasPending) state.paused = false;
+    syncPlaybackControls();
+    startTimer();
+    showToast(`已接續 ${state.life.name} 的人生：${state.life.age} 歲（${state.life.currentYear} 年）`, 2600);
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  // ===== v6.17：人生大事記（給結尾回顧動畫用）=====
+  // 引擎沒有統一的「大事」紀錄，這裡每年比對前後狀態，把結婚、生子、買房、出國等寫進 life.milestones（跟著存檔）。
+  function milestoneSnap(l) {
+    const f = l.family || {};
+    return {
+      married: Boolean(l.married), children: l.children || 0, homeowner: Boolean(l.homeowner),
+      fatherAlive: f.fatherAlive !== false, motherAlive: f.motherAlive !== false,
+      location: l.location, regionId: l.regionId, eduLevel: l.eduLevel || 0,
+      careerId: l.careerId || null, widowed: Boolean(l.flags && l.flags.widowed),
+      divorced: Boolean(l.flags && l.flags.divorced), retired: Boolean(l.flags && l.flags.retired)
+    };
+  }
+  function ensureMilestoneSnap(l) {
+    if (!l) return;
+    if (!Array.isArray(l.milestones)) l.milestones = [];
+    if (!l.milestoneSnap) l.milestoneSnap = milestoneSnap(l);
+  }
+  function trackMilestones(l) {
+    if (!l) return;
+    ensureMilestoneSnap(l);
+    const a = l.milestoneSnap;
+    const b = milestoneSnap(l);
+    const add = (icon, title, text) => l.milestones.push({ age: l.age, year: l.currentYear, icon, title, text: text || "" });
+    if (!a.married && b.married) add("💍", "結婚", l.spouse && l.spouse.name ? `和${l.spouse.name}步入禮堂` : "");
+    if (b.children > a.children) {
+      for (let k = a.children + 1; k <= b.children; k++) add("👶", k === 1 ? "第一個孩子出生" : `第 ${k} 個孩子出生`, "");
+    }
+    if (!a.homeowner && b.homeowner) add("🏠", "買下自己的房子", "");
+    if (a.homeowner && !b.homeowner) add("🏚", "賣掉了房子", "");
+    if (a.fatherAlive && !b.fatherAlive) add("🕯", "父親離世", l.family && l.family.fatherName ? `${l.family.fatherName}` : "");
+    if (a.motherAlive && !b.motherAlive) add("🕯", "母親離世", l.family && l.family.motherName ? `${l.family.motherName}` : "");
+    if (a.location === "TAIWAN" && b.location !== "TAIWAN") add(l.abroad && l.abroad.flag ? l.abroad.flag : "✈️", `前往${l.abroad ? l.abroad.countryName : "海外"}`, l.abroad ? l.abroad.pathwayName || "" : "");
+    if (a.location !== "TAIWAN" && b.location === "TAIWAN") add("🇹🇼", "回到台灣", "");
+    if (a.location === "TAIWAN" && b.location === "TAIWAN" && a.regionId !== b.regionId) {
+      let rn = ""; try { rn = state.engine.getRegion(b.regionId).name_zh; } catch (_) {}
+      add("🚚", `搬到${rn || "新的城市"}`, "");
+    }
+    if (b.eduLevel > a.eduLevel && b.eduLevel >= 4) add("🎓", b.eduLevel >= 5 ? "進修研究所" : "進入大學", l.education || "");
+    if (b.careerId && b.careerId !== a.careerId) add("💼", a.careerId ? "轉換跑道" : "踏入職場", l.job || "");
+    if (!a.divorced && b.divorced) add("💔", "離婚", "");
+    if (!a.widowed && b.widowed) add("🖤", "喪偶", "");
+    if (!a.retired && b.retired) add("🌅", "退休", "");
+    l.milestoneSnap = b;
+  }
+
+  // ===== v6.17：結尾人生回顧動畫 =====
+  const review = { timer: null, items: [], idx: 0, paused: false, fast: false, life: null, onDone: null };
+
+  function buildReviewItems(l) {
+    const items = [];
+    let birthReg = "";
+    try { birthReg = state.engine.getRegion(l.birthRegionId).name_zh; } catch (_) {}
+    items.push({ age: 0, year: l.birthYear, icon: "👶", kind: "birth", title: "你出生了", text: `${birthReg}・${l.quintileLabel || ""}${l.family && l.family.siblings ? `・家中有 ${l.family.siblings} 位手足` : ""}` });
+    for (const m of (l.milestones || [])) items.push({ ...m, kind: "milestone" });
+    const decs = (l.decisionHistory || []).map((d, i) => ({ d, i }));
+    const keySet = new Set(decs
+      .filter(({ d }) => (d.impactScore || 0) > 0)
+      .sort((a, b) => (b.d.impactScore || 0) - (a.d.impactScore || 0))
+      .slice(0, 5)
+      .map(({ i }) => i));
+    // 除了前五大，再挑影響分數次高的幾個抉擇，讓時間軸不會太空；其餘只留在訃聞的完整清單。
+    const extra = new Set(decs
+      .filter(({ i, d }) => !keySet.has(i) && !/年度重心/.test(d.title || ""))
+      .sort((a, b) => (b.d.impactScore || 0) - (a.d.impactScore || 0))
+      .slice(0, 7)
+      .map(({ i }) => i));
+    for (const { d, i } of decs) {
+      if (!keySet.has(i) && !extra.has(i)) continue;
+      items.push({
+        age: d.age, year: d.year, icon: keySet.has(i) ? "⭐" : "⚖️", kind: keySet.has(i) ? "key" : "choice",
+        title: d.title, text: `你選擇了：${String(d.choice || "").replace(/（[^）]*）/g, "").trim()}`,
+        chips: d.impact || [], untaken: d.untaken || [], echoes: d.echoes || []
+      });
+    }
+    for (const pe of (l.protagonistEvents || [])) items.push({ age: pe.age, year: pe.year, icon: "⚠️", kind: "history", title: pe.title, text: pe.impacts || "" });
+    const order = { birth: 0, milestone: 2, history: 1, choice: 3, key: 3 };
+    items.sort((a, b) => (a.age - b.age) || ((order[a.kind] || 0) - (order[b.kind] || 0)));
+    const cause = l.causeOfDeath ? l.causeOfDeath.label : "結束模擬";
+    items.push({ age: l.age, year: l.currentYear, icon: "🕯️", kind: "death", title: `${l.currentYear} 年，你在 ${l.age} 歲離開了`, text: cause });
+    return items;
+  }
+
+  function trajAt(l, age) {
+    const t = l.trajectory || [];
+    let best = null;
+    for (const p of t) { if (p.age <= age) best = p; else break; }
+    return best || t[0] || null;
+  }
+
+  function reviewCardHtml(it) {
+    const chips = it.chips && it.chips.length ? impactChipsHtml(it.chips, "當下") : "";
+    const echo = it.echoes && it.echoes.length ? it.echoes.slice(0, 2).map((e) => `<div class="rv-echo">↳ ${e.age} 歲：${escapeHtml(e.text)}</div>`).join("") : "";
+    const untaken = it.untaken && it.untaken.length ? `<div class="rv-untaken">🔀 沒走的路：${it.untaken.map(escapeHtml).join("／")}</div>` : "";
+    return `<div class="rv-card rv-${it.kind}">
+      <div class="rv-card-head"><span class="rv-card-icon">${it.icon}</span><span class="rv-card-when">${it.age} 歲・${it.year}</span>${it.kind === "key" ? `<span class="rv-key-badge">關鍵抉擇</span>` : ""}</div>
+      <div class="rv-card-title">${escapeHtml(it.title)}</div>
+      ${it.text ? `<div class="rv-card-text">${escapeHtml(it.text)}</div>` : ""}
+      ${chips}${echo}${untaken}
+    </div>`;
+  }
+
+  function renderReviewTrack() {
+    const l = review.life;
+    const span = Math.max(1, l.age);
+    $("reviewDots").innerHTML = review.items.map((it, i) =>
+      `<span class="rv-dot rv-dot-${it.kind}" data-i="${i}" style="left:${(it.age / span) * 100}%" title="${it.age} 歲：${escapeHtml(it.title)}"></span>`).join("");
+  }
+
+  function setReviewStats(age) {
+    const p = trajAt(review.life, age);
+    const box = $("reviewStats");
+    if (!p) { box.innerHTML = ""; return; }
+    const row = (lab, v, c) => `<div class="rv-stat"><span>${lab}</span><i><b style="width:${Math.max(0, Math.min(100, v))}%;background:${c}"></b></i></div>`;
+    box.innerHTML = row("健康", p.health, "#2B7A4E") + row("幸福", p.happiness, "#d97706") + row("知識", p.knowledge, "#2563eb") + row("人際", p.social, "#9333ea");
+  }
+
+  function showReviewItem(i) {
+    const it = review.items[i];
+    const l = review.life;
+    $("reviewYear").textContent = it.year;
+    $("reviewAge").textContent = `${it.age} 歲`;
+    $("reviewFill").style.width = `${(it.age / Math.max(1, l.age)) * 100}%`;
+    document.querySelectorAll("#reviewDots .rv-dot").forEach((d) => {
+      const k = Number(d.dataset.i);
+      d.classList.toggle("is-past", k < i);
+      d.classList.toggle("is-now", k === i);
+    });
+    setReviewStats(it.age);
+    const wrap = $("reviewCardWrap");
+    wrap.innerHTML = reviewCardHtml(it);
+    const card = wrap.firstElementChild;
+    void card.offsetWidth;
+    card.classList.add("is-in");
+    if (i > 0) {
+      const prev = review.items[i - 1];
+      const li = document.createElement("li");
+      li.className = `rv-li rv-li-${prev.kind}`;
+      li.innerHTML = `<span class="rv-li-age">${prev.age} 歲</span><span class="rv-li-icon">${prev.icon}</span><span class="rv-li-text">${escapeHtml(prev.title)}</span>`;
+      const list = $("reviewList");
+      list.appendChild(li);
+      list.scrollTop = list.scrollHeight;
+    }
+    $("reviewProgress").textContent = `${i + 1} / ${review.items.length}`;
+  }
+
+  function reviewDelay(it) {
+    const base = it.kind === "key" ? 4200 : it.kind === "death" ? 3200 : it.kind === "birth" ? 2400 : it.kind === "history" ? 3000 : 2200;
+    return review.fast ? Math.round(base * 0.45) : base;
+  }
+
+  function scheduleReview() {
+    clearTimeout(review.timer);
+    if (review.paused) return;
+    const it = review.items[review.idx];
+    review.timer = setTimeout(() => {
+      if (review.idx >= review.items.length - 1) { finishReview(); return; }
+      review.idx += 1;
+      showReviewItem(review.idx);
+      scheduleReview();
+    }, reviewDelay(it));
+  }
+
+  function finishReview() {
+    clearTimeout(review.timer);
+    review.timer = null;
+    const l = review.life;
+    const list = $("reviewList");
+    list.innerHTML = review.items.map((it) => `<li class="rv-li rv-li-${it.kind}"><span class="rv-li-age">${it.age} 歲</span><span class="rv-li-icon">${it.icon}</span><span class="rv-li-text">${escapeHtml(it.title)}${it.kind === "key" || it.kind === "choice" ? `<small>${escapeHtml(it.text)}</small>` : ""}</span></li>`).join("");
+    document.querySelectorAll("#reviewDots .rv-dot").forEach((d) => { d.classList.add("is-past"); d.classList.remove("is-now"); });
+    $("reviewFill").style.width = "100%";
+    $("reviewYear").textContent = `${l.birthYear}–${l.currentYear}`;
+    $("reviewAge").textContent = `享年 ${l.age} 歲`;
+    setReviewStats(l.age);
+    const nKey = review.items.filter((x) => x.kind === "key").length;
+    $("reviewCardWrap").innerHTML = `<div class="rv-card rv-summary is-in">
+      <div class="rv-card-title">${escapeHtml(l.name)}，${l.birthYear}–${l.currentYear}</div>
+      <div class="rv-card-text">這一生走了 ${l.age} 年，做過 ${(l.decisionHistory || []).length} 次抉擇${nKey ? `，其中 ${nKey} 次深深改變了你的人生` : ""}。</div>
+      <div class="rv-card-text muted">同樣的起點，換一個選擇，人生可能完全不同。</div>
+    </div>`;
+    $("reviewProgress").textContent = "回顧結束";
+    $("btnReviewPause").hidden = true;
+    $("btnReviewFast").hidden = true;
+    $("btnReviewSkip").textContent = "看訃聞 →";
+    review.done = true;
+  }
+
+  function closeReview() {
+    clearTimeout(review.timer);
+    review.timer = null;
+    $("reviewModal").hidden = true;
+    document.body.classList.remove("review-open");
+    const cb = review.onDone;
+    review.onDone = null;
+    if (cb) cb();
+  }
+
+  function playLifeReview(l, onDone) {
+    if (!l || !$("reviewModal")) { if (onDone) onDone(); return; }
+    clearTimeout(review.timer);
+    review.life = l;
+    review.items = buildReviewItems(l);
+    review.idx = 0;
+    review.paused = false;
+    review.done = false;
+    review.onDone = onDone || null;
+    $("reviewName").textContent = `${l.name}的一生`;
+    $("reviewList").innerHTML = "";
+    $("btnReviewPause").hidden = false;
+    $("btnReviewPause").textContent = "❚❚ 暫停";
+    $("btnReviewFast").hidden = false;
+    $("btnReviewFast").textContent = review.fast ? "1× 正常" : "⏩ 2×";
+    $("btnReviewSkip").textContent = "跳過 ⏭";
+    renderReviewTrack();
+    $("reviewModal").hidden = false;
+    document.body.classList.add("review-open");
+    showReviewItem(0);
+    scheduleReview();
+  }
+
+  function bindReviewEvents() {
+    if (!$("reviewModal")) return;
+    $("btnReviewPause").addEventListener("click", () => {
+      review.paused = !review.paused;
+      $("btnReviewPause").textContent = review.paused ? "▶ 繼續" : "❚❚ 暫停";
+      if (review.paused) clearTimeout(review.timer); else scheduleReview();
+    });
+    $("btnReviewFast").addEventListener("click", () => {
+      review.fast = !review.fast;
+      $("btnReviewFast").textContent = review.fast ? "1× 正常" : "⏩ 2×";
+      scheduleReview();
+    });
+    $("btnReviewSkip").addEventListener("click", () => {
+      if (review.done) closeReview(); else finishReview();
+    });
+    $("btnReviewClose").addEventListener("click", closeReview);
+    $("reviewDots").addEventListener("click", (e) => {
+      const d = e.target.closest(".rv-dot");
+      if (!d || review.done) return;
+      const i = Number(d.dataset.i);
+      $("reviewList").innerHTML = review.items.slice(0, i).map((it) => `<li class="rv-li rv-li-${it.kind}"><span class="rv-li-age">${it.age} 歲</span><span class="rv-li-icon">${it.icon}</span><span class="rv-li-text">${escapeHtml(it.title)}</span></li>`).join("");
+      review.idx = i;
+      // showReviewItem 會把上一張補進清單，這裡先移除以免重複
+      const list = $("reviewList");
+      if (i > 0 && list.lastElementChild) list.removeChild(list.lastElementChild);
+      showReviewItem(i);
+      scheduleReview();
+    });
+    const btnReplay = $("btnEndReplay");
+    if (btnReplay) btnReplay.addEventListener("click", () => {
+      const l = state.obituaryLife;
+      if (l) playLifeReview(l, () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    });
+    $("btnResumeLife").addEventListener("click", resumeSavedLife);
+    $("btnDiscardSave").addEventListener("click", () => {
+      clearSavedLife();
+      showToast("已捨棄上次的存檔");
+    });
+    const flush = () => { if (state.life && state.life.alive) saveCurrentLife(true); };
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); });
+  }
+
+  // 人生結束：清掉存檔、存進書架、播回顧動畫，結束後顯示訃聞
+  function endLifeWithReview(l) {
+    stopTimer();
+    trackMilestones(l);
+    clearSavedLife();
+    saveToShelf(l);
+    renderObituary(l);
+    switchView("end");
+    window.scrollTo(0, 0);
+    playLifeReview(l, () => window.scrollTo({ top: 0 }));
   }
 
   function renderShelf() {
@@ -1946,9 +2330,7 @@
       closeAllModals(false);
       state.life.alive = false;
       state.life.causeOfDeath = { key: "manual", label: "玩家提前結束人生", isSensitive: false };
-      saveToShelf(state.life);
-      renderObituary(state.life);
-      switchView("end");
+      endLifeWithReview(state.life);
     });
     $("focusSelect").addEventListener("change", (e) => { if (state.life) { state.engine.setFocus(state.life, e.target.value); syncFocusSelect(); } });
     $("btnHukou").addEventListener("click", showHukouModal);
@@ -2071,8 +2453,10 @@
       state.engine = new window.TaiwanLifeEngine(state.data);
       renderIntro();
       bindEvents();
+      bindReviewEvents();
       syncTopToggles();
       syncPlaybackControls();
+      renderResumeBanner();
     } catch (err) {
       document.body.innerHTML = `<div style="padding:32px;font-family:sans-serif;">
         <h2>本機載入資料失敗</h2><p>${err.message}</p>
