@@ -3878,3 +3878,11 @@ body.review-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .rv-card, .rv-li, .review-track-fill, .rv-stat b { transition: none; animation: none; }
 }
+
+/* v6.22: full-screen fade to black when a life ends */
+.life-end-fade {
+  position: fixed; inset: 0; z-index: 10000; background: #000;
+  opacity: 0; pointer-events: auto; transition-property: opacity; transition-timing-function: ease-in-out;
+}
+.life-end-fade.is-on { opacity: 1; }
+.life-end-fade.is-leaving { pointer-events: none; }

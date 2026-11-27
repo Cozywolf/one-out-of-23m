@@ -146,6 +146,10 @@
     });
     if (name === "shelf") renderShelf();
     if (name === "intro") renderResumeBanner();
+    // v6.22：背景音樂依畫面切換（訃聞畫面維持人生回顧音樂，離開後才回到首頁音樂）
+    if (window.TWMusic && name !== "end") {
+      window.TWMusic.setScene(name === "life" && state.life && state.life.alive ? "life" : "home");
+    }
 
     // U02 Fix: Automatically restore pending pause or decision modal when returning to #view-life
     if (name === "life" && state.life && state.life.alive) {
@@ -461,6 +465,7 @@
       manualRegionId: state.selectedRegionId,
       birthYear: state.selectedYear
     });
+    if (window.TWMusic) window.TWMusic.setScene("silent", 2.0); // 抽籤時首頁音樂淡出
     playBirthIntro(l);
   }
 
@@ -1351,7 +1356,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.21 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
+    ctx.fillText("生在台灣 v6.22 · 基於台灣官方統計之微觀人生模擬（非真實人物紀錄）", 48, H - 44);
 
     triggerCanvasPngDownload(canvas, `生在台灣-出生卡-${l.name}-${l.birthYear}.png`);
   }
@@ -1445,7 +1450,7 @@
     ctx.textAlign = "left";
     ctx.fillStyle = "#7a7a7a";
     ctx.font = '600 12px "Noto Serif TC", serif';
-    ctx.fillText("生在台灣 v6.21 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
+    ctx.fillText("生在台灣 v6.22 · 基於台灣真實生命表與現代史之統計模擬（非真實人物預測）", 48, H - 40);
 
     triggerCanvasPngDownload(canvas, `生在台灣-生命證書-${l.name}-${l.birthYear}-${l.currentYear}.png`);
   }
@@ -2138,16 +2143,44 @@
     document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); });
   }
 
-  // 人生結束：清掉存檔、存進書架、播回顧動畫，結束後顯示訃聞
+  // v6.22：全畫面淡出到黑，在全黑時切換畫面，再淡回
+  const LIFE_END_FADE_MS = 3000;
+  function fadeScreenThrough(ms, mid) {
+    const old = document.querySelector(".life-end-fade");
+    if (old) old.remove();
+    const veil = document.createElement("div");
+    veil.className = "life-end-fade";
+    veil.style.transitionDuration = `${ms}ms`;
+    document.body.appendChild(veil);
+    void veil.offsetWidth;
+    veil.classList.add("is-on");
+    setTimeout(() => {
+      try { mid(); } finally {
+        veil.style.transitionDuration = "1000ms";
+        veil.classList.add("is-leaving");
+        veil.classList.remove("is-on");
+        setTimeout(() => veil.remove(), 1100);
+      }
+    }, ms);
+  }
+
+  // 人生結束：清掉存檔、存進書架，畫面與音樂一起淡出 3 秒，再播回顧動畫（配回顧音樂），結束後顯示訃聞
   function endLifeWithReview(l) {
+    if (state.endingLife) return;
+    state.endingLife = true;
     stopTimer();
     trackMilestones(l);
     clearSavedLife();
     saveToShelf(l);
-    renderObituary(l);
-    switchView("end");
-    window.scrollTo(0, 0);
-    playLifeReview(l, () => window.scrollTo({ top: 0 }));
+    if (window.TWMusic) window.TWMusic.setScene("silent", LIFE_END_FADE_MS / 1000);
+    fadeScreenThrough(LIFE_END_FADE_MS, () => {
+      state.endingLife = false;
+      renderObituary(l);
+      switchView("end");
+      window.scrollTo(0, 0);
+      if (window.TWMusic) window.TWMusic.setScene("review", 0.05);
+      playLifeReview(l, () => window.scrollTo({ top: 0 }));
+    });
   }
 
   function renderShelf() {

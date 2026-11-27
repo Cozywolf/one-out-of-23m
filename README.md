@@ -1,4 +1,4 @@
-# 生在台灣（v6.21）· 2,340 萬分之 1 台灣人生模擬
+# 生在台灣（v6.22）· 2,340 萬分之 1 台灣人生模擬
 
 > 參照 [1in8b.life](https://1in8b.life/) 模擬精神與 [rollroyces/born-somewhere](https://github.com/rollroyces/born-somewhere) 架構改編，專注於 **台灣六大區域 × 跨年代（1950–2110+）** 的微觀人生模擬器。
 
@@ -41,6 +41,7 @@
 - **存檔與接續人生（v6.17）**：人生進行中會自動存進瀏覽器（每年、每次跳出抉擇或暫停提問、切換分頁或關閉頁面時），連尚未回答的抉擇也會保存。重新整理或下次打開網站時，首頁會出現「上次的人生還沒走完」，按「接續這一生」就從當時的年齡、設定與抉擇繼續；也可以按「捨棄存檔」。人生結束或開始新的人生時會自動覆蓋存檔。
 - **財務門檻與敘事一致、人生資料匯出（v6.19）**：「無力資助子女出國留學」只在存款不足、名下也沒有足夠房產淨值可增貸時才記為財務轉折；付得起卻決定不資助時，選項與敘述改為「評估後決定不資助」，自動模式也會依存款寬裕程度提高資助機率。「無力購屋」會寫明是頭期款（現金＋股票）不夠還是年薪未達核貸門檻；若後來購屋或繼承老家，會在該轉折後註明「→ 後於 X 歲取得自住房」。訃聞頁的期末資產結構除了當年名目金額，也顯示折合 2025 年購買力。訃聞頁與人生畫面工具列新增「🧾 匯出這一生詳細資料」，下載 JSON：逐年屬性與資產結構（現金、台股、房價、房貸、薪資、配偶收入、物價指數）、每次抉擇當下的財務快照與各選項門檻判定（是否可選、原因）、財務轉折當下的資產快照、取得房產紀錄、事件與薪資變化。
 - **出生年份限縮為 1950–2005（v6.20）**：2005 年後出生的人生多半落在預測期、可玩的歷史與制度內容大幅減少，因此隨機抽選、年份滑桿、快捷年代鈕、出生抽選動畫、世代對照實驗室與自動模擬都只會落在 1950–2005 年；移除「2025（此刻）」快捷鈕。舊版存檔中較晚出生的進行中人生仍可正常接續。
+- **依畫面切換背景音樂（v6.22）**：首頁（含書架、Lab）播 andrii g. 的背景音樂；按下開始後進入出生抽籤時首頁音樂淡出，抽完按「出生」才開始播 Morning → Evening 循環；人生結束時畫面與音樂一起在 3 秒內淡出到全黑，接著播人生回顧動畫並換上 Vadim 的 "Atlas Taiwan"，一直播到玩家離開訃聞畫面，再淡出並回到首頁音樂。
 - **完整顯示歷史事件餘波（v6.21）**：「台灣歷史現場」卡片的「📌 這件事後來改變了什麼」與史實模式的「制度與社會餘波」不再隱藏未來年份的內容，直接顯示完整的後續影響。
 - **人生回顧排序與交往（v6.18）**：同一年內的事件依實際發生順序排列，先出現抉擇（例如「婚姻亮紅燈 → 協議離婚」），再出現它帶來的結果（離婚）；時間軸新增「開始交往」與「分手」。
 - **人生回顧動畫（v6.17）**：人生結束時先播放一段回顧：上方是年份與年齡計時、整條人生時間軸，依序呈現出生、結婚、生子、買房、出國、父母離世、退休等大事，以及影響最大的前五個關鍵抉擇（含當下影響、後續回聲與「沒走的路」）和其他重要抉擇，旁邊同步顯示當年的健康、幸福、知識、人際；可暫停、2× 加速、點時間軸跳到某一刻或直接跳過看訃聞。訃聞頁與書架重開的人生也能按「🎬 重播人生回顧」。
@@ -207,6 +208,8 @@ born-in-taiwan/
 - "Evening" Kevin MacLeod (incompetech.com)  
   Licensed under Creative Commons: By Attribution 4.0 License  
   http://creativecommons.org/licenses/by/4.0/
+- 首頁音樂：Music by [andrii g.](https://pixabay.com/users/andriig-54059306/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=604062) from [Pixabay](https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=604062)
+- 人生回顧音樂：Music by [Vadim](https://pixabay.com/users/vadim_makes_sound-54823268/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=595033) from [Pixabay](https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=595033)
 
 ---
 
